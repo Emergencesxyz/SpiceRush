@@ -29,6 +29,17 @@ contract NationNFT is ERC721URIStorage {
         return newItemId;
     }
 
+    function mint(
+        address _player,
+        uint256 _id,
+        uint256 _economy,
+        uint256 _military
+    ) public {
+        _mint(_player, _id);
+        attributes[_id].economy = _economy;
+        attributes[_id].military = _military;
+    }
+
     function viewAttributes(uint256 _id)
         public
         view
