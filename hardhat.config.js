@@ -39,6 +39,16 @@ module.exports = {
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
+    polygon: {
+      url: "https://polygon-mainnet.g.alchemy.com/v2/1U6_YjxzNyRdzfuffKZ3g5uw4KIXUdS5",
+      accounts:
+        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+    },
+    mumbai: {
+      url: "https://polygon-mumbai.g.alchemy.com/v2/6j-ZilfKa2UuNRqpqH1upg3jYl_FH0_R",
+      accounts:
+        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+    },
   },
   gasReporter: {
     enabled: process.env.REPORT_GAS !== undefined,
