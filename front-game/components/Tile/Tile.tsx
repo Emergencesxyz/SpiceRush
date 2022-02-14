@@ -2,7 +2,7 @@ import styles from "./Tile.module.scss";
 import { Container, Row } from "react-bootstrap";
 import { useState, FunctionComponent, useEffect } from "react";
 
-const Header: FunctionComponent = (): JSX.Element => {
+const Tile: FunctionComponent = (): JSX.Element => {
   return (
     <>
       <div className={styles.tile}></div>
@@ -10,4 +10,4 @@ const Header: FunctionComponent = (): JSX.Element => {
   );
 };
 
-export default Header;
+export default Tile;
