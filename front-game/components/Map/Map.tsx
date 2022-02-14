@@ -9,12 +9,16 @@ const Header: FunctionComponent = (): JSX.Element => {
   let tiles = [];
   for (let x = 0; x < 10; x++) {
     let row_tiles = [];
-    for (let y = 0; y < 10; y++) {
+    for (let y = 0; y < 6; y++) {
       row_tiles.push(<Tile />);
     }
-    tiles.push(<Row>{row_tiles}</Row>);
+    tiles.push(<div>{row_tiles}</div>);
   }
-  return <>{tiles}</>;
+  return (
+    <>
+      <div className={styles.map}>{tiles}</div>
+    </>
+  );
 };
 
 export default Header;
