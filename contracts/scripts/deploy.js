@@ -4,6 +4,15 @@
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
 const hre = require("hardhat");
+require("dotenv").config();
+
+return console.log("config", process.env);
+// let wallet = await new ethers.Wallet("");
+
+// console.log(
+//   "Init BSC Balance",
+//   (await provider.getBalance(wallet.address)).toString()
+// );
 
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
@@ -14,16 +23,15 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const NationNFT = await ethers.getContractFactory("NationNFT");
-  nationNFT = await NationNFT.deploy();
-  await nationNFT.deployed();
+  accounts = await ethers.getSigners();
+  myAddress = accounts[0].address;
 
-  const Game = await ethers.getContractFactory("Game");
-  game = await Game.deploy(nationNFT.address);
-  await game.deployed();
-
-  console.log("NationNFT deployed to:", nationNFT.address);
-  console.log("Game deployed to:", game.address);
+  Factory = await ethers.getContractFactory("Apinator");
+  apinator = await Factory.deploy();
+  await apinator.deployed();
+  Factory = await ethers.getContractFactory("Gameplay");
+  gameplay = await Factory.deploy(apinator.address);
+  await gameplay.deployed();
 }
 
 // We recommend this pattern to be able to use async/await everywhere
