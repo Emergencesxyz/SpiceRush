@@ -51,6 +51,10 @@ const Home: NextPage = () => {
           <Row className="d-flex flex-column">
             <Header />
 
+            <Row className="d-flex flex-column mb-5">
+              <ConnectWallet />
+            </Row>
+
             <Row>
               <Map />
             </Row>
@@ -93,18 +97,14 @@ const Home: NextPage = () => {
             /> */}
           </Row>
 
-          <Row className="d-flex flex-column mb-5">
-            <ConnectWallet />
-          </Row>
-
-          <Row className="d-flex flex-column mb-5">
+          {/* <Row className="d-flex flex-column mb-5">
             {!!account && !!library && !isPublicSaleActive && (
               <Minter nftQuantity={number} />
             )}
             {isPublicSaleActive && (
               <div className={styles.success}>PRESALE IS OVER</div>
             )}
-          </Row>
+          </Row> */}
         </div>
       </Container>
     </section>
