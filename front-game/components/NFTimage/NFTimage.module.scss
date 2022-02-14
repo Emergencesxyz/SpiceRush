@@ -1,0 +1,25 @@
+.container {
+  padding: 0 2rem;
+}
+
+.priceText {
+  color: #d8d8d8;
+  font-size: 20px;
+  font-weight: 100;
+  letter-spacing: 2px;
+  text-shadow: 0 0 3px rgb(255 185 53 / 77%);
+  background-color: transparent;
+  text-align: center;
+}
+
+.mintText {
+  @extend .priceText;
+  font-size: 23px;
+}
+
+@media (max-width: 576px) {
+  .priceText,
+  .mintText {
+    font-size: 18px;
+  }
+}
