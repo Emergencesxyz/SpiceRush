@@ -1,3 +1,5 @@
+import consts from "../consts";
+
 export default class BlockchainService {
   account: any = "test";
   gamingContract: string;
@@ -18,6 +20,7 @@ export default class BlockchainService {
 
   async getBalance() {
     console.log("getBalance", this.account);
+    console.log("config", constants);
     if (this.account) return await this.web3.eth.getBalance(this.account);
     else return "0";
   }
