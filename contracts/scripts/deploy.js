@@ -19,15 +19,14 @@ async function main() {
   // manually to make sure everything is compiled
   // await hre.run('compile');
 
-  // We get the contract to deploy
-  let wallet = await new ethers.Wallet(PRIVATE_KEY);
+  //let wallet = await new ethers.Wallet(PRIVATE_KEY); //mainnet
+  let wallet = (await ethers.getSigners())[0]; //local
 
   console.log(
     "Init  Balance",
     (await provider.getBalance(wallet.address)).toString()
   );
 
-  return;
   Factory = await ethers.getContractFactory("Apinator");
   apinator = await Factory.deploy();
   await apinator.deployed();
