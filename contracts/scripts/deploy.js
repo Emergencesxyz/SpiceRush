@@ -11,14 +11,7 @@ require("dotenv").config();
 
 const { PRIVATE_KEY } = process.env;
 
-async function main() {
-  // Hardhat always runs the compile task when running scripts with its command
-  // line interface.
-  //
-  // If this script is run directly using `node` you may want to call compile
-  // manually to make sure everything is compiled
-  // await hre.run('compile');
-
+async function connect() {
   //let wallet = await new ethers.Wallet(PRIVATE_KEY); //mainnet
   let wallet = (await ethers.getSigners())[0]; //local
 
@@ -26,6 +19,18 @@ async function main() {
     "Init  Balance",
     (await provider.getBalance(wallet.address)).toString()
   );
+
+  console.log("wallet address:", wallet.address);
+
+  return wallet;
+}
+async function deploy(wallet) {
+  // Hardhat always runs the compile task when running scripts with its command
+  // line interface.
+  //
+  // If this script is run directly using `node` you may want to call compile
+  // manually to make sure everything is compiled
+  // await hre.run('compile');
 
   Factory = await ethers.getContractFactory("Apinator");
   apinator = await Factory.deploy();
@@ -37,9 +42,19 @@ async function main() {
   console.log("Contracts deployed ✓");
   console.log("- Apinator : ", apinator.address);
   console.log("- Gameplay : ", gameplay.address);
+
+  await apinator.setIsActive(true);
+
+  await apinator
+    .connect(wallet)
+    .mintNFT(2, { value: ethers.utils.parseEther("0.4") });
+
+  console.log("Apinator total supply :", await apinator.totalSupply());
 }
 
-async function getContractInfo() {
+async function getContractInfo(wallet) {
+  //let wallet = await new ethers.Wallet(PRIVATE_KEY); //mainnet
+
   const apinator = await hre.ethers.getContractAt(
     "Apinator",
     "0x5FbDB2315678afecb367f032d93F642f64180aa3"
@@ -51,11 +66,21 @@ async function getContractInfo() {
 
   console.log("- Apinator : ", apinator.address);
   console.log("- Gameplay : ", gameplay.address);
+
+  //actions..
+  await apinator
+    .connect(wallet)
+    .mintNFT(2, { value: ethers.utils.parseEther("0.4") });
+
+  console.log("Apinator total supply :", await apinator.totalSupply());
 }
 
 // We recommend this pattern to be able to use async/await everywhere
 // and properly handle errors.
-getContractInfo().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+async function main() {
+  let wallet = await connect();
+
+  deploy(wallet);
+}
+
+main();

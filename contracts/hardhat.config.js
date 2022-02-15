@@ -6,8 +6,6 @@ require("@nomiclabs/hardhat-web3");
 require("hardhat-gas-reporter");
 require("solidity-coverage");
 
-
-
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
 
@@ -27,6 +25,11 @@ module.exports = {
     ],
   },
   networks: {
+    localhost: {
+      url: "http://127.0.0.1:8545/",
+      accounts:
+        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+    },
     ropsten: {
       url: process.env.ROPSTEN_URL || "",
       accounts:
@@ -61,8 +64,8 @@ module.exports = {
     apiKey: process.env.ETHERSCAN_API_KEY,
   },
   mocha: {
-    timeout: 10000000
-  }
+    timeout: 10000000,
+  },
 };
 
 task("fund-link", "Funds a contract with LINK")
