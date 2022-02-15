@@ -4,15 +4,12 @@
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
 const hre = require("hardhat");
+const { waffle } = require("hardhat");
+const provider = waffle.provider;
+
 require("dotenv").config();
 
-return console.log("config", process.env);
-// let wallet = await new ethers.Wallet("");
-
-// console.log(
-//   "Init BSC Balance",
-//   (await provider.getBalance(wallet.address)).toString()
-// );
+const { PRIVATE_KEY } = process.env;
 
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
@@ -23,9 +20,14 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  accounts = await ethers.getSigners();
-  myAddress = accounts[0].address;
+  let wallet = await new ethers.Wallet(PRIVATE_KEY);
 
+  console.log(
+    "Init  Balance",
+    (await provider.getBalance(wallet.address)).toString()
+  );
+
+  return;
   Factory = await ethers.getContractFactory("Apinator");
   apinator = await Factory.deploy();
   await apinator.deployed();
