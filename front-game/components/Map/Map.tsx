@@ -1,5 +1,5 @@
 import styles from "./Map.module.scss";
-import { Container, Row } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { useState, FunctionComponent, useEffect } from "react";
 import Tile from "../Tile/Tile";
 import CharacterBox from "../CharacterBox/CharacterBox";
@@ -59,12 +59,21 @@ const Map: FunctionComponent = (): JSX.Element => {
   return (
     <>
       <div className={styles.canvas}>
-        <div className={styles.characterBox}>
-          <h3>ApezorDu45</h3>
-          {character && <CharacterBox character={character} />}
-        </div>
+        <h3>ApezorDu45</h3>
 
-        <div className={styles.map}>{tiles_html}</div>
+        <Row>
+          <Col xs={8}>
+            {" "}
+            {character && <CharacterBox character={character} />}
+            <div className={styles.map}>{tiles_html}</div>
+          </Col>
+          <Col xs={4}>
+            {" "}
+            <div>
+              <img src="/ape_rust.jpeg" style={{ maxWidth: "100px" }} />
+            </div>
+          </Col>
+        </Row>
       </div>
     </>
   );

@@ -6,7 +6,7 @@ import { useState, FunctionComponent, useEffect } from "react";
 const CharacterBox: FunctionComponent = ({ character }): JSX.Element => {
   return (
     <>
-      <div>
+      <div className={styles.box}>
         lvl {character.lvl} ⬪ {character.xp} xp ⬪ ({character.x}, {character.y}){" "}
         <br />
         <img

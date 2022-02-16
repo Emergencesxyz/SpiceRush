@@ -48,16 +48,14 @@ const Home: NextPage = () => {
 
       <Container className={styles.container}>
         <div className={styles.main}>
-          <Row className="d-flex flex-column">
+          <Row>
             <Header />
 
             <Row className="d-flex flex-column mb-5">
               <ConnectWallet />
             </Row>
 
-            <Row>
-              <Map />
-            </Row>
+            <Map />
           </Row>
           {/* <Row className={styles.buttonGroup}>
             {" "}
