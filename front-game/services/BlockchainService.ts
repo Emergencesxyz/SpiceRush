@@ -37,9 +37,17 @@ export default class BlockchainService {
 
   async getCurrentCoords(nftId: number) {}
 
-  async getCharacterCoords(nftId: number) {
+  async getCharacterInfo(nftId: number) {
     try {
-      return await this.gameplayContract.methods.charas(nftId).call();
+      const info = await this.gameplayContract.methods.charas(nftId).call();
+      return {
+        lvl: info.lvl,
+        nextActionTime: info.nextActionTime,
+        stats: info.stats,
+        x: parseInt(info.x),
+        y: parseInt(info.y),
+        xp: info.xp,
+      };
     } catch (e) {
       return null;
     }
@@ -52,11 +60,14 @@ export default class BlockchainService {
         let row = [];
         for (let y = 0; y < chunkSize; y++) {
           const _tile = await this.gameplayContract.methods.map(x, y).call();
+
           row.push({
             foesAmount: _tile.foesAmount,
             isExplored: _tile.isExplored,
             level: _tile.level,
             spiceAmount: _tile.spiceAmount,
+            x: x,
+            y: y,
           });
         }
         tiles.push(row);
