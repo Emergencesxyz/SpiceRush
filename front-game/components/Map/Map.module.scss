@@ -1,9 +1,19 @@
-.map {
+.canvas {
   background-color: black;
   padding: 0;
-  width: auto;
+  width: fit-content;
   margin: auto;
   color: white;
+}
+.map {
+  border: 2px solid #5ebbbd;
+  padding: 2px;
+  border-radius: 10px;
+  width: auto;
+  margin: auto;
+
+  box-shadow: 0 0 0.1rem #fff, 0 0 0.1rem #fff, 0 0 1rem #bc13fe,
+    0 0 0.2rem #bc13fe, 0 0 1rem #bc13fe, inset 0 0 0.5rem #bc13fe;
 }
 @media (max-width: 576px) {
 }

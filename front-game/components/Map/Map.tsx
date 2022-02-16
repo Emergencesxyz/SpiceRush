@@ -43,28 +43,22 @@ const Map: FunctionComponent = (): JSX.Element => {
 
   let tiles_html = tiles.map((row) => {
     return (
-      <Row>
+      <div>
         {row.map(function (tile: any) {
           const currentPosition =
             character.x === tile.x && character.y === tile.y;
-          console.log(
-            "currentPosition",
-            tile.x,
-            tile.y,
-            character.x,
-            character.y
-          );
+
           return <Tile level={tile.level} currentPosition={currentPosition} />;
         })}
-      </Row>
+      </div>
     );
   });
   return (
     <>
-      <div className={styles.map}>
+      <div className={styles.canvas}>
         <div>Character {JSON.stringify(character).split(",")}</div>
 
-        <div>{tiles_html}</div>
+        <div className={styles.map}>{tiles_html}</div>
       </div>
     </>
   );
