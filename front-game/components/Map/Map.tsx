@@ -8,20 +8,25 @@ import { useWeb3React } from "@web3-react/core";
 
 import BlockchainService from "../../services/BlockchainService";
 
+import consts from "../../consts";
+
 const Map: FunctionComponent = (): JSX.Element => {
   const { account, library } = useWeb3React();
-  const provider = "http://localhost:8545";
-  const web3 = new Web3(provider);
+  const [userBalance, setUserBalance] = useState<number>(0);
+
   let x0 = 0;
   let y0 = 0;
 
-  //
-  const blockchainService = new BlockchainService(web3, account, "0x", {});
+  console.log("library", library);
+  const blockchainService = new BlockchainService(account, "0x");
 
   useEffect(() => {
     (async () => {
-      console.log(" balance ", await blockchainService.getBalance());
-      console.log(" getTileInfo ", blockchainService.getTileInfo());
+      setUserBalance(await library.eth.getBalance(account));
+      // console.log(" balance ", await blockchainService.getBalance());
+      // //console.log(" getTileInfo ", blockchainService.getTileInfo());
+      console.log("owner of", await blockchainService.ownerOf());
+      console.log("owner of", await blockchainService.ownerOf());
     })();
   }, []);
 
@@ -36,7 +41,10 @@ const Map: FunctionComponent = (): JSX.Element => {
   }
   return (
     <>
-      <div className={styles.map}>{tiles}</div>
+      <div className={styles.map}>
+        <h1>{userBalance}</h1>
+        <div>{tiles}</div>
+      </div>
     </>
   );
 };

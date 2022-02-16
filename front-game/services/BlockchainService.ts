@@ -1,32 +1,48 @@
 import consts from "../consts";
+import Web3 from "web3";
 
 export default class BlockchainService {
-  account: any = "test";
-  gamingContract: string;
+  account: any;
   web3: any;
-  constructor(
-    _web3: any,
-    _account: any,
-    _gamingContractAddress: any,
-    _gamingContractABI: any
-  ) {
-    this.web3 = _web3;
+  apinatorContract: any;
+  gameplayContract: any;
+  constructor(_account: any, _gamingContractAddress: any) {
+    const provider = consts.rinkeby_url;
+    this.web3 = new Web3(provider);
     this.account = _account;
-    // this.gamingContract = new this.web3.eth.Contract(
-    //   _gamingContractABI as any,
-    //   _gamingContractAddress
-    // );
+
+    this.apinatorContract = new this.web3.eth.Contract(
+      consts.apinatorABI as any,
+      consts.apinatorAddress
+    );
+
+    this.gameplayContract = new this.web3.eth.Contract(
+      consts.gameplayABI as any,
+      consts.gameplayAddress
+    );
   }
 
   async getBalance() {
-    console.log("getBalance", this.account);
-    console.log("config", constants);
     if (this.account) return await this.web3.eth.getBalance(this.account);
-    else return "0";
+    else return null;
   }
-  getTileInfo() {
-    let randLevel = Math.ceil(4 * Math.random());
-    return { level: randLevel };
+
+  async ownerOf() {
+    try {
+      return await this.apinatorContract.methods.ownerOf("1").call();
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async getCurrentCoords() {}
+
+  async getCharacterCoords(nftId: number) {
+    try {
+      return await this.gameplayContract.methods.charas("1").call();
+    } catch (e) {
+      return null;
+    }
   }
   //   async test() {
 
