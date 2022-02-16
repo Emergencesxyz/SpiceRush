@@ -8,7 +8,6 @@ const { waffle, ethers } = require("hardhat");
 const provider = waffle.provider;
 
 require("dotenv").config();
-
 const { PRIVATE_KEY } = process.env;
 
 async function connect() {
@@ -49,6 +48,8 @@ async function deploy(wallet) {
   // await apinator
   //   .connect(wallet)
   //   .mintNFT(2, { value: ethers.utils.parseEther("0.4") });
+
+  await apinator.mintNFT(1, { value: ethers.utils.parseEther("0.001") });
 }
 
 async function getContracts(wallet) {
@@ -56,14 +57,13 @@ async function getContracts(wallet) {
 
   apinator = await ethers.getContractAt(
     "Apinator",
-    "0xCEFD7C9c0b6621cF8c2ec78e1A0058f795aA9A3B"
+    "0x72964592d695E1f2Ed8764bA5F801aeA8F7AaCD3"
   );
 
   gameplay = await ethers.getContractAt(
     "Gameplay",
-    "0x58f9fbdBF3651eb4c2cdde35601d51e5dc7c0bc4"
+    "0xC2784d28369e70B03f968DA307408D81307Be92F"
   );
-
   console.log("- Apinator : ", apinator.address);
   console.log("- Gameplay : ", gameplay.address);
 
@@ -85,10 +85,16 @@ async function main() {
 
   const { gameplay, apinator } = await getContracts(wallet);
 
-  //spawn
-  // await gameplay.connect(wallet).spawn(nftId);
-  console.log("owner of", await apinator.ownerOf(1));
-  // console.log("choords:", await gameplay.charas(nftId));
+  //await apinator.setIsActive(true);
+  // await apinator.mintNFT("1", {
+  //   from: wallet.address,
+  //   value: ethers.utils.parseEther("0.002"),
+  // });
+  await apinator.ownerOf("0");
+
+  //await gameplay.spawn("1");
+  //console.log("owner of", await apinator.ownerOf(1));
+  //console.log("choords:", await gameplay.charas(0));
 }
 
 main();

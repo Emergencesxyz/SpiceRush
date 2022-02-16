@@ -44,6 +44,28 @@ export default class BlockchainService {
       return null;
     }
   }
+
+  async getMapChunk(x0: number, y0: number, chunkSize: number) {
+    let tiles: any = [];
+    try {
+      for (let x = 0; x < chunkSize; x++) {
+        let row = [];
+        for (let y = 0; y < chunkSize; y++) {
+          const _tile = await this.gameplayContract.methods.map(x, y).call();
+          row.push({
+            foesAmount: _tile.foesAmount,
+            isExplored: _tile.isExplored,
+            level: _tile.level,
+            spiceAmount: _tile.spiceAmount,
+          });
+        }
+        tiles.push(row);
+      }
+      return tiles;
+    } catch (e) {
+      return null;
+    }
+  }
   //   async test() {
 
   //     // Use vue-resource or any other http library to send your request

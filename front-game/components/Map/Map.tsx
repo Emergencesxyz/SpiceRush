@@ -13,7 +13,7 @@ import consts from "../../consts";
 const Map: FunctionComponent = (): JSX.Element => {
   const { account, library } = useWeb3React();
   const [userBalance, setUserBalance] = useState<number>(0);
-
+  const [tiles, setTiles] = useState<Array<any>>([]);
   let x0 = 0;
   let y0 = 0;
 
@@ -29,23 +29,31 @@ const Map: FunctionComponent = (): JSX.Element => {
       // //console.log(" getTileInfo ", blockchainService.getTileInfo());
       // console.log("owner of", await blockchainService.ownerOf());
       console.log("owner of", await blockchainService.getCharacterCoords(0));
+
+      setTiles(await blockchainService.getMapChunk(0, 0, 6));
     })();
   }, [library]);
 
   //build tile
-  let tiles = [];
-  for (let x = 0; x < 6; x++) {
-    let row_tiles = [];
-    for (let y = 0; y < 6; y++) {
-      row_tiles.push(<Tile />);
-    }
-    tiles.push(<div>{row_tiles}</div>);
+  let row_tiles = [];
+  for (let i = 0; i < tiles.length; i++) {
+    row_tiles.push(<Tile />);
   }
+
+  let tiles_html = tiles.map((row) => {
+    console.log("row", row);
+    return (
+      <Row>
+        {row.map((tile) => (
+          <Tile level={tile.level} />
+        ))}
+      </Row>
+    );
+  });
   return (
     <>
       <div className={styles.map}>
-        <h1>{userBalance}</h1>
-        <div>{tiles}</div>
+        <div>{tiles_html}</div>
       </div>
     </>
   );
