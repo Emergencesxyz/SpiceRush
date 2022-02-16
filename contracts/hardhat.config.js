@@ -102,8 +102,7 @@ task("deploy", "Deploy Apinator and Gameplay contracts").setAction(
     console.log("- Apinator : ", apinator.address);
     console.log("- Gameplay : ", gameplay.address);
 
-    const accounts = await hre.ethers.getSigners();
-    const signer = accounts[0];
+    await apinator.setIsActive(true);
   }
 );
 task("fund-link", "Funds a contract with LINK")
