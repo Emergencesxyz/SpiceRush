@@ -1,9 +1,8 @@
-// export const ACTION_INVALID = "This action is invalid!";
-// export const CONSTANT_NUMBER_1 = "hello I am a constant";
-// export
-
 const constants = {
-  Gameplay: [
+  rinkeby_url: "https://rinkeby.infura.io/v3/84842078b09946638c03157f83405213",
+  gameplayAddress: "0x58f9fbdBF3651eb4c2cdde35601d51e5dc7c0bc4",
+  apinatorAddress: "0xCEFD7C9c0b6621cF8c2ec78e1A0058f795aA9A3B",
+  gameplayABI: [
     {
       inputs: [
         {
@@ -376,7 +375,7 @@ const constants = {
     },
   ],
 
-  Apinator: [
+  apinatorABI: [
     {
       inputs: [],
       stateMutability: "nonpayable",
