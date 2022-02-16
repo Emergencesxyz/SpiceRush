@@ -6,6 +6,9 @@ require("@nomiclabs/hardhat-web3");
 require("hardhat-gas-reporter");
 require("solidity-coverage");
 
+require("dotenv").config();
+const { PRIVATE_KEY } = process.env;
+
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
 
@@ -68,6 +71,41 @@ module.exports = {
   },
 };
 
+async function connect(rpcUrl) {
+  let provider = ethers.providers.getDefaultProvider(network.config.url);
+  let wallet = await new hre.ethers.Wallet(PRIVATE_KEY); //mainnet
+
+  console.log(
+    "Init  Balance",
+    (await provider.getBalance(wallet.address)).toString()
+  );
+
+  console.log("wallet address:", wallet.address);
+
+  return { provider: provider, wallet: wallet };
+}
+task("deploy", "Deploy Apinator and Gameplay contracts").setAction(
+  async (taskArgs) => {
+    const { wallet, provider } = await connect(network.config.url);
+
+    console.log("--Deploying contract on network :", network.name);
+    console.log("...");
+
+    Factory = await ethers.getContractFactory("Apinator");
+    apinator = await Factory.deploy();
+    await apinator.deployed();
+    Factory = await ethers.getContractFactory("Gameplay");
+    gameplay = await Factory.deploy(apinator.address);
+    await gameplay.deployed();
+
+    console.log("Contracts deployed ✓");
+    console.log("- Apinator : ", apinator.address);
+    console.log("- Gameplay : ", gameplay.address);
+
+    const accounts = await hre.ethers.getSigners();
+    const signer = accounts[0];
+  }
+);
 task("fund-link", "Funds a contract with LINK")
   .addParam("contract", "The address of the contract that requires LINK")
   .addOptionalParam("linkAddress", "Set the LINK token address")
