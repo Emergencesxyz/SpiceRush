@@ -17,18 +17,20 @@ const Map: FunctionComponent = (): JSX.Element => {
   let x0 = 0;
   let y0 = 0;
 
-  console.log("library", library);
   const blockchainService = new BlockchainService(account, "0x");
 
   useEffect(() => {
     (async () => {
+      if (!library) return;
+      console.log("library_", library);
+
       setUserBalance(await library.eth.getBalance(account));
       // console.log(" balance ", await blockchainService.getBalance());
       // //console.log(" getTileInfo ", blockchainService.getTileInfo());
-      console.log("owner of", await blockchainService.ownerOf());
-      console.log("owner of", await blockchainService.ownerOf());
+      // console.log("owner of", await blockchainService.ownerOf());
+      console.log("owner of", await blockchainService.getCharacterCoords(0));
     })();
-  }, []);
+  }, [library]);
 
   //build tile
   let tiles = [];

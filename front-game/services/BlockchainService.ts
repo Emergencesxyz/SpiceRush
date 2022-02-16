@@ -35,11 +35,11 @@ export default class BlockchainService {
     }
   }
 
-  async getCurrentCoords() {}
+  async getCurrentCoords(nftId: number) {}
 
   async getCharacterCoords(nftId: number) {
     try {
-      return await this.gameplayContract.methods.charas("1").call();
+      return await this.gameplayContract.methods.charas(nftId).call();
     } catch (e) {
       return null;
     }

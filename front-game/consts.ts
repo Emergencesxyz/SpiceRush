@@ -1,7 +1,8 @@
 const constants = {
   rinkeby_url: "https://rinkeby.infura.io/v3/84842078b09946638c03157f83405213",
-  gameplayAddress: "0x58f9fbdBF3651eb4c2cdde35601d51e5dc7c0bc4",
-  apinatorAddress: "0xCEFD7C9c0b6621cF8c2ec78e1A0058f795aA9A3B",
+  apinatorAddress: "0x72964592d695E1f2Ed8764bA5F801aeA8F7AaCD3",
+  gameplayAddress: "0xC2784d28369e70B03f968DA307408D81307Be92F",
+
   gameplayABI: [
     {
       inputs: [
