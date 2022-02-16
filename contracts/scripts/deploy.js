@@ -4,7 +4,7 @@
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
 const hre = require("hardhat");
-const { waffle } = require("hardhat");
+const { waffle, ethers } = require("hardhat");
 const provider = waffle.provider;
 
 require("dotenv").config();
@@ -12,8 +12,8 @@ require("dotenv").config();
 const { PRIVATE_KEY } = process.env;
 
 async function connect() {
-  //let wallet = await new ethers.Wallet(PRIVATE_KEY); //mainnet
-  let wallet = (await ethers.getSigners())[0]; //local
+  let wallet = await new ethers.Wallet(PRIVATE_KEY); //mainnet
+  //let wallet = (await ethers.getSigners())[0]; //local
 
   console.log(
     "Init  Balance",
@@ -21,9 +21,11 @@ async function connect() {
   );
 
   console.log("wallet address:", wallet.address);
+  console.log("------------------");
 
   return wallet;
 }
+
 async function deploy(wallet) {
   // Hardhat always runs the compile task when running scripts with its command
   // line interface.
@@ -31,7 +33,6 @@ async function deploy(wallet) {
   // If this script is run directly using `node` you may want to call compile
   // manually to make sure everything is compiled
   // await hre.run('compile');
-
   Factory = await ethers.getContractFactory("Apinator");
   apinator = await Factory.deploy();
   await apinator.deployed();
@@ -45,34 +46,34 @@ async function deploy(wallet) {
 
   await apinator.setIsActive(true);
 
-  await apinator
-    .connect(wallet)
-    .mintNFT(2, { value: ethers.utils.parseEther("0.4") });
-
-  console.log("Apinator total supply :", await apinator.totalSupply());
+  // await apinator
+  //   .connect(wallet)
+  //   .mintNFT(2, { value: ethers.utils.parseEther("0.4") });
 }
 
-async function getContractInfo(wallet) {
+async function getContracts(wallet) {
   //let wallet = await new ethers.Wallet(PRIVATE_KEY); //mainnet
 
-  const apinator = await hre.ethers.getContractAt(
+  apinator = await ethers.getContractAt(
     "Apinator",
-    "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+    "0xCEFD7C9c0b6621cF8c2ec78e1A0058f795aA9A3B"
   );
-  const gameplay = await hre.ethers.getContractAt(
+
+  gameplay = await ethers.getContractAt(
     "Gameplay",
-    "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
+    "0x58f9fbdBF3651eb4c2cdde35601d51e5dc7c0bc4"
   );
 
   console.log("- Apinator : ", apinator.address);
   console.log("- Gameplay : ", gameplay.address);
 
-  //actions..
-  await apinator
-    .connect(wallet)
-    .mintNFT(2, { value: ethers.utils.parseEther("0.4") });
+  console.log(
+    "Apinator total supply :",
+    (await apinator.totalSupply()).toString()
+  );
 
-  console.log("Apinator total supply :", await apinator.totalSupply());
+  console.log("------------------");
+  return { gameplay: gameplay, apinator: apinator };
 }
 
 // We recommend this pattern to be able to use async/await everywhere
@@ -80,7 +81,14 @@ async function getContractInfo(wallet) {
 async function main() {
   let wallet = await connect();
 
-  deploy(wallet);
+  //await deploy(wallet);
+
+  const { gameplay, apinator } = await getContracts(wallet);
+
+  //spawn
+  // await gameplay.connect(wallet).spawn(nftId);
+  console.log("owner of", await apinator.ownerOf(1));
+  // console.log("choords:", await gameplay.charas(nftId));
 }
 
 main();
