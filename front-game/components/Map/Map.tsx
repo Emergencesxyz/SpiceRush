@@ -2,7 +2,7 @@ import styles from "./Map.module.scss";
 import { Container, Row } from "react-bootstrap";
 import { useState, FunctionComponent, useEffect } from "react";
 import Tile from "../Tile/Tile";
-
+import CharacterBox from "../CharacterBox/CharacterBox";
 import Web3 from "web3";
 import { useWeb3React } from "@web3-react/core";
 
@@ -30,6 +30,7 @@ const Map: FunctionComponent = (): JSX.Element => {
       // //console.log(" getTileInfo ", blockchainService.getTileInfo());
       // console.log("owner of", await blockchainService.ownerOf());
 
+      console.log("character", await blockchainService.getCharacterInfo(0));
       setCharacter(await blockchainService.getCharacterInfo(0));
       setTiles(await blockchainService.getMapChunk(0, 0, 6));
     })();
@@ -53,10 +54,15 @@ const Map: FunctionComponent = (): JSX.Element => {
       </div>
     );
   });
+
+  //render
   return (
     <>
       <div className={styles.canvas}>
-        <div>Character {JSON.stringify(character).split(",")}</div>
+        <div className={styles.characterBox}>
+          <h3>ApezorDu45</h3>
+          {character && <CharacterBox character={character} />}
+        </div>
 
         <div className={styles.map}>{tiles_html}</div>
       </div>

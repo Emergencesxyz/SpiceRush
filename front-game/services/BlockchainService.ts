@@ -43,7 +43,14 @@ export default class BlockchainService {
       return {
         lvl: info.lvl,
         nextActionTime: info.nextActionTime,
-        stats: info.stats,
+        stats: {
+          energy: info.stats.energy,
+          energyMax: info.stats.energyMax,
+          hp: info.stats.hp,
+          hpMax: info.stats.p,
+          mining: info.stats.mining,
+          miningMax: info.stats.miningMax,
+        },
         x: parseInt(info.x),
         y: parseInt(info.y),
         xp: info.xp,

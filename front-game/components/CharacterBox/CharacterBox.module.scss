@@ -1,12 +1,4 @@
-.canvas {
-  background-color: black;
-  padding: 0;
-  width: fit-content;
-  margin: auto;
-  color: white;
-}
-
-.map {
+.characterBox {
   border: 2px solid #5ebbbd;
   padding: 2px;
   border-radius: 10px;
@@ -15,9 +7,9 @@
   box-shadow: 0 0 0.1rem #fff, 0 0 0.1rem #fff, 0 0 1rem #bc13fe,
     0 0 0.2rem #bc13fe, 0 0 1rem #bc13fe, inset 0 0 0.5rem #bc13fe;
 }
-
 .icon {
   max-width: 30px;
 }
+
 @media (max-width: 576px) {
 }
