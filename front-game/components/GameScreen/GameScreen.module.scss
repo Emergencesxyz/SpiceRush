@@ -2,6 +2,8 @@
   padding: 0;
   margin: auto;
   color: white;
+  font-family: "Retrogaming", "Franklin Gothic Medium", "Arial Narrow", Arial,
+    sans-serif;
 }
 
 .map {
@@ -99,6 +101,13 @@
   border: none;
 }
 .btn-primary:hover {
+}
+
+.quotes {
+  text-align: left;
+  margin-bottom: 1em;
+  font-size: 0.7em;
+  text-shadow: 2px 1px 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
 }
 
 @media (max-width: 576px) {

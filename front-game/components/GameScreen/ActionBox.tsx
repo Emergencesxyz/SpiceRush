@@ -12,7 +12,11 @@ import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import IconGame from "./IconGame";
 
-const ActionBox: FunctionComponent = ({ tiles, character }): JSX.Element => {
+const ActionBox: FunctionComponent = ({
+  character,
+  actions,
+  setActions,
+}): JSX.Element => {
   const { account, library } = useWeb3React();
   const [sounds, setSounds] = useState<Object | null>(null);
 
@@ -56,7 +60,9 @@ const ActionBox: FunctionComponent = ({ tiles, character }): JSX.Element => {
   const mine = async (e) => {
     const audioScifi = new Audio("./sounds/button_scifi.mp3");
     audioScifi.play();
-    return await blockchainService.mine(0, 1, library);
+    await blockchainService.mine(0, 1, library);
+    setActions(actions++);
+    return;
   };
 
   const { energy, hp, mining } = character ? character.stats : {};
