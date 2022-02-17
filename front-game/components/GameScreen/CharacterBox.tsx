@@ -8,6 +8,7 @@ const CharacterBox: FunctionComponent = ({ character }): JSX.Element => {
   return (
     <>
       <div className={styles.characterBox}>
+        <h4>ApezorDu45</h4>
         lvl {character.lvl} ⬪ {character.xp} xp ⬪ ({character.x}, {character.y}){" "}
         <br />
         <IconGame name="energy" />

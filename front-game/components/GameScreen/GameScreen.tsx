@@ -52,11 +52,21 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
   return (
     <>
       <div className={styles.canvas}>
-        <h3>ApezorDu45</h3>
-
         <Row>
           <Col xs={8}>
-            {character && <CharacterBox character={character} />}
+            <Row>
+              <Col xs={2}>
+                <NftAvatar />
+              </Col>
+              <Col xs={9}>
+                {character && <CharacterBox character={character} />}
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col>
             {tiles && tiles.length ? (
               <Map tiles={tiles} character={character} />
             ) : (
@@ -64,8 +74,6 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
             )}
           </Col>
           <Col xs={4}>
-            <NftAvatar />
-
             <ActionBox />
           </Col>
         </Row>
