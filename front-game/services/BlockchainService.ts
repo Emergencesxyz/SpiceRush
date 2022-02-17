@@ -126,6 +126,46 @@ export default class BlockchainService {
       });
   }
 
+  async rest(nftId: number, actionNb: number, library: any) {
+    const txParams = {
+      from: this.account,
+      value: "0",
+    };
+
+    this.gameplayContract = new library.eth.Contract(
+      consts.gameplayABI as any,
+      consts.gameplayAddress
+    );
+
+    await this.gameplayContract.methods
+      .rest(nftId, actionNb)
+      .send(txParams)
+      .on("transactionHash", function (hash: any) {
+        let audio = new Audio("./sounds/success.mp3");
+        audio.play();
+      });
+  }
+
+  async mine(nftId: number, actionNb: number, library: any) {
+    const txParams = {
+      from: this.account,
+      value: "0",
+    };
+
+    this.gameplayContract = new library.eth.Contract(
+      consts.gameplayABI as any,
+      consts.gameplayAddress
+    );
+
+    await this.gameplayContract.methods
+      .mine(nftId, actionNb)
+      .send(txParams)
+      .on("transactionHash", function (hash: any) {
+        let audio = new Audio("./sounds/success.mp3");
+        audio.play();
+      });
+  }
+
   //   async test() {
 
   //     // Use vue-resource or any other http library to send your request

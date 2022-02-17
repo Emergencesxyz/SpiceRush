@@ -41,7 +41,15 @@ const ActionBox: FunctionComponent = ({ tiles, character }): JSX.Element => {
   };
 
   const spawn = async (e) => {
-    return await blockchainService.spawn("0", library);
+    return await blockchainService.spawn(0, library);
+  };
+
+  const rest = async (e) => {
+    return await blockchainService.rest(0, 1, library);
+  };
+
+  const mine = async (e) => {
+    return await blockchainService.mine(0, 1, library);
   };
 
   const { energy, hp, mining } = character ? character.stats : {};
@@ -97,6 +105,7 @@ const ActionBox: FunctionComponent = ({ tiles, character }): JSX.Element => {
 
         <div className={styles.actionBoxRow}>
           <Button
+            onClick={blocked ? undefined : mine}
             className={blocked ? styles.disabled : ""}
             title={blocked ? "no more hp nor energy, please rest :(" : ""}
           >
@@ -104,6 +113,7 @@ const ActionBox: FunctionComponent = ({ tiles, character }): JSX.Element => {
             Mine
           </Button>
           <Button
+            onClick={blocked ? undefined : rest}
             className={!hp ? styles.disabled : ""}
             title={blocked ? "no more hp  :(" : ""}
           >

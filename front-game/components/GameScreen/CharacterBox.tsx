@@ -11,7 +11,7 @@ const CharacterBox: FunctionComponent = ({ character }): JSX.Element => {
   return (
     <>
       <div className={styles.characterBox}>
-        <h4>ApezorDu45</h4>
+        <h4>ApezorDu45 {!hp ? <IconGame name="skull" /> : null}</h4>
         lvl {character.lvl} ⬪ {character.xp} xp ⬪ ({character.x}, {character.y}){" "}
         <br />
         <IconGame name="energy" />
