@@ -20,7 +20,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
   const [userBalance, setUserBalance] = useState<number>(0);
   const [tiles, setTiles] = useState<Array<any>>([]);
   const [character, setCharacter] = useState<Object | null>(null);
-  const [spiceMined, setSpiceMined] = useState<number>(null);
+  const [spiceMined, setSpiceMined] = useState<number | null>(null);
   const [actions, setActions] = useState<number>(0);
   const [randomQuoteId, setRandomQuoteId] = useState<number>(0);
   const x0 = 0;

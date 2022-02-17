@@ -73,8 +73,8 @@
   font-size: 0.8em;
   margin: 0.1em;
   text-shadow: 2px 1px 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
-  background: url("../../public/buttons/button_supercell_small.png");
 
+  background: url("../../public/buttons/button_supercell_small.png");
   height: 50px;
   width: 100px;
 }
@@ -109,6 +109,14 @@
   font-size: 0.7em;
   text-shadow: 2px 1px 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
 }
-
+.buttonCol Button {
+  position: relative;
+  top: 40%;
+  background: none;
+  border: none;
+}
+.buttonCol Button:hover {
+  background: none;
+}
 @media (max-width: 576px) {
 }

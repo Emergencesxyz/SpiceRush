@@ -28,6 +28,12 @@ body {
 .iconDark {
   color: rgb(42, 13, 88);
 }
+.iconLight {
+  color: #ffc73d;
+}
+.iconLight:hover {
+  color: #ffa40b;
+}
 /* @font-face {
   font-family: "Starforge";
   src: local(""), url("../public/fonts/StarforgeRegular.woff2") format("woff2");
