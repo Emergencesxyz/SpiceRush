@@ -18,6 +18,7 @@ const Tile: FunctionComponent = ({
         style={{
           backgroundColor: "rgb(" + color + ",10,100)",
           filter: isExplored ? "brightness(100%)" : "brightness(50%)",
+          border: currentPosition ? "cyan 1px solid" : undefined,
         }}
       >
         {isExplored && (
