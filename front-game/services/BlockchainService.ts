@@ -97,7 +97,13 @@ export default class BlockchainService {
       consts.gameplayAddress
     );
 
-    await this.gameplayContract.methods.move("0", x, y).send(txParams);
+    await this.gameplayContract.methods
+      .move("0", x, y)
+      .send(txParams)
+      .on("transactionHash", function (hash: any) {
+        let audio = new Audio("./success.mp3");
+        audio.play();
+      });
   }
   //   async test() {
 
