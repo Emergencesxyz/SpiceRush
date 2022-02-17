@@ -17,30 +17,22 @@ const ActionBox: FunctionComponent = ({ tiles, character }): JSX.Element => {
         <h3>Actions</h3>
 
         <div className={styles.actionBoxRow}>
-          <Button>
-            <KeyboardArrowUpIcon />
-          </Button>
+          <Button>up</Button>
           <Row>
             <Col>
-              <Button>
-                <KeyboardArrowLeftIcon />
-              </Button>
+              <Button>left</Button>
             </Col>
 
             <Col>
-              <Button>
-                <KeyboardArrowRightIcon />
-              </Button>
+              <Button>right</Button>
             </Col>
           </Row>
 
-          <Button>
-            <KeyboardArrowDownIcon />
-          </Button>
+          <Button>down</Button>
         </div>
 
         <div className={styles.actionBoxRow}>
-          <Button>
+          <Button className={styles.actionBoxButton}>
             <IconGame name="mining" />
             Mine
           </Button>

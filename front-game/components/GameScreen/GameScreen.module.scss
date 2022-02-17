@@ -32,10 +32,13 @@
   max-height: 95px;
 }
 .icon {
-  max-width: 30px;
+  max-width: 25px;
 }
 
 .characterBox {
+  font-family: "Retrogaming", "Franklin Gothic Medium", "Arial Narrow", Arial,
+    sans-serif;
+
   border: 2px solid #5ebbbd;
   padding: 2px;
   border-radius: 10px;
@@ -50,6 +53,9 @@
 }
 
 .actionBox {
+  font-family: "Retrogaming", "Franklin Gothic Medium", "Arial Narrow", Arial,
+    sans-serif;
+
   border: 2px solid #5ebbbd;
 
   border-radius: 10px;
@@ -60,8 +66,21 @@
 }
 
 .actionBox button {
-  background-color: red;
+  font-family: "Retrogaming", "Franklin Gothic Medium", "Arial Narrow", Arial,
+    sans-serif;
+  font-size: 0.8em;
   margin: 0.1em;
+  text-shadow: 2px 1px 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+  background: url("../../public/button_supercell_small.png");
+
+  height: 50px;
+  width: 100px;
+}
+.actionBox button:hover {
+  font-size: 0.8em;
+  background: url("../../public/button_supercell_small_hover.png");
+  border: 3px solid black;
+  border-radius: 6px;
 }
 .actionBoxRow {
   margin-bottom: 1em;

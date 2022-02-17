@@ -15,7 +15,10 @@ body {
   font-style: normal;
   font-display: swap;
 }
-
+@font-face {
+  font-family: "Retrogaming";
+  src: url("../public/fonts/Retrogaming.ttf") format("truetype");
+}
 /* @font-face {
   font-family: "Starforge";
   src: local(""), url("../public/fonts/StarforgeRegular.woff2") format("woff2");
