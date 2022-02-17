@@ -12,6 +12,7 @@ import MapPlaceholder from "./MapPlaceholder";
 import CharacterBox from "./CharacterBox";
 import NftAvatar from "./NftAvatar";
 import Map from "./Map";
+import ActionBox from "./ActionBox";
 
 const GameScreen: FunctionComponent = (): JSX.Element => {
   const { account, library } = useWeb3React();
@@ -64,6 +65,8 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
           </Col>
           <Col xs={4}>
             <NftAvatar />
+
+            <ActionBox />
           </Col>
         </Row>
       </div>

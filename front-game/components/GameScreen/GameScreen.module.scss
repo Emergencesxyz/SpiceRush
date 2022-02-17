@@ -26,6 +26,7 @@
     0 0 0.2rem #bc13fe, 0 0 1rem #bc13fe, inset 0 0 0.5rem #bc13fe;
 
   max-height: 100px;
+  margin-bottom: 5px;
 }
 .avatarImg {
   max-height: 95px;
@@ -46,6 +47,24 @@
   height: 100px;
   line-height: 1em;
   vertical-align: middle;
+}
+
+.actionBox {
+  border: 2px solid #5ebbbd;
+
+  border-radius: 10px;
+
+  margin: auto;
+  box-shadow: 0 0 0.1rem #fff, 0 0 0.1rem #fff, 0 0 1rem #bc13fe,
+    0 0 0.2rem #bc13fe, 0 0 1rem #bc13fe, inset 0 0 0.5rem #bc13fe;
+}
+
+.actionBox button {
+  background-color: red;
+  margin: 0.1em;
+}
+.actionBoxRow {
+  margin-bottom: 1em;
 }
 
 @media (max-width: 576px) {

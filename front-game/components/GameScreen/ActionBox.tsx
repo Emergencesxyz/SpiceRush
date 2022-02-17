@@ -1,9 +1,14 @@
 import styles from "./GameScreen.module.scss";
 
-import { Container, Row } from "react-bootstrap";
+import { Row, Button, Col } from "react-bootstrap";
 import { useState, FunctionComponent, useEffect } from "react";
 
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+
+import IconGame from "./IconGame";
 
 const ActionBox: FunctionComponent = ({ tiles, character }): JSX.Element => {
   return (
@@ -11,8 +16,37 @@ const ActionBox: FunctionComponent = ({ tiles, character }): JSX.Element => {
       <div className={styles.actionBox}>
         <h3>Actions</h3>
 
-        <div>
-          <ArrowForwardIosIcon />
+        <div className={styles.actionBoxRow}>
+          <Button>
+            <KeyboardArrowUpIcon />
+          </Button>
+          <Row>
+            <Col>
+              <Button>
+                <KeyboardArrowLeftIcon />
+              </Button>
+            </Col>
+
+            <Col>
+              <Button>
+                <KeyboardArrowRightIcon />
+              </Button>
+            </Col>
+          </Row>
+
+          <Button>
+            <KeyboardArrowDownIcon />
+          </Button>
+        </div>
+
+        <div className={styles.actionBoxRow}>
+          <Button>
+            <IconGame name="mining" />
+            Mine
+          </Button>
+          <Button>
+            <IconGame name="rest2" /> Rest
+          </Button>
         </div>
       </div>
     </>
