@@ -25,6 +25,9 @@ body {
 }
 .btn-primary:hover {
 }
+.iconDark {
+  color: rgb(42, 13, 88);
+}
 /* @font-face {
   font-family: "Starforge";
   src: local(""), url("../public/fonts/StarforgeRegular.woff2") format("woff2");

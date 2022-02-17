@@ -90,7 +90,7 @@ const ActionBox: FunctionComponent = ({
             className={blocked ? styles.disabled : ""}
             title={blocked ? "no more hp nor energy, please rest :(" : ""}
           >
-            <ArrowCircleUpIcon color="primary" />
+            <ArrowCircleUpIcon className="iconDark" />
           </Button>
           <Row>
             <Col>
@@ -100,7 +100,7 @@ const ActionBox: FunctionComponent = ({
                 className={blocked ? styles.disabled : ""}
                 title={blocked ? "no more hp nor energy, please rest :(" : ""}
               >
-                <ArrowCircleLeftIcon color="primary" />
+                <ArrowCircleLeftIcon className="iconDark" />
               </Button>
             </Col>
 
@@ -111,7 +111,7 @@ const ActionBox: FunctionComponent = ({
                 className={blocked ? styles.disabled : ""}
                 title={blocked ? "no more hp nor energy, please rest :(" : ""}
               >
-                <ArrowCircleRightIcon color="primary" />
+                <ArrowCircleRightIcon className="iconDark" />
               </Button>
             </Col>
           </Row>
@@ -122,7 +122,7 @@ const ActionBox: FunctionComponent = ({
             className={blocked ? styles.disabled : ""}
             title={blocked ? "no more hp nor energy, please rest :(" : ""}
           >
-            <ArrowDropDownCircleIcon color="primary" />
+            <ArrowDropDownCircleIcon className="iconDark" />
           </Button>
         </div>
 
