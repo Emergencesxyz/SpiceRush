@@ -101,7 +101,7 @@ export default class BlockchainService {
       .move("0", x, y)
       .send(txParams)
       .on("transactionHash", function (hash: any) {
-        let audio = new Audio("./success.mp3");
+        let audio = new Audio("./sounds/success.mp3");
         audio.play();
       });
   }

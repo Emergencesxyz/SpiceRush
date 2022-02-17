@@ -19,6 +19,9 @@ const ActionBox: FunctionComponent = ({ tiles, character }): JSX.Element => {
   const moveCharacter = async (e) => {
     let x, y: number;
 
+    let audio = new Audio("./sounds/button_scifi.mp3");
+    audio.play();
+
     if (e.target.name === "right") {
       x = character.x;
       y = character.y + 1;
