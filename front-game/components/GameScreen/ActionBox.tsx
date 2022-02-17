@@ -97,8 +97,8 @@ const ActionBox: FunctionComponent = ({ tiles, character }): JSX.Element => {
             Mine
           </Button>
           <Button
-            className={blocked ? styles.disabled : ""}
-            title={blocked ? "no more hp nor energy, please rest :(" : ""}
+            className={!hp ? styles.disabled : ""}
+            title={blocked ? "no more hp  :(" : ""}
           >
             <IconGame name="rest2" /> Rest
           </Button>
