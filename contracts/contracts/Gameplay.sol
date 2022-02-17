@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.10;
 
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
@@ -103,6 +103,8 @@ contract Gameplay is Ownable {
     event mining(uint256 indexed _tokenId, Tile _tile, Chara _chara);
     event resting(uint256 indexed _tokenId, Chara _chara);
     event spawned(uint256 indexed _tokenId, Chara _chara);
+    event buyLand(uint256 indexed _tokenId, Chara _chara, int256 _x, int256 _y);
+    event changedName(uint256 indexed _tokenId, string _name);
 
     IERC721 public apinator;
     INFT public property;
@@ -138,10 +140,12 @@ contract Gameplay is Ownable {
     mapping (uint256 => uint256) public bank;
 	mapping (int256 => mapping(int256 => Tile)) public map;
     mapping (uint256 => Chara) public charas;
+    mapping (uint256 => string) public names;
     uint256 actionTime = 1;
     uint256 spiceBlocksPerTile = 30;
     int256 startX = 0;
     int256 startY = 0;
+    uint16 dif = 4;
 
     function setActionTime(uint256 _actionTime) public onlyOwner() {
         actionTime = _actionTime;
@@ -155,6 +159,10 @@ contract Gameplay is Ownable {
         startX = x;
         startY = y;
         map[x][y] = Tile(true, level, 0, 0);
+    }
+
+    function setDifficulty(uint16 _dif) public onlyOwner() {
+        dif = _dif;
     }
 
     function spawn(uint256 tokenId) public {
@@ -179,11 +187,11 @@ contract Gameplay is Ownable {
             charas[tokenId].xp += 5*uint16(map[x][y].level);
             emit explored(tokenId, x, y, map[x][y]);
         }
-        if (charas[tokenId].stats.hp < map[x][y].foesAmount/3) {
+        if (charas[tokenId].stats.hp < map[x][y].foesAmount/dif) {
             die(tokenId);
         }
         else{
-            charas[tokenId].stats.hp -= map[x][y].foesAmount/3;
+            charas[tokenId].stats.hp -= map[x][y].foesAmount/dif;
         }
         charas[tokenId].xp += 20;
         charas[tokenId].stats.energy -= 1;
@@ -280,7 +288,18 @@ contract Gameplay is Ownable {
         require(apinator.ownerOf(tokenId) == msg.sender, "Not owner of specified token.");
         require(charas[tokenId].nextActionTime < block.timestamp, "Your character is still busy.");
         require(charas[tokenId].stats.hp > 0, "No more hp.");
+        
         property.mintTile(msg.sender, x, y);
+        emit buyLand(tokenId, charas[tokenId], x, y); 
+    }
+
+    function setName(uint256 tokenId, string memory name) public {
+        require(apinator.ownerOf(tokenId) == msg.sender, "Not owner of specified token.");
+        require(charas[tokenId].nextActionTime < block.timestamp, "Your character is still busy.");
+        require(charas[tokenId].stats.hp > 0, "No more hp.");
+
+        names[tokenId] = name; 
+        emit changedName(tokenId, name);
     }
 
     function die(uint256 tokenId) internal {
