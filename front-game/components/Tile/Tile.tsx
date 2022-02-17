@@ -5,8 +5,8 @@ import { useState, FunctionComponent, useEffect } from "react";
 const Tile: FunctionComponent = ({ level, currentPosition }): JSX.Element => {
   return (
     <>
-      <div className={styles.tile + " current"}>
-        {level} {currentPosition ? "X" : ""}
+      <div className={currentPosition ? styles.tileCurrent : styles.tile}>
+        {level}
       </div>
     </>
   );
