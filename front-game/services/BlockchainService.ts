@@ -105,6 +105,27 @@ export default class BlockchainService {
         audio.play();
       });
   }
+
+  async spawn(nftId: number, library: any) {
+    const txParams = {
+      from: this.account,
+      value: "0",
+    };
+
+    this.gameplayContract = new library.eth.Contract(
+      consts.gameplayABI as any,
+      consts.gameplayAddress
+    );
+
+    await this.gameplayContract.methods
+      .spawn(nftId)
+      .send(txParams)
+      .on("transactionHash", function (hash: any) {
+        let audio = new Audio("./sounds/success.mp3");
+        audio.play();
+      });
+  }
+
   //   async test() {
 
   //     // Use vue-resource or any other http library to send your request

@@ -40,7 +40,11 @@ const ActionBox: FunctionComponent = ({ tiles, character }): JSX.Element => {
     return await blockchainService.moveCharacter(x, y, library);
   };
 
-  const { energy, hp, mining } = character.stats;
+  const spawn = async (e) => {
+    return await blockchainService.spawn("0", library);
+  };
+
+  const { energy, hp, mining } = character ? character.stats : {};
 
   const blocked = !(energy && hp);
   return (
@@ -96,15 +100,21 @@ const ActionBox: FunctionComponent = ({ tiles, character }): JSX.Element => {
             className={blocked ? styles.disabled : ""}
             title={blocked ? "no more hp nor energy, please rest :(" : ""}
           >
-            <IconGame name="mining" />
+            <IconGame name="mining" size="20px" />
             Mine
           </Button>
           <Button
             className={!hp ? styles.disabled : ""}
             title={blocked ? "no more hp  :(" : ""}
           >
-            <IconGame name="rest2" /> Rest
+            <IconGame name="rest2" size="20px" /> Rest
           </Button>
+
+          {!hp && (
+            <Button onClick={spawn}>
+              <IconGame name="skull" size="20px" /> Spawn
+            </Button>
+          )}
         </div>
       </div>
     </>
