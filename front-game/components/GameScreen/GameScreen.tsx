@@ -53,7 +53,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
               </Col>
               <Col>
                 {character ? (
-                  <CharacterBox character={character} spiceMined={0} />
+                  <CharacterBox character={character} spiceMined={spiceMined} />
                 ) : (
                   <img src={"/robot.gif"} className={styles.loadingGif} />
                 )}
