@@ -42,14 +42,20 @@ const ActionBox: FunctionComponent = ({ tiles, character }): JSX.Element => {
   };
 
   const spawn = async (e) => {
+    const audioScifi = new Audio("./sounds/button_scifi.mp3");
+    audioScifi.play();
     return await blockchainService.spawn(0, library);
   };
 
   const rest = async (e) => {
+    const audioScifi = new Audio("./sounds/button_scifi.mp3");
+    audioScifi.play();
     return await blockchainService.rest(0, 1, library);
   };
 
   const mine = async (e) => {
+    const audioScifi = new Audio("./sounds/button_scifi.mp3");
+    audioScifi.play();
     return await blockchainService.mine(0, 1, library);
   };
 
