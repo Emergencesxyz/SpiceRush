@@ -15,12 +15,12 @@ const CharacterBox: FunctionComponent = ({ character }): JSX.Element => {
         lvl {character.lvl} ⬪ {character.xp} xp ⬪ ({character.x}, {character.y}){" "}
         <br />
         <IconGame name="energy" />
-        <span style={{ color: energy === "0" ? "red" : undefined }}>
+        <span style={{ color: energy === 0 ? "red" : undefined }}>
           {energy}
         </span>{" "}
         ⬪
         <IconGame name="hp" />
-        <span style={{ color: hp === "0" ? "red" : undefined }}>{hp}</span> ⬪
+        <span style={{ color: hp === 0 ? "red" : undefined }}>{hp}</span> ⬪
         <IconGame name="mining" />
         {mining}
       </div>

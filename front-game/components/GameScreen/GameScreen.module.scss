@@ -71,14 +71,19 @@
   font-size: 0.8em;
   margin: 0.1em;
   text-shadow: 2px 1px 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
-  background: url("../../public/button_supercell_small.png");
+  background: url("../../public/buttons/button_supercell_small.png");
 
   height: 50px;
   width: 100px;
 }
+.actionBox button.disabled,
+.actionBox button.disabled:hover {
+  background: url("../../public/buttons/button_supercell_small_disabled.png");
+  cursor: not-allowed;
+}
 .actionBox button:hover {
   font-size: 0.8em;
-  background: url("../../public/button_supercell_small_hover.png");
+  background: url("../../public/buttons/button_supercell_small_hover.png");
   border: 3px solid black;
   border-radius: 6px;
 }

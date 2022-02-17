@@ -37,40 +37,69 @@ const ActionBox: FunctionComponent = ({ tiles, character }): JSX.Element => {
     return await blockchainService.moveCharacter(x, y, library);
   };
 
+  const { energy, hp, mining } = character.stats;
+
+  const blocked = !(energy && hp);
   return (
     <>
       <div className={styles.actionBox}>
         <h3>Actions</h3>
 
         <div className={styles.actionBoxRow}>
-          <Button onClick={moveCharacter} name="up">
+          <Button
+            onClick={blocked ? undefined : moveCharacter}
+            name="up"
+            className={blocked ? styles.disabled : ""}
+            title={blocked ? "no more hp nor energy, please rest :(" : ""}
+          >
             <ArrowCircleUpIcon color="primary" />
           </Button>
           <Row>
             <Col>
-              <Button onClick={moveCharacter} name="left">
+              <Button
+                onClick={blocked ? undefined : moveCharacter}
+                name="left"
+                className={blocked ? styles.disabled : ""}
+                title={blocked ? "no more hp nor energy, please rest :(" : ""}
+              >
                 <ArrowCircleLeftIcon color="primary" />
               </Button>
             </Col>
 
             <Col>
-              <Button onClick={moveCharacter} name="right">
+              <Button
+                onClick={blocked ? undefined : moveCharacter}
+                name="right"
+                className={blocked ? styles.disabled : ""}
+                title={blocked ? "no more hp nor energy, please rest :(" : ""}
+              >
                 <ArrowCircleRightIcon color="primary" />
               </Button>
             </Col>
           </Row>
 
-          <Button onClick={moveCharacter} name="down">
+          <Button
+            onClick={blocked ? undefined : moveCharacter}
+            name="down"
+            className={blocked ? styles.disabled : ""}
+            title={blocked ? "no more hp nor energy, please rest :(" : ""}
+          >
             <ArrowDropDownCircleIcon color="primary" />
           </Button>
         </div>
 
         <div className={styles.actionBoxRow}>
-          <Button className={styles.actionBoxButton}>
+          <Button
+            className={blocked ? styles.disabled : ""}
+            title={blocked ? "no more hp nor energy, please rest :(" : ""}
+          >
             <IconGame name="mining" />
             Mine
           </Button>
-          <Button>
+          <Button
+            className={blocked ? styles.disabled : ""}
+            title={blocked ? "no more hp nor energy, please rest :(" : ""}
+          >
             <IconGame name="rest2" /> Rest
           </Button>
         </div>
