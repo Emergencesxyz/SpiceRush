@@ -58,7 +58,13 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
               <Col xs={2}>
                 <NftAvatar />
               </Col>
-              <Col>{character && <CharacterBox character={character} />}</Col>
+              <Col>
+                {character ? (
+                  <CharacterBox character={character} />
+                ) : (
+                  <img src={"/robot.gif"} className={styles.loadingGif} />
+                )}
+              </Col>
             </Row>
           </Col>
         </Row>
