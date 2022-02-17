@@ -19,6 +19,11 @@ body {
   font-family: "Retrogaming";
   src: url("../public/fonts/Retrogaming.ttf") format("truetype");
 }
+.btn-primary {
+  border: none !important;
+}
+.btn-primary:hover {
+}
 /* @font-face {
   font-family: "Starforge";
   src: local(""), url("../public/fonts/StarforgeRegular.woff2") format("woff2");

@@ -4,6 +4,8 @@ import { Container, Row } from "react-bootstrap";
 import { useState, FunctionComponent, useEffect } from "react";
 import IconGame from "./IconGame";
 
+import TypeWriterEffect from "react-typewriter-effect";
+
 const CharacterBox: FunctionComponent = ({ character }): JSX.Element => {
   return (
     <>

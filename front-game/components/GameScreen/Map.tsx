@@ -2,7 +2,7 @@ import styles from "./GameScreen.module.scss";
 
 import { Container, Row } from "react-bootstrap";
 import { useState, FunctionComponent, useEffect } from "react";
-import Tile from "../Tile/Tile";
+import Tile from "./Tile";
 
 const Map: FunctionComponent = ({ tiles, character }): JSX.Element => {
   return (
@@ -16,7 +16,12 @@ const Map: FunctionComponent = ({ tiles, character }): JSX.Element => {
                   character.x === tile.x && character.y === tile.y;
 
                 return (
-                  <Tile level={tile.level} currentPosition={currentPosition} />
+                  <Tile
+                    level={tile.level}
+                    spiceAmount={tile.spiceAmount}
+                    foesAmount={tile.foesAmount}
+                    currentPosition={currentPosition}
+                  />
                 );
               })}
             </div>
