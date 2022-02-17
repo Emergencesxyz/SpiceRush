@@ -10,7 +10,8 @@ import BlockchainService from "../../services/BlockchainService";
 import consts from "../../consts";
 import MapPlaceholder from "./MapPlaceholder";
 import Tile from "../Tile/Tile";
-import CharacterBox from "../CharacterBox/CharacterBox";
+import CharacterBox from "./CharacterBox";
+import NftAvatar from "./NftAvatar";
 
 const Map: FunctionComponent = (): JSX.Element => {
   const { account, library } = useWeb3React();
@@ -79,9 +80,7 @@ const Map: FunctionComponent = (): JSX.Element => {
           </Col>
           <Col xs={4}>
             {" "}
-            <div>
-              <img src="/ape_rust.jpeg" style={{ maxWidth: "100px" }} />
-            </div>
+            <NftAvatar />
           </Col>
         </Row>
       </div>

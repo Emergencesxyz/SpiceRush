@@ -16,8 +16,37 @@
 
 .placeholder {
 }
+.avatarBox {
+  border: 2px solid #5ebbbd;
+
+  border-radius: 10px;
+  width: fit-content;
+  margin: auto;
+  box-shadow: 0 0 0.1rem #fff, 0 0 0.1rem #fff, 0 0 1rem #bc13fe,
+    0 0 0.2rem #bc13fe, 0 0 1rem #bc13fe, inset 0 0 0.5rem #bc13fe;
+
+  max-height: 100px;
+}
+.avatarImg {
+  max-height: 95px;
+}
 .icon {
   max-width: 30px;
 }
+
+.characterBox {
+  border: 2px solid #5ebbbd;
+  padding: 2px;
+  border-radius: 10px;
+  width: auto;
+  margin-bottom: 5px;
+  box-shadow: 0 0 0.1rem #fff, 0 0 0.1rem #fff, 0 0 1rem #bc13fe,
+    0 0 0.2rem #bc13fe, 0 0 1rem #bc13fe, inset 0 0 0.5rem #bc13fe;
+
+  height: 100px;
+  line-height: 1em;
+  vertical-align: middle;
+}
+
 @media (max-width: 576px) {
 }
