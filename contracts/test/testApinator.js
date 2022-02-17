@@ -2,19 +2,26 @@ const { expect } = require("chai");
 const { waffle } = require("hardhat");
 const provider = waffle.provider;
 var fs = require('fs');
+const { property } = require("underscore");
 
 describe("Basic test", function() {
 
   it("Should deploy contracts", async function() {
     accounts = await ethers.getSigners()
     myAddress = accounts[0].address;
-   
+
     Factory = await ethers.getContractFactory("Apinator");
     apinator = await Factory.deploy()
     await apinator.deployed();
+    Factory = await ethers.getContractFactory("ApinatorPropertyEstate");
+    apinatorProperty = await Factory.deploy()
+    await apinatorProperty.deployed();
     Factory = await ethers.getContractFactory("Gameplay");
-    gameplay = await Factory.deploy(apinator.address)
+    gameplay = await Factory.deploy(apinator.address, apinatorProperty.address)
     await gameplay.deployed();
+
+
+    await apinatorProperty.setOperator(gameplay.address, true)
 
     // console.log(accounts[0].address, 0)
     // console.log(accounts[1].address, 1)
@@ -69,18 +76,18 @@ describe("Basic test", function() {
 
     x = 0
     y = 0
-    // 305153.29499136 CONNARD
-    // 304739.384295424 GENIUS
-    // 260991.889702912 EASY
-    // 251875.014213632 C NUL
-    // 199097.218760704 
     await network.provider.send("evm_setNextBlockTimestamp", [4244522870])
     initialBalance = await provider.getBalance(accounts[1].address)
-    await gameplay.connect(accounts[1]).spawn(1);
+    await gameplay.connect(accounts[1]).spawn(1)
     console.log((initialBalance - await provider.getBalance(accounts[1].address)) / 1000000000)
-    await gameplay.connect(accounts[1]).move(1, 0, 1);
-    // console.log(await gameplay.map(0, 1));
+    await gameplay.connect(accounts[1]).move(1, 0, 1)
+    // console.log(await gameplay.map(0, 1))
     // await network.provider.send("evm_increaseTime", [2])
+    // await gameplay.connect(accounts[1]).mintTile(1, 0, 1)
+    // console.log(await apinatorProperty.getTileFromToken(1))
+    // await apinatorProperty.connect(accounts[1]).setTileName("Coucou", 0, 1)
+    // await apinatorProperty.connect(accounts[1]).setTileColor(0x123456, 0, 1)
+    // console.log(await apinatorProperty.getTileFromToken(1))
     // await gameplay.connect(accounts[1]).mine(1, 10);
     // console.log(await gameplay.charas(1));
     // console.log((initialBalance - await provider.getBalance(accounts[1].address)) / 1000000000)

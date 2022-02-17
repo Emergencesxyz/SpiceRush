@@ -89,16 +89,30 @@ abstract contract Ownable is Context {
     }
 }
 
+interface INFT {
+	function mintTile(address to, int256 x, int256 y) external;
+}
+
 contract Gameplay is Ownable {
     using SafeMath for uint256;
 
-    IERC721 public apinator;
+    event moving(uint256 indexed _tokenId, Chara _chara);
+    event explored(uint256 indexed _tokenId, int256 _x, int256 _y, Tile _tile);
+    event leveledUp(uint256 indexed _tokenId, Chara _chara);
+    event died(uint256 indexed _tokenId, Chara _chara);
+    event mining(uint256 indexed _tokenId, Tile _tile, Chara _chara);
+    event resting(uint256 indexed _tokenId, Chara _chara);
+    event spawned(uint256 indexed _tokenId, Chara _chara);
 
-    constructor(address apinatorAddress){
+    IERC721 public apinator;
+    INFT public property;
+
+    constructor(address apinatorAddress, address apinatorPropertyAddress){
         map[0][0] = Tile(true, 0, 0, 0);
         apinator = IERC721(apinatorAddress);
+        property = INFT(apinatorPropertyAddress);
     }
-    //TODO bonus : PVP? NFTTILES ERC20 MOVEABLESPAWN TPs
+    //TODO bonus : PVP? ERC20 TPs Events pour le front, setter difficulty, setnewlevel, name
     struct Tile {
         bool isExplored;
         int16 level;
@@ -126,6 +140,8 @@ contract Gameplay is Ownable {
     mapping (uint256 => Chara) public charas;
     uint256 actionTime = 1;
     uint256 spiceBlocksPerTile = 30;
+    int256 startX = 0;
+    int256 startY = 0;
 
     function setActionTime(uint256 _actionTime) public onlyOwner() {
         actionTime = _actionTime;
@@ -135,11 +151,18 @@ contract Gameplay is Ownable {
         spiceBlocksPerTile = _spiceBlocksPerTile;
     }
 
+    function setSpawnTile(int256 x, int256 y, int16 level) public onlyOwner() {
+        startX = x;
+        startY = y;
+        map[x][y] = Tile(true, level, 0, 0);
+    }
+
     function spawn(uint256 tokenId) public {
         require(apinator.ownerOf(tokenId) == msg.sender, "Not owner of specified token.");
         require(charas[tokenId].stats.hp == 0, "Not dead yet.");
 
-        charas[tokenId] = Chara(0, 0, 0, Stats(10, 10, 10, 10, 10, 10), 0, 0);
+        charas[tokenId] = Chara(0, startX, startY, Stats(10, 10, 10, 10, 10, 10), 0, 0);
+        emit spawned(tokenId, charas[tokenId]);
     }
 
     function move(uint256 tokenId, int256 x, int256 y) public {
@@ -154,8 +177,9 @@ contract Gameplay is Ownable {
         if (!map[x][y].isExplored) {
             explore(x, y);
             charas[tokenId].xp += 5*uint16(map[x][y].level);
+            emit explored(tokenId, x, y, map[x][y]);
         }
-        if (charas[tokenId].stats.hp < map[x][y].foesAmount/10) {
+        if (charas[tokenId].stats.hp < map[x][y].foesAmount/3) {
             die(tokenId);
         }
         else{
@@ -166,6 +190,7 @@ contract Gameplay is Ownable {
         charas[tokenId].x = x;
         charas[tokenId].y = y;
         charas[tokenId].nextActionTime = block.timestamp + actionTime;
+        emit moving(tokenId, charas[tokenId]);
     }
 
     function mine(uint256 tokenId, uint16 actionNb) public {
@@ -183,6 +208,7 @@ contract Gameplay is Ownable {
         charas[tokenId].stats.energy -= actionNb;
         charas[tokenId].nextActionTime = block.timestamp + actionNb*actionTime;
         charas[tokenId].xp += uint16(spiceMined);
+        emit mining(tokenId, map[charas[tokenId].x][charas[tokenId].y], charas[tokenId]);
     }
 
     function rest(uint256 tokenId, uint16 actionNb) public {
@@ -196,6 +222,7 @@ contract Gameplay is Ownable {
         charas[tokenId].stats.energy = charas[tokenId].stats.energyMax;
         charas[tokenId].stats.hp = min(charas[tokenId].stats.hp + actionNb, charas[tokenId].stats.hpMax);
         charas[tokenId].nextActionTime = block.timestamp + actionTime*actionNb;
+        emit resting(tokenId, charas[tokenId]);
     }
 
     function levelUp(uint256 tokenId, uint8 statId) public {
@@ -215,6 +242,7 @@ contract Gameplay is Ownable {
         else if (statId == 3) {
             charas[tokenId].stats.miningMax += 2;
             }
+        emit leveledUp(tokenId, charas[tokenId]);
     }
 
     function selfTerminate(uint256 tokenId, bool agreement) public {
@@ -226,6 +254,7 @@ contract Gameplay is Ownable {
     }
 
     function claimSpice(uint256 tokenId) public {
+        require(apinator.ownerOf(tokenId) == msg.sender, "Not owner of specified token.");
         require(charas[tokenId].nextActionTime < block.timestamp, "Your character is still busy.");
         require(bank[tokenId] > 0, "Nothing to claim.");
         require(charas[tokenId].stats.hp > 0, "No more hp.");
@@ -237,19 +266,28 @@ contract Gameplay is Ownable {
     }
 
     function addSpice(uint256 tokenId) public {
+        require(apinator.ownerOf(tokenId) == msg.sender, "Not owner of specified token.");
         require(charas[tokenId].nextActionTime < block.timestamp, "Your character is still busy.");
         require(charas[tokenId].stats.hp > 0, "No more hp.");
-        
+
         // TODO ERC20
 
         bank[tokenId] += 0;
         charas[tokenId].nextActionTime = block.timestamp + actionTime;
     }
 
+    function mintTile(uint256 tokenId, int256 x, int256 y) public payable {
+        require(apinator.ownerOf(tokenId) == msg.sender, "Not owner of specified token.");
+        require(charas[tokenId].nextActionTime < block.timestamp, "Your character is still busy.");
+        require(charas[tokenId].stats.hp > 0, "No more hp.");
+        property.mintTile(msg.sender, x, y);
+    }
+
     function die(uint256 tokenId) internal {
         charas[tokenId].stats.hp = 0;
         map[charas[tokenId].x][charas[tokenId].y].spiceAmount += bank[tokenId];
         bank[tokenId] = 0;
+        emit died(tokenId, charas[tokenId]);
     }
 
     // Assembly Optimizable
