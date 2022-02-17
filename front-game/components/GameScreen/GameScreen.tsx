@@ -22,6 +22,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
   const [character, setCharacter] = useState<Object | null>(null);
   const [spiceMined, setSpiceMined] = useState<number>(null);
   const [actions, setActions] = useState<number>(0);
+  const [randomQuoteId, setRandomQuoteId] = useState<number>(0);
   const x0 = 0;
   const y0 = 0;
   const mapSize = 6;
@@ -29,7 +30,9 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
 
   useEffect(() => {
     (async () => {
-      console.log("new action!", actions);
+      if (!randomQuoteId)
+        setRandomQuoteId(Math.floor(randomQuotes.length * Math.random()));
+
       if (!library) return;
 
       setUserBalance(await library.eth.getBalance(account));
@@ -47,7 +50,6 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
   let tiles_html = [];
 
   //render
-  const randomQuoteId = Math.floor(randomQuotes.length * Math.random());
 
   return (
     <>

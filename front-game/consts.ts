@@ -1158,6 +1158,7 @@ const constants = {
   ],
 
   randomQuotes: [
+    "",
     "Today is a good day... well not for you.",
     "Ancients say that a virus wiped all the humans of the planet. I wouldn't know, all my memories were downloaded... btw do you have some $SPICE ?",
     "An advice ? Well don't trust anyone out here.. that and watching out for Giant Worms.",
@@ -1166,7 +1167,6 @@ const constants = {
     "[AD] Buy yourself a bionic breast enhancement for the modic sum of 1M $SPICE. Self-confidence has no price.",
     "$SPICE is the ingame currency and energy resource. You need it to travel, fight, mine. Owners of the genesis collection will enjoy a lifetime fixed yield of $SPICE.",
     " This is a zero-sum game. You can decide to stay on your own, cooperate with others, or play it dirty and get your hands on your neighbors $SPICE.",
-    "",
   ],
 };
 export default constants;
