@@ -61,10 +61,14 @@ const ActionBox: FunctionComponent = ({
     const audioScifi = new Audio("./sounds/button_scifi.mp3");
     audioScifi.play();
     await blockchainService.mine(0, 1, library);
-    setActions(actions++);
+
     return;
   };
 
+  const refresh = async (e) => {
+    console.log("mine actions", actions);
+    setActions(actions++);
+  };
   const { energy, hp, mining } = character ? character.stats : {};
 
   const blocked = !(energy && hp);
@@ -74,6 +78,12 @@ const ActionBox: FunctionComponent = ({
         <h3>Actions</h3>
 
         <div className={styles.actionBoxRow}>
+          <Row>
+            <Col>
+              <Button onClick={refresh}>Refresh</Button>
+            </Col>
+          </Row>
+
           <Button
             onClick={blocked ? undefined : moveCharacter}
             name="up"

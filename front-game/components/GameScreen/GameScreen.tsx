@@ -30,6 +30,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
 
   useEffect(() => {
     (async () => {
+      console.log("useEffect actions", actions);
       if (!randomQuoteId)
         setRandomQuoteId(Math.floor(randomQuotes.length * Math.random()));
 
