@@ -20,6 +20,7 @@ const Map: FunctionComponent = ({ tiles, character }): JSX.Element => {
                     level={tile.level}
                     spiceAmount={tile.spiceAmount}
                     foesAmount={tile.foesAmount}
+                    isExplored={tile.isExplored}
                     currentPosition={currentPosition}
                   />
                 );

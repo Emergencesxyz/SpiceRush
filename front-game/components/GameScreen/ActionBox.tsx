@@ -11,6 +11,10 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import IconGame from "./IconGame";
 
 const ActionBox: FunctionComponent = ({ tiles, character }): JSX.Element => {
+  const move = async (nftsPrice: number) => {
+    return nftsPrice <= (await library.eth.getBalance(account));
+  };
+
   return (
     <>
       <div className={styles.actionBox}>

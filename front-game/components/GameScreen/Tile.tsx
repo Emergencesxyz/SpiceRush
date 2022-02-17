@@ -8,25 +8,40 @@ const Tile: FunctionComponent = ({
   currentPosition,
   spiceAmount,
   foesAmount,
+  isExplored,
 }): JSX.Element => {
-  console.log("foesAmount", foesAmount, ", spiceAmount", spiceAmount);
+  console.log("isExplored", isExplored);
   const color = parseInt(((level ? level + 5 : 0) * 255) / 100);
 
   return (
     <>
       <div
         className={styles.tile}
-        style={{ backgroundColor: "rgb(" + color + ",10,100)" }}
+        style={{
+          backgroundColor: "rgb(" + color + ",10,100)",
+          filter: isExplored ? "brightness(100%)" : "brightness(50%)",
+        }}
       >
-        <div className={styles.tile_text}>
-          <IconGame name="gem" size="20px" />
-          {spiceAmount}
-        </div>
+        {isExplored && (
+          <div>
+            <IconGame name="gem" size="15px" />
+            {spiceAmount}
+          </div>
+        )}
 
-        <div>
-          <IconGame name="skull" size="20px" />
-          {foesAmount}
-        </div>
+        {isExplored && (
+          <div>
+            <IconGame name="skull" size="15px" />
+            {foesAmount}
+          </div>
+        )}
+        {!isExplored && (
+          <span>
+            ?<br />‎
+          </span>
+        )}
+
+        {}
       </div>
     </>
   );
