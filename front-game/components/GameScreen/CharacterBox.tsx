@@ -1,4 +1,4 @@
-import styles from "./Map.module.scss";
+import styles from "./GameScreen.module.scss";
 
 import { Container, Row } from "react-bootstrap";
 import { useState, FunctionComponent, useEffect } from "react";

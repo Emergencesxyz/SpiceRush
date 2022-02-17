@@ -1,4 +1,4 @@
-import styles from "./Map.module.scss";
+import styles from "./GameScreen.module.scss";
 import { Container, Row, Col, Placeholder } from "react-bootstrap";
 import { useState, FunctionComponent, useEffect } from "react";
 
@@ -13,7 +13,7 @@ import Tile from "../Tile/Tile";
 import CharacterBox from "./CharacterBox";
 import NftAvatar from "./NftAvatar";
 
-const Map: FunctionComponent = (): JSX.Element => {
+const GameScreen: FunctionComponent = (): JSX.Element => {
   const { account, library } = useWeb3React();
   const [userBalance, setUserBalance] = useState<number>(0);
   const [tiles, setTiles] = useState<Array<any>>([]);
@@ -88,4 +88,4 @@ const Map: FunctionComponent = (): JSX.Element => {
   );
 };
 
-export default Map;
+export default GameScreen;

@@ -11,7 +11,7 @@ import contractABI from "../WalletHelpers/contractAbi.json";
 import Web3 from "web3";
 import Minter from "../components/Minter/Minter";
 
-import Map from "../components/Map/Map";
+import GameScreen from "../components/GameScreen/GameScreen";
 
 const Home: NextPage = () => {
   const { account, library } = useWeb3React();
@@ -55,7 +55,7 @@ const Home: NextPage = () => {
               <ConnectWallet />
             </Row>
 
-            <Map />
+            <GameScreen />
           </Row>
           {/* <Row className={styles.buttonGroup}>
             {" "}
