@@ -2,17 +2,24 @@ import styles from "./GameScreen.module.scss";
 
 import { Row, Button, Col } from "react-bootstrap";
 import { useState, FunctionComponent, useEffect } from "react";
+import { useWeb3React } from "@web3-react/core";
+import BlockchainService from "../../services/BlockchainService";
 
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 import IconGame from "./IconGame";
 
 const ActionBox: FunctionComponent = ({ tiles, character }): JSX.Element => {
-  const move = async (nftsPrice: number) => {
-    return nftsPrice <= (await library.eth.getBalance(account));
+  const { account, library } = useWeb3React();
+  const blockchainService = new BlockchainService(account);
+
+  const moveCharacter = async (e) => {
+    if (e.target.name === "right")
+      return await blockchainService.moveCharacter(
+        character.x,
+        character.y + 1,
+        library
+      );
   };
 
   return (
@@ -28,7 +35,9 @@ const ActionBox: FunctionComponent = ({ tiles, character }): JSX.Element => {
             </Col>
 
             <Col>
-              <Button>right</Button>
+              <Button onClick={moveCharacter} name="right">
+                right
+              </Button>
             </Col>
           </Row>
 

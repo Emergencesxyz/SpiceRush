@@ -4,9 +4,10 @@ import Web3 from "web3";
 export default class BlockchainService {
   account: any;
   web3: any;
+
   apinatorContract: any;
   gameplayContract: any;
-  constructor(_account: any, _gamingContractAddress: any) {
+  constructor(_account: any) {
     const provider = consts.rinkeby_url;
     this.web3 = new Web3(provider);
     this.account = _account;
@@ -83,6 +84,20 @@ export default class BlockchainService {
     } catch (e) {
       return null;
     }
+  }
+
+  async moveCharacter(x: number, y: number, library: any) {
+    const txParams = {
+      from: this.account,
+      value: "0",
+    };
+
+    this.gameplayContract = new library.eth.Contract(
+      consts.gameplayABI as any,
+      consts.gameplayAddress
+    );
+
+    await this.gameplayContract.methods.move("0", x, y).send(txParams);
   }
   //   async test() {
 

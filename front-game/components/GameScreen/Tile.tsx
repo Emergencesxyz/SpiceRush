@@ -1,5 +1,4 @@
 import styles from "./Tile.module.scss";
-import { Container, Row } from "react-bootstrap";
 import { useState, FunctionComponent, useEffect } from "react";
 import IconGame from "./IconGame";
 
@@ -10,7 +9,6 @@ const Tile: FunctionComponent = ({
   foesAmount,
   isExplored,
 }): JSX.Element => {
-  console.log("isExplored", isExplored);
   const color = parseInt(((level ? level + 5 : 0) * 255) / 100);
 
   return (

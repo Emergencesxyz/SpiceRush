@@ -1,5 +1,8 @@
 const constants = {
-  rinkeby_url: "https://rinkeby.infura.io/v3/84842078b09946638c03157f83405213",
+  rinkeby_url:
+    "https://eth-rinkeby.alchemyapi.io/v2/PJCtw4KOwJsmd2sn6nOoWMoSnk4aEGzW",
+  rinkeby_wss:
+    "wss://eth-rinkeby.alchemyapi.io/v2/PJCtw4KOwJsmd2sn6nOoWMoSnk4aEGzW",
   apinatorAddress: "0x72964592d695E1f2Ed8764bA5F801aeA8F7AaCD3",
   gameplayAddress: "0xC2784d28369e70B03f968DA307408D81307Be92F",
 

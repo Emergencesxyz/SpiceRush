@@ -2,12 +2,10 @@ import styles from "./GameScreen.module.scss";
 import { Container, Row, Col, Placeholder } from "react-bootstrap";
 import { useState, FunctionComponent, useEffect } from "react";
 
-import Web3 from "web3";
 import { useWeb3React } from "@web3-react/core";
 
 import BlockchainService from "../../services/BlockchainService";
 
-import consts from "../../consts";
 import MapPlaceholder from "./MapPlaceholder";
 import CharacterBox from "./CharacterBox";
 import NftAvatar from "./NftAvatar";
@@ -22,23 +20,17 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
   const x0 = 0;
   const y0 = 0;
   const mapSize = 6;
-  const blockchainService = new BlockchainService(account, "0x");
+  const blockchainService = new BlockchainService(account);
 
   useEffect(() => {
     (async () => {
       if (!library) return;
-      console.log("library_", library);
 
       setUserBalance(await library.eth.getBalance(account));
-      // console.log(" balance ", await blockchainService.getBalance());
-      // //console.log(" getTileInfo ", blockchainService.getTileInfo());
-      // console.log("owner of", await blockchainService.ownerOf());
-
-      console.log("character", await blockchainService.getCharacterInfo(0));
       setCharacter(await blockchainService.getCharacterInfo(0));
 
       let tiles = await blockchainService.getMapChunk(x0, y0, mapSize);
-      console.log("tiles", tiles);
+
       setTiles(tiles);
     })();
   }, [library]);
@@ -47,7 +39,6 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
 
   let tiles_html = [];
 
-  console.log("tiles_html", tiles_html);
   //render
   return (
     <>
@@ -55,7 +46,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
         <Row>
           <Col xs={8}>
             <Row>
-              <Col xs={2}>
+              <Col xs={3}>
                 <NftAvatar />
               </Col>
               <Col>
@@ -78,7 +69,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
             )}
           </Col>
           <Col xs={4}>
-            <ActionBox />
+            <ActionBox character={character} />
           </Col>
         </Row>
       </div>
