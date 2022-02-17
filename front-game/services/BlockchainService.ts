@@ -7,6 +7,7 @@ export default class BlockchainService {
 
   apinatorContract: any;
   gameplayContract: any;
+
   constructor(_account: any) {
     const provider = consts.rinkeby_url;
     this.web3 = new Web3(provider);
@@ -36,8 +37,13 @@ export default class BlockchainService {
     }
   }
 
-  async getCurrentCoords(nftId: number) {}
-
+  async getSpiceMined(nftId: number) {
+    try {
+      return await this.gameplayContract.methods.bank(nftId).call();
+    } catch (e) {
+      return null;
+    }
+  }
   async getCharacterInfo(nftId: number) {
     try {
       const info = await this.gameplayContract.methods.charas(nftId).call();
@@ -101,8 +107,8 @@ export default class BlockchainService {
       .move("0", x, y)
       .send(txParams)
       .on("transactionHash", function (hash: any) {
-        let audio = new Audio("./sounds/success.mp3");
-        audio.play();
+        const audioSuccess = new Audio("./sounds/success.mp3");
+        audioSuccess.play();
       });
   }
 
@@ -121,8 +127,8 @@ export default class BlockchainService {
       .spawn(nftId)
       .send(txParams)
       .on("transactionHash", function (hash: any) {
-        let audio = new Audio("./sounds/success.mp3");
-        audio.play();
+        const audioSuccess = new Audio("./sounds/success.mp3");
+        audioSuccess.play();
       });
   }
 
@@ -141,8 +147,8 @@ export default class BlockchainService {
       .rest(nftId, actionNb)
       .send(txParams)
       .on("transactionHash", function (hash: any) {
-        let audio = new Audio("./sounds/success.mp3");
-        audio.play();
+        const audioSuccess = new Audio("./sounds/success.mp3");
+        audioSuccess.play();
       });
   }
 
@@ -161,8 +167,8 @@ export default class BlockchainService {
       .mine(nftId, actionNb)
       .send(txParams)
       .on("transactionHash", function (hash: any) {
-        let audio = new Audio("./sounds/success.mp3");
-        audio.play();
+        const audioCoins = new Audio("./sounds/coins.mp3");
+        audioCoins.play();
       });
   }
 

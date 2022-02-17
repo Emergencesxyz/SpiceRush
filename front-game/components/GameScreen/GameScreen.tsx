@@ -17,6 +17,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
   const [userBalance, setUserBalance] = useState<number>(0);
   const [tiles, setTiles] = useState<Array<any>>([]);
   const [character, setCharacter] = useState<Object | null>(null);
+  const [spiceMined, setSpiceMined] = useState<number>(null);
   const x0 = 0;
   const y0 = 0;
   const mapSize = 6;
@@ -29,6 +30,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
       setUserBalance(await library.eth.getBalance(account));
       setCharacter(await blockchainService.getCharacterInfo(0));
 
+      setSpiceMined(await blockchainService.getSpiceMined(0));
       let tiles = await blockchainService.getMapChunk(x0, y0, mapSize);
 
       setTiles(tiles);
@@ -51,7 +53,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
               </Col>
               <Col>
                 {character ? (
-                  <CharacterBox character={character} />
+                  <CharacterBox character={character} spiceMined={0} />
                 ) : (
                   <img src={"/robot.gif"} className={styles.loadingGif} />
                 )}

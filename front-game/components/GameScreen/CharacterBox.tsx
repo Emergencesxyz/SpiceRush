@@ -6,7 +6,10 @@ import IconGame from "./IconGame";
 
 import TypeWriterEffect from "react-typewriter-effect";
 
-const CharacterBox: FunctionComponent = ({ character }): JSX.Element => {
+const CharacterBox: FunctionComponent = ({
+  character,
+  spiceMined,
+}): JSX.Element => {
   const { energy, hp, mining } = character.stats;
   return (
     <>
@@ -23,6 +26,9 @@ const CharacterBox: FunctionComponent = ({ character }): JSX.Element => {
         <span style={{ color: hp === 0 ? "red" : undefined }}>{hp}</span> ⬪
         <IconGame name="mining" />
         {mining}
+        ⬪
+        <IconGame name="gem" />
+        {spiceMined}
       </div>
     </>
   );

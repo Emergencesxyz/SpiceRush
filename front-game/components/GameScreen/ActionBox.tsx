@@ -14,13 +14,14 @@ import IconGame from "./IconGame";
 
 const ActionBox: FunctionComponent = ({ tiles, character }): JSX.Element => {
   const { account, library } = useWeb3React();
-  const blockchainService = new BlockchainService(account);
+  const [sounds, setSounds] = useState<Object | null>(null);
+
+  const blockchainService = new BlockchainService(account, null, null);
 
   const moveCharacter = async (e) => {
     let x, y: number;
-
-    let audio = new Audio("./sounds/button_scifi.mp3");
-    audio.play();
+    const audioScifi = new Audio("./sounds/button_scifi.mp3");
+    audioScifi.play();
 
     if (e.target.name === "right") {
       x = character.x;
