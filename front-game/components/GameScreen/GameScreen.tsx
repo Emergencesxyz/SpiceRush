@@ -58,9 +58,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
               <Col xs={2}>
                 <NftAvatar />
               </Col>
-              <Col xs={9}>
-                {character && <CharacterBox character={character} />}
-              </Col>
+              <Col>{character && <CharacterBox character={character} />}</Col>
             </Row>
           </Col>
         </Row>
