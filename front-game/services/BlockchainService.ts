@@ -54,7 +54,7 @@ export default class BlockchainService {
           energy: parseInt(info.stats.energy),
           energyMax: parseInt(info.stats.energyMax),
           hp: parseInt(info.stats.hp),
-          hpMax: parseInt(info.stats.p),
+          hpMax: parseInt(info.stats.hpMax),
           mining: parseInt(info.stats.mining),
           miningMax: parseInt(info.stats.miningMax),
         },
