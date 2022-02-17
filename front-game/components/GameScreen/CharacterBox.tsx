@@ -2,6 +2,7 @@ import styles from "./GameScreen.module.scss";
 
 import { Container, Row } from "react-bootstrap";
 import { useState, FunctionComponent, useEffect } from "react";
+import IconGame from "./IconGame";
 
 const CharacterBox: FunctionComponent = ({ character }): JSX.Element => {
   return (
@@ -9,15 +10,11 @@ const CharacterBox: FunctionComponent = ({ character }): JSX.Element => {
       <div className={styles.characterBox}>
         lvl {character.lvl} ⬪ {character.xp} xp ⬪ ({character.x}, {character.y}){" "}
         <br />
-        <img
-          src="/icons/energy.png"
-          alt="energy"
-          className={styles.icon}
-        />{" "}
+        <IconGame name="energy" />
         {character.stats.energy} ⬪
-        <img src="/icons/hp.png" alt="hp" className={styles.icon} />
+        <IconGame name="hp" />
         {character.stats.hp} ⬪
-        <img src="/icons/mining.png" alt="hp" className={styles.icon} />
+        <IconGame name="mining" />
         {character.stats.mining}
       </div>
     </>
