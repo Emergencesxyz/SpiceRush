@@ -9,9 +9,9 @@ import BlockchainService from "../../services/BlockchainService";
 
 import consts from "../../consts";
 import MapPlaceholder from "./MapPlaceholder";
-import Tile from "../Tile/Tile";
 import CharacterBox from "./CharacterBox";
 import NftAvatar from "./NftAvatar";
+import Map from "./Map";
 
 const GameScreen: FunctionComponent = (): JSX.Element => {
   const { account, library } = useWeb3React();
@@ -46,25 +46,6 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
 
   let tiles_html = [];
 
-  if (tiles && tiles.length) {
-    tiles_html = tiles.map((row) => {
-      return (
-        <div>
-          {row.map(function (tile: any) {
-            const currentPosition =
-              character.x === tile.x && character.y === tile.y;
-
-            return (
-              <Tile level={tile.level} currentPosition={currentPosition} />
-            );
-          })}
-        </div>
-      );
-    });
-  } else {
-    tiles_html = <MapPlaceholder length={mapSize} />;
-  }
-
   console.log("tiles_html", tiles_html);
   //render
   return (
@@ -74,12 +55,14 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
 
         <Row>
           <Col xs={8}>
-            {" "}
             {character && <CharacterBox character={character} />}
-            <div className={styles.map}>{tiles_html}</div>
+            {tiles && tiles.length ? (
+              <Map tiles={tiles} character={character} />
+            ) : (
+              <MapPlaceholder length={mapSize} />
+            )}
           </Col>
           <Col xs={4}>
-            {" "}
             <NftAvatar />
           </Col>
         </Row>

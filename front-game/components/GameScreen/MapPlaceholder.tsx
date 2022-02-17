@@ -14,7 +14,11 @@ const MapPlaceholder: FunctionComponent = ({ length }): JSX.Element => {
     );
   }
 
-  return <>{tiles_html}</>;
+  return (
+    <>
+      <div className={styles.map}>{tiles_html}</div>
+    </>
+  );
 };
 
 export default MapPlaceholder;
