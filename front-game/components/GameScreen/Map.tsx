@@ -44,6 +44,7 @@ const Map: FunctionComponent = ({
 
           return (
             <Tile
+              key={tile.x + ";" + tile.y}
               level={tile.level}
               spiceAmount={tile.spiceAmount}
               foesAmount={tile.foesAmount}

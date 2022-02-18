@@ -24,8 +24,8 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
   const [actions, setActions] = useState<number>(0);
   const [randomQuoteId, setRandomQuoteId] = useState<number>(0);
   const [originCoords, setOriginCoords] = useState<Object>({
-    x: 0,
-    y: 0,
+    x: null,
+    y: null,
   });
 
   const mapSize = 5;
@@ -34,24 +34,35 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
   useEffect(() => {
     (async () => {
       console.log("useEffect Gamescreen");
-      console.log("originCoords", originCoords);
+
       if (!randomQuoteId)
         setRandomQuoteId(Math.floor(randomQuotes.length * Math.random()));
 
       if (!library) return;
 
       setUserBalance(await library.eth.getBalance(account));
-      setCharacter(await blockchainService.getCharacterInfo(0));
+      const _character = await blockchainService.getCharacterInfo(0);
+      setCharacter(_character);
 
       setSpiceMined(await blockchainService.getSpiceMined(0));
 
-      let tiles;
+      //center map around character or (0,0) at first
+      let x0 = originCoords.x;
+      let y0 = originCoords.y;
+      if (y0 === null || x0 === null) {
+        if (_character) {
+          x0 = _character.x;
+          y0 = _character.y;
+        } else {
+          x0 = 0;
+          y0 = 0;
+        }
+        setOriginCoords({ x: x0, y: y0 });
+      }
 
-      tiles = await blockchainService.getMapChunk(
-        originCoords.x,
-        originCoords.y,
-        mapSize
-      );
+      console.log("(x0,y0) ", x0, y0);
+      let tiles;
+      tiles = await blockchainService.getMapChunk(x0, y0, mapSize);
 
       console.log("tiles", tiles);
 
