@@ -1,5 +1,5 @@
 import styles from "./GameScreen.module.scss";
-import { Container, Row, Col, Placeholder } from "react-bootstrap";
+import { Row, Col, Spinner } from "react-bootstrap";
 import { useState, FunctionComponent, useEffect } from "react";
 
 import { useWeb3React } from "@web3-react/core";
@@ -27,6 +27,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
     x: null,
     y: null,
   });
+  const [loading, setLoading] = useState<Boolean>(false);
 
   const mapSize = 5;
   const blockchainService = new BlockchainService(account);
@@ -60,18 +61,16 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
         setOriginCoords({ x: x0, y: y0 });
       }
 
-      console.log("(x0,y0) ", x0, y0);
       let tiles;
       tiles = await blockchainService.getMapChunk(x0, y0, mapSize);
 
-      console.log("tiles", tiles);
-
       setTiles(tiles);
+      setLoading(false);
     })();
   }, [library, actions, originCoords]);
 
   //render
-
+  console.log("Gamescreen loading", loading);
   return (
     <>
       <div className={styles.canvas}>
@@ -91,6 +90,11 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
                   <img src={"/robot.gif"} className={styles.loadingGif} />
                 )}
               </Col>
+              {loading && (
+                <Col xs={1}>
+                  <Spinner animation="grow" />
+                </Col>
+              )}
             </Row>
           </Col>
         </Row>
@@ -103,6 +107,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
                 character={character}
                 setOriginCoords={setOriginCoords}
                 originCoords={originCoords}
+                setLoading={setLoading}
               />
             ) : (
               <MapPlaceholder length={mapSize} />

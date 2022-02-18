@@ -14,6 +14,7 @@ const Map: FunctionComponent = ({
   character,
   originCoords,
   setOriginCoords,
+  setLoading,
 }): JSX.Element => {
   const moveMap = async (e) => {
     let x: number, y: number;
@@ -33,6 +34,7 @@ const Map: FunctionComponent = ({
     } else return;
 
     setOriginCoords({ x, y });
+    setLoading(true);
   };
 
   const tilesComponent = tiles.map((row) => {

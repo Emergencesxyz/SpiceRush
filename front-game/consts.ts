@@ -1159,14 +1159,15 @@ const constants = {
 
   randomQuotes: [
     "",
-    "Today is a good day... well not for you.",
-    "Ancients say that a virus wiped all the humans of the planet. I wouldn't know, all my memories were downloaded... btw do you have some $SPICE ?",
-    "An advice ? Well don't trust anyone out here.. that and watching out for Giant Worms.",
-    "Great men create good times, good times create weak men and weak men created the difficult times that we live in. Me ? Don't worry you won't live enough time to find out.",
-    "If you give me all your $SPICE right now, I promise that you I will not le you die in the desert... maybe.",
+    "❝Today is a good day... well not for you.❞",
+    "❝Ancients say that a virus wiped all the humans of the planet. I wouldn't know, all my memories were downloaded... btw do you have some $SPICE ?❞",
+    "❝An advice ? Well don't trust anyone out here.. that and watching out for Giant Worms.❞",
+    "❝Great men create good times, good times create weak men and weak men created the difficult times that we live in. Me ? Don't worry you won't live enough time to find out.❞",
+    "❝If you give me all your $SPICE right now, I promise that you I will not le you die in the desert... maybe.❞",
     "[AD] Buy yourself a bionic breast enhancement for the modic sum of 1M $SPICE. Self-confidence has no price.",
     "$SPICE is the ingame currency and energy resource. You need it to travel, fight, mine. Owners of the genesis collection will enjoy a lifetime fixed yield of $SPICE.",
     " This is a zero-sum game. You can decide to stay on your own, cooperate with others, or play it dirty and get your hands on your neighbors $SPICE.",
+    "[AD] Cheap fields to buy in the wastelands*. Presence of $SPICE : likely. Don't miss the train. *Chances of certain death. ",
   ],
 };
 export default constants;
