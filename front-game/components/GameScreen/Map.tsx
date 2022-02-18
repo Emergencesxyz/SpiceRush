@@ -9,7 +9,32 @@ import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 
-const Map: FunctionComponent = ({ tiles, character }): JSX.Element => {
+const Map: FunctionComponent = ({
+  tiles,
+  character,
+  originCoords,
+  setOriginCoords,
+}): JSX.Element => {
+  const moveMap = async (e) => {
+    let x: number, y: number;
+
+    if (e.target.name === "right") {
+      x = originCoords.x;
+      y = originCoords.y + 1;
+    } else if (e.target.name === "left") {
+      x = originCoords.x;
+      y = originCoords.y - 1;
+    } else if (e.target.name === "up") {
+      x = originCoords.x - 1;
+      y = originCoords.y;
+    } else if (e.target.name === "down") {
+      x = originCoords.x + 1;
+      y = originCoords.y;
+    } else return;
+
+    setOriginCoords({ x, y });
+  };
+
   const tilesComponent = tiles.map((row) => {
     return (
       <div>
@@ -24,6 +49,8 @@ const Map: FunctionComponent = ({ tiles, character }): JSX.Element => {
               foesAmount={tile.foesAmount}
               isExplored={tile.isExplored}
               currentPosition={currentPosition}
+              x={tile.x}
+              y={tile.y}
             />
           );
         })}
@@ -34,26 +61,26 @@ const Map: FunctionComponent = ({ tiles, character }): JSX.Element => {
     <>
       <div className={styles.map}>
         <Row className={styles.buttonCol}>
-          <Button name="up">
-            <ArrowCircleUpIcon className="iconLight" />
+          <Button name="up" onClick={moveMap}>
+            ▲
           </Button>
         </Row>
         <Row>
           <Col xs={2} className={styles.buttonCol}>
-            <Button name="left">
-              <ArrowCircleLeftIcon className="iconLight" />
+            <Button name="left" onClick={moveMap} name="left" onClick={moveMap}>
+              ◄
             </Button>
           </Col>
           <Col xs={8}>{tilesComponent}</Col>
           <Col xs={2} className={styles.buttonCol}>
-            <Button name="right">
-              <ArrowCircleRightIcon className="iconLight" />
+            <Button name="right" onClick={moveMap}>
+              ►
             </Button>
           </Col>
         </Row>
         <Row className={styles.buttonCol}>
-          <Button name="down">
-            <ArrowDropDownCircleIcon className="iconLight" />
+          <Button name="down" onClick={moveMap}>
+            ▼
           </Button>
         </Row>
       </div>

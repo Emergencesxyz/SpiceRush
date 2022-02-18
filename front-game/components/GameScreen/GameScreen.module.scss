@@ -106,7 +106,8 @@
 .quotes {
   text-align: left;
   margin-bottom: 1em;
-  font-size: 0.7em;
+  font-size: 0.73em;
+  font-style: italic;
   text-shadow: 2px 1px 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
 }
 .buttonCol Button {
@@ -114,9 +115,12 @@
   top: 40%;
   background: none;
   border: none;
+  color: #ffc73d;
 }
 .buttonCol Button:hover {
   background: none;
+  color: #ffa40b;
 }
+
 @media (max-width: 576px) {
 }

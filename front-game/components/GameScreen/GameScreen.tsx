@@ -23,14 +23,18 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
   const [spiceMined, setSpiceMined] = useState<number | null>(null);
   const [actions, setActions] = useState<number>(0);
   const [randomQuoteId, setRandomQuoteId] = useState<number>(0);
-  const x0 = 0;
-  const y0 = 0;
-  const mapSize = 6;
+  const [originCoords, setOriginCoords] = useState<Object>({
+    x: 0,
+    y: 0,
+  });
+
+  const mapSize = 5;
   const blockchainService = new BlockchainService(account);
 
   useEffect(() => {
     (async () => {
-      console.log("useEffect actions", actions);
+      console.log("useEffect Gamescreen");
+      console.log("originCoords", originCoords);
       if (!randomQuoteId)
         setRandomQuoteId(Math.floor(randomQuotes.length * Math.random()));
 
@@ -40,15 +44,20 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
       setCharacter(await blockchainService.getCharacterInfo(0));
 
       setSpiceMined(await blockchainService.getSpiceMined(0));
-      let tiles = await blockchainService.getMapChunk(x0, y0, mapSize);
+
+      let tiles;
+
+      tiles = await blockchainService.getMapChunk(
+        originCoords.x,
+        originCoords.y,
+        mapSize
+      );
+
+      console.log("tiles", tiles);
 
       setTiles(tiles);
     })();
-  }, [library, actions]);
-
-  //////build tile
-
-  let tiles_html = [];
+  }, [library, actions, originCoords]);
 
   //render
 
@@ -78,7 +87,12 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
         <Row>
           <Col>
             {tiles && tiles.length ? (
-              <Map tiles={tiles} character={character} />
+              <Map
+                tiles={tiles}
+                character={character}
+                setOriginCoords={setOriginCoords}
+                originCoords={originCoords}
+              />
             ) : (
               <MapPlaceholder length={mapSize} />
             )}

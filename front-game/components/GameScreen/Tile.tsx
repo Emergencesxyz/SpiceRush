@@ -8,6 +8,8 @@ const Tile: FunctionComponent = ({
   spiceAmount,
   foesAmount,
   isExplored,
+  x,
+  y,
 }): JSX.Element => {
   const color = parseInt(((level ? level + 5 : 0) * 255) / 100);
 
@@ -15,6 +17,7 @@ const Tile: FunctionComponent = ({
     <>
       <div
         className={styles.tile}
+        title={`(${x},${y})`}
         style={{
           backgroundColor: "rgb(" + color + ",10,100)",
           filter: isExplored ? "brightness(100%)" : "brightness(50%)",
