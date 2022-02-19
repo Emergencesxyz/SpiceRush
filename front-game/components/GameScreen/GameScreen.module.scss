@@ -154,5 +154,15 @@
   transform: translateY(-2px);
 }
 
+.toast {
+  position: fixed;
+  z-index: 100;
+  top: 30%;
+  left: 30%;
+  width: 30%;
+  color: white;
+  background-color: rgb(42, 13, 88);
+}
+
 @media (max-width: 576px) {
 }

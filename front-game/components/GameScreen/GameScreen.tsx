@@ -1,5 +1,5 @@
 import styles from "./GameScreen.module.scss";
-import { Row, Col, Spinner, Button } from "react-bootstrap";
+import { Row, Col, Spinner, Toast } from "react-bootstrap";
 import { useState, FunctionComponent, useEffect } from "react";
 
 import { useWeb3React } from "@web3-react/core";
@@ -30,16 +30,13 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
     y: null,
   });
   const [loading, setLoading] = useState<Boolean>(false);
+  const [toastMessage, setToastMessage] = useState<Boolean>(null);
 
   const mapSize = 5;
   const blockchainService = new BlockchainService(account);
 
   useEffect(() => {
     (async () => {
-      console.log("useEffect Gamescreen");
-      console.log("- characterId", characterId);
-      console.log("- character", character);
-
       if (!randomQuoteId)
         setRandomQuoteId(Math.floor(randomQuotes.length * Math.random()));
 
@@ -81,7 +78,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
 
       setLoading(false);
     })();
-  }, [library, actions, originCoords, characterId]);
+  }, [library, actions, originCoords, characterId, toastMessage]);
 
   const selectNft = async (e) => {
     let nftId = document.getElementById("nftId")
@@ -93,7 +90,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
     if (owner === account) {
       setCharacterId(nftId);
       setLoading(true);
-    }
+    } else setToastMessage("This NFT doesn't belong to you come on.");
     return;
   };
 
@@ -107,9 +104,27 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
   return (
     <>
       <div className={styles.canvas}>
+        <Toast
+          show={toastMessage}
+          className={styles.toast}
+          onClose={() => setToastMessage(null)}
+        >
+          <Toast.Header>
+            <img
+              src="holder.js/20x20?text=%20"
+              className="rounded me-2"
+              alt=""
+            />
+            <strong className="me-auto">Info</strong>
+            <small> </small>
+          </Toast.Header>
+          <Toast.Body>{toastMessage}</Toast.Body>
+        </Toast>
+
         <Row>
           <span className={styles.quotes}>{randomQuotes[randomQuoteId]}</span>
         </Row>
+
         <Row>
           <Col xs={5}></Col>
           <Col xs={3}>
