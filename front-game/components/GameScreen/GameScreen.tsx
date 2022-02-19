@@ -76,7 +76,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
       //load charater info
       if (_character && Number.isInteger(_character.x)) {
         setCharacter(_character);
-        setSpiceMined(await blockchainService.getSpiceMined(_character));
+        setSpiceMined(await blockchainService.getSpiceMined(characterId));
       }
 
       setLoading(false);
