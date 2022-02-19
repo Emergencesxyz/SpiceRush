@@ -131,10 +131,10 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
               defaultValue="0"
             ></input>
             <button onClick={selectNft} className={styles.pushable}>
-              <span class={styles.front}>Select</span>
+              <span class={styles.front}>select ID</span>
             </button>{" "}
             <button onClick={mintNft} className={styles.pushable}>
-              <span class={styles.front}> Mint</span>
+              <span class={styles.front}> mint 1</span>
             </button>
           </Col>
         </Row>
