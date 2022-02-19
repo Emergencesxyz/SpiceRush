@@ -184,6 +184,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
                 actions={actions}
                 setActions={setActions}
                 characterId={characterId}
+                setLoading={setLoading}
               />
             </Col>
           )}
