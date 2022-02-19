@@ -15,6 +15,8 @@ const ActionBox: FunctionComponent = ({
   character,
   actions,
   setActions,
+  characterId,
+  setLoading,
 }): JSX.Element => {
   const { account, library } = useWeb3React();
   const [sounds, setSounds] = useState<Object | null>(null);
@@ -47,7 +49,7 @@ const ActionBox: FunctionComponent = ({
   const spawn = async (e) => {
     const audioScifi = new Audio("./sounds/button_scifi.mp3");
     audioScifi.play();
-    return await blockchainService.spawn(0, library);
+    return await blockchainService.spawn(characterId, library);
   };
 
   const rest = async (e) => {
@@ -77,77 +79,78 @@ const ActionBox: FunctionComponent = ({
         <h3>Actions</h3>
 
         <div className={styles.actionBoxRow}>
-          <Row>
-            <Col>
-              <Button onClick={refresh}>Refresh</Button>
-            </Col>
-          </Row>
-
-          <Button
-            onClick={blocked ? undefined : moveCharacter}
-            name="up"
-            className={blocked ? styles.disabled : ""}
-            title={blocked ? "no more hp nor energy, please rest :(" : ""}
-          >
-            <ArrowCircleUpIcon className="iconDark" />
-          </Button>
-          <Row>
-            <Col>
-              <Button
-                onClick={blocked ? undefined : moveCharacter}
-                name="left"
-                className={blocked ? styles.disabled : ""}
-                title={blocked ? "no more hp nor energy, please rest :(" : ""}
-              >
-                <ArrowCircleLeftIcon className="iconDark" />
-              </Button>
-            </Col>
-
-            <Col>
-              <Button
-                onClick={blocked ? undefined : moveCharacter}
-                name="right"
-                className={blocked ? styles.disabled : ""}
-                title={blocked ? "no more hp nor energy, please rest :(" : ""}
-              >
-                <ArrowCircleRightIcon className="iconDark" />
-              </Button>
-            </Col>
-          </Row>
-
-          <Button
-            onClick={blocked ? undefined : moveCharacter}
-            name="down"
-            className={blocked ? styles.disabled : ""}
-            title={blocked ? "no more hp nor energy, please rest :(" : ""}
-          >
-            <ArrowDropDownCircleIcon className="iconDark" />
-          </Button>
-        </div>
-
-        <div className={styles.actionBoxRow}>
-          <Button
-            onClick={blocked ? undefined : mine}
-            className={blocked ? styles.disabled : ""}
-            title={blocked ? "no more hp nor energy, please rest :(" : ""}
-          >
-            <IconGame name="mining" size="20px" />
-            Mine
-          </Button>
-          <Button
-            onClick={blocked ? undefined : rest}
-            className={!hp ? styles.disabled : ""}
-            title={blocked ? "no more hp  :(" : ""}
-          >
-            <IconGame name="rest2" size="20px" /> Rest
-          </Button>
-
           {!hp && (
             <Button onClick={spawn}>
               <IconGame name="skull" size="20px" /> Spawn
             </Button>
           )}
+          <Row>
+            <Col>
+              <Button onClick={refresh}>Refresh</Button>
+            </Col>
+          </Row>
         </div>
+        {hp > 0 && [
+          <div className={styles.actionBoxRow}>
+            <Button
+              onClick={blocked ? undefined : moveCharacter}
+              name="up"
+              className={blocked ? styles.disabled : ""}
+              title={blocked ? "no more hp nor energy, please rest :(" : ""}
+            >
+              <ArrowCircleUpIcon className="iconDark" />
+            </Button>
+            <Row>
+              <Col>
+                <Button
+                  onClick={blocked ? undefined : moveCharacter}
+                  name="left"
+                  className={blocked ? styles.disabled : ""}
+                  title={blocked ? "no more hp nor energy, please rest :(" : ""}
+                >
+                  <ArrowCircleLeftIcon className="iconDark" />
+                </Button>
+              </Col>
+
+              <Col>
+                <Button
+                  onClick={blocked ? undefined : moveCharacter}
+                  name="right"
+                  className={blocked ? styles.disabled : ""}
+                  title={blocked ? "no more hp nor energy, please rest :(" : ""}
+                >
+                  <ArrowCircleRightIcon className="iconDark" />
+                </Button>
+              </Col>
+            </Row>
+
+            <Button
+              onClick={blocked ? undefined : moveCharacter}
+              name="down"
+              className={blocked ? styles.disabled : ""}
+              title={blocked ? "no more hp nor energy, please rest :(" : ""}
+            >
+              <ArrowDropDownCircleIcon className="iconDark" />
+            </Button>
+          </div>,
+          <div className={styles.actionBoxRow}>
+            <Button
+              onClick={blocked ? undefined : mine}
+              className={blocked ? styles.disabled : ""}
+              title={blocked ? "no more hp nor energy, please rest :(" : ""}
+            >
+              <IconGame name="mining" size="20px" />
+              Mine
+            </Button>
+            <Button
+              onClick={blocked ? undefined : rest}
+              className={!hp ? styles.disabled : ""}
+              title={blocked ? "no more hp  :(" : ""}
+            >
+              <IconGame name="rest2" size="20px" /> Rest
+            </Button>
+          </div>,
+        ]}
       </div>
     </>
   );

@@ -48,8 +48,8 @@ export default class BlockchainService {
     try {
       const info = await this.gameplayContract.methods.charas(nftId).call();
       return {
-        lvl: info.lvl,
-        nextActionTime: info.nextActionTime,
+        lvl: parseInt(info.lvl),
+        nextActionTime: parseInt(info.nextActionTime),
         stats: {
           energy: parseInt(info.stats.energy),
           energyMax: parseInt(info.stats.energyMax),
@@ -60,7 +60,7 @@ export default class BlockchainService {
         },
         x: parseInt(info.x),
         y: parseInt(info.y),
-        xp: info.xp,
+        xp: parseInt(info.xp),
       };
     } catch (e) {
       return null;
