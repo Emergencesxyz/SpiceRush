@@ -1,10 +1,12 @@
 const constants = {
+  nftPrice: "200000000000000000", //ETH
   rinkeby_url:
     "https://eth-rinkeby.alchemyapi.io/v2/PJCtw4KOwJsmd2sn6nOoWMoSnk4aEGzW",
   rinkeby_wss:
     "wss://eth-rinkeby.alchemyapi.io/v2/PJCtw4KOwJsmd2sn6nOoWMoSnk4aEGzW",
-  apinatorAddress: "0x72964592d695E1f2Ed8764bA5F801aeA8F7AaCD3",
-  gameplayAddress: "0xC2784d28369e70B03f968DA307408D81307Be92F",
+  apinatorAddress: "0x522C92484E572F74bbef6D8fe05c7A44E9B315B1",
+  gameplayAddress: "0x34EEbf3344C588deB02b5eBCc76e7dd7A115738C",
+  tilesAddress: "0x41DdfE930F103c0bF671a28333cE1Bf3e24d1d53",
 
   gameplayABI: [
     {

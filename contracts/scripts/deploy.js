@@ -49,7 +49,7 @@ async function deploy(wallet) {
   //   .connect(wallet)
   //   .mintNFT(2, { value: ethers.utils.parseEther("0.4") });
 
-  await apinator.mintNFT(1, { value: ethers.utils.parseEther("0.001") });
+  // await apinator.mintNFT(1, { value: ethers.utils.parseEther("0.2") });
 }
 
 async function getContracts(wallet) {
@@ -57,12 +57,12 @@ async function getContracts(wallet) {
 
   apinator = await ethers.getContractAt(
     "Apinator",
-    "0x72964592d695E1f2Ed8764bA5F801aeA8F7AaCD3"
+    "0x522C92484E572F74bbef6D8fe05c7A44E9B315B1"
   );
 
   gameplay = await ethers.getContractAt(
     "Gameplay",
-    "0xC2784d28369e70B03f968DA307408D81307Be92F"
+    "0x34EEbf3344C588deB02b5eBCc76e7dd7A115738C"
   );
   console.log("- Apinator : ", apinator.address);
   console.log("- Gameplay : ", gameplay.address);
@@ -88,9 +88,9 @@ async function main() {
   //await apinator.setIsActive(true);
   // await apinator.mintNFT("1", {
   //   from: wallet.address,
-  //   value: ethers.utils.parseEther("0.002"),
+  //   value: ethers.utils.parseEther("0.2"),
   // });
-  await apinator.ownerOf("0");
+  console.log("owner ", await apinator.ownerOf("0"));
 
   //await gameplay.spawn("1");
   //console.log("owner of", await apinator.ownerOf(1));
