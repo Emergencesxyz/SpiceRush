@@ -37,7 +37,8 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
   useEffect(() => {
     (async () => {
       console.log("useEffect Gamescreen");
-      console.log("characterId", characterId);
+      console.log("- characterId", characterId);
+      console.log("- character", character);
 
       if (!randomQuoteId)
         setRandomQuoteId(Math.floor(randomQuotes.length * Math.random()));
@@ -45,29 +46,39 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
       if (!library) return;
 
       setUserBalance(await library.eth.getBalance(account));
-      const _character = await blockchainService.getCharacterInfo(0);
-      setCharacter(_character);
 
-      setSpiceMined(await blockchainService.getSpiceMined(0));
+      const _character =
+        characterId === null
+          ? {}
+          : await blockchainService.getCharacterInfo(characterId);
 
       //center map around character or (0,0) at first
       let x0 = originCoords.x;
       let y0 = originCoords.y;
-      if (y0 === null || x0 === null) {
-        if (_character) {
+      if (!Number.isInteger(y0) || !Number.isInteger(x0)) {
+        if (_character && _character.x) {
           x0 = _character.x;
           y0 = _character.y;
         } else {
           x0 = 0;
           y0 = 0;
         }
+
         setOriginCoords({ x: x0, y: y0 });
       }
 
       let tiles;
       tiles = await blockchainService.getMapChunk(x0, y0, mapSize);
-
+      console.log("x0, y0", x0, y0);
+      console.log("tiles", tiles);
       setTiles(tiles);
+
+      //load charater info
+      if (_character && Number.isInteger(_character.x)) {
+        setCharacter(_character);
+        setSpiceMined(await blockchainService.getSpiceMined(_character));
+      }
+
       setLoading(false);
     })();
   }, [library, actions, originCoords, characterId]);
@@ -78,9 +89,11 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
       : 0;
 
     let owner = await blockchainService.ownerOf(nftId);
-    console.log("owner", owner, "\n acc", account);
-    console.log("owner===account", owner === account);
-    if (owner === account) setCharacterId(nftId);
+
+    if (owner === account) {
+      setCharacterId(nftId);
+      setLoading(true);
+    }
     return;
   };
 
@@ -90,7 +103,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
   };
 
   //render
-  console.log("Gamescreen loading", loading);
+  console.log("Gamescreen loading", character);
   return (
     <>
       <div className={styles.canvas}>
@@ -98,44 +111,55 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
           <span className={styles.quotes}>{randomQuotes[randomQuoteId]}</span>
         </Row>
         <Row>
-          <Col xs={8}>
+          <Col xs={5}></Col>
+          <Col xs={3}>
             <Row>
-              <Col xs={3}>
-                <NftAvatar />
-              </Col>
-              <Col>
-                {character ? (
-                  <CharacterBox
-                    character={character}
-                    spiceMined={spiceMined}
-                    characterId={characterId}
-                  />
-                ) : (
-                  <img src={"/robot.gif"} className={styles.loadingGif} />
-                )}
-              </Col>
-              {loading && (
-                <Col xs={1}>
-                  <Spinner animation="grow" />
-                </Col>
-              )}
+              <label>Choose NFT character.</label>
+              <input
+                type="number"
+                placeholder="nftId"
+                id="nftId"
+                defaultValue="0"
+              ></input>
+              <button onClick={selectNft} className={styles.pushable}>
+                <span class={styles.front}>select ID</span>
+              </button>
+              <div>or</div>
+              <button onClick={mintNft} className={styles.pushable}>
+                <span class={styles.front}> mint 1</span>
+              </button>
+              <br />{" "}
             </Row>
           </Col>
+        </Row>
 
-          <Col>
-            <label>Choose NFT character.</label>
-            <input
-              type="number"
-              placeholder="nftId"
-              id="nftId"
-              defaultValue="0"
-            ></input>
-            <button onClick={selectNft} className={styles.pushable}>
-              <span class={styles.front}>select ID</span>
-            </button>{" "}
-            <button onClick={mintNft} className={styles.pushable}>
-              <span class={styles.front}> mint 1</span>
-            </button>
+        <Row>
+          {loading && (
+            <Col xs={1}>
+              <Spinner animation="grow" />
+            </Col>
+          )}
+        </Row>
+        <Row>
+          <Col xs={8}>
+            {character && (
+              <Row>
+                <Col xs={3}>
+                  <NftAvatar />
+                </Col>
+                <Col>
+                  {character ? (
+                    <CharacterBox
+                      character={character}
+                      spiceMined={spiceMined}
+                      characterId={characterId}
+                    />
+                  ) : (
+                    <img src={"/robot.gif"} className={styles.loadingGif} />
+                  )}
+                </Col>
+              </Row>
+            )}
           </Col>
         </Row>
 
@@ -153,13 +177,15 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
               <MapPlaceholder length={mapSize} />
             )}
           </Col>
-          <Col xs={4}>
-            <ActionBox
-              character={character}
-              actions={actions}
-              setActions={setActions}
-            />
-          </Col>
+          {character && (
+            <Col xs={4}>
+              <ActionBox
+                character={character}
+                actions={actions}
+                setActions={setActions}
+              />
+            </Col>
+          )}
         </Row>
       </div>
     </>

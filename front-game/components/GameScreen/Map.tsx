@@ -42,7 +42,7 @@ const Map: FunctionComponent = ({
       <div>
         {row.map(function (tile: any) {
           const currentPosition =
-            character.x === tile.x && character.y === tile.y;
+            character && character.x === tile.x && character.y === tile.y;
 
           return (
             <Tile
