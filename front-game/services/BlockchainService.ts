@@ -100,7 +100,7 @@ export default class BlockchainService {
     }
   }
 
-  async moveCharacter(x: number, y: number, library: any) {
+  async moveCharacter(nftId: number, x: number, y: number, library: any) {
     const txParams = {
       from: this.account,
       value: "0",
@@ -112,7 +112,7 @@ export default class BlockchainService {
     );
 
     await this.gameplayContract.methods
-      .move("0", x, y)
+      .move(nftId, x, y)
       .send(txParams)
       .on("transactionHash", function (hash: any) {
         const audioSuccess = new Audio("./sounds/success.mp3");
@@ -187,7 +187,7 @@ export default class BlockchainService {
       from: this.account,
       value: "0",
     };
-
+    console.log("mine", nftId);
     this.gameplayContract = new library.eth.Contract(
       consts.gameplayABI as any,
       consts.gameplayAddress

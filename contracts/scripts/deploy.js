@@ -90,11 +90,13 @@ async function main() {
   //   from: wallet.address,
   //   value: ethers.utils.parseEther("0.2"),
   // });
-  console.log("owner ", await apinator.ownerOf("0"));
+  //console.log("owner ", await apinator.ownerOf("2"));
 
   //await gameplay.spawn("1");
   //console.log("owner of", await apinator.ownerOf(1));
   //console.log("choords:", await gameplay.charas(0));
+
+  await gameplay.move(2, 1, 0);
 }
 
 main();

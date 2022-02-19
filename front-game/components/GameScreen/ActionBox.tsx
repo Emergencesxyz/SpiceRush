@@ -43,7 +43,7 @@ const ActionBox: FunctionComponent = ({
     } else return;
 
     console.log("(x,y)", x, y);
-    return await blockchainService.moveCharacter(x, y, library);
+    return await blockchainService.moveCharacter(characterId, x, y, library);
   };
 
   const spawn = async (e) => {
@@ -55,13 +55,13 @@ const ActionBox: FunctionComponent = ({
   const rest = async (e) => {
     const audioScifi = new Audio("./sounds/button_scifi.mp3");
     audioScifi.play();
-    return await blockchainService.rest(0, 1, library);
+    return await blockchainService.rest(characterId, 1, library);
   };
 
   const mine = async (e) => {
     const audioScifi = new Audio("./sounds/button_scifi.mp3");
     audioScifi.play();
-    await blockchainService.mine(0, 1, library);
+    await blockchainService.mine(characterId, 1, library);
 
     return;
   };
