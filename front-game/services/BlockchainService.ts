@@ -29,9 +29,9 @@ export default class BlockchainService {
     else return null;
   }
 
-  async ownerOf() {
+  async ownerOf(nftId: number) {
     try {
-      return await this.apinatorContract.methods.ownerOf("1").call();
+      return await this.apinatorContract.methods.ownerOf(nftId).call();
     } catch (e) {
       return null;
     }
@@ -138,6 +138,28 @@ export default class BlockchainService {
         const audioSuccess = new Audio("./sounds/success.mp3");
         audioSuccess.play();
       });
+  }
+
+  async mintNft(amount: number, library: any) {
+    console.log("mintNft", library);
+    try {
+      const txParams = {
+        from: this.account,
+        value: consts.nftPrice,
+      };
+
+      this.apinatorContract = new library.eth.Contract(
+        consts.apinatorABI as any,
+        consts.apinatorAddress
+      );
+
+      await this.apinatorContract.methods
+        .mintNFT(amount)
+        .send(txParams)
+        .on("transactionHash", function (hash: any) {});
+    } catch (e) {
+      console.log("[ERROR] mintNft", e.toString());
+    }
   }
 
   async rest(nftId: number, actionNb: number, library: any) {

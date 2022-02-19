@@ -122,5 +122,36 @@
   color: #ffa40b;
 }
 
+.pushable,
+.pushable,
+.pushable:hover,
+.pushable:focus {
+  margin-top: 0.5em;
+  background: hsl(340deg 100% 32%);
+  border-radius: 12px;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline-offset: 4px;
+}
+
+.front {
+  display: block;
+  padding: 2px 2px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  background: hsl(345deg 100% 47%);
+  color: white;
+  transform: translateY(-6px);
+  text-shadow: 2px 1px 2px #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+.front:hover {
+  background: rgb(196, 4, 52);
+}
+.pushable:active .front {
+  transform: translateY(-2px);
+}
+
 @media (max-width: 576px) {
 }

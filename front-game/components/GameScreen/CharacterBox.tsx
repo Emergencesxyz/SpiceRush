@@ -9,12 +9,15 @@ import TypeWriterEffect from "react-typewriter-effect";
 const CharacterBox: FunctionComponent = ({
   character,
   spiceMined,
+  characterId,
 }): JSX.Element => {
   const { energy, hp, mining, energyMax, hpMax, miningMax } = character.stats;
   return (
     <>
       <div className={styles.characterBox}>
-        <h4>ApezorDu45 {!hp ? <IconGame name="skull" /> : null}</h4>
+        <h4>
+          Apinator #{characterId} {!hp ? <IconGame name="skull" /> : null}
+        </h4>
         lvl {character.lvl} ⬪ {character.xp} xp ⬪ ({character.x}, {character.y}){" "}
         <br />
         <IconGame name="energy" />

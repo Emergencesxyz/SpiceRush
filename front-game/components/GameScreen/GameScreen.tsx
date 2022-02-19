@@ -1,5 +1,5 @@
 import styles from "./GameScreen.module.scss";
-import { Row, Col, Spinner } from "react-bootstrap";
+import { Row, Col, Spinner, Button } from "react-bootstrap";
 import { useState, FunctionComponent, useEffect } from "react";
 
 import { useWeb3React } from "@web3-react/core";
@@ -20,6 +20,8 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
   const [userBalance, setUserBalance] = useState<number>(0);
   const [tiles, setTiles] = useState<Array<any>>([]);
   const [character, setCharacter] = useState<Object | null>(null);
+  const [characterId, setCharacterId] = useState<Object | null>(null);
+  const [spawned, setSpawned] = useState<Boolean>(false);
   const [spiceMined, setSpiceMined] = useState<number | null>(null);
   const [actions, setActions] = useState<number>(0);
   const [randomQuoteId, setRandomQuoteId] = useState<number>(0);
@@ -35,6 +37,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
   useEffect(() => {
     (async () => {
       console.log("useEffect Gamescreen");
+      console.log("characterId", characterId);
 
       if (!randomQuoteId)
         setRandomQuoteId(Math.floor(randomQuotes.length * Math.random()));
@@ -67,7 +70,24 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
       setTiles(tiles);
       setLoading(false);
     })();
-  }, [library, actions, originCoords]);
+  }, [library, actions, originCoords, characterId]);
+
+  const selectNft = async (e) => {
+    let nftId = document.getElementById("nftId")
+      ? parseInt(document.getElementById("nftId").value)
+      : 0;
+
+    let owner = await blockchainService.ownerOf(nftId);
+    console.log("owner", owner, "\n acc", account);
+    console.log("owner===account", owner === account);
+    if (owner === account) setCharacterId(nftId);
+    return;
+  };
+
+  const mintNft = async (e) => {
+    await blockchainService.mintNft(1, library);
+    return;
+  };
 
   //render
   console.log("Gamescreen loading", loading);
@@ -85,7 +105,11 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
               </Col>
               <Col>
                 {character ? (
-                  <CharacterBox character={character} spiceMined={spiceMined} />
+                  <CharacterBox
+                    character={character}
+                    spiceMined={spiceMined}
+                    characterId={characterId}
+                  />
                 ) : (
                   <img src={"/robot.gif"} className={styles.loadingGif} />
                 )}
@@ -96,6 +120,22 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
                 </Col>
               )}
             </Row>
+          </Col>
+
+          <Col>
+            <label>Choose NFT character.</label>
+            <input
+              type="number"
+              placeholder="nftId"
+              id="nftId"
+              defaultValue="0"
+            ></input>
+            <button onClick={selectNft} className={styles.pushable}>
+              <span class={styles.front}>Select</span>
+            </button>{" "}
+            <button onClick={mintNft} className={styles.pushable}>
+              <span class={styles.front}> Mint</span>
+            </button>
           </Col>
         </Row>
 
