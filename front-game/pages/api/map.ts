@@ -1,21 +1,15 @@
-const AWS = require("aws-sdk");
-const { PRIVATE_KEY } = process.env;
+
+
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
+import DatabaseService from "../../services/DatabaseService";
 
 
-const { AWS_ACCESS_KEY_, SECRET_ACCESS_KEY_ } = process.env
 type Data = {
   result: string;
 };
 
-AWS.config.update({
-  accessKeyId: AWS_ACCESS_KEY_,
-  secretAccessKey: SECRET_ACCESS_KEY_,
-  region: "us-east-2",
-  endpoint: "https://dynamodb.us-east-2.amazonaws.com",
-});
-const dynamo = new AWS.DynamoDB.DocumentClient();
+const databaseService = new DatabaseService();
 
 export default function handler(
   req: NextApiRequest,
@@ -30,7 +24,7 @@ export default function handler(
 
   if (req.method === 'GET') {
     // Process a POST request
-    let result = dynamo
+    let result = databaseService.dynamo
       .scan(params2)
       .promise()
       .then((result: any) => {
