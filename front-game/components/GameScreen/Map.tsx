@@ -9,14 +9,22 @@ import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 
-const Map: FunctionComponent = ({
+interface Props {
+  tiles: Array<Object>;
+  character: any;
+  originCoords: any;
+  setOriginCoords: Function;
+  setLoading: Function;
+}
+
+const Map: FunctionComponent<Props> = ({
   tiles,
   character,
   originCoords,
   setOriginCoords,
   setLoading,
 }): JSX.Element => {
-  const moveMap = async (e) => {
+  const moveMap = async (e: any) => {
     let x: number, y: number;
 
     if (e.target.name === "right") {
@@ -37,9 +45,9 @@ const Map: FunctionComponent = ({
     setLoading(true);
   };
 
-  const tilesComponent = tiles.map((row) => {
+  const tilesComponent = tiles.map((row: any) => {
     return (
-      <div>
+      <div key={1}>
         {row.map(function (tile: any) {
           const currentPosition =
             character && character.x === tile.x && character.y === tile.y;
@@ -70,7 +78,7 @@ const Map: FunctionComponent = ({
         </Row>
         <Row>
           <Col xs={2} className={styles.buttonCol}>
-            <Button name="left" onClick={moveMap} name="left" onClick={moveMap}>
+            <Button name="left" onClick={moveMap}>
               ◄
             </Button>
           </Col>

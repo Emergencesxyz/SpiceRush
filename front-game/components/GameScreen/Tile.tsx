@@ -2,7 +2,17 @@ import styles from "./Tile.module.scss";
 import { useState, FunctionComponent, useEffect } from "react";
 import IconGame from "./IconGame";
 
-const Tile: FunctionComponent = ({
+interface Props {
+  level: number;
+  currentPosition: boolean;
+  spiceAmount: number | null;
+  foesAmount: number | null;
+  isExplored: boolean;
+  x: number;
+  y: number;
+}
+
+const Tile: FunctionComponent<Props> = ({
   level,
   currentPosition,
   spiceAmount,
@@ -11,7 +21,7 @@ const Tile: FunctionComponent = ({
   x,
   y,
 }): JSX.Element => {
-  const color = parseInt(((level ? level + 5 : 0) * 255) / 100);
+  const color = Math.floor(((level ? level + 5 : 0) * 255) / 100);
 
   return (
     <>

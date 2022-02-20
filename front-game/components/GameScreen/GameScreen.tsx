@@ -19,18 +19,18 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
   const { account, library } = useWeb3React();
   const [userBalance, setUserBalance] = useState<number>(0);
   const [tiles, setTiles] = useState<Array<any>>([]);
-  const [character, setCharacter] = useState<Object | null>(null);
-  const [characterId, setCharacterId] = useState<Object | null>(null);
+  const [character, setCharacter] = useState<any | null>(null);
+  const [characterId, setCharacterId] = useState<number | null>(null);
   const [spawned, setSpawned] = useState<Boolean>(false);
   const [spiceMined, setSpiceMined] = useState<number | null>(null);
   const [actions, setActions] = useState<number>(0);
   const [randomQuoteId, setRandomQuoteId] = useState<number>(0);
-  const [originCoords, setOriginCoords] = useState<Object>({
+  const [originCoords, setOriginCoords] = useState<any>({
     x: null,
     y: null,
   });
   const [loading, setLoading] = useState<Boolean>(false);
-  const [toastMessage, setToastMessage] = useState<Boolean>(null);
+  const [toastMessage, setToastMessage] = useState<String>("");
 
   const mapSize = 5;
   const blockchainService = new BlockchainService(account);
@@ -44,7 +44,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
 
       setUserBalance(await library.eth.getBalance(account));
 
-      const _character =
+      const _character: any =
         characterId === null
           ? {}
           : await blockchainService.getCharacterInfo(characterId);
@@ -80,12 +80,12 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
     })();
   }, [library, actions, originCoords, characterId, toastMessage]);
 
-  const selectNft = async (e) => {
-    let nftId = document.getElementById("nftId")
-      ? parseInt(document.getElementById("nftId").value)
-      : 0;
+  const selectNft = async (e: any) => {
+    // @ts-ignore: Object is possibly 'null'.
+    let element = document ? document!.getElementById("nftId").value() : null;
+    let nftId = element !== null ? parseInt(element) : 0;
 
-    let owner = await blockchainService.ownerOf(nftId);
+    let owner = await blockchainService.ownerOf(nftId as number);
 
     if (owner === account) {
       setCharacterId(nftId);
@@ -94,7 +94,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
     return;
   };
 
-  const mintNft = async (e) => {
+  const mintNft = async (e: any) => {
     await blockchainService.mintNft(1, library);
     return;
   };
@@ -105,9 +105,9 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
     <>
       <div className={styles.canvas}>
         <Toast
-          show={toastMessage}
+          show={toastMessage && toastMessage.length > 0}
           className={styles.toast}
-          onClose={() => setToastMessage(null)}
+          onClose={() => setToastMessage("")}
         >
           <Toast.Header>
             <img
@@ -137,11 +137,11 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
                 defaultValue="0"
               ></input>
               <button onClick={selectNft} className={styles.pushable}>
-                <span class={styles.front}>select ID</span>
+                <span className={styles.front}>select ID</span>
               </button>
               <div>or</div>
               <button onClick={mintNft} className={styles.pushable}>
-                <span class={styles.front}> mint 1</span>
+                <span className={styles.front}> mint 1</span>
               </button>
               <br />{" "}
             </Row>

@@ -3,7 +3,9 @@ import styles from "./GameScreen.module.scss";
 import { Container, Row, Placeholder } from "react-bootstrap";
 import { useState, FunctionComponent, useEffect } from "react";
 
-const NftAvatar: FunctionComponent = ({ length }): JSX.Element => {
+interface Props {}
+
+const NftAvatar: FunctionComponent<Props> = ({}): JSX.Element => {
   return (
     <>
       <div className={styles.avatarBox}>

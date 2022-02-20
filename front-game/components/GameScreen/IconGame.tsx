@@ -3,7 +3,12 @@ import styles from "./GameScreen.module.scss";
 import { Container, Row } from "react-bootstrap";
 import { useState, FunctionComponent, useEffect } from "react";
 
-const IconGame: FunctionComponent = ({ name, size }): JSX.Element => {
+interface Props {
+  name: string;
+  size?: string;
+}
+
+const IconGame: FunctionComponent<Props> = ({ name, size }): JSX.Element => {
   try {
     return (
       <img

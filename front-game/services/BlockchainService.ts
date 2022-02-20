@@ -37,7 +37,7 @@ export default class BlockchainService {
     }
   }
 
-  async getSpiceMined(nftId: number) {
+  async getSpiceMined(nftId: number | null) {
     try {
       return await this.gameplayContract.methods.bank(nftId).call();
     } catch (e) {
@@ -157,7 +157,7 @@ export default class BlockchainService {
         .mintNFT(amount)
         .send(txParams)
         .on("transactionHash", function (hash: any) {});
-    } catch (e) {
+    } catch (e: any) {
       console.log("[ERROR] mintNft", e.toString());
     }
   }

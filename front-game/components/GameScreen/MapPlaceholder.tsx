@@ -3,7 +3,11 @@ import styles from "./GameScreen.module.scss";
 import { Container, Row, Placeholder } from "react-bootstrap";
 import { useState, FunctionComponent, useEffect } from "react";
 
-const MapPlaceholder: FunctionComponent = ({ length }): JSX.Element => {
+interface Props {
+  length: Number;
+}
+
+const MapPlaceholder: FunctionComponent<Props> = ({ length }): JSX.Element => {
   let tiles_html = [];
   for (let i = 0; i < length; i++) {
     tiles_html.push(
