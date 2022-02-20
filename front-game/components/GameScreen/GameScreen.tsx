@@ -148,13 +148,15 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
           </Col>
         </Row>
 
-        <Row>
-          {loading && (
+        {loading && (
+          <Row>
+            <Col xs={5}></Col>
             <Col xs={1}>
               <Spinner animation="grow" />
             </Col>
-          )}
-        </Row>
+          </Row>
+        )}
+
         <Row>
           <Col xs={8}>
             {character && (
