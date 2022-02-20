@@ -1,9 +1,6 @@
-
-
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import DatabaseService from "../../services/DatabaseService";
-
 
 type Data = {
   result: string;
@@ -15,17 +12,23 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  let params2 = {
-    TableName: "SellOrders",
-    FilterExpression: "#user = :nam",
-    ExpressionAttributeNames: { "#user": "user" },
-    ExpressionAttributeValues: { ":nam": "Bob" },
+  //get params
+  const { x, y, range } = req.query;
+
+  let params = {
+    TableName: "MapTiles",
+    FilterExpression: "#x = :x and #y = :y",
+    ExpressionAttributeNames: { "#x": "x", "#y": "y" },
+    ExpressionAttributeValues: {
+      ":x": parseInt(x as string),
+      ":y": parseInt(y as string),
+    },
   };
 
-  if (req.method === 'GET') {
+  if (req.method === "GET") {
     // Process a POST request
     let result = databaseService.dynamo
-      .scan(params2)
+      .scan(params)
       .promise()
       .then((result: any) => {
         return res.status(200).send({ result: JSON.stringify(result) });
@@ -33,16 +36,12 @@ export default function handler(
       .catch((e: any) => {
         return res.status(400).send({ result: "error" });
       });
-
   } else if (req.method === "POST") {
     // Handle any other HTTP method
     return res.status(200).send({ result: "method post" });
-
   } else {
     return res.status(200).send({ result: "method not handled" });
   }
-
-
 }
 
 /**
