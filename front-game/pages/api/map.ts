@@ -4,14 +4,14 @@ const { PRIVATE_KEY } = process.env;
 import type { NextApiRequest, NextApiResponse } from "next";
 
 
-const { AWS_ACCESS_KEY, SECRET_ACCESS_KEY } = process.env
+const { _AWS_ACCESS_KEY, _SECRET_ACCESS_KEY } = process.env
 type Data = {
-  name: string;
+  result: string;
 };
 
 AWS.config.update({
-  accessKeyId: AWS_ACCESS_KEY,
-  secretAccessKey: SECRET_ACCESS_KEY,
+  accessKeyId: _AWS_ACCESS_KEY,
+  secretAccessKey: _SECRET_ACCESS_KEY,
   region: "us-east-2",
   endpoint: "https://dynamodb.us-east-2.amazonaws.com",
 });
@@ -28,15 +28,27 @@ export default function handler(
     ExpressionAttributeValues: { ":nam": "Bob" },
   };
 
-  let result = dynamo
-    .scan(params2)
-    .promise()
-    .then((result: any) => {
-      return res.status(200).send({ name: JSON.stringify(result) });
-    })
-    .catch((e: any) => {
-      return res.status(400).send({ name: "error" });
-    });
+  if (req.method === 'GET') {
+    // Process a POST request
+    let result = dynamo
+      .scan(params2)
+      .promise()
+      .then((result: any) => {
+        return res.status(200).send({ result: JSON.stringify(result) });
+      })
+      .catch((e: any) => {
+        return res.status(400).send({ result: "error" });
+      });
+
+  } else if (req.method === "POST") {
+    // Handle any other HTTP method
+    return res.status(200).send({ result: "method post" });
+
+  } else {
+    return res.status(200).send({ result: "method not handled" });
+  }
+
+
 }
 
 /**
