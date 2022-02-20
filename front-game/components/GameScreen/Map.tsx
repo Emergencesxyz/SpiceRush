@@ -45,9 +45,9 @@ const Map: FunctionComponent<Props> = ({
     setLoading(true);
   };
 
-  const tilesComponent = tiles.map((row: any) => {
+  const tilesComponent = tiles.map((row: any, index: number) => {
     return (
-      <div key={1}>
+      <div key={index}>
         {row.map(function (tile: any) {
           const currentPosition =
             character && character.x === tile.x && character.y === tile.y;

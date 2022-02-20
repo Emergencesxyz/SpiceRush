@@ -82,7 +82,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
 
   const selectNft = async (e: any) => {
     // @ts-ignore: Object is possibly 'null'.
-    let element = document ? document!.getElementById("nftId").value() : null;
+    let element = document ? document!.getElementById("nftId").value : null;
     let nftId = element !== null ? parseInt(element) : 0;
 
     let owner = await blockchainService.ownerOf(nftId as number);
