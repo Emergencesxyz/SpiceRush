@@ -4,14 +4,14 @@ const { PRIVATE_KEY } = process.env;
 import type { NextApiRequest, NextApiResponse } from "next";
 
 
-const { _AWS_ACCESS_KEY, _SECRET_ACCESS_KEY } = process.env
+const { AWS_ACCESS_KEY_, SECRET_ACCESS_KEY_ } = process.env
 type Data = {
   result: string;
 };
 
 AWS.config.update({
-  accessKeyId: _AWS_ACCESS_KEY,
-  secretAccessKey: _SECRET_ACCESS_KEY,
+  accessKeyId: AWS_ACCESS_KEY_,
+  secretAccessKey: SECRET_ACCESS_KEY_,
   region: "us-east-2",
   endpoint: "https://dynamodb.us-east-2.amazonaws.com",
 });
