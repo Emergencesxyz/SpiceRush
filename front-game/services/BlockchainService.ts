@@ -84,10 +84,10 @@ export default class BlockchainService {
           const _tile = await this.gameplayContract.methods.map(x, y).call();
 
           row.push({
-            foesAmount: _tile.foesAmount,
+            foesAmount: parseInt(_tile.foesAmount),
             isExplored: _tile.isExplored,
-            level: _tile.level,
-            spiceAmount: _tile.spiceAmount,
+            level: parseInt(_tile.level),
+            spiceAmount: parseInt(_tile.spiceAmount),
             x: x,
             y: y,
           });

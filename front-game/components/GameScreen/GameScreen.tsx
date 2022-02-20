@@ -32,7 +32,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
   const [loading, setLoading] = useState<Boolean>(false);
   const [toastMessage, setToastMessage] = useState<String>("");
 
-  const mapSize = 5;
+  const mapSize = consts.defaultChunkSize;
   const blockchainService = new BlockchainService(account);
 
   useEffect(() => {

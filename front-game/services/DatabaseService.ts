@@ -10,5 +10,9 @@ AWS.config.update({
 
 
 export default class DatabaseService {
-    dynamo: any = new AWS.DynamoDB.DocumentClient();
+    dynamo: any;
+    constructor() {
+        this.dynamo = new AWS.DynamoDB.DocumentClient();
+    }
+
 }
