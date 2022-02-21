@@ -1,5 +1,17 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## API
+
+### /api/game
+
+load the map.
+Check .env file to set default map size.
+
+### /api/map?x=0&y=0&range=5
+
+get tile info from coords
+if range is provided, will return the info of an entire chunk of tiles, centered around x,y provided
+
 ## Getting Started
 
 First, run the development server:

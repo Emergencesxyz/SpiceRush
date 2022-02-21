@@ -8,34 +8,30 @@ type Data = {
 
 const databaseService = new DatabaseService();
 
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
   //get params
-  const { x, y, range } = req.query;
 
-  let params = {
-    TableName: "MapTiles",
-    FilterExpression: "#x = :x and #y = :y",
-    ExpressionAttributeNames: { "#x": "x", "#y": "y" },
-    ExpressionAttributeValues: {
-      ":x": parseInt(x as string),
-      ":y": parseInt(y as string),
-    },
-  };
+  const y = parseInt(req.query.y as string);
+  const x = parseInt(req.query.x as string);
+  const range = parseInt(req.query.range as string);
 
+  console.log("params", x, y, range);
   if (req.method === "GET") {
     // Process a POST request
-    let result = databaseService.dynamo
-      .scan(params)
-      .promise()
-      .then((result: any) => {
-        return res.status(200).send({ result: JSON.stringify(result) });
-      })
-      .catch((e: any) => {
-        return res.status(400).send({ result: "error" });
-      });
+    try {
+      let tiles: any = await databaseService.getMapChunk(
+        x,
+        y,
+        range ? range : 1
+      );
+
+      return res.status(200).send({ result: tiles });
+    } catch (e: any) {
+      return res.status(400).send({ result: e.toString() });
+    }
   } else if (req.method === "POST") {
     // Handle any other HTTP method
     return res.status(200).send({ result: "method post" });
