@@ -22,6 +22,7 @@ const CharacterBox: FunctionComponent<Props> = ({
   const blockchainService = new BlockchainService(account);
   const lvlUp = async (e: any) => {
     console.log("lvlUp", e.target);
+    e.stopPropagation();
     return await blockchainService.levelUp(
       characterId as number,
       e.target.name,
@@ -44,8 +45,7 @@ const CharacterBox: FunctionComponent<Props> = ({
             <img
               src={"/icons/arrow_up.gif"}
               alt={"UP"}
-              style={{ maxWidth: "20px" }}
-              name="1"
+              style={{ maxWidth: "20px", pointerEvents: "none" }}
             />
           </Button>
         </span>
@@ -57,8 +57,7 @@ const CharacterBox: FunctionComponent<Props> = ({
             <img
               src={"/icons/arrow_up.gif"}
               alt={"UP"}
-              style={{ maxWidth: "20px" }}
-              name="2"
+              style={{ maxWidth: "20px", pointerEvents: "none" }}
             />
           </Button>
         </span>
@@ -69,8 +68,7 @@ const CharacterBox: FunctionComponent<Props> = ({
           <img
             src={"/icons/arrow_up.gif"}
             alt={"UP"}
-            style={{ maxWidth: "20px" }}
-            name="3"
+            style={{ maxWidth: "20px", pointerEvents: "none" }}
           />
         </Button>
         ⬪
