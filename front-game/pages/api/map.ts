@@ -35,11 +35,13 @@ export default async function handler(
       for (let j = 0; j < cachedMap[i].length; j++) {
         let tile: any = cachedMap[i][j];
 
+        console.log("min", x - Math.ceil(range / 2));
+        console.log("max", x + Math.ceil(range / 2));
         if (
           tile.y >= y - Math.floor(range / 2) &&
-          tile.y < y + Math.ceil(range / 2) &&
+          tile.y <= y + Math.ceil(range / 2) &&
           tile.x >= x - Math.floor(range / 2) &&
-          tile.x < x + Math.ceil(range / 2)
+          tile.x <= x + Math.ceil(range / 2)
         )
           row.push(tile);
       }
