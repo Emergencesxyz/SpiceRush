@@ -1,6 +1,8 @@
 import styles from "./Tile.module.scss";
+import styles2 from "./Gamescreen.module.scss";
 import { useState, FunctionComponent, useEffect } from "react";
 import IconGame from "./IconGame";
+import { Toast } from "react-bootstrap";
 
 interface Props {
   level: number;
@@ -11,6 +13,7 @@ interface Props {
   x: number;
   y: number;
   countCharacters: number;
+  characters: Array<any>;
 }
 
 const Tile: FunctionComponent<Props> = ({
@@ -22,11 +25,33 @@ const Tile: FunctionComponent<Props> = ({
   x,
   y,
   countCharacters,
+  characters,
 }): JSX.Element => {
   const color = Math.floor(((level ? level + 5 : 0) * 255) / 100);
+  const [toastMessage, setToastMessage] = useState<any>({ title: "", msg: "" });
 
+  useEffect(() => {
+    (async () => {})();
+  }, [toastMessage]);
+
+  let characterDesc = countCharacters
+    ? countCharacters + " character(s) here."
+    : "";
   return (
     <>
+      <Toast
+        show={toastMessage.msg && toastMessage.msg.length > 0}
+        className={styles2.toast}
+        onClose={() => setToastMessage({ title: "", msg: "" })}
+      >
+        <Toast.Header>
+          <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+          <strong className="me-auto">{toastMessage.title}</strong>
+          <small> </small>
+        </Toast.Header>
+        <Toast.Body>{toastMessage.msg}</Toast.Body>
+      </Toast>
+
       <div
         className={styles.tile}
         title={`(${x},${y})`}
@@ -35,6 +60,9 @@ const Tile: FunctionComponent<Props> = ({
           filter: isExplored ? "brightness(100%)" : "brightness(50%)",
           border: currentPosition ? "cyan 2px dashed" : undefined,
         }}
+        onClick={() =>
+          setToastMessage({ title: `Tile(${x};${y})`, msg: characterDesc })
+        }
       >
         {isExplored && (
           <div>

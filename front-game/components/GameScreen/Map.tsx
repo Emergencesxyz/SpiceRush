@@ -80,6 +80,7 @@ const Map: FunctionComponent<Props> = ({
               x={tile.x}
               y={tile.y}
               countCharacters={countCharacters}
+              characters={characters}
             />
           );
         })}
