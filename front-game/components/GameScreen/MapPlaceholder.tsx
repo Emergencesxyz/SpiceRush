@@ -11,7 +11,7 @@ const MapPlaceholder: FunctionComponent<Props> = ({ length }): JSX.Element => {
   let tiles_html = [];
   for (let i = 0; i < length; i++) {
     tiles_html.push(
-      <Placeholder as="p" animation={i < 3 ? "glow" : "wave"}>
+      <Placeholder key={i} as="p" animation={i < 3 ? "glow" : "wave"}>
         {" "}
         <Placeholder xs={12} className={styles.placeholder} />{" "}
       </Placeholder>

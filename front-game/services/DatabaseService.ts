@@ -1,5 +1,6 @@
 const AWS = require("aws-sdk");
-const { AWS_ACCESS_KEY_, SECRET_ACCESS_KEY_ } = process.env;
+const AWS_ACCESS_KEY_ = process.env.AWS_ACCESS_KEY_;
+const SECRET_ACCESS_KEY_ = process.env.SECRET_ACCESS_KEY_;
 
 AWS.config.update({
   accessKeyId: AWS_ACCESS_KEY_,
@@ -12,6 +13,10 @@ export default class DatabaseService {
   dynamo: any;
   constructor() {
     this.dynamo = new AWS.DynamoDB.DocumentClient();
+  }
+
+  sleep(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   async getMapChunk(x: number, y: number, range: number) {
@@ -37,7 +42,8 @@ export default class DatabaseService {
             ":y": y_,
           },
         };
-        const _tile = await this.dynamo.scan(params).promise();
+
+        const _tile = (await this.dynamo.scan(params).promise()).Items[0];
 
         row.push({
           foesAmount: parseInt(_tile.foesAmount),
@@ -47,9 +53,11 @@ export default class DatabaseService {
           x: x,
           y: y,
         });
+        await this.sleep(200); //to respect aws dynamo max throughput
       }
       tiles.push(row);
     }
+
     return tiles;
   }
 }

@@ -5,6 +5,7 @@ import { useState, FunctionComponent, useEffect } from "react";
 import { useWeb3React } from "@web3-react/core";
 
 import BlockchainService from "../../services/BlockchainService";
+import DatabaseService from "../../services/DatabaseService";
 
 import MapPlaceholder from "./MapPlaceholder";
 import CharacterBox from "./CharacterBox";
@@ -13,6 +14,9 @@ import Map from "./Map";
 import ActionBox from "./ActionBox";
 
 import consts from "../../consts";
+
+import axios from "axios";
+
 const { randomQuotes } = consts;
 
 const GameScreen: FunctionComponent = (): JSX.Element => {
@@ -26,14 +30,17 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
   const [actions, setActions] = useState<number>(0);
   const [randomQuoteId, setRandomQuoteId] = useState<number>(0);
   const [originCoords, setOriginCoords] = useState<any>({
-    x: null,
-    y: null,
+    x: 0,
+    y: 0,
   });
   const [loading, setLoading] = useState<Boolean>(false);
   const [toastMessage, setToastMessage] = useState<String>("");
 
-  const mapSize = consts.defaultChunkSize;
+  const DEFAULT_CHUNK_SIZE = process.env.DEFAULT_CHUNK_SIZE;
+  const API_URL = process.env.API_URL;
+
   const blockchainService = new BlockchainService(account);
+  const databaseService = new DatabaseService();
 
   useEffect(() => {
     (async () => {
@@ -50,28 +57,32 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
           : await blockchainService.getCharacterInfo(characterId);
 
       //center map around character or (0,0) at first
-      let x0 = originCoords.x;
-      let y0 = originCoords.y;
-      if (!Number.isInteger(y0) || !Number.isInteger(x0)) {
-        if (_character && _character.x) {
-          x0 = _character.x;
-          y0 = _character.y;
-        } else {
-          x0 = 0;
-          y0 = 0;
-        }
+      // let x0 = originCoords.x;
+      // let y0 = originCoords.y;
+      // if (!Number.isInteger(y0) || !Number.isInteger(x0)) {
+      //   if (_character && _character.x) {
+      //     x0 = _character.x;
+      //     y0 = _character.y;
+      //   } else {
+      //     x0 = 0;
+      //     y0 = 0;
+      //   }
 
-        setOriginCoords({ x: x0, y: y0 });
+      //   setOriginCoords({ x: x0, y: y0 });
+      // }
+
+      if (!tiles || !tiles.length) {
+        let _tiles = await axios.get(
+          API_URL +
+            `/map?x=${originCoords.x}=&y=${originCoords.y}&range=${DEFAULT_CHUNK_SIZE}`
+        );
+
+        console.log("tiles", _tiles.data.result);
+        setTiles(_tiles.data.result);
       }
 
-      let tiles;
-      tiles = await blockchainService.getMapChunk(x0, y0, mapSize);
-      console.log("x0, y0", x0, y0);
-      console.log("tiles", tiles);
-      setTiles(tiles);
-
       //load charater info
-      if (_character && Number.isInteger(_character.x)) {
+      if (tiles && _character && Number.isInteger(_character.x)) {
         setCharacter(_character);
         setSpiceMined(await blockchainService.getSpiceMined(characterId));
       }
@@ -191,7 +202,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
                 setLoading={setLoading}
               />
             ) : (
-              <MapPlaceholder length={mapSize} />
+              <MapPlaceholder length={parseInt(DEFAULT_CHUNK_SIZE as string)} />
             )}
           </Col>
           {character && (

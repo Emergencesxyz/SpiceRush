@@ -8,6 +8,7 @@ type Data = {
 
 const databaseService = new DatabaseService();
 
+let cachedMap: any = null;
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
@@ -20,18 +21,27 @@ export default async function handler(
 
   console.log("params", x, y, range);
   if (req.method === "GET") {
-    // Process a POST request
-    try {
-      let tiles: any = await databaseService.getMapChunk(
-        x,
-        y,
-        range ? range : 1
-      );
+    console.log("isCached", cachedMap !== null);
+    if (!cachedMap) cachedMap = await databaseService.getMapChunk(x, y, 9);
 
-      return res.status(200).send({ result: tiles });
-    } catch (e: any) {
-      return res.status(400).send({ result: e.toString() });
+    let chunk: any = [];
+    for (let i = 0; i < cachedMap.length; i++) {
+      let row = [];
+      for (let j = 0; j < cachedMap[i].length; j++) {
+        let tile: any = cachedMap[i][j];
+
+        if (
+          tile.y >= y - Math.floor(range / 2) &&
+          tile.y < y + Math.ceil(range / 2) &&
+          tile.x >= x - Math.floor(range / 2) &&
+          tile.x < x + Math.ceil(range / 2)
+        )
+          row.push(tile);
+      }
+      chunk.push(row);
     }
+
+    return res.status(200).send({ result: chunk });
   } else if (req.method === "POST") {
     // Handle any other HTTP method
     return res.status(200).send({ result: "method post" });
