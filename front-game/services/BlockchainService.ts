@@ -29,6 +29,14 @@ export default class BlockchainService {
     else return null;
   }
 
+  async totalSupply() {
+    try {
+      return await this.apinatorContract.methods.totalSupply().call();
+    } catch (e) {
+      return null;
+    }
+  }
+
   async ownerOf(nftId: number) {
     try {
       return await this.apinatorContract.methods.ownerOf(nftId).call();
