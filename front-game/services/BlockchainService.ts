@@ -203,6 +203,26 @@ export default class BlockchainService {
       });
   }
 
+  async levelUp(tokenId: number, statId: number, library: any) {
+    const txParams = {
+      from: this.account,
+      value: "0",
+    };
+
+    this.gameplayContract = new library.eth.Contract(
+      consts.gameplayABI as any,
+      consts.gameplayAddress
+    );
+
+    await this.gameplayContract.methods
+      .levelUp(tokenId, statId)
+      .send(txParams)
+      .on("transactionHash", function (hash: any) {
+        const audioCoins = new Audio("./sounds/coins.mp3");
+        audioCoins.play();
+      });
+  }
+
   //   async test() {
 
   //     // Use vue-resource or any other http library to send your request

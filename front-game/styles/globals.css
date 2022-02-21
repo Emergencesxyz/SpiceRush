@@ -45,3 +45,8 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.button-no-bg {
+  background: none !important;
+  padding: 0.3em !important;
+}
