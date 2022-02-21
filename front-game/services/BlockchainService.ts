@@ -89,7 +89,6 @@ export default class BlockchainService {
           y <= Math.ceil(chunkSize / 2) + y0;
           y++
         ) {
-          console.log("BlockchainService x/y", x, y);
           const _tile = await this.gameplayContract.methods.map(x, y).call();
 
           row.push({

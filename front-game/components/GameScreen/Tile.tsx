@@ -10,6 +10,7 @@ interface Props {
   isExplored: boolean;
   x: number;
   y: number;
+  countCharacters: number;
 }
 
 const Tile: FunctionComponent<Props> = ({
@@ -20,6 +21,7 @@ const Tile: FunctionComponent<Props> = ({
   isExplored,
   x,
   y,
+  countCharacters,
 }): JSX.Element => {
   const color = Math.floor(((level ? level + 5 : 0) * 255) / 100);
 
@@ -47,13 +49,17 @@ const Tile: FunctionComponent<Props> = ({
             {foesAmount}
           </div>
         )}
+        {isExplored && countCharacters && (
+          <div>
+            <IconGame name="hood" size="15px" />
+            {countCharacters}
+          </div>
+        )}
         {!isExplored && (
           <span>
             ?<br />‎
           </span>
         )}
-
-        {}
       </div>
     </>
   );

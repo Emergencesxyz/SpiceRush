@@ -1,13 +1,10 @@
 import styles from "./GameScreen.module.scss";
 
 import { Row, Col, Button } from "react-bootstrap";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState, useEffect } from "react";
 import Tile from "./Tile";
 
-import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
-import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
-import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
-import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
+import axios from "axios";
 
 interface Props {
   tiles: Array<Object>;
@@ -16,6 +13,7 @@ interface Props {
   setOriginCoords: Function;
   setLoading: Function;
 }
+const API_URL = process.env.API_URL;
 
 const Map: FunctionComponent<Props> = ({
   tiles,
@@ -24,6 +22,20 @@ const Map: FunctionComponent<Props> = ({
   setOriginCoords,
   setLoading,
 }): JSX.Element => {
+  const [characters, setCharacters] = useState<Array<any>>([]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        let characters_ = (await axios.get(API_URL + `/character`)).data.result;
+        console.log("characters_", characters_);
+        setCharacters(characters_);
+      } catch (e: any) {
+        console.log("e", e.toString());
+      }
+    })();
+  }, []);
+
   const moveMap = async (e: any) => {
     let x: number, y: number;
 
@@ -45,12 +57,17 @@ const Map: FunctionComponent<Props> = ({
     setLoading(true);
   };
 
+  console.log("Map characters", characters);
   const tilesComponent = tiles.map((row: any, index: number) => {
     return (
       <div key={index}>
         {row.map(function (tile: any) {
           const currentPosition =
             character && character.x === tile.x && character.y === tile.y;
+
+          const countCharacters = characters
+            ? characters?.filter((c) => c.x === tile.x && c.y === tile.y).length
+            : 0;
 
           return (
             <Tile
@@ -62,6 +79,7 @@ const Map: FunctionComponent<Props> = ({
               currentPosition={currentPosition}
               x={tile.x}
               y={tile.y}
+              countCharacters={countCharacters}
             />
           );
         })}

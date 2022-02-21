@@ -25,7 +25,7 @@ export default async function handler(
     if (!cachedCharacters) {
       console.log("- putting characters in cache");
       for (let i = 0; i < totalSupply; i++) {
-        result.push(await blockchainService.getCharacterInfo(id));
+        result.push(await blockchainService.getCharacterInfo(i));
       }
       cachedCharacters = result;
       console.log("- characters cached!");
@@ -37,7 +37,8 @@ export default async function handler(
     if (Number.isInteger(id)) {
       result = result.filter((c, i: number) => i === id)[0];
     }
-    return res.status(200).json({ result: JSON.stringify(result) });
+
+    return res.status(200).json({ result: result });
   } catch (e: any) {
     return res.status(400).json({ result: e.toString() });
   }
