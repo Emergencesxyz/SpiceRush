@@ -71,15 +71,13 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
       //   setOriginCoords({ x: x0, y: y0 });
       // }
 
-      if (!tiles || !tiles.length) {
-        let _tiles = await axios.get(
-          API_URL +
-            `/map?x=${originCoords.x}=&y=${originCoords.y}&range=${DEFAULT_CHUNK_SIZE}`
-        );
+      let _tiles = await axios.get(
+        API_URL +
+          `/map?x=${originCoords.x}=&y=${originCoords.y}&range=${DEFAULT_CHUNK_SIZE}`
+      );
 
-        console.log("tiles", _tiles.data.result);
-        setTiles(_tiles.data.result);
-      }
+      console.log("tiles", _tiles.data.result);
+      setTiles(_tiles.data.result);
 
       //load charater info
       if (tiles && _character && Number.isInteger(_character.x)) {
