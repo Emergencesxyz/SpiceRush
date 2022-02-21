@@ -16,15 +16,19 @@ import ActionBox from "./ActionBox";
 import consts from "../../consts";
 
 import axios from "axios";
-
+import { useCookies } from "react-cookie";
 const { randomQuotes } = consts;
 
 const GameScreen: FunctionComponent = (): JSX.Element => {
+  const [cookies, setCookie, removeCookie] = useCookies(["cookie-name"]);
+
   const { account, library } = useWeb3React();
   const [userBalance, setUserBalance] = useState<number>(0);
   const [tiles, setTiles] = useState<Array<any>>([]);
   const [character, setCharacter] = useState<any | null>(null);
-  const [characterId, setCharacterId] = useState<number | null>(null);
+  const [characterId, setCharacterId] = useState<number | null>(
+    cookies.characterId ? cookies.characterId : null
+  );
   const [spawned, setSpawned] = useState<Boolean>(false);
   const [spiceMined, setSpiceMined] = useState<number | null>(null);
   const [actions, setActions] = useState<number>(0);
@@ -33,6 +37,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
     x: 0,
     y: 0,
   });
+
   const [loading, setLoading] = useState<Boolean>(false);
   const [toastMessage, setToastMessage] = useState<String>("");
 
@@ -97,6 +102,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
     let owner = await blockchainService.ownerOf(nftId as number);
 
     if (owner === account) {
+      setCookie("characterId" as "cookie-name", nftId, { path: "/" });
       setCharacterId(nftId);
       setLoading(true);
     } else setToastMessage("This NFT doesn't belong to you come on.");
@@ -143,7 +149,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
                 type="number"
                 placeholder="nftId"
                 id="nftId"
-                defaultValue="0"
+                defaultValue={characterId}
               ></input>
               <button onClick={selectNft} className={styles.pushable}>
                 <span className={styles.front}>select ID</span>
