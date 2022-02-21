@@ -7,6 +7,7 @@ type Data = {
 };
 
 const databaseService = new DatabaseService();
+const DEFAULT_MAP_SIZE = parseInt(process.env.DEFAULT_MAP_SIZE as string);
 
 let cachedMap: any = null;
 export default async function handler(
@@ -22,7 +23,11 @@ export default async function handler(
   console.log("params", x, y, range);
   if (req.method === "GET") {
     console.log("isCached", cachedMap !== null);
-    if (!cachedMap) cachedMap = await databaseService.getMapChunk(x, y, 9);
+    if (!cachedMap) {
+      console.log("- putting map in cache");
+      cachedMap = await databaseService.getMapChunk(x, y, DEFAULT_MAP_SIZE);
+      console.log("- map cached!");
+    }
 
     let chunk: any = [];
     for (let i = 0; i < cachedMap.length; i++) {
@@ -38,7 +43,7 @@ export default async function handler(
         )
           row.push(tile);
       }
-      chunk.push(row);
+      if (row && row.length) chunk.push(row);
     }
 
     return res.status(200).send({ result: chunk });

@@ -43,6 +43,7 @@ export default class DatabaseService {
           },
         };
 
+        console.log("DatabaseService x/y", x_, y_);
         const _tile = (await this.dynamo.scan(params).promise()).Items[0];
 
         row.push({
@@ -50,12 +51,12 @@ export default class DatabaseService {
           isExplored: _tile.isExplored,
           level: parseInt(_tile.level),
           spiceAmount: parseInt(_tile.spiceAmount),
-          x: x,
-          y: y,
+          x: x_,
+          y: y_,
         });
-        await this.sleep(200); //to respect aws dynamo max throughput
+        await this.sleep(100); //to respect aws dynamo max throughput
       }
-      tiles.push(row);
+      if (row) tiles.push(row);
     }
 
     return tiles;
