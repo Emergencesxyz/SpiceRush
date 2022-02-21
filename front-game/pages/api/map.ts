@@ -1,12 +1,15 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import DatabaseService from "../../services/DatabaseService";
+import BlockchainService from "../../services/BlockchainService";
 
 type Data = {
   result: string;
 };
 
 const databaseService = new DatabaseService();
+const blockchainService = new BlockchainService(null);
+
 const DEFAULT_MAP_SIZE = parseInt(process.env.DEFAULT_MAP_SIZE as string);
 
 let cachedMap: any = null;
@@ -25,8 +28,9 @@ export default async function handler(
     console.log("isCached", cachedMap !== null);
     if (!cachedMap) {
       console.log("- putting map in cache");
-      cachedMap = await databaseService.getMapChunk(x, y, DEFAULT_MAP_SIZE);
-      console.log("- map cached!");
+      //cachedMap = await databaseService.getMapChunk(x, y, DEFAULT_MAP_SIZE);
+      //we do not actually need DB for this
+      cachedMap = await blockchainService.getMapChunk(x, y, DEFAULT_MAP_SIZE);
     }
 
     let chunk: any = [];
@@ -37,9 +41,9 @@ export default async function handler(
 
         if (
           tile.y >= y - Math.floor(range / 2) &&
-          tile.y <= y + Math.ceil(range / 2) &&
+          tile.y < y + Math.ceil(range / 2) &&
           tile.x >= x - Math.floor(range / 2) &&
-          tile.x <= x + Math.ceil(range / 2)
+          tile.x < x + Math.ceil(range / 2)
         )
           row.push(tile);
       }
