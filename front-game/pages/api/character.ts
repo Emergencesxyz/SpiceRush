@@ -35,7 +35,7 @@ export default async function handler(
 
     //filter
     if (Number.isInteger(id)) {
-      result = result.filter((c, i: number) => i === id)[0];
+      result = result.filter((c: any, i: number) => i === id)[0];
     }
 
     return res.status(200).json({ result: result });

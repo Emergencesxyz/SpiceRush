@@ -27,7 +27,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
   const [tiles, setTiles] = useState<Array<any>>([]);
   const [character, setCharacter] = useState<any | null>(null);
   const [characterId, setCharacterId] = useState<number | null>(
-    cookies.characterId ? cookies.characterId : null
+    (cookies as any).characterId ? (cookies as any).characterId : null
   );
   const [spawned, setSpawned] = useState<Boolean>(false);
   const [spiceMined, setSpiceMined] = useState<number | null>(null);
@@ -149,7 +149,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
                 type="number"
                 placeholder="nftId"
                 id="nftId"
-                defaultValue={characterId}
+                defaultValue={characterId?.toString()}
               ></input>
               <button onClick={selectNft} className={styles.pushable}>
                 <span className={styles.front}>select ID</span>
