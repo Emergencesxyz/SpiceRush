@@ -3,6 +3,7 @@ pragma solidity ^0.8.10;
 
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 
 /*
  * @dev Provides information about the current execution context, including the
@@ -95,6 +96,7 @@ interface INFT {
 
 contract Gameplay is Ownable {
     using SafeMath for uint256;
+    using Strings for uint256;
 
     event moving(uint256 indexed _tokenId, Chara _chara);
     event explored(uint256 indexed _tokenId, int256 _x, int256 _y, Tile _tile);
@@ -110,16 +112,19 @@ contract Gameplay is Ownable {
     INFT public property;
 
     constructor(address apinatorAddress, address apinatorPropertyAddress){
-        map[0][0] = Tile(true, 0, 0, 0);
+        uint256[] memory emptyIds;
+        map[0][0] = Tile(true, 0, 0, 0, emptyIds, emptyIds);
         apinator = IERC721(apinatorAddress);
         property = INFT(apinatorPropertyAddress);
     }
-    //TODO bonus : PVP? ERC20 TPs Events pour le front, setter difficulty, setnewlevel, name
+    //TODO Add : ERC20, TPs name, attack enemies on tile, reduce foes, build on tile protections + defs
     struct Tile {
         bool isExplored;
         int16 level;
         uint256 spiceAmount;
         uint16 foesAmount;
+        uint256[] team1Ids;
+        uint256[] team2Ids;
     }
     struct Stats {
         uint16 hp;
@@ -127,7 +132,6 @@ contract Gameplay is Ownable {
         uint16 mining;
         uint16 hpMax;
         uint16 energyMax;
-        uint16 miningMax;
     }
     struct Chara {
         uint256 nextActionTime;
@@ -136,16 +140,21 @@ contract Gameplay is Ownable {
         Stats stats;
         uint16 xp;
         uint16 lvl;
+        string name;
     }
     mapping (uint256 => uint256) public bank;
 	mapping (int256 => mapping(int256 => Tile)) public map;
     mapping (uint256 => Chara) public charas;
-    mapping (uint256 => string) public names;
     uint256 actionTime = 1;
     uint256 spiceBlocksPerTile = 30;
     int256 startX = 0;
     int256 startY = 0;
     uint16 dif = 4;
+    uint8 teamNum = 2;
+
+    function setTeamNum(uint8 _teamNum) public onlyOwner() {
+        teamNum = _teamNum;
+    }
 
     function setActionTime(uint256 _actionTime) public onlyOwner() {
         actionTime = _actionTime;
@@ -158,7 +167,7 @@ contract Gameplay is Ownable {
     function setSpawnTile(int256 x, int256 y, int16 level) public onlyOwner() {
         startX = x;
         startY = y;
-        map[x][y] = Tile(true, level, 0, 0);
+        map[x][y] = Tile(true, level, 0, 0, map[x][y].team1Ids, map[x][y].team2Ids);
     }
 
     function setDifficulty(uint16 _dif) public onlyOwner() {
@@ -169,7 +178,7 @@ contract Gameplay is Ownable {
         require(apinator.ownerOf(tokenId) == msg.sender, "Not owner of specified token.");
         require(charas[tokenId].stats.hp == 0, "Not dead yet.");
 
-        charas[tokenId] = Chara(0, startX, startY, Stats(10, 10, 10, 10, 10, 10), 0, 0);
+        charas[tokenId] = Chara(0, startX, startY, Stats(10, 10, 10, 10, 10), 0, 0, tokenId.toString());
         emit spawned(tokenId, charas[tokenId]);
     }
 
@@ -238,7 +247,7 @@ contract Gameplay is Ownable {
         require(charas[tokenId].nextActionTime < block.timestamp, "Your character is still busy.");
         require(charas[tokenId].stats.hp > 0, "No more hp.");
         require(statId < 4, "Not a stat id.");
-        require(500*(charas[tokenId].lvl**2 + charas[tokenId].lvl) + 100 < charas[tokenId].xp, "Not enough xp.");
+        require(100*(charas[tokenId].lvl**2 + charas[tokenId].lvl) + 100 < charas[tokenId].xp, "Not enough xp.");
 
         charas[tokenId].lvl += 1;
         if (statId == 1) {
@@ -248,7 +257,7 @@ contract Gameplay is Ownable {
             charas[tokenId].stats.energyMax += 1;
             }
         else if (statId == 3) {
-            charas[tokenId].stats.miningMax += 2;
+            charas[tokenId].stats.mining += 2;
             }
         emit leveledUp(tokenId, charas[tokenId]);
     }
@@ -288,7 +297,9 @@ contract Gameplay is Ownable {
         require(apinator.ownerOf(tokenId) == msg.sender, "Not owner of specified token.");
         require(charas[tokenId].nextActionTime < block.timestamp, "Your character is still busy.");
         require(charas[tokenId].stats.hp > 0, "No more hp.");
+        require(charas[tokenId].stats.energy > 0, "Not enough energy.");
         
+        charas[tokenId].stats.energy -= 1;
         property.mintTile(msg.sender, x, y);
         emit buyLand(tokenId, charas[tokenId], x, y); 
     }
@@ -297,8 +308,9 @@ contract Gameplay is Ownable {
         require(apinator.ownerOf(tokenId) == msg.sender, "Not owner of specified token.");
         require(charas[tokenId].nextActionTime < block.timestamp, "Your character is still busy.");
         require(charas[tokenId].stats.hp > 0, "No more hp.");
+        require(bytes(name).length < 15, "Name too long.");
 
-        names[tokenId] = name; 
+        charas[tokenId].name = name; 
         emit changedName(tokenId, name);
     }
 
@@ -334,8 +346,28 @@ contract Gameplay is Ownable {
         int16 level = int16(max(min(mean + (rand % 10), 100), 0));
         uint256 spice = uint256(max(min(mean + ((rand>>5) % 10), 100), 0)) * 100;
         uint16 foes = uint16(uint256(max(min(mean + ((rand>>10) % 10), 100), 0)));
+        uint256[] memory emptyIds;
+        map[x][y] = Tile(true, level, spice, foes, emptyIds, emptyIds);
+    }
 
-        map[x][y] = Tile(true, level, spice, foes);
+    function teamOf(uint256 tokenId) public view returns (uint8) {
+        return uint8(tokenId % teamNum);
+    }
+
+    function getTeamsSpice() public view returns (uint256[2] memory) {
+        uint256[2] memory teamsSpice;
+        for (uint256 i = 0; i < teamNum; i++){
+            uint256 amount = 0;
+            for (uint256 j = i; j < 8000; j += 2){
+                amount += bank[j];
+            }
+            teamsSpice[i] = amount;
+        }
+        return teamsSpice;
+    }
+
+    function isLevelUpAvailable(uint256 tokenId) public view returns (bool) {
+        return 100*(charas[tokenId].lvl**2 + charas[tokenId].lvl) + 100 < charas[tokenId].xp;
     }
 
     function getRand(uint256 a, uint256 b, int from) private pure returns (int) {
