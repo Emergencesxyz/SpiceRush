@@ -40,7 +40,7 @@
 .characterBox {
   font-family: "Retrogaming", "Franklin Gothic Medium", "Arial Narrow", Arial,
     sans-serif;
-
+  font-size: 0.7em;
   border: 2px solid #5ebbbd;
   padding: 2px;
   border-radius: 10px;
@@ -104,6 +104,7 @@
 }
 
 .quotes {
+  color: #e8b200;
   text-align: left;
   margin-bottom: 1em;
   font-size: 0.73em;
@@ -120,6 +121,47 @@
 .buttonCol Button:hover {
   background: none;
   color: #ffa40b;
+}
+
+.pushable,
+.pushable,
+.pushable:hover,
+.pushable:focus {
+  margin-top: 0.5em;
+  background: hsl(340deg 100% 32%);
+  border-radius: 12px;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline-offset: 4px;
+}
+
+.front {
+  display: block;
+  padding: 0.5em 0.5em;
+  border-radius: 12px;
+  font-size: 0.8em;
+  background: hsl(345deg 100% 47%);
+  color: white;
+  transform: translateY(-6px);
+  text-shadow: 2px 1px 2px #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+.front:hover {
+  background: rgb(196, 4, 52);
+}
+.pushable:active .front {
+  transform: translateY(-2px);
+}
+
+.toast {
+  position: fixed;
+  z-index: 100;
+  top: 30%;
+  left: 30%;
+  width: 30%;
+  color: white;
+  background-color: rgb(42, 13, 88);
 }
 
 @media (max-width: 576px) {

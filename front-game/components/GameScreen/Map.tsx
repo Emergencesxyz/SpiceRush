@@ -1,22 +1,42 @@
 import styles from "./GameScreen.module.scss";
 
 import { Row, Col, Button } from "react-bootstrap";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState, useEffect } from "react";
 import Tile from "./Tile";
 
-import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
-import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
-import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
-import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
+import axios from "axios";
 
-const Map: FunctionComponent = ({
+interface Props {
+  tiles: Array<Object>;
+  character: any;
+  originCoords: any;
+  setOriginCoords: Function;
+  setLoading: Function;
+}
+const API_URL = process.env.API_URL;
+
+const Map: FunctionComponent<Props> = ({
   tiles,
   character,
   originCoords,
   setOriginCoords,
   setLoading,
 }): JSX.Element => {
-  const moveMap = async (e) => {
+  const [characters, setCharacters] = useState<Array<any>>([]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        let characters_ = (await axios.get(API_URL + `/character`)).data.result;
+        console.log("characters_", characters_);
+        setCharacters(characters_);
+      } catch (e: any) {
+        console.log("e", e.toString());
+      }
+    })();
+  }, []);
+
+  const moveMap = async (e: any) => {
     let x: number, y: number;
 
     if (e.target.name === "right") {
@@ -37,12 +57,17 @@ const Map: FunctionComponent = ({
     setLoading(true);
   };
 
-  const tilesComponent = tiles.map((row) => {
+  console.log("Map characters", characters);
+  const tilesComponent = tiles.map((row: any, index: number) => {
     return (
-      <div>
+      <div key={index}>
         {row.map(function (tile: any) {
           const currentPosition =
-            character.x === tile.x && character.y === tile.y;
+            character && character.x === tile.x && character.y === tile.y;
+
+          const countCharacters = characters
+            ? characters?.filter((c) => c.x === tile.x && c.y === tile.y).length
+            : 0;
 
           return (
             <Tile
@@ -54,6 +79,8 @@ const Map: FunctionComponent = ({
               currentPosition={currentPosition}
               x={tile.x}
               y={tile.y}
+              countCharacters={countCharacters}
+              characters={characters}
             />
           );
         })}
@@ -70,7 +97,7 @@ const Map: FunctionComponent = ({
         </Row>
         <Row>
           <Col xs={2} className={styles.buttonCol}>
-            <Button name="left" onClick={moveMap} name="left" onClick={moveMap}>
+            <Button name="left" onClick={moveMap}>
               ◄
             </Button>
           </Col>

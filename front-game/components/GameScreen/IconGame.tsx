@@ -3,11 +3,21 @@ import styles from "./GameScreen.module.scss";
 import { Container, Row } from "react-bootstrap";
 import { useState, FunctionComponent, useEffect } from "react";
 
-const IconGame: FunctionComponent = ({ name, size }): JSX.Element => {
+interface Props {
+  name: string;
+  size?: string;
+  extension?: string;
+}
+
+const IconGame: FunctionComponent<Props> = ({
+  name,
+  size,
+  extension = "png",
+}): JSX.Element => {
   try {
     return (
       <img
-        src={"/icons/" + name + ".png"}
+        src={"/icons/" + name + "." + extension}
         alt={name}
         className={styles.icon}
         style={{ maxWidth: size ? size : "25px" }}

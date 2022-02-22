@@ -25,6 +25,15 @@ module.exports = {
         version: "0.8.7",
         settings: {},
       },
+      {
+        version: "0.8.10",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          },
+        },
+      },
     ],
   },
   networks: {
