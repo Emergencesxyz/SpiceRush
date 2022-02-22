@@ -40,6 +40,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
 
   const [loading, setLoading] = useState<Boolean>(false);
   const [toastMessage, setToastMessage] = useState<String>("");
+  const [totalSupply, setTotalSupply] = useState<number>(0);
 
   const DEFAULT_CHUNK_SIZE = process.env.DEFAULT_CHUNK_SIZE;
   const API_URL = process.env.API_URL;
@@ -55,6 +56,8 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
       if (!library) return;
 
       setUserBalance(await library.eth.getBalance(account));
+
+      setTotalSupply(await await blockchainService.totalSupply());
 
       const _character: any =
         characterId === null
@@ -193,6 +196,8 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
               </Row>
             )}
           </Col>
+
+          <Col>{totalSupply} player(s)</Col>
         </Row>
 
         <Row>
