@@ -1,6 +1,10 @@
 import consts from "../consts";
 import Web3 from "web3";
 
+var RPC_URL = process.env.RPC_URL;
+var APINATOR_CONTRACT_ADDRESS = process.env.APINATOR_CONTRACT_ADDRESS;
+var GAMEPLAY_CONTRACT_ADDRESS = process.env.GAMEPLAY_CONTRACT_ADDRESS;
+
 export default class BlockchainService {
   account: any;
   web3: any;
@@ -9,18 +13,18 @@ export default class BlockchainService {
   gameplayContract: any;
 
   constructor(_account: any) {
-    const provider = consts.rinkeby_url;
-    this.web3 = new Web3(provider);
+    const provider = RPC_URL;
+    this.web3 = new Web3(provider as string);
     this.account = _account;
 
     this.apinatorContract = new this.web3.eth.Contract(
       consts.apinatorABI as any,
-      consts.apinatorAddress
+      APINATOR_CONTRACT_ADDRESS
     );
 
     this.gameplayContract = new this.web3.eth.Contract(
       consts.gameplayABI as any,
-      consts.gameplayAddress
+      GAMEPLAY_CONTRACT_ADDRESS
     );
   }
 
@@ -116,7 +120,7 @@ export default class BlockchainService {
 
     this.gameplayContract = new library.eth.Contract(
       consts.gameplayABI as any,
-      consts.gameplayAddress
+      GAMEPLAY_CONTRACT_ADDRESS
     );
 
     await this.gameplayContract.methods
@@ -136,7 +140,7 @@ export default class BlockchainService {
 
     this.gameplayContract = new library.eth.Contract(
       consts.gameplayABI as any,
-      consts.gameplayAddress
+      GAMEPLAY_CONTRACT_ADDRESS
     );
 
     await this.gameplayContract.methods
@@ -158,7 +162,7 @@ export default class BlockchainService {
 
       this.apinatorContract = new library.eth.Contract(
         consts.apinatorABI as any,
-        consts.apinatorAddress
+        APINATOR_CONTRACT_ADDRESS
       );
 
       await this.apinatorContract.methods
@@ -178,7 +182,7 @@ export default class BlockchainService {
 
     this.gameplayContract = new library.eth.Contract(
       consts.gameplayABI as any,
-      consts.gameplayAddress
+      GAMEPLAY_CONTRACT_ADDRESS
     );
 
     await this.gameplayContract.methods
@@ -198,7 +202,7 @@ export default class BlockchainService {
     console.log("mine", nftId);
     this.gameplayContract = new library.eth.Contract(
       consts.gameplayABI as any,
-      consts.gameplayAddress
+      GAMEPLAY_CONTRACT_ADDRESS
     );
 
     await this.gameplayContract.methods
@@ -218,7 +222,7 @@ export default class BlockchainService {
 
     this.gameplayContract = new library.eth.Contract(
       consts.gameplayABI as any,
-      consts.gameplayAddress
+      GAMEPLAY_CONTRACT_ADDRESS
     );
 
     await this.gameplayContract.methods
