@@ -9,6 +9,11 @@ const constants = {
           name: "apinatorAddress",
           type: "address",
         },
+        {
+          internalType: "address",
+          name: "apinatorPropertyAddress",
+          type: "address",
+        },
       ],
       stateMutability: "nonpayable",
       type: "constructor",
@@ -30,6 +35,291 @@ const constants = {
         },
       ],
       name: "OwnershipTransferred",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "_tokenId",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "int256",
+          name: "_x",
+          type: "int256",
+        },
+        {
+          indexed: false,
+          internalType: "int256",
+          name: "_y",
+          type: "int256",
+        },
+      ],
+      name: "buyLand",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "_tokenId",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "string",
+          name: "_name",
+          type: "string",
+        },
+      ],
+      name: "changedName",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "_tokenId",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "int256",
+          name: "_x",
+          type: "int256",
+        },
+        {
+          indexed: false,
+          internalType: "int256",
+          name: "_y",
+          type: "int256",
+        },
+      ],
+      name: "died",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "_tokenId",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "int256",
+          name: "_x",
+          type: "int256",
+        },
+        {
+          indexed: false,
+          internalType: "int256",
+          name: "_y",
+          type: "int256",
+        },
+        {
+          indexed: false,
+          internalType: "int16",
+          name: "_level",
+          type: "int16",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "_spiceAmount",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "uint16",
+          name: "_foesAmount",
+          type: "uint16",
+        },
+      ],
+      name: "explored",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "_tokenId",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "uint16",
+          name: "_mining",
+          type: "uint16",
+        },
+        {
+          indexed: false,
+          internalType: "uint16",
+          name: "_hpMax",
+          type: "uint16",
+        },
+        {
+          indexed: false,
+          internalType: "uint16",
+          name: "_energyMax",
+          type: "uint16",
+        },
+      ],
+      name: "leveledUp",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "_tokenId",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "_bank",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "_spiceAmount",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "uint16",
+          name: "_xp",
+          type: "uint16",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "_nextActionTime",
+          type: "uint256",
+        },
+      ],
+      name: "mining",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "_tokenId",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "int256",
+          name: "_x",
+          type: "int256",
+        },
+        {
+          indexed: false,
+          internalType: "int256",
+          name: "_y",
+          type: "int256",
+        },
+        {
+          indexed: false,
+          internalType: "uint16",
+          name: "_hp",
+          type: "uint16",
+        },
+        {
+          indexed: false,
+          internalType: "uint16",
+          name: "_energy",
+          type: "uint16",
+        },
+        {
+          indexed: false,
+          internalType: "uint16",
+          name: "_xp",
+          type: "uint16",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "_nextActionTime",
+          type: "uint256",
+        },
+      ],
+      name: "moving",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "_tokenId",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "uint16",
+          name: "_hp",
+          type: "uint16",
+        },
+        {
+          indexed: false,
+          internalType: "uint16",
+          name: "_energy",
+          type: "uint16",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "_nextActionTime",
+          type: "uint256",
+        },
+      ],
+      name: "resting",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "_tokenId",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "int256",
+          name: "_x",
+          type: "int256",
+        },
+        {
+          indexed: false,
+          internalType: "int256",
+          name: "_y",
+          type: "int256",
+        },
+      ],
+      name: "spawned",
       type: "event",
     },
     {
@@ -129,11 +419,6 @@ const constants = {
               name: "energyMax",
               type: "uint16",
             },
-            {
-              internalType: "uint16",
-              name: "miningMax",
-              type: "uint16",
-            },
           ],
           internalType: "struct Gameplay.Stats",
           name: "stats",
@@ -148,6 +433,11 @@ const constants = {
           internalType: "uint16",
           name: "lvl",
           type: "uint16",
+        },
+        {
+          internalType: "string",
+          name: "name",
+          type: "string",
         },
       ],
       stateMutability: "view",
@@ -164,6 +454,38 @@ const constants = {
       name: "claimSpice",
       outputs: [],
       stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "getTeamsSpice",
+      outputs: [
+        {
+          internalType: "uint256[2]",
+          name: "",
+          type: "uint256[2]",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "tokenId",
+          type: "uint256",
+        },
+      ],
+      name: "isLevelUpAvailable",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "view",
       type: "function",
     },
     {
@@ -259,6 +581,29 @@ const constants = {
           type: "int256",
         },
       ],
+      name: "mintTile",
+      outputs: [],
+      stateMutability: "payable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "tokenId",
+          type: "uint256",
+        },
+        {
+          internalType: "int256",
+          name: "x",
+          type: "int256",
+        },
+        {
+          internalType: "int256",
+          name: "y",
+          type: "int256",
+        },
+      ],
       name: "move",
       outputs: [],
       stateMutability: "nonpayable",
@@ -270,6 +615,19 @@ const constants = {
       outputs: [
         {
           internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "property",
+      outputs: [
+        {
+          internalType: "contract INFT",
           name: "",
           type: "address",
         },
@@ -336,12 +694,79 @@ const constants = {
     {
       inputs: [
         {
+          internalType: "uint16",
+          name: "_dif",
+          type: "uint16",
+        },
+      ],
+      name: "setDifficulty",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "tokenId",
+          type: "uint256",
+        },
+        {
+          internalType: "string",
+          name: "name",
+          type: "string",
+        },
+      ],
+      name: "setName",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "int256",
+          name: "x",
+          type: "int256",
+        },
+        {
+          internalType: "int256",
+          name: "y",
+          type: "int256",
+        },
+        {
+          internalType: "int16",
+          name: "level",
+          type: "int16",
+        },
+      ],
+      name: "setSpawnTile",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
           internalType: "uint256",
           name: "_spiceBlocksPerTile",
           type: "uint256",
         },
       ],
       name: "setSpiceBlocksPerTile",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint8",
+          name: "_teamNum",
+          type: "uint8",
+        },
+      ],
+      name: "setTeamNum",
       outputs: [],
       stateMutability: "nonpayable",
       type: "function",
@@ -357,6 +782,25 @@ const constants = {
       name: "spawn",
       outputs: [],
       stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "tokenId",
+          type: "uint256",
+        },
+      ],
+      name: "teamOf",
+      outputs: [
+        {
+          internalType: "uint8",
+          name: "",
+          type: "uint8",
+        },
+      ],
+      stateMutability: "view",
       type: "function",
     },
     {

@@ -2,6 +2,10 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import DatabaseService from "../../services/DatabaseService";
 import BlockchainService from "../../services/BlockchainService";
+import ethers from "ethers";
+
+const RPC_URL = process.env.RPC_URL;
+const DEFAULT_MAP_SIZE = parseInt(process.env.DEFAULT_MAP_SIZE as string);
 
 type Data = {
   result: string;
@@ -9,8 +13,6 @@ type Data = {
 
 const databaseService = new DatabaseService();
 const blockchainService = new BlockchainService(null);
-
-const DEFAULT_MAP_SIZE = parseInt(process.env.DEFAULT_MAP_SIZE as string);
 
 let cachedMap: any = null;
 export default async function handler(
