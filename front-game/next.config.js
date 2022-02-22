@@ -11,6 +11,11 @@ module.exports = {
     MUMBAI_URL: process.env.MUMBAI_URL,
     RINKEBY_URL: process.env.RINKEBY_URL,
     KOVAN_URL: process.env.KOVAN_URL,
+    RPC_URL: process.env.RPC_URL,
+
+    APINATOR_CONTRACT_ADDRESS: process.env.APINATOR_CONTRACT_ADDRESS,
+    GAMEPLAY_CONTRACT_ADDRESS: process.env.GAMEPLAY_CONTRACT_ADDRESS,
+    TILES_CONTRACT_ADDRESS: process.env.TILES_CONTRACT_ADDRESS,
 
     DEFAULT_MAP_SIZE: process.env.DEFAULT_MAP_SIZE,
     DEFAULT_CHUNK_SIZE: process.env.DEFAULT_CHUNK_SIZE, //has to be odd for centering
