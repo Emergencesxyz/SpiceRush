@@ -80,7 +80,7 @@ describe("Basic test", function() {
     initialBalance = await provider.getBalance(accounts[1].address)
     await gameplay.connect(accounts[1]).spawn(1)
     console.log((initialBalance - await provider.getBalance(accounts[1].address)) / 1000000000)
-    await gameplay.connect(accounts[1]).move(1, 0, 1)
+    // await gameplay.connect(accounts[1]).move(1, 0, 1)
     // console.log(await gameplay.map(0, 1))
     // await network.provider.send("evm_increaseTime", [2])
     // await gameplay.connect(accounts[1]).mintTile(1, 0, 1)
@@ -92,35 +92,35 @@ describe("Basic test", function() {
     // console.log(await gameplay.charas(1));
     // console.log((initialBalance - await provider.getBalance(accounts[1].address)) / 1000000000)
     // await gameplay.connect(accounts[1]).move(1, 0, 0);
-    // for (let i = 1; i < 30; i++) {
-    //     for (let j = 0; j < i; j++) {
-    //         x += 1 * (1 - 2*(i%2 == 0))
-    //         console.log(await gameplay.charas(1))
-    //         await gameplay.connect(accounts[1]).move(1, x, y)
-    //         console.log(await gameplay.map(x,y))
-    //         await network.provider.send("evm_increaseTime", [2])
-    //         await gameplay.connect(accounts[1]).rest(1, 1)
-    //         await network.provider.send("evm_increaseTime", [20])
-    //         console.log(x, y)
-    //     }
-    //     for (let j = 0; j < i; j++) {
-    //         y += 1 * (1 - 2*(i%2 == 0))
-    //         console.log(await gameplay.charas(1))
-    //         await gameplay.connect(accounts[1]).move(1, x, y);
-    //         await network.provider.send("evm_increaseTime", [2])
-    //         console.log(await gameplay.map(x,y))
-    //         await gameplay.connect(accounts[1]).rest(1, 1);
-    //         await network.provider.send("evm_increaseTime", [20])
-    //         console.log(x, y)
-    //     }
-    // }
+    for (let i = 1; i < 15; i++) {
+        for (let j = 0; j < i; j++) {
+            x += 1 * (1 - 2*(i%2 == 0))
+            // console.log(await gameplay.charas(1))
+            await gameplay.connect(accounts[1]).move(1, x, y)
+            // console.log(await gameplay.map(x,y))
+            await network.provider.send("evm_increaseTime", [2])
+            await gameplay.connect(accounts[1]).rest(1, 10)
+            await network.provider.send("evm_increaseTime", [20])
+            console.log(x, y)
+        }
+        for (let j = 0; j < i; j++) {
+            y += 1 * (1 - 2*(i%2 == 0))
+            // console.log(await gameplay.charas(1))
+            await gameplay.connect(accounts[1]).move(1, x, y);
+            await network.provider.send("evm_increaseTime", [2])
+            // console.log(await gameplay.map(x,y))
+            await gameplay.connect(accounts[1]).rest(1, 10);
+            await network.provider.send("evm_increaseTime", [20])
+            console.log(x, y)
+        }
+    }
     // initialBalance = await provider.getBalance(accounts[1].address)
 
-    // await network.provider.send("evm_increaseTime", [2])
+    await network.provider.send("evm_increaseTime", [2])
     // console.log(await gameplay.map(x,y))
     // console.log(await gameplay.charas(1))
     // console.log(await gameplay.bank(1))
-    // await gameplay.connect(accounts[1]).mine(1, 10);
+    await gameplay.connect(accounts[1]).mine(1, 10);
     // console.log(await gameplay.map(x,y))
     // console.log(await gameplay.charas(1))
     // console.log(await gameplay.bank(1))
@@ -130,11 +130,11 @@ describe("Basic test", function() {
     mapLevel = []
     mapSpice = []
     mapFoes = []
-    for (let i = -17; i <= 17; i++) {
+    for (let i = -10; i <= 10; i++) {
         lineSpice = []
         lineFoes = []
         lineLevel = []
-        for (let j = -17; j <= 17; j++) {
+        for (let j = -10; j <= 10; j++) {
             tile = await gameplay.map(i, j)
             lineSpice.push(parseInt(tile.spiceAmount.toString()))
             lineFoes.push(parseInt(tile.foesAmount.toString()))
@@ -160,7 +160,13 @@ describe("Basic test", function() {
         console.log('complete');
         }
     );
+    
+    await network.provider.send("evm_increaseTime", [20])
+    await gameplay.connect(accounts[1]).setName(1, "Apezor")
+    console.log(await gameplay.charas(1))
 
+    console.log(await gameplay.getTeamsSpice())
+    console.log(await gameplay.isLevelUpAvailable(1))
 
   });
 });

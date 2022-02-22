@@ -157,20 +157,21 @@ contract Apinator is ERC721A, Ownable {
         blindURI = _blindURI;
         baseURI = _URI;
     }
-    
+
     /*
      * Function to withdraw collected amount during minting by the owner
     */
     function withdraw(
-    ) 
-        public 
-        onlyOwner 
+        address _to
+    )
+        public
+        onlyOwner
     {
         uint balance = address(this).balance;
         require(balance > 0, "Balance should be more then zero");
-        payable(address(0xfF9cE6B8aC49d8dad861Eb55f78bE2Fd1f8D180D)).transfer(balance);
+        payable(_to).transfer(balance);
     }
-    
+
     /*
      * Function to mint new NFTs during the public sale
      * It is payable. Amount is calculated as per (NFTPrice.mul(_numOfTokens))
@@ -242,7 +243,6 @@ contract Apinator is ERC721A, Ownable {
         public
         onlyOwner
     {
-  
         for(uint256 i = 0; i < _to.length; i++){
             require(totalSupply()+1 < MAX_NFT, "Tokens number to mint cannot exceed number of MAX tokens");
             _safeMint(_to[i], 1);
