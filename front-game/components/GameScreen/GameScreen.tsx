@@ -19,6 +19,8 @@ import consts from "../../consts";
 
 import { useCookies } from "react-cookie";
 
+import { TileType } from "../../types";
+
 const { randomQuotes } = consts;
 
 const GameScreen: FunctionComponent = (): JSX.Element => {
@@ -26,7 +28,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
 
   const { account, library } = useWeb3React();
   const [userBalance, setUserBalance] = useState<number>(0);
-  const [tiles, setTiles] = useState<Array<any>>([]);
+  const [tiles, setTiles] = useState<Array<TileType>>([]);
   const [character, setCharacter] = useState<any | null>(null);
   const [characterId, setCharacterId] = useState<number | null>(
     (cookies as any).characterId ? (cookies as any).characterId : null
@@ -312,9 +314,9 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
               <div>{totalSupply} player(s)</div>
             </Row>
             <Row>
-              {events.map((event: any) => {
+              {events.map((event: any, i: number) => {
                 return (
-                  <div className={styles.events}>
+                  <div className={styles.events} key={i}>
                     [{event.type}] {event.content}
                   </div>
                 );

@@ -7,9 +7,10 @@ import Tile from "./Tile";
 import axios from "axios";
 
 import BlockchainService from "../../services/BlockchainService";
+import { TileType } from "../../types";
 
 interface Props {
-  tiles: Array<Object>;
+  tiles: Array<TileType>;
   character: any;
   originCoords: any;
   setOriginCoords: Function;
@@ -64,8 +65,8 @@ const Map: FunctionComponent<Props> = ({
 
   // console.log("Map characters", characters);
 
-  const xMin = tiles[0].x;
-  const yMin = tiles[0].y;
+  const xMin = (tiles[0] as any).x;
+  const yMin = (tiles[0] as any).y;
   const xMax = xMin + Math.ceil(Math.sqrt(tiles.length));
   const yMax = yMin + Math.ceil(Math.sqrt(tiles.length));
 
@@ -73,7 +74,9 @@ const Map: FunctionComponent<Props> = ({
   for (let x = xMin; x < xMax; x++) {
     let row = [];
     for (let y = yMin; y < yMax; y++) {
-      let tile: any = tiles.filter((tile) => tile.x === x && tile.y === y)[0];
+      let tile: any = tiles.filter(
+        (tile) => (tile as any).x === x && (tile as any).y === y
+      )[0];
 
       if (!tile) continue;
 
