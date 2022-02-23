@@ -302,11 +302,11 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
           </Col>
         </Row>
 
-        {loading && (
+        {1 == 1 && (
           <Row>
             <Col xs={5}></Col>
             <Col xs={1}>
-              <Spinner animation="grow" />
+              <Spinner className={styles.spinner} animation="grow" />
             </Col>
           </Row>
         )}
