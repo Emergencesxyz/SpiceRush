@@ -1,5 +1,5 @@
 import styles from "./GameScreenC.module.scss";
-import { Row, Col, Spinner, Toast } from "react-bootstrap";
+import { Row, Col, Spinner, Toast, Accordion } from "react-bootstrap";
 import { useState, FunctionComponent, useEffect } from "react";
 
 import { useWeb3React } from "@web3-react/core";
@@ -93,7 +93,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
           let _events = [...events];
           console.log("copy", _events);
           _events.push({
-            type: "MINE",
+            type: "⛏️",
             content: `#${tokenId} mined $${_spiceAmount}  !`,
           });
           setEvents(_events);
@@ -121,25 +121,22 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
           let _events = [...events];
           _events.push({
             type: "SPAWNED",
-            content: `#${tokenId} spawned on the map. Welcome !`,
+            content: `#${tokenId} spawned on the map. Watch out !`,
           });
           setEvents(_events);
           setLoading(true);
         }
       );
 
-      gameplayContract.on(
-        "spawned",
-        (tokenId, _bank, _spiceAmount, _xp, _nextActionTime) => {
-          let _events = [...events];
-          _events.push({
-            type: "SPAWNED",
-            content: `#${tokenId} left us. RIP !`,
-          });
-          setEvents(_events);
-          setLoading(true);
-        }
-      );
+      gameplayContract.on("died", (tokenId, _bank, x, y) => {
+        let _events = [...events];
+        _events.push({
+          type: "💀",
+          content: `#  ${tokenId} left us. RIP ! `,
+        });
+        setEvents(_events);
+        setLoading(true);
+      });
 
       gameplayContract.on(
         "leveledUp",
@@ -256,24 +253,33 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
         </Row>
 
         <Row>
-          <Col xs={5}></Col>
-          <Col xs={3}>
+          <Col xs={3}></Col>
+          <Col xs={4}>
             <Row>
-              <label>Choose NFT character.</label>
-              <input
-                type="number"
-                placeholder="nftId"
-                id="nftId"
-                defaultValue={characterId?.toString()}
-              ></input>
-              <button onClick={selectNft} className={styles.pushable}>
-                <span className={styles.front}>select ID</span>
-              </button>
-              <div>or</div>
-              <button onClick={mintNft} className={styles.pushable}>
-                <span className={styles.front}> mint 1</span>
-              </button>
-              <br />{" "}
+              <Accordion>
+                <Accordion.Item
+                  style={{ width: "fit-content", color: "black" }}
+                  eventKey="0"
+                >
+                  <Accordion.Header> Choose NFT character. </Accordion.Header>
+                  <Accordion.Body>
+                    <label></label>
+                    <input
+                      type="number"
+                      placeholder="nftId"
+                      id="nftId"
+                      defaultValue={characterId?.toString()}
+                    ></input>
+                    <button onClick={selectNft} className={styles.pushable}>
+                      <span className={styles.front}>select ID</span>
+                    </button>
+                    <div>or</div>
+                    <button onClick={mintNft} className={styles.pushable}>
+                      <span className={styles.front}> mint 1</span>
+                    </button>
+                  </Accordion.Body>
+                </Accordion.Item>
+              </Accordion>
             </Row>
           </Col>
         </Row>
