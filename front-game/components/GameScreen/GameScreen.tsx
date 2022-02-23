@@ -80,7 +80,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
           let _events = [...events];
           console.log("copy", _events);
           _events.push({
-            type: "MOVE",
+            type: "🏃",
             content: `#${tokenId} moved to (${x},${y}) !`,
           });
           setEvents(_events);
@@ -120,7 +120,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
         (tokenId, _bank, _spiceAmount, _xp, _nextActionTime) => {
           let _events = [...events];
           _events.push({
-            type: "SPAWNED",
+            type: "🛬",
             content: `#${tokenId} spawned on the map. Watch out !`,
           });
           setEvents(_events);
