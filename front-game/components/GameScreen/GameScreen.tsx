@@ -341,7 +341,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
                 Leaderboard
                 {characters.slice(0, 3).map((c, i) => {
                   return (
-                    <div className={styles.events}>
+                    <div className={styles.events} key={i}>
                       1) {i === 0 && "🥇"} {i === 1 && "🥈"} {i === 2 && "🥉"} #
                       {c.id} | {c.spiceMined} $pice
                     </div>
