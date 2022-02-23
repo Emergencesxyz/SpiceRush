@@ -1,4 +1,4 @@
-import styles from "./GameScreen.module.scss";
+import styles from "./GameScreenC.module.scss";
 
 import { Container, Row, Placeholder } from "react-bootstrap";
 import { useState, FunctionComponent, useEffect } from "react";

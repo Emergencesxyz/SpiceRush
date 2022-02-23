@@ -1,5 +1,5 @@
 import styles from "./Tile.module.scss";
-import styles2 from "./Gamescreen.module.scss";
+import styles2 from "./GameScreenC.module.scss";
 import { useState, FunctionComponent, useEffect } from "react";
 import IconGame from "./IconGame";
 import { Toast } from "react-bootstrap";

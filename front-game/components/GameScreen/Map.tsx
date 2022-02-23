@@ -1,4 +1,4 @@
-import styles from "./GameScreen.module.scss";
+import styles from "./GameScreenC.module.scss";
 
 import { Row, Col, Button } from "react-bootstrap";
 import { FunctionComponent, useState, useEffect } from "react";
