@@ -72,6 +72,8 @@ const Map: FunctionComponent<Props> = ({
     for (let y = yMin; y < yMax; y++) {
       let tile: any = tiles.filter((tile) => tile.x === x && tile.y === y)[0];
 
+      if (!tile) continue;
+
       const currentPosition =
         character && character.x === tile.x && character.y === tile.y;
 
