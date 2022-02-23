@@ -67,28 +67,6 @@
     0 0 0.2rem #bc13fe, 0 0 1rem #bc13fe, inset 0 0 0.5rem #bc13fe;
 }
 
-.actionBox button {
-  font-family: "Retrogaming", "Franklin Gothic Medium", "Arial Narrow", Arial,
-    sans-serif;
-  font-size: 0.8em;
-  margin: 0.1em;
-  text-shadow: 2px 1px 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
-
-  background: url("../../public/buttons/button_supercell_small.png");
-  height: 50px;
-  width: 100px;
-}
-.actionBox button.disabled,
-.actionBox button.disabled:hover {
-  background: url("../../public/buttons/button_supercell_small_disabled.png");
-  cursor: not-allowed;
-}
-.actionBox button:hover {
-  font-size: 0.8em;
-  background: url("../../public/buttons/button_supercell_small_hover.png");
-  border: 3px solid black;
-  border-radius: 6px;
-}
 .actionBoxRow {
   margin-bottom: 1em;
 }
@@ -135,8 +113,12 @@
   cursor: pointer;
   outline-offset: 4px;
 }
+.front:hover {
+  background: rgb(145, 2, 49);
+}
 
 .front {
+  pointer-events: none;
   display: block;
   padding: 0.5em 0.5em;
   border-radius: 12px;
@@ -148,7 +130,7 @@
 }
 
 .front:hover {
-  background: rgb(196, 4, 52);
+  background: rgb(161, 6, 45);
 }
 .pushable:active .front {
   transform: translateY(-2px);

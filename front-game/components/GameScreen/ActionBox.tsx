@@ -106,77 +106,102 @@ const ActionBox: FunctionComponent<Props> = ({
           )}
           <Row>
             <Col>
-              <Button onClick={refresh}>Refresh</Button>
+              <button onClick={refresh} className={styles.pushable}>
+                <span className={styles.front}>Refresh</span>
+              </button>
             </Col>
           </Row>
         </div>
         {hp > 0 && [
           <div key={1} className={styles.actionBoxRow}>
-            <Button
+            <button
               onClick={blocked ? undefined : moveCharacter}
+              className={blocked ? styles.pushable : styles.pushable}
               name="up"
-              className={blocked ? styles.disabled : ""}
               title={blocked ? "no more hp nor energy, please rest :(" : ""}
             >
-              <span style={{ pointerEvents: "none" }}>
-                <ArrowCircleUpIcon className="iconDark" />
+              <span
+                className={styles.front}
+                style={{ backgroundColor: !blocked ? "none" : "grey" }}
+              >
+                <ArrowCircleUpIcon />
               </span>
-            </Button>
+            </button>
+
             <Row>
               <Col>
-                <Button
+                <button
                   onClick={blocked ? undefined : moveCharacter}
+                  className={blocked ? styles.pushable : styles.pushable}
                   name="left"
-                  className={blocked ? styles.disabled : ""}
                   title={blocked ? "no more hp nor energy, please rest :(" : ""}
                 >
-                  <span style={{ pointerEvents: "none" }}>
-                    <ArrowCircleLeftIcon className="iconDark" />
+                  <span
+                    className={styles.front}
+                    style={{ backgroundColor: !blocked ? "none" : "grey" }}
+                  >
+                    <ArrowCircleLeftIcon />
                   </span>
-                </Button>
+                </button>
               </Col>
 
               <Col>
-                <Button
+                <button
                   onClick={blocked ? undefined : moveCharacter}
+                  className={blocked ? styles.pushable : styles.pushable}
                   name="right"
-                  className={blocked ? styles.disabled : ""}
                   title={blocked ? "no more hp nor energy, please rest :(" : ""}
                 >
-                  <span style={{ pointerEvents: "none" }}>
-                    <ArrowCircleRightIcon className="iconDark" />
+                  <span
+                    className={styles.front}
+                    style={{ backgroundColor: !blocked ? "none" : "grey" }}
+                  >
+                    <ArrowCircleRightIcon />
                   </span>
-                </Button>
+                </button>
               </Col>
             </Row>
 
-            <Button
+            <button
               onClick={blocked ? undefined : moveCharacter}
+              className={blocked ? styles.pushable : styles.pushable}
               name="down"
-              className={blocked ? styles.disabled : ""}
               title={blocked ? "no more hp nor energy, please rest :(" : ""}
             >
-              <span style={{ pointerEvents: "none" }}>
-                <ArrowDropDownCircleIcon className="iconDark" />
+              <span
+                className={styles.front}
+                style={{ backgroundColor: !blocked ? "none" : "grey" }}
+              >
+                <ArrowDropDownCircleIcon />
               </span>
-            </Button>
+            </button>
           </div>,
           <div key={2} className={styles.actionBoxRow}>
-            <Button
+            <button
               onClick={blocked ? undefined : mine}
-              className={blocked ? styles.disabled : ""}
+              className={styles.pushable}
               title={blocked ? "no more hp nor energy, please rest :(" : ""}
             >
-              <IconGame name="mining" size="20px" />
-              Mine
-            </Button>
-            <Button
-              onClick={rest}
-              className={!hp ? styles.disabled : ""}
+              <span
+                className={styles.front}
+                style={{ backgroundColor: !blocked ? "none" : "grey" }}
+              >
+                <IconGame name="mining" size="20px" /> Mine
+              </span>
+            </button>
+
+            <button
+              onClick={!hp ? undefined : rest}
+              className={!hp ? styles.pushable : styles.pushable}
               title={blocked ? "no more hp  :(" : ""}
             >
-              <IconGame name="rest2" size="20px" /> Rest
-            </Button>
+              <span
+                className={styles.front}
+                style={{ backgroundColor: !blocked ? "none" : "grey" }}
+              >
+                <IconGame name="rest2" size="20px" /> Rest
+              </span>
+            </button>
           </div>,
         ]}
       </div>
