@@ -63,7 +63,7 @@ const CharacterBox: FunctionComponent<Props> = ({
         </span>
         ⬪
         <IconGame name="mining" />
-        {mining} / {miningMax}
+        {mining}
         <Button onClick={lvlUp} className={"button-no-bg"} name="3">
           <img
             src={"/icons/arrow_up.gif"}
