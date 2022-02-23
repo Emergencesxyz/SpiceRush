@@ -117,7 +117,9 @@ const ActionBox: FunctionComponent<Props> = ({
               className={blocked ? styles.disabled : ""}
               title={blocked ? "no more hp nor energy, please rest :(" : ""}
             >
-              <ArrowCircleUpIcon className="iconDark" />
+              <span style={{ pointerEvents: "none" }}>
+                <ArrowCircleUpIcon className="iconDark" />
+              </span>
             </Button>
             <Row>
               <Col>
@@ -127,7 +129,9 @@ const ActionBox: FunctionComponent<Props> = ({
                   className={blocked ? styles.disabled : ""}
                   title={blocked ? "no more hp nor energy, please rest :(" : ""}
                 >
-                  <ArrowCircleLeftIcon className="iconDark" />
+                  <span style={{ pointerEvents: "none" }}>
+                    <ArrowCircleLeftIcon className="iconDark" />
+                  </span>
                 </Button>
               </Col>
 
@@ -138,7 +142,9 @@ const ActionBox: FunctionComponent<Props> = ({
                   className={blocked ? styles.disabled : ""}
                   title={blocked ? "no more hp nor energy, please rest :(" : ""}
                 >
-                  <ArrowCircleRightIcon className="iconDark" />
+                  <span style={{ pointerEvents: "none" }}>
+                    <ArrowCircleRightIcon className="iconDark" />
+                  </span>
                 </Button>
               </Col>
             </Row>
@@ -149,7 +155,9 @@ const ActionBox: FunctionComponent<Props> = ({
               className={blocked ? styles.disabled : ""}
               title={blocked ? "no more hp nor energy, please rest :(" : ""}
             >
-              <ArrowDropDownCircleIcon className="iconDark" />
+              <span style={{ pointerEvents: "none" }}>
+                <ArrowDropDownCircleIcon className="iconDark" />
+              </span>
             </Button>
           </div>,
           <div key={2} className={styles.actionBoxRow}>
