@@ -65,6 +65,7 @@ const ActionBox: FunctionComponent<Props> = ({
   };
 
   const rest = async (e: any) => {
+    console.log("rest");
     const audioScifi = new Audio("./sounds/button_scifi.mp3");
     audioScifi.play();
     return await blockchainService.rest(characterId as number, 1, library);
@@ -161,7 +162,7 @@ const ActionBox: FunctionComponent<Props> = ({
               Mine
             </Button>
             <Button
-              onClick={blocked ? undefined : rest}
+              onClick={rest}
               className={!hp ? styles.disabled : ""}
               title={blocked ? "no more hp  :(" : ""}
             >

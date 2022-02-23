@@ -35,6 +35,17 @@ gameplayContract.on(
     console.log("[EVENT] moving");
     console.log("tokenId", tokenId);
     console.log("(x,y) ", _x, _y);
+
+    axios
+      .post(API_URL + `/map`, {
+        x: _x.toString(),
+        y: _y.toString(),
+        tokenId: tokenId.toString(),
+      })
+      .then((result) => {})
+      .catch((e) => {
+        console.log("[ERROR] Axios:", e.toString());
+      });
   }
 );
 // filterGameplay = {

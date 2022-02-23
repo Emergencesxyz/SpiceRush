@@ -21,18 +21,19 @@ export default async function handler(
 ) {
   //get params
 
-  const y = parseInt(req.query.y as string);
-  const x = parseInt(req.query.x as string);
-  const range = parseInt(req.query.range as string);
-
-  console.log("params", x, y, range);
   if (req.method === "GET") {
+    console.log("params \n", req.query);
+    const y = parseInt(req.query.y as string);
+    const x = parseInt(req.query.x as string);
+    const range = parseInt(req.query.range as string);
+
     console.log("isCached", cachedMap !== null);
     if (!cachedMap) {
       console.log("- putting map in cache");
       //cachedMap = await databaseService.getMapChunk(x, y, DEFAULT_MAP_SIZE);
       //we do not actually need DB for this
       cachedMap = await blockchainService.getMapChunk(x, y, DEFAULT_MAP_SIZE);
+      console.log("- map cached!");
     }
 
     let chunk: any = [];
@@ -54,7 +55,26 @@ export default async function handler(
 
     return res.status(200).send({ result: chunk });
   } else if (req.method === "POST") {
+    console.log("POST");
     // Handle any other HTTP method
+    console.log(req.body);
+    const y = parseInt(req.body.y as string);
+    const x = parseInt(req.body.x as string);
+    const tokenId = parseInt(req.body.tokenId as string);
+
+    console.log("isCached", cachedMap !== null);
+    if (!cachedMap) {
+      console.log("- putting map in cache");
+      cachedMap = await blockchainService.getMapChunk(x, y, DEFAULT_MAP_SIZE);
+      console.log("- map cached!");
+    } else {
+      //we just update the specific tile
+      console.log("oldTile", cachedMap[x][y]);
+      let newTile = await blockchainService.getMapChunk(x, y, 0);
+      console.log("newTile", newTile);
+      //update cache
+    }
+
     return res.status(200).send({ result: "method post" });
   } else {
     return res.status(200).send({ result: "method not handled" });

@@ -82,6 +82,20 @@ export default class BlockchainService {
   async getMapChunk(x0: number, y0: number, chunkSize: number) {
     let tiles: any = [];
     try {
+      if (chunkSize === 0) {
+        let _tile = await this.gameplayContract.methods.map(x0, y0).call();
+
+        return [
+          {
+            foesAmount: parseInt(_tile.foesAmount),
+            isExplored: _tile.isExplored,
+            level: parseInt(_tile.level),
+            spiceAmount: parseInt(_tile.spiceAmount),
+            x: x0,
+            y: y0,
+          },
+        ];
+      }
       for (
         let x = x0 - Math.floor(chunkSize / 2);
         x <= Math.ceil(chunkSize / 2) + x0;
