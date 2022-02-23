@@ -65,7 +65,7 @@ export default class BlockchainService {
 
   async getSpiceMined(nftId: number | null) {
     try {
-      return await this.gameplayContract.methods.bank(nftId).call();
+      return parseInt(await this.gameplayContract.methods.bank(nftId).call());
     } catch (e) {
       return null;
     }
@@ -101,9 +101,12 @@ export default class BlockchainService {
 
       let characters = [];
       for (let i = 0; i < parseInt(totalSupply); i++) {
-        let info = await this.getCharacterInfo(i);
+        let info: any = await this.getCharacterInfo(i);
+        info.id = i;
+        info.spiceMined = await this.getSpiceMined(i);
         characters.push(info);
       }
+      characters.sort((a: any, b: any) => b.spiceMined - a.spiceMined);
       return characters;
     } catch (e) {
       return null;

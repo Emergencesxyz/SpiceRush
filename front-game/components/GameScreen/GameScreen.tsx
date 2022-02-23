@@ -241,6 +241,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
 
   //render
   console.log("Gamescreen loading", events);
+
   return (
     <>
       <div className={styles.canvas}>
@@ -274,7 +275,10 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
                   style={{ width: "fit-content", color: "black" }}
                   eventKey="0"
                 >
-                  <Accordion.Header> Choose NFT character. </Accordion.Header>
+                  <Accordion.Header>
+                    {" "}
+                    {characterId ? "Change" : "Choose"} NFT character.{" "}
+                  </Accordion.Header>
                   <Accordion.Body>
                     <Row>
                       <input
@@ -331,10 +335,22 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
 
           <Col>
             <Row>
-              <div>{totalSupply} player(s)</div>
+              <div>{totalSupply} players</div>
+
+              <Col>
+                Leaderboard
+                {characters.slice(0, 3).map((c, i) => {
+                  return (
+                    <div className={styles.events}>
+                      1) {i === 0 && "🥇"} {i === 1 && "🥈"} {i === 2 && "🥉"} #
+                      {c.id} | {c.spiceMined} $pice
+                    </div>
+                  );
+                })}
+              </Col>
             </Row>
-            <Row>_____________________</Row>
             <Row>
+              <br />
               {events.map((event: any, i: number) => {
                 return (
                   <div className={styles.events} key={i}>
@@ -342,6 +358,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
                   </div>
                 );
               })}
+              <br />
             </Row>
           </Col>
         </Row>
