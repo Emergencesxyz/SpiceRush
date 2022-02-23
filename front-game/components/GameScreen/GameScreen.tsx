@@ -66,13 +66,20 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
           : await blockchainService.getCharacterInfo(characterId);
 
       console.log("calling api for tiles..");
-      let _tiles = await axios.get(
-        API_URL +
-          `/map?x=${originCoords.x}=&y=${originCoords.y}&range=${DEFAULT_CHUNK_SIZE}`
+      let _tiles = await blockchainService.getMapChunk(
+        originCoords.x,
+        originCoords.y,
+        parseInt(DEFAULT_CHUNK_SIZE as string)
       );
 
-      console.log("tiles", _tiles.data.result);
-      setTiles(_tiles.data.result);
+      //with API
+      // await axios.get(
+      //   API_URL +
+      //     `/map?x=${originCoords.x}=&y=${originCoords.y}&range=${DEFAULT_CHUNK_SIZE}`
+      // );
+      //_tiles = _tiles.data.result
+      console.log("tiles", _tiles);
+      setTiles(_tiles);
 
       //load charater info
       if (tiles && _character && Number.isInteger(_character.x)) {
