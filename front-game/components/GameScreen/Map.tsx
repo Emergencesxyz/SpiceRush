@@ -15,6 +15,7 @@ interface Props {
   originCoords: any;
   setOriginCoords: Function;
   setLoading: Function;
+  characters: Array<Any>;
 }
 const API_URL = process.env.API_URL;
 
@@ -24,9 +25,8 @@ const Map: FunctionComponent<Props> = ({
   originCoords,
   setOriginCoords,
   setLoading,
+  characters,
 }): JSX.Element => {
-  const [characters, setCharacters] = useState<Array<any>>([]);
-
   const blockchainService = new BlockchainService(null);
 
   useEffect(() => {
@@ -34,10 +34,8 @@ const Map: FunctionComponent<Props> = ({
       try {
         //we do not use API + caching for now
         //let characters_ = (await axios.get(API_URL + `/character`)).data.result;
-
-        let characters_ = await blockchainService.getAllCharacters();
-
-        setCharacters(characters_ as any);
+        // let characters_ = await blockchainService.getAllCharacters();
+        // setCharacters(characters_ as any);
       } catch (e: any) {}
     })();
   }, []);

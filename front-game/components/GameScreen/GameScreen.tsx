@@ -48,6 +48,8 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
 
   const [events, setEvents] = useState<any>([]);
 
+  const [characters, setCharacters] = useState<Array<any>>([]);
+
   const DEFAULT_CHUNK_SIZE = process.env.DEFAULT_CHUNK_SIZE;
   const API_URL = process.env.API_URL;
   const WSS_URL = process.env.WSS_URL;
@@ -158,9 +160,15 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
         let _events = [...events];
         _events.push({
           type: "MINT",
-          content: `#${tokenId} transfered ${to}   !`,
+          content: `#${to.slice(0, 8)} minted NFT #${tokenId}  !`,
         });
         setEvents(_events);
+
+        console.log("account ", account === to);
+        if (account && to === account) {
+          setCharacterId(tokenId);
+          setLoading(true);
+        }
       });
     })();
   }, []);
@@ -203,6 +211,11 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
       }
 
       setLoading(false);
+
+      let characters_ = await blockchainService.getAllCharacters();
+
+      console.log("characters_", characters_);
+      setCharacters(characters_ as any);
     })();
   }, [library, actions, originCoords, characterId, toastMessage, events]);
 
@@ -320,6 +333,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
             <Row>
               <div>{totalSupply} player(s)</div>
             </Row>
+            <Row>_____________________</Row>
             <Row>
               {events.map((event: any, i: number) => {
                 return (
@@ -341,6 +355,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
                 setOriginCoords={setOriginCoords}
                 originCoords={originCoords}
                 setLoading={setLoading}
+                characters={characters}
               />
             ) : (
               <MapPlaceholder length={parseInt(DEFAULT_CHUNK_SIZE as string)} />
