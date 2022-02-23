@@ -6,6 +6,7 @@ import ethers from "ethers";
 
 const RPC_URL = process.env.RPC_URL;
 const DEFAULT_MAP_SIZE = parseInt(process.env.DEFAULT_MAP_SIZE as string);
+const DEFAULT_CHUNK_SIZE = parseInt(process.env.DEFAULT_CHUNK_SIZE as string);
 
 type Data = {
   result: string;
@@ -25,7 +26,9 @@ export default async function handler(
     console.log("params \n", req.query);
     const y = parseInt(req.query.y as string);
     const x = parseInt(req.query.x as string);
-    const range = parseInt(req.query.range as string);
+    const range = req.query.range
+      ? parseInt(req.query.range as string)
+      : DEFAULT_CHUNK_SIZE;
 
     console.log("isCached", cachedMap !== null);
     if (!cachedMap) {
@@ -35,23 +38,15 @@ export default async function handler(
       cachedMap = await blockchainService.getMapChunk(x, y, DEFAULT_MAP_SIZE);
       console.log("- map cached!");
     }
-
-    let chunk: any = [];
-    for (let i = 0; i < cachedMap.length; i++) {
-      let row = [];
-      for (let j = 0; j < cachedMap[i].length; j++) {
-        let tile: any = cachedMap[i][j];
-
-        if (
-          tile.y >= y - Math.floor(range / 2) &&
-          tile.y < y + Math.ceil(range / 2) &&
-          tile.x >= x - Math.floor(range / 2) &&
-          tile.x < x + Math.ceil(range / 2)
-        )
-          row.push(tile);
-      }
-      if (row && row.length) chunk.push(row);
-    }
+    console.log("range", range);
+    let chunk: any = cachedMap.filter(
+      (tile: any) =>
+        tile.y >= y - Math.floor(range / 2) &&
+        tile.y < y + Math.ceil(range / 2) &&
+        tile.x >= x - Math.floor(range / 2) &&
+        tile.x < x + Math.ceil(range / 2)
+    );
+    console.log("elements", chunk.length);
 
     return res.status(200).send({ result: chunk });
   } else if (req.method === "POST") {

@@ -58,35 +58,46 @@ const Map: FunctionComponent<Props> = ({
   };
 
   console.log("Map characters", characters);
-  const tilesComponent = tiles.map((row: any, index: number) => {
-    return (
-      <div key={index}>
-        {row.map(function (tile: any) {
-          const currentPosition =
-            character && character.x === tile.x && character.y === tile.y;
 
-          const countCharacters = characters
-            ? characters?.filter((c) => c.x === tile.x && c.y === tile.y).length
-            : 0;
+  const xMin = tiles[0].x;
+  const yMin = tiles[0].y;
+  const xMax = xMin + Math.sqrt(tiles.length);
+  const yMax = yMin + Math.sqrt(tiles.length);
 
-          return (
-            <Tile
-              key={tile.x + ";" + tile.y}
-              level={tile.level}
-              spiceAmount={tile.spiceAmount}
-              foesAmount={tile.foesAmount}
-              isExplored={tile.isExplored}
-              currentPosition={currentPosition}
-              x={tile.x}
-              y={tile.y}
-              countCharacters={countCharacters}
-              characters={characters}
-            />
-          );
-        })}
-      </div>
-    );
-  });
+  console.log("xMin", xMin, "yMin", yMin, "xMax", xMax, "yMax", yMax);
+
+  let tilesComponent = [];
+  for (let x = xMin; x < xMax; x++) {
+    let row = [];
+    for (let y = yMin; y < yMax; y++) {
+      let tile: any = tiles.filter((tile) => tile.x === x && tile.y === y)[0];
+
+      const currentPosition =
+        character && character.x === tile.x && character.y === tile.y;
+
+      const countCharacters = characters
+        ? characters?.filter((c) => c.x === tile.x && c.y === tile.y).length
+        : 0;
+
+      row.push(
+        <Tile
+          key={tile.x + ";" + tile.y}
+          level={tile.level}
+          spiceAmount={tile.spiceAmount}
+          foesAmount={tile.foesAmount}
+          isExplored={tile.isExplored}
+          currentPosition={currentPosition}
+          x={tile.x}
+          y={tile.y}
+          countCharacters={countCharacters}
+          characters={characters}
+        />
+      );
+    }
+    tilesComponent.push(<div>{row}</div>);
+  }
+  console.log("tilesComponent", tilesComponent);
+
   return (
     <>
       <div className={styles.map}>

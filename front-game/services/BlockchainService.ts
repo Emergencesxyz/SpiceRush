@@ -101,7 +101,6 @@ export default class BlockchainService {
         x <= Math.ceil(chunkSize / 2) + x0;
         x++
       ) {
-        let row = [];
         for (
           let y = y0 - Math.floor(chunkSize / 2);
           y <= Math.ceil(chunkSize / 2) + y0;
@@ -109,7 +108,7 @@ export default class BlockchainService {
         ) {
           const _tile = await this.gameplayContract.methods.map(x, y).call();
 
-          row.push({
+          tiles.push({
             foesAmount: parseInt(_tile.foesAmount),
             isExplored: _tile.isExplored,
             level: parseInt(_tile.level),
@@ -118,7 +117,6 @@ export default class BlockchainService {
             y: y,
           });
         }
-        tiles.push(row);
       }
       return tiles;
     } catch (e) {

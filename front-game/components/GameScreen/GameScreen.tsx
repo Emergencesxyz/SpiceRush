@@ -49,36 +49,23 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
   const databaseService = new DatabaseService();
 
   useEffect(() => {
+    console.log("useEffect ", !library);
     (async () => {
       if (!randomQuoteId)
         setRandomQuoteId(Math.floor(randomQuotes.length * Math.random()));
 
       if (!library) return;
-
-      setUserBalance(await library.eth.getBalance(account));
-
+      console.log("1");
+      //setUserBalance(await library.eth.getBalance(account));
+      console.log("2");
       setTotalSupply(await await blockchainService.totalSupply());
-
+      console.log("3");
       const _character: any =
         characterId === null
           ? {}
           : await blockchainService.getCharacterInfo(characterId);
 
-      //center map around character or (0,0) at first
-      // let x0 = originCoords.x;
-      // let y0 = originCoords.y;
-      // if (!Number.isInteger(y0) || !Number.isInteger(x0)) {
-      //   if (_character && _character.x) {
-      //     x0 = _character.x;
-      //     y0 = _character.y;
-      //   } else {
-      //     x0 = 0;
-      //     y0 = 0;
-      //   }
-
-      //   setOriginCoords({ x: x0, y: y0 });
-      // }
-
+      console.log("calling api for tiles..");
       let _tiles = await axios.get(
         API_URL +
           `/map?x=${originCoords.x}=&y=${originCoords.y}&range=${DEFAULT_CHUNK_SIZE}`
@@ -118,7 +105,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
   };
 
   //render
-  console.log("Gamescreen loading", character);
+  console.log("Gamescreen loading", tiles.length);
   return (
     <>
       <div className={styles.canvas}>
