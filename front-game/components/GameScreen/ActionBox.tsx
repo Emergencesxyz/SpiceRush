@@ -192,12 +192,12 @@ const ActionBox: FunctionComponent<Props> = ({
 
             <button
               onClick={!hp ? undefined : rest}
-              className={!hp ? styles.pushable : styles.pushable}
+              className={styles.pushable}
               title={blocked ? "no more hp  :(" : ""}
             >
               <span
                 className={styles.front}
-                style={{ backgroundColor: !blocked ? "none" : "grey" }}
+                style={{ backgroundColor: hp ? "none" : "grey" }}
               >
                 <IconGame name="rest2" size="20px" /> Rest
               </span>
