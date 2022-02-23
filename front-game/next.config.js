@@ -12,6 +12,7 @@ module.exports = {
     RINKEBY_URL: process.env.RINKEBY_URL,
     KOVAN_URL: process.env.KOVAN_URL,
     RPC_URL: process.env.RPC_URL,
+    WSS_URL: process.env.WSS_URL,
 
     APINATOR_CONTRACT_ADDRESS: process.env.APINATOR_CONTRACT_ADDRESS,
     GAMEPLAY_CONTRACT_ADDRESS: process.env.GAMEPLAY_CONTRACT_ADDRESS,

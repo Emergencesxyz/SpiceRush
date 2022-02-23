@@ -50,12 +50,13 @@ const ActionBox: FunctionComponent<Props> = ({
       y = character.y;
     } else return;
 
-    return await blockchainService.moveCharacter(
+    let res = await blockchainService.moveCharacter(
       characterId as number,
       x,
       y,
       library
     );
+    console.log("res", res);
   };
 
   const spawn = async (e: any) => {

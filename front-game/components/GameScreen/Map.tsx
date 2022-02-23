@@ -28,11 +28,9 @@ const Map: FunctionComponent<Props> = ({
     (async () => {
       try {
         let characters_ = (await axios.get(API_URL + `/character`)).data.result;
-        console.log("characters_", characters_);
+
         setCharacters(characters_);
-      } catch (e: any) {
-        console.log("e", e.toString());
-      }
+      } catch (e: any) {}
     })();
   }, []);
 
@@ -63,8 +61,6 @@ const Map: FunctionComponent<Props> = ({
   const yMin = tiles[0].y;
   const xMax = xMin + Math.ceil(Math.sqrt(tiles.length));
   const yMax = yMin + Math.ceil(Math.sqrt(tiles.length));
-
-  console.log("xMin", xMin, "yMin", yMin, "xMax", xMax, "yMax", yMax);
 
   let tilesComponent = [];
   for (let x = xMin; x < xMax; x++) {
@@ -98,7 +94,6 @@ const Map: FunctionComponent<Props> = ({
     }
     tilesComponent.push(<div>{row}</div>);
   }
-  console.log("tilesComponent", tilesComponent);
 
   return (
     <>

@@ -27,7 +27,7 @@ const Tile: FunctionComponent<Props> = ({
   countCharacters,
   characters,
 }): JSX.Element => {
-  const color = Math.floor(((level ? level + 5 : 0) * 255) / 100);
+  const color = Math.floor(((level ? level ** 1.7 : 0) * 255) / 100);
   const [toastMessage, setToastMessage] = useState<any>({ title: "", msg: "" });
 
   useEffect(() => {

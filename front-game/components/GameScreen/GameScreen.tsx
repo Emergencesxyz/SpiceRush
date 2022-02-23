@@ -3,6 +3,8 @@ import { Row, Col, Spinner, Toast } from "react-bootstrap";
 import { useState, FunctionComponent, useEffect } from "react";
 
 import { useWeb3React } from "@web3-react/core";
+import axios from "axios";
+import { Contract, ethers } from "ethers";
 
 import BlockchainService from "../../services/BlockchainService";
 import DatabaseService from "../../services/DatabaseService";
@@ -15,8 +17,8 @@ import ActionBox from "./ActionBox";
 
 import consts from "../../consts";
 
-import axios from "axios";
 import { useCookies } from "react-cookie";
+
 const { randomQuotes } = consts;
 
 const GameScreen: FunctionComponent = (): JSX.Element => {
@@ -42,30 +44,65 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
   const [toastMessage, setToastMessage] = useState<String>("");
   const [totalSupply, setTotalSupply] = useState<number>(0);
 
+  const [events, setEvents] = useState<any>({});
+
   const DEFAULT_CHUNK_SIZE = process.env.DEFAULT_CHUNK_SIZE;
   const API_URL = process.env.API_URL;
+  const WSS_URL = process.env.WSS_URL;
+  const GAMEPLAY_CONTRACT_ADDRESS = process.env.GAMEPLAY_CONTRACT_ADDRESS;
 
   const blockchainService = new BlockchainService(account);
   const databaseService = new DatabaseService();
 
+  const provider = new ethers.providers.WebSocketProvider(WSS_URL as string);
+
+  const gameplayContract = new ethers.Contract(
+    GAMEPLAY_CONTRACT_ADDRESS as string,
+    consts.gameplayABI,
+    provider
+  );
+
   useEffect(() => {
-    console.log("useEffect ", !library);
+    (async () => {
+      console.log("useEffect 2");
+      gameplayContract.on(
+        "moving",
+        (tokenId, x, y, energy, xp, nextActionTime) => {
+          console.log("[EVENT] moving");
+          console.log("tokenId", tokenId);
+          console.log("(x,y) ", x, y);
+
+          // events.push({
+          //   type: "MOVE",
+          //   content: `${tokenId} moved to (${x},${y}) !`,
+          // });
+
+          setEvents({
+            type: "MOVE",
+            content: `#${tokenId} moved to (${x},${y}) !`,
+          });
+          setLoading(true);
+        }
+      );
+    })();
+  }, []);
+
+  useEffect(() => {
     (async () => {
       if (!randomQuoteId)
         setRandomQuoteId(Math.floor(randomQuotes.length * Math.random()));
 
       if (!library) return;
-      console.log("1");
+
       //setUserBalance(await library.eth.getBalance(account));
-      console.log("2");
+
       setTotalSupply(await await blockchainService.totalSupply());
-      console.log("3");
+
       const _character: any =
         characterId === null
           ? {}
           : await blockchainService.getCharacterInfo(characterId);
 
-      console.log("calling api for tiles..");
       let _tiles = await blockchainService.getMapChunk(
         originCoords.x,
         originCoords.y,
@@ -78,7 +115,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
       //     `/map?x=${originCoords.x}=&y=${originCoords.y}&range=${DEFAULT_CHUNK_SIZE}`
       // );
       //_tiles = _tiles.data.result
-      console.log("tiles", _tiles);
+
       setTiles(_tiles);
 
       //load charater info
@@ -89,7 +126,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
 
       setLoading(false);
     })();
-  }, [library, actions, originCoords, characterId, toastMessage]);
+  }, [library, actions, originCoords, characterId, toastMessage, events]);
 
   const selectNft = async (e: any) => {
     // @ts-ignore: Object is possibly 'null'.
@@ -112,7 +149,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
   };
 
   //render
-  console.log("Gamescreen loading", tiles.length);
+  console.log("Gamescreen loading", events.length);
   return (
     <>
       <div className={styles.canvas}>
@@ -191,7 +228,12 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
             )}
           </Col>
 
-          <Col>{totalSupply} player(s)</Col>
+          <Col>
+            <Row>{totalSupply} player(s)</Row>
+            <Row>
+              [{events.type}] {events.content}
+            </Row>
+          </Col>
         </Row>
 
         <Row>
