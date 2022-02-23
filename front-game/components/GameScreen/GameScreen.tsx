@@ -302,7 +302,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
           </Col>
         </Row>
 
-        {1 == 1 && (
+        {loading && (
           <Row>
             <Col xs={5}></Col>
             <Col xs={1}>
