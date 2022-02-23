@@ -49,6 +49,19 @@ export default class BlockchainService {
     }
   }
 
+  async canLevelUp(nftId: number | null) {
+    try {
+      let charas = await this.gameplayContract.methods.charas(nftId).call();
+
+      const xp = parseInt(charas.xp);
+      const lvl = parseInt(charas.lvl);
+
+      return 100 * (lvl ** 2 + lvl) + 100 < xp;
+    } catch (e) {
+      return false;
+    }
+  }
+
   async getSpiceMined(nftId: number | null) {
     try {
       return await this.gameplayContract.methods.bank(nftId).call();

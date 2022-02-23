@@ -139,19 +139,24 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
         }
       );
 
+      gameplayContract.on(
+        "leveledUp",
+        (_tokenId, _mining, _hpMax, _energyMax) => {
+          let _events = [...events];
+          _events.push({
+            type: "LEVELUP",
+            content: `#${_tokenId} has leveled up. Fear him !`,
+          });
+          setEvents(_events);
+          setLoading(true);
+        }
+      );
+
       apinatorContract.on("Transfer", (from, to, tokenId) => {
         console.log("[EVENT] transfer");
         console.log("tokenId", tokenId);
 
-        // events.push({
-        //   type: "MOVE",
-        //   content: `${tokenId} moved to (${x},${y}) !`,
-        // });
-
-        console.log("from", from, " - apinator", apinatorContract.address);
-
         let _events = [...events];
-        console.log("_events", _events);
         _events.push({
           type: "MINT",
           content: `#${tokenId} transfered ${to}   !`,
