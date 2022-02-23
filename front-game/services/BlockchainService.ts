@@ -1,5 +1,6 @@
 import consts from "../consts";
 import Web3 from "web3";
+import { Tty } from "@mui/icons-material";
 
 var RPC_URL = process.env.RPC_URL;
 var APINATOR_CONTRACT_ADDRESS = process.env.APINATOR_CONTRACT_ADDRESS;
@@ -87,6 +88,23 @@ export default class BlockchainService {
         y: parseInt(info.y),
         xp: parseInt(info.xp),
       };
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async getAllCharacters() {
+    try {
+      const totalSupply = await this.apinatorContract.methods
+        .totalSupply()
+        .call();
+
+      let characters = [];
+      for (let i = 0; i < parseInt(totalSupply); i++) {
+        let info = await this.getCharacterInfo(i);
+        characters.push(info);
+      }
+      return characters;
     } catch (e) {
       return null;
     }

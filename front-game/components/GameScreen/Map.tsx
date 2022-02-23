@@ -6,6 +6,8 @@ import Tile from "./Tile";
 
 import axios from "axios";
 
+import BlockchainService from "../../services/BlockchainService";
+
 interface Props {
   tiles: Array<Object>;
   character: any;
@@ -24,12 +26,17 @@ const Map: FunctionComponent<Props> = ({
 }): JSX.Element => {
   const [characters, setCharacters] = useState<Array<any>>([]);
 
+  const blockchainService = new BlockchainService(null);
+
   useEffect(() => {
     (async () => {
       try {
-        let characters_ = (await axios.get(API_URL + `/character`)).data.result;
+        //we do not use API + caching for now
+        //let characters_ = (await axios.get(API_URL + `/character`)).data.result;
 
-        setCharacters(characters_);
+        let characters_ = await blockchainService.getAllCharacters();
+
+        setCharacters(characters_ as any);
       } catch (e: any) {}
     })();
   }, []);
