@@ -55,7 +55,7 @@ const Map: FunctionComponent<Props> = ({
     setLoading(true);
   };
 
-  console.log("Map characters", characters);
+  // console.log("Map characters", characters);
 
   const xMin = tiles[0].x;
   const yMin = tiles[0].y;

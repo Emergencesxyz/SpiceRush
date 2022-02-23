@@ -44,12 +44,13 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
   const [toastMessage, setToastMessage] = useState<String>("");
   const [totalSupply, setTotalSupply] = useState<number>(0);
 
-  const [events, setEvents] = useState<any>({});
+  const [events, setEvents] = useState<any>([]);
 
   const DEFAULT_CHUNK_SIZE = process.env.DEFAULT_CHUNK_SIZE;
   const API_URL = process.env.API_URL;
   const WSS_URL = process.env.WSS_URL;
   const GAMEPLAY_CONTRACT_ADDRESS = process.env.GAMEPLAY_CONTRACT_ADDRESS;
+  const APINATOR_CONTRACT_ADDRESS = process.env.APINATOR_CONTRACT_ADDRESS;
 
   const blockchainService = new BlockchainService(account);
   const databaseService = new DatabaseService();
@@ -62,28 +63,101 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
     provider
   );
 
+  const apinatorContract = new ethers.Contract(
+    APINATOR_CONTRACT_ADDRESS as string,
+    consts.apinatorABI,
+    provider
+  );
+
   useEffect(() => {
     (async () => {
       console.log("useEffect 2");
       gameplayContract.on(
         "moving",
         (tokenId, x, y, energy, xp, nextActionTime) => {
-          console.log("[EVENT] moving");
-          console.log("tokenId", tokenId);
-          console.log("(x,y) ", x, y);
-
-          // events.push({
-          //   type: "MOVE",
-          //   content: `${tokenId} moved to (${x},${y}) !`,
-          // });
-
-          setEvents({
+          let _events = [...events];
+          console.log("copy", _events);
+          _events.push({
             type: "MOVE",
             content: `#${tokenId} moved to (${x},${y}) !`,
           });
+          setEvents(_events);
+        }
+      );
+
+      gameplayContract.on(
+        "mining",
+        (tokenId, _bank, _spiceAmount, _xp, _nextActionTime) => {
+          let _events = [...events];
+          console.log("copy", _events);
+          _events.push({
+            type: "MINE",
+            content: `#${tokenId} mined $${_spiceAmount}  !`,
+          });
+          setEvents(_events);
+
           setLoading(true);
         }
       );
+
+      gameplayContract.on(
+        "resting",
+        (tokenId, _bank, _spiceAmount, _xp, _nextActionTime) => {
+          let _events = [...events];
+          _events.push({
+            type: "REST",
+            content: `#${tokenId} is taking a nap  !`,
+          });
+          setEvents(_events);
+          setLoading(true);
+        }
+      );
+
+      gameplayContract.on(
+        "spawned",
+        (tokenId, _bank, _spiceAmount, _xp, _nextActionTime) => {
+          let _events = [...events];
+          _events.push({
+            type: "SPAWNED",
+            content: `#${tokenId} spawned on the map. Welcome !`,
+          });
+          setEvents(_events);
+          setLoading(true);
+        }
+      );
+
+      gameplayContract.on(
+        "spawned",
+        (tokenId, _bank, _spiceAmount, _xp, _nextActionTime) => {
+          let _events = [...events];
+          _events.push({
+            type: "SPAWNED",
+            content: `#${tokenId} left us. RIP !`,
+          });
+          setEvents(_events);
+          setLoading(true);
+        }
+      );
+
+      apinatorContract.on("Transfer", (from, to, tokenId) => {
+        console.log("[EVENT] transfer");
+        console.log("tokenId", tokenId);
+
+        // events.push({
+        //   type: "MOVE",
+        //   content: `${tokenId} moved to (${x},${y}) !`,
+        // });
+
+        console.log("from", from, " - apinator", apinatorContract.address);
+
+        let _events = [...events];
+        console.log("_events", _events);
+        _events.push({
+          type: "MINT",
+          content: `#${tokenId} transfered ${to}   !`,
+        });
+        setEvents(_events);
+      });
     })();
   }, []);
 
@@ -149,7 +223,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
   };
 
   //render
-  console.log("Gamescreen loading", events.length);
+  console.log("Gamescreen loading", events);
   return (
     <>
       <div className={styles.canvas}>
@@ -229,9 +303,17 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
           </Col>
 
           <Col>
-            <Row>{totalSupply} player(s)</Row>
             <Row>
-              [{events.type}] {events.content}
+              <div>{totalSupply} player(s)</div>
+            </Row>
+            <Row>
+              {events.map((event: any) => {
+                return (
+                  <div className={styles.events}>
+                    [{event.type}] {event.content}
+                  </div>
+                );
+              })}
             </Row>
           </Col>
         </Row>
