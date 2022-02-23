@@ -107,7 +107,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
         (tokenId, _bank, _spiceAmount, _xp, _nextActionTime) => {
           let _events = [...events];
           _events.push({
-            type: "REST",
+            type: "😴",
             content: `#${tokenId} is taking a nap  !`,
           });
           setEvents(_events);
@@ -143,7 +143,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
         (_tokenId, _mining, _hpMax, _energyMax) => {
           let _events = [...events];
           _events.push({
-            type: "LEVELUP",
+            type: "💪",
             content: `#${_tokenId} has leveled up. Fear him !`,
           });
           setEvents(_events);
@@ -254,7 +254,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
 
         <Row>
           <Col xs={3}></Col>
-          <Col xs={4}>
+          <Col>
             <Row>
               <Accordion>
                 <Accordion.Item
@@ -263,13 +263,14 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
                 >
                   <Accordion.Header> Choose NFT character. </Accordion.Header>
                   <Accordion.Body>
-                    <label></label>
-                    <input
-                      type="number"
-                      placeholder="nftId"
-                      id="nftId"
-                      defaultValue={characterId?.toString()}
-                    ></input>
+                    <Row>
+                      <input
+                        type="number"
+                        placeholder="nftId"
+                        id="nftId"
+                        defaultValue={characterId?.toString()}
+                      ></input>
+                    </Row>
                     <button onClick={selectNft} className={styles.pushable}>
                       <span className={styles.front}>select ID</span>
                     </button>
@@ -323,7 +324,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
               {events.map((event: any, i: number) => {
                 return (
                   <div className={styles.events} key={i}>
-                    [{event.type}] {event.content}
+                    {event.type} {event.content}
                   </div>
                 );
               })}
