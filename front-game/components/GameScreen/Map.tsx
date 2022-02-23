@@ -15,7 +15,7 @@ interface Props {
   originCoords: any;
   setOriginCoords: Function;
   setLoading: Function;
-  characters: Array<Any>;
+  characters: Array<any>;
 }
 const API_URL = process.env.API_URL;
 
