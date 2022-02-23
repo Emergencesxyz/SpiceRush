@@ -61,8 +61,8 @@ const Map: FunctionComponent<Props> = ({
 
   const xMin = tiles[0].x;
   const yMin = tiles[0].y;
-  const xMax = xMin + Math.sqrt(tiles.length);
-  const yMax = yMin + Math.sqrt(tiles.length);
+  const xMax = xMin + Math.ceil(Math.sqrt(tiles.length));
+  const yMax = yMin + Math.ceil(Math.sqrt(tiles.length));
 
   console.log("xMin", xMin, "yMin", yMin, "xMax", xMax, "yMax", yMax);
 
