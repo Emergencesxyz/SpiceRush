@@ -175,18 +175,20 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
 
       apinatorContract.on("Transfer", (from, to, tokenId) => {
         console.log("[EVENT] transfer");
-        console.log("tokenId", tokenId);
+        console.log("tokenId", from, to, tokenId);
+
+        const _tokenId = parseInt(tokenId.toString());
 
         let _events = [...events];
         _events.push({
           type: "MINT",
-          content: `#${to.slice(0, 8)} minted NFT #${tokenId}  !`,
+          content: `#${to.slice(0, 8)} minted NFT #${_tokenId}  !`,
         });
         setEvents(_events);
 
         console.log("account ", account === to);
         if (account && to === account) {
-          setCharacterId(tokenId);
+          setCharacterId(_tokenId);
           setLoading(true);
         }
       });
