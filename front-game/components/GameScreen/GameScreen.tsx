@@ -24,6 +24,12 @@ import { TileType } from "../../types";
 const { randomQuotes } = consts;
 
 const GameScreen: FunctionComponent = (): JSX.Element => {
+  const DEFAULT_CHUNK_SIZE = parseInt(process.env.DEFAULT_CHUNK_SIZE as string);
+  const API_URL = process.env.API_URL;
+  const WSS_URL = process.env.WSS_URL;
+  const GAMEPLAY_CONTRACT_ADDRESS = process.env.GAMEPLAY_CONTRACT_ADDRESS;
+  const APINATOR_CONTRACT_ADDRESS = process.env.APINATOR_CONTRACT_ADDRESS;
+
   const [cookies, setCookie, removeCookie] = useCookies(["cookie-name"]);
 
   const { account, library } = useWeb3React();
@@ -38,10 +44,10 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
   const [actions, setActions] = useState<number>(0);
   const [randomQuoteId, setRandomQuoteId] = useState<number>(0);
   const [originCoords, setOriginCoords] = useState<any>({
-    x: 0,
-    y: 0,
+    x: 0 - Math.floor(DEFAULT_CHUNK_SIZE / 2),
+    y: 0 - Math.floor(DEFAULT_CHUNK_SIZE / 2),
   });
-
+  //x0 - Math.floor(chunkSize / 2
   const [loading, setLoading] = useState<Boolean>(false);
   const [toastMessage, setToastMessage] = useState<String>("");
   const [totalSupply, setTotalSupply] = useState<number>(0);
@@ -49,12 +55,6 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
   const [events, setEvents] = useState<any>([]);
 
   const [characters, setCharacters] = useState<Array<any>>([]);
-
-  const DEFAULT_CHUNK_SIZE = process.env.DEFAULT_CHUNK_SIZE;
-  const API_URL = process.env.API_URL;
-  const WSS_URL = process.env.WSS_URL;
-  const GAMEPLAY_CONTRACT_ADDRESS = process.env.GAMEPLAY_CONTRACT_ADDRESS;
-  const APINATOR_CONTRACT_ADDRESS = process.env.APINATOR_CONTRACT_ADDRESS;
 
   const blockchainService = new BlockchainService(account);
   const databaseService = new DatabaseService();
@@ -92,19 +92,17 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
           setEvents(_events);
 
           //update map
-          console.log("tiles", tiles);
+
           let tile = tiles.filter(
             (tile) => tile.x === x_int && tile.y === y_int
           )[0];
-          console.log("filtered:", tile);
 
           if (tile) {
-            console.log("updating tiles");
             let newTiles = [...tiles];
             let newTile = (
               await blockchainService.getMapChunk(x_int, y_int, 0)
             )[0];
-            console.log("newTile", newTile);
+
             newTiles[tiles.indexOf(tile)] = newTile;
             setTiles(newTiles);
           }
@@ -197,6 +195,20 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
 
   useEffect(() => {
     (async () => {
+      //shift map when origin coords are changed
+
+      if (!tiles || !tiles.length || !originCoords) return;
+      const x_ = tiles[0].x;
+      const y_ = tiles[0].y;
+
+      const { x, y } = originCoords;
+
+      console.log(`old : (${x_},${y_}) | new (${x},${y}) `);
+    })();
+  }, [tiles, originCoords]);
+
+  useEffect(() => {
+    (async () => {
       if (!randomQuoteId)
         setRandomQuoteId(Math.floor(randomQuotes.length * Math.random()));
 
@@ -215,7 +227,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
         let _tiles = await blockchainService.getMapChunk(
           originCoords.x,
           originCoords.y,
-          parseInt(DEFAULT_CHUNK_SIZE as string)
+          DEFAULT_CHUNK_SIZE
         );
 
         //with API
@@ -241,7 +253,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
       console.log("characters_", characters_);
       setCharacters(characters_ as any);
     })();
-  }, [library, actions, originCoords, characterId, toastMessage, events]);
+  }, [library, actions, characterId, toastMessage, events]);
 
   const selectNft = async (e: any) => {
     // @ts-ignore: Object is possibly 'null'.
@@ -396,7 +408,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
                 characters={characters}
               />
             ) : (
-              <MapPlaceholder length={parseInt(DEFAULT_CHUNK_SIZE as string)} />
+              <MapPlaceholder length={DEFAULT_CHUNK_SIZE} />
             )}
           </Col>
           {character && (
