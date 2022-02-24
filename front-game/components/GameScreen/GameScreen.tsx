@@ -78,14 +78,36 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
       console.log("useEffect 2");
       gameplayContract.on(
         "moving",
-        (tokenId, x, y, energy, xp, nextActionTime) => {
+        async (tokenId, x, y, energy, xp, nextActionTime) => {
           let _events = [...events];
-          console.log("copy", _events);
+
+          const x_int = parseInt(x.toString());
+          const y_int = parseInt(y.toString());
+
+          console.log("moving", tokenId.toString(), x_int, y_int);
           _events.push({
             type: "🏃",
             content: `#${tokenId} moved to (${x},${y}) !`,
           });
           setEvents(_events);
+
+          //update map
+          console.log("tiles", tiles);
+          let tile = tiles.filter(
+            (tile) => tile.x === x_int && tile.y === y_int
+          )[0];
+          console.log("filtered:", tile);
+
+          if (tile) {
+            console.log("updating tiles");
+            let newTiles = [...tiles];
+            let newTile = (
+              await blockchainService.getMapChunk(x_int, y_int, 0)
+            )[0];
+            console.log("newTile", newTile);
+            newTiles[tiles.indexOf(tile)] = newTile;
+            setTiles(newTiles);
+          }
         }
       );
 
@@ -171,7 +193,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
         }
       });
     })();
-  }, []);
+  }, [tiles]);
 
   useEffect(() => {
     (async () => {
@@ -189,20 +211,22 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
           ? {}
           : await blockchainService.getCharacterInfo(characterId);
 
-      let _tiles = await blockchainService.getMapChunk(
-        originCoords.x,
-        originCoords.y,
-        parseInt(DEFAULT_CHUNK_SIZE as string)
-      );
+      if (!tiles || !tiles.length) {
+        let _tiles = await blockchainService.getMapChunk(
+          originCoords.x,
+          originCoords.y,
+          parseInt(DEFAULT_CHUNK_SIZE as string)
+        );
 
-      //with API
-      // await axios.get(
-      //   API_URL +
-      //     `/map?x=${originCoords.x}=&y=${originCoords.y}&range=${DEFAULT_CHUNK_SIZE}`
-      // );
-      //_tiles = _tiles.data.result
+        //with API
+        // await axios.get(
+        //   API_URL +
+        //     `/map?x=${originCoords.x}=&y=${originCoords.y}&range=${DEFAULT_CHUNK_SIZE}`
+        // );
+        //_tiles = _tiles.data.result
 
-      setTiles(_tiles);
+        setTiles(_tiles);
+      }
 
       //load charater info
       if (tiles && _character && Number.isInteger(_character.x)) {
@@ -240,7 +264,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
   };
 
   //render
-  console.log("Gamescreen loading", events);
+  //console.log("Gamescreen loading", tiles);
 
   return (
     <>
@@ -336,18 +360,15 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
           <Col>
             <Row>
               <div>{totalSupply} players</div>
-
-              <Col>
-                Leaderboard
-                {characters.slice(0, 3).map((c, i) => {
-                  return (
-                    <div className={styles.events} key={i}>
-                      1) {i === 0 && "🥇"} {i === 1 && "🥈"} {i === 2 && "🥉"} #
-                      {c.id} | {c.spiceMined} $pice
-                    </div>
-                  );
-                })}
-              </Col>
+              Leaderboard
+              {characters.slice(0, 3).map((c, i) => {
+                return (
+                  <div className={styles.events} key={i}>
+                    {i === 0 && "🥇"} {i === 1 && "🥈"} {i === 2 && "🥉"} #
+                    {c.id} | {c.spiceMined} $pice
+                  </div>
+                );
+              })}
             </Row>
             <Row>
               <br />
