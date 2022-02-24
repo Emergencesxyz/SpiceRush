@@ -150,6 +150,24 @@ export default class BlockchainService {
     }
   }
 
+  async getMapChunkRect(x0: number, y0: number, x1: number, y1: number) {
+    let tiles = [];
+    for (let x = x0; x <= x1; x++) {
+      for (let y = y0; y <= y1; y++) {
+        const _tile = await this.gameplayContract.methods.map(x, y).call();
+
+        tiles.push({
+          foesAmount: parseInt(_tile.foesAmount),
+          isExplored: _tile.isExplored,
+          level: parseInt(_tile.level),
+          spiceAmount: parseInt(_tile.spiceAmount),
+          x: x,
+          y: y,
+        });
+      }
+    }
+  }
+
   async moveCharacter(nftId: number, x: number, y: number, library: any) {
     const txParams = {
       from: this.account,

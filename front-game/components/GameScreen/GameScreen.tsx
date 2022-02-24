@@ -25,6 +25,8 @@ const { randomQuotes } = consts;
 
 const GameScreen: FunctionComponent = (): JSX.Element => {
   const DEFAULT_CHUNK_SIZE = parseInt(process.env.DEFAULT_CHUNK_SIZE as string);
+  const DEFAULT_MAP_SIZE = parseInt(process.env.DEFAULT_MAP_SIZE as string);
+
   const API_URL = process.env.API_URL;
   const WSS_URL = process.env.WSS_URL;
   const GAMEPLAY_CONTRACT_ADDRESS = process.env.GAMEPLAY_CONTRACT_ADDRESS;
@@ -93,19 +95,19 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
 
           //update map
 
-          let tile = tiles.filter(
-            (tile) => tile.x === x_int && tile.y === y_int
-          )[0];
+          //wait a bit while  api is updating cached map
+          (function sleep(ms: any) {
+            return new Promise((resolve) => setTimeout(resolve, ms));
+          })(500);
 
-          if (tile) {
-            let newTiles = [...tiles];
-            let newTile = (
-              await blockchainService.getMapChunk(x_int, y_int, 0)
-            )[0];
+          let _tiles = (
+            await axios.get(
+              API_URL +
+                `/map?x=${originCoords.x}=&y=${originCoords.y}&range=${DEFAULT_CHUNK_SIZE}`
+            )
+          ).data.result;
 
-            newTiles[tiles.indexOf(tile)] = newTile;
-            setTiles(newTiles);
-          }
+          setTiles(_tiles as unknown as Array<TileType>);
         }
       );
 
@@ -226,20 +228,22 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
           : await blockchainService.getCharacterInfo(characterId);
 
       if (!tiles || !tiles.length) {
-        let _tiles = await blockchainService.getMapChunk(
-          originCoords.x,
-          originCoords.y,
-          DEFAULT_CHUNK_SIZE
-        );
+        //DIRECT WEB3 CALL
+        // let _tiles = await blockchainService.getMapChunk(
+        //   originCoords.x,
+        //   originCoords.y,
+        //   DEFAULT_CHUNK_SIZE
+        // );
 
         //with API
-        // await axios.get(
-        //   API_URL +
-        //     `/map?x=${originCoords.x}=&y=${originCoords.y}&range=${DEFAULT_CHUNK_SIZE}`
-        // );
-        //_tiles = _tiles.data.result
+        let _tiles = (
+          await axios.get(
+            API_URL +
+              `/map?x=${originCoords.x}=&y=${originCoords.y}&range=${DEFAULT_CHUNK_SIZE}`
+          )
+        ).data.result;
 
-        setTiles(_tiles);
+        setTiles(_tiles as unknown as Array<TileType>);
       }
 
       //load charater info

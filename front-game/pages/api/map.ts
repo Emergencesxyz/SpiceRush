@@ -2,20 +2,64 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import DatabaseService from "../../services/DatabaseService";
 import BlockchainService from "../../services/BlockchainService";
-import ethers from "ethers";
+import { ethers } from "ethers";
 
-const RPC_URL = process.env.RPC_URL;
+import consts from "../../consts";
+import { TileType } from "../../types";
+
+const WSS_URL = process.env.WSS_URL;
 const DEFAULT_MAP_SIZE = parseInt(process.env.DEFAULT_MAP_SIZE as string);
 const DEFAULT_CHUNK_SIZE = parseInt(process.env.DEFAULT_CHUNK_SIZE as string);
+const GAMEPLAY_CONTRACT_ADDRESS = process.env.GAMEPLAY_CONTRACT_ADDRESS;
 
 type Data = {
-  result: string;
+  result: Array<TileType> | string | any;
 };
 
 const databaseService = new DatabaseService();
 const blockchainService = new BlockchainService(null);
 
+//listener
+const provider = new ethers.providers.WebSocketProvider(WSS_URL as string);
+
+const gameplayContract = new ethers.Contract(
+  GAMEPLAY_CONTRACT_ADDRESS as string,
+  consts.gameplayABI,
+  provider
+);
+
+//
 let cachedMap: any = null;
+let events: any = [];
+
+gameplayContract.on(
+  "moving",
+  async (tokenId, x, y, energy, xp, nextActionTime) => {
+    const x_int = parseInt(x.toString());
+    const y_int = parseInt(y.toString());
+
+    console.log("[API] moving", tokenId, x_int, y_int);
+    //log events
+    //events.push({ type: "moving", tokenId: tokenId, x: x_int, y: y_int });
+
+    //update cachedmap
+    console.log("cachedMap not null", cachedMap);
+    if (!cachedMap) return;
+
+    let tile = cachedMap.filter(
+      (tile: any) => tile.x === x_int && tile.y === y_int
+    )[0];
+    console.log("update tile:", tile);
+    if (tile) {
+      let newTile = (await blockchainService.getMapChunk(x_int, y_int, 0))[0];
+      cachedMap[cachedMap.indexOf(tile)] = newTile;
+    }
+  }
+);
+
+const x0 = 0 - Math.floor(DEFAULT_MAP_SIZE / 2);
+const y0 = 0 - Math.floor(DEFAULT_MAP_SIZE / 2);
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
@@ -23,9 +67,8 @@ export default async function handler(
   //get params
 
   if (req.method === "GET") {
-    console.log("params \n", req.query);
-    const y = parseInt(req.query.y as string);
-    const x = parseInt(req.query.x as string);
+    const y = req.query.y ? parseInt(req.query.y as string) : 0;
+    const x = req.query.x ? parseInt(req.query.x as string) : 0;
     const range = req.query.range
       ? parseInt(req.query.range as string)
       : DEFAULT_CHUNK_SIZE;
@@ -35,9 +78,13 @@ export default async function handler(
       console.log("- putting map in cache");
       //cachedMap = await databaseService.getMapChunk(x, y, DEFAULT_MAP_SIZE);
       //we do not actually need DB for this
-      cachedMap = await blockchainService.getMapChunk(x, y, DEFAULT_MAP_SIZE);
+      cachedMap = await blockchainService.getMapChunk(x0, y0, DEFAULT_MAP_SIZE);
       console.log("- map cached!");
     }
+
+    return res.status(200).send({ result: cachedMap });
+
+    //or just a chunk from that whole map
     console.log("range", range);
     let chunk: any = cachedMap.filter(
       (tile: any) =>
@@ -50,6 +97,7 @@ export default async function handler(
 
     return res.status(200).send({ result: chunk });
   } else if (req.method === "POST") {
+    //UPDATE MAP
     console.log("POST");
     // Handle any other HTTP method
     console.log(req.body);
