@@ -100,9 +100,12 @@ const ActionBox: FunctionComponent<Props> = ({
 
         <div className={styles.actionBoxRow}>
           {!hp && (
-            <Button onClick={spawn}>
-              <IconGame name="skull" size="20px" /> Spawn
-            </Button>
+            <button onClick={spawn} className={styles.pushable}>
+              <span className={styles.front}>
+                {" "}
+                <IconGame name="skull" size="20px" /> Spawn
+              </span>
+            </button>
           )}
           <Row>
             <Col>
