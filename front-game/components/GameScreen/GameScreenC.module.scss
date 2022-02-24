@@ -4,6 +4,7 @@
   color: white;
   font-family: "Retrogaming", "Franklin Gothic Medium", "Arial Narrow", Arial,
     sans-serif;
+  text-shadow: 2px 1px 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
 }
 
 .map {
@@ -150,6 +151,7 @@
   font-size: 0.8em;
   color: #e8b200;
   text-align: left;
+  text-shadow: 2px 2px 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
 }
 .spinner {
   position: fixed;

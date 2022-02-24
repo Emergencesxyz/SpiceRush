@@ -156,7 +156,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
         let _events = [...events];
         _events.push({
           type: "💀",
-          content: `#  ${tokenId} left us. RIP ! `,
+          content: `# ${tokenId} left us. RIP ! `,
         });
         setEvents(_events);
         setLoading(true);
@@ -364,7 +364,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
               {characters.slice(0, 3).map((c, i) => {
                 return (
                   <div className={styles.events} key={i}>
-                    {i === 0 && "🥇"} {i === 1 && "🥈"} {i === 2 && "🥉"} #
+                    {i === 0 && "🥇"} {i === 1 && "🥈"} {i === 2 && "🥉"} ⬪ #
                     {c.id} | {c.spiceMined} $pice
                   </div>
                 );
@@ -375,7 +375,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
               {events.map((event: any, i: number) => {
                 return (
                   <div className={styles.events} key={i}>
-                    {event.type} {event.content}
+                    {event.type} ⬪ {event.content}
                   </div>
                 );
               })}
