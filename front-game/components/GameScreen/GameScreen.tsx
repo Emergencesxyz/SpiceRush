@@ -46,8 +46,8 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
   const [actions, setActions] = useState<number>(0);
   const [randomQuoteId, setRandomQuoteId] = useState<number>(0);
   const [originCoords, setOriginCoords] = useState<any>({
-    x: 0 - Math.floor(DEFAULT_CHUNK_SIZE / 2),
-    y: 0 - Math.floor(DEFAULT_CHUNK_SIZE / 2),
+    x: 0,
+    y: 0,
   });
   //x0 - Math.floor(chunkSize / 2
   const [loading, setLoading] = useState<Boolean>(false);
@@ -98,7 +98,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
           //wait a bit while  api is updating cached map
           (function sleep(ms: any) {
             return new Promise((resolve) => setTimeout(resolve, ms));
-          })(500);
+          })(1000);
 
           let _tiles = (
             await axios.get(

@@ -71,7 +71,7 @@ export default async function handler(
     const x = req.query.x ? parseInt(req.query.x as string) : 0;
     const range = req.query.range
       ? parseInt(req.query.range as string)
-      : DEFAULT_CHUNK_SIZE;
+      : DEFAULT_MAP_SIZE;
 
     console.log("isCached", cachedMap !== null);
     if (!cachedMap) {
@@ -82,10 +82,8 @@ export default async function handler(
       console.log("- map cached!");
     }
 
-    return res.status(200).send({ result: cachedMap });
-
     //or just a chunk from that whole map
-    console.log("range", range);
+
     let chunk: any = cachedMap.filter(
       (tile: any) =>
         tile.y >= y - Math.floor(range / 2) &&
@@ -93,7 +91,6 @@ export default async function handler(
         tile.x >= x - Math.floor(range / 2) &&
         tile.x < x + Math.ceil(range / 2)
     );
-    console.log("elements", chunk.length);
 
     return res.status(200).send({ result: chunk });
   } else if (req.method === "POST") {
