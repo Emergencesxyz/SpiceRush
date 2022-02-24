@@ -208,8 +208,18 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
       const { x, y } = originCoords;
 
       console.log(`old : (${x_},${y_}) | new (${x},${y}) `);
+
+      if (x_ !== x || y_ !== y) {
+        let _tiles = (
+          await axios.get(
+            API_URL +
+              `/map?x=${originCoords.x}=&y=${originCoords.y}&range=${DEFAULT_CHUNK_SIZE}`
+          )
+        ).data.result;
+        setTiles(_tiles);
+      }
     })();
-  }, [tiles, originCoords]);
+  }, [originCoords]);
 
   useEffect(() => {
     (async () => {
