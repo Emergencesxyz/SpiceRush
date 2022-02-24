@@ -130,16 +130,8 @@ export default class BlockchainService {
           },
         ];
       }
-      for (
-        let x = x0 - Math.floor(chunkSize / 2);
-        x <= Math.ceil(chunkSize / 2) + x0;
-        x++
-      ) {
-        for (
-          let y = y0 - Math.floor(chunkSize / 2);
-          y <= Math.ceil(chunkSize / 2) + y0;
-          y++
-        ) {
+      for (let x = x0; x <= x0 + chunkSize; x++) {
+        for (let y = y0; y <= y0 + chunkSize; y++) {
           const _tile = await this.gameplayContract.methods.map(x, y).call();
 
           tiles.push({
