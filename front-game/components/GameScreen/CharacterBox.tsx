@@ -28,7 +28,7 @@ const CharacterBox: FunctionComponent<Props> = ({
     (async () => {
       setCanLvlUp(await blockchainService.canLevelUp(characterId));
     })();
-  }, []);
+  }, [character]);
 
   const lvlUp = async (e: any) => {
     console.log("lvlUp", e.target);
