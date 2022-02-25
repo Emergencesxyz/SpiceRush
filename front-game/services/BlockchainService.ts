@@ -89,7 +89,7 @@ export default class BlockchainService {
         y: parseInt(info.y),
         xp: parseInt(info.xp),
         id: nftId,
-        spicedMined: await this.getSpiceMined(nftId),
+        spiceMined: await this.getSpiceMined(nftId),
       };
     } catch (e) {
       return null;
