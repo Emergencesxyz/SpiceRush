@@ -223,9 +223,14 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
 
   useEffect(() => {
     (async () => {
-      console.log("new tiles! update characters");
-      console.log("events", events);
+      console.log("new events! update characters");
+
       //let characters_ = await blockchainService.getAllCharacters();
+
+      //wait a bit while  api is updating cached map
+      (function sleep(ms: any) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+      })(1000);
 
       let characters_ = (await axios.get(API_URL + `/character`)).data.result;
       console.log("characters_", characters_);
