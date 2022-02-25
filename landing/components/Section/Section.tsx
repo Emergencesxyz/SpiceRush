@@ -7,22 +7,19 @@ interface Props {
   Text: ReactNode;
   Button?: ReactNode;
   inverse: boolean;
-  isMobile:boolean;
+  isMobile: boolean;
 }
 
 const Section: FunctionComponent<Props> = (props): JSX.Element => {
   let style: any;
-  if(props.isMobile){
+  if (props.isMobile) {
     style = "column";
-  }else{
-    style = props.inverse ? "row-reverse" :  "row"
+  } else {
+    style = props.inverse ? "row-reverse" : "row";
   }
 
   return (
-    <Row
-      className={styles.container}
-      style={{flexDirection: style }}
-    >
+    <Row className={styles.container} style={{ flexDirection: style }}>
       <Col className={styles.imageContainer}>
         <img src={props.Image} />
       </Col>

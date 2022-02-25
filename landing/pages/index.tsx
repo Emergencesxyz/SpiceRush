@@ -20,17 +20,19 @@ const Home: NextPage = () => {
 
   return (
     <div className={styles.container}>
-      {<header
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          width: "100%",
-          position: "absolute",
-          zIndex: 10,
-        }}
-      >
-        <Header />
-      </header>}
+      {
+        <header
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            width: "100%",
+            position: "absolute",
+            zIndex: 10,
+          }}
+        >
+          <Header />
+        </header>
+      }
       <div style={{ width: "100%", position: "relative" }}>
         <Presentation />
       </div>
@@ -49,7 +51,7 @@ const Home: NextPage = () => {
           }
         />
       </div>
-      <div >
+      <div>
         <Section
           inverse={true}
           isMobile={isMobile}
@@ -66,11 +68,11 @@ const Home: NextPage = () => {
           }
         />
       </div>
-      <div >
+      <div>
         <Section
           inverse={false}
           isMobile={isMobile}
-          Image="../pictures/land3d.png"
+          Image="../pictures/land_desert_crystal.png"
           Text={
             <>
               <h1>{textSection.section3.title}</h1>
@@ -82,7 +84,7 @@ const Home: NextPage = () => {
           }
         />
       </div>
-      <div >
+      <div>
         <Section
           inverse={true}
           isMobile={isMobile}

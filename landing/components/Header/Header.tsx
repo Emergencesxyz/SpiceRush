@@ -1,5 +1,11 @@
 import { useState, FunctionComponent } from "react";
-import { Nav, Navbar, Container, OverlayTrigger, Tooltip } from "react-bootstrap";
+import {
+  Nav,
+  Navbar,
+  Container,
+  OverlayTrigger,
+  Tooltip,
+} from "react-bootstrap";
 import styles from "./Header.module.scss";
 interface Props {
   currentElementIndexInViewport?: number;
@@ -12,7 +18,6 @@ const Header: FunctionComponent<Props> = ({
   const [clickTiktok, setClickTiktok] = useState<boolean>(false);
 
   return (
-    
     <Navbar
       expand="xl"
       fixed="top"
@@ -22,20 +27,25 @@ const Header: FunctionComponent<Props> = ({
       style={{ width: "100vw" }}
     >
       <Container className={styles.navContainer}>
-            <Nav.Link className={styles.brand} href="/#topSection">
-              <h1>
-                APINATOr{" "}
-                <span style={{ color: "red", fontSize: "20px" }}>2042</span>
-              </h1>
-            </Nav.Link>
-            <Navbar.Toggle  aria-controls="navbar" style={{ border: "none" }}>
+        <Nav.Link className={styles.brand} href="/#topSection">
+          <h1>
+            <img
+              src="/pictures/logo_white.png"
+              alt="Apinator"
+              style={{ maxWidth: "2em" }}
+            />
+            APINATOr
+            <span style={{ color: "#d04183", fontSize: "20px" }}>2042</span>
+          </h1>
+        </Nav.Link>
+        <Navbar.Toggle aria-controls="navbar" style={{ border: "none" }}>
           <img
             alt="menu burger"
             width="30"
             height="30"
             src="/pictures/burger.png"
           />
-            </Navbar.Toggle>
+        </Navbar.Toggle>
         <Navbar.Collapse id="navbar" className=" justify-content-between">
           <Nav className={styles.navBar}>
             <Nav.Link href="/#topSection">
@@ -50,7 +60,6 @@ const Header: FunctionComponent<Props> = ({
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
-       
       </Container>
     </Navbar>
   );
