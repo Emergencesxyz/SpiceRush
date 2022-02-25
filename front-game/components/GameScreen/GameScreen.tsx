@@ -399,7 +399,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
                 return (
                   <div className={styles.events} key={i}>
                     {i === 0 && "🥇"} {i === 1 && "🥈"} {i === 2 && "🥉"} ⬪ #
-                    {c.id} | {c.spiceMined} $pice
+                    {c.id} | lvl {c.lvl} | {c.spiceMined} $pice
                   </div>
                 );
               })}

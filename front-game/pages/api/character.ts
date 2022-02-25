@@ -19,19 +19,15 @@ export default async function handler(
     const id = parseInt(req.query.id as string);
     console.log("/character id=", id);
     console.log("isCached", cachedCharacters !== null);
-    const totalSupply = parseInt(await blockchainService.totalSupply());
 
     let result: any = [];
     if (!cachedCharacters) {
       console.log("- putting characters in cache");
-      for (let i = 0; i < totalSupply; i++) {
-        result.push(await blockchainService.getCharacterInfo(i));
-      }
-      cachedCharacters = result;
-      console.log("- characters cached!");
-    } else {
-      result = cachedCharacters;
+
+      cachedCharacters = await blockchainService.getAllCharacters();
+      console.log("- characters cached!", cachedCharacters);
     }
+    result = cachedCharacters;
 
     //filter
     if (Number.isInteger(id)) {
