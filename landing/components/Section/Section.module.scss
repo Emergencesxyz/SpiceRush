@@ -1,0 +1,81 @@
+.container {
+  height: 100vh;
+  display: flex;
+  padding: 12rem;
+
+  .text {
+    width: 45vw;
+    line-height: 50px;
+  }
+
+  img {
+    width: 35vw;
+  }
+
+  h1 {
+    font-size: 50px;
+    font-family: "sofia-pro-SemiBold";
+  }
+
+  p {
+    font-size: 30px;
+    font-family: "sofia-pro";
+  }
+}
+
+@media (max-width: 1366px) {
+  .container {
+    .text {
+      width: 45vw;
+      line-height: 35px;
+    }
+
+    h1 {
+      font-size: 40px;
+    }
+
+    p {
+      font-size: 20px;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    height: 140vh;
+    padding: 0;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    /* margin-top: 10rem; */
+    /* margin-bottom: 5rem; */
+   
+
+    .text {
+      width: 80vw;
+    }
+
+    img {
+      width: 60vw;
+    }
+
+    h1 {
+      font-size: 40px;
+      line-height: 50px;
+    }
+
+    p {
+      font-size: 20px;
+    }
+  }
+
+
+}
+
+
+
+
+

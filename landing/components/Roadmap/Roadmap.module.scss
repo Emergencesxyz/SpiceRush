@@ -1,0 +1,87 @@
+.container {
+  height: 120vh;
+  margin-top: 10rem;
+  margin-bottom: 30rem;
+
+  h1{
+    font-size: 50px;
+    font-family: "sofia-pro-SemiBold";
+  }
+
+  h2 {
+    font-size: 40px;
+    font-family: "sofia-pro";
+    line-height: 50px;
+  }
+
+  p {
+    font-family: "sofia-pro";
+    font-size: 30px;
+    line-height: 50px;
+    margin-top: 0;
+  }
+
+  .roadmap {
+    font: size 50px;
+  }
+}
+
+@media (max-width: 1366px) {
+
+  .container {
+  margin-top: 5rem;
+  margin-bottom: 20rem;
+
+  h1{
+    font-size: 40px;
+    font-family: "sofia-pro-SemiBold";
+  }
+  
+    h2 {
+      font-size: 25px;
+      font-family: "sofia-pro";
+      line-height: 30px;
+    }
+  
+    p {
+      font-family: "sofia-pro";
+      font-size: 20px;
+      line-height: 30px;
+      margin-top: 0;
+    }
+  
+    
+  }
+}
+
+@media (max-width: 576px) {
+
+  .container {
+    height: 140vh;
+  margin-top: 1rem;
+  /* margin-bottom: 30rem; */
+
+  h1{
+    font-size: 40px;
+    font-family: "sofia-pro-SemiBold";
+  }
+  
+    h2 {
+      font-size: 25px;
+      font-family: "sofia-pro";
+      line-height: 30px;
+    }
+  
+    p {
+      font-family: "sofia-pro";
+      font-size: 20px;
+      line-height: 30px;
+      margin-top: 0;
+    }
+  
+    
+  }
+
+}
+
+
