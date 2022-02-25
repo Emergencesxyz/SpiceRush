@@ -17,6 +17,7 @@ interface Props {
   setActions: Function;
   characterId: number | null;
   setLoading: Function;
+  setOriginCoords: Function;
 }
 
 const ActionBox: FunctionComponent<Props> = ({
@@ -25,6 +26,7 @@ const ActionBox: FunctionComponent<Props> = ({
   setActions,
   characterId,
   setLoading,
+  setOriginCoords,
 }): JSX.Element => {
   const { account, library } = useWeb3React();
   const [sounds, setSounds] = useState<Object | null>(null);
@@ -80,10 +82,20 @@ const ActionBox: FunctionComponent<Props> = ({
     return;
   };
 
+  const center = async (e: any) => {
+    console.log("center");
+
+    console.log("character", character);
+    if (character && Number.isInteger(character.x))
+      setOriginCoords({ x: character.x, y: character.y });
+    else setOriginCoords({ x: 0, y: 0 });
+  };
+
   const refresh = async (e: any) => {
     console.log("mine actions", actions);
     setActions(actions++);
   };
+
   let { energy, hp, mining } = { energy: 0, hp: 0, mining: 0 };
   let blocked = true;
   if (character) {
@@ -111,6 +123,11 @@ const ActionBox: FunctionComponent<Props> = ({
             <Col>
               <button onClick={refresh} className={styles.pushable}>
                 <span className={styles.front}>Refresh</span>
+              </button>
+            </Col>
+            <Col>
+              <button onClick={center} className={styles.pushable}>
+                <span className={styles.front}>Center map.</span>
               </button>
             </Col>
           </Row>
