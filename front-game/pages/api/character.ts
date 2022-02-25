@@ -2,6 +2,13 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import DatabaseService from "../../services/DatabaseService";
 import BlockchainService from "../../services/BlockchainService";
+import { ethers } from "ethers";
+import consts from "../../consts";
+
+const WSS_URL = process.env.WSS_URL;
+const DEFAULT_MAP_SIZE = parseInt(process.env.DEFAULT_MAP_SIZE as string);
+const DEFAULT_CHUNK_SIZE = parseInt(process.env.DEFAULT_CHUNK_SIZE as string);
+const GAMEPLAY_CONTRACT_ADDRESS = process.env.GAMEPLAY_CONTRACT_ADDRESS;
 
 type Data = {
   result: string;
@@ -11,6 +18,39 @@ const databaseService = new DatabaseService();
 const blockchainService = new BlockchainService(null);
 
 let cachedCharacters: any = null;
+
+//listener
+const provider = new ethers.providers.WebSocketProvider(WSS_URL as string);
+
+const gameplayContract = new ethers.Contract(
+  GAMEPLAY_CONTRACT_ADDRESS as string,
+  consts.gameplayABI,
+  provider
+);
+
+gameplayContract.on(
+  "moving",
+  async (_tokenId, x, y, energy, xp, nextActionTime) => {
+    const x_int = parseInt(x.toString());
+    const y_int = parseInt(y.toString());
+    const tokenId = parseInt(_tokenId.toString());
+
+    console.log("[API] moving", tokenId, x_int, y_int);
+
+    //update character
+    let new_character = await blockchainService.getCharacterInfo(tokenId);
+
+    console.log("new_character", new_character);
+    let old_character = cachedCharacters.filter(
+      (c: any) => c.id === tokenId
+    )[0];
+
+    console.log("old_character", old_character);
+    if (old_character)
+      cachedCharacters[cachedCharacters.indexOf(old_character)] = new_character;
+  }
+);
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>

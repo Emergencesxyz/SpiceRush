@@ -43,13 +43,13 @@ gameplayContract.on(
     //events.push({ type: "moving", tokenId: tokenId, x: x_int, y: y_int });
 
     //update cachedmap
-    console.log("cachedMap not null", cachedMap);
+
     if (!cachedMap) return;
 
     let tile = cachedMap.filter(
       (tile: any) => tile.x === x_int && tile.y === y_int
     )[0];
-    console.log("update tile:", tile);
+
     if (tile) {
       let newTile = (await blockchainService.getMapChunk(x_int, y_int, 0))[0];
       cachedMap[cachedMap.indexOf(tile)] = newTile;
