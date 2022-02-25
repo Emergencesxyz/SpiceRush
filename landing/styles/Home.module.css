@@ -1,0 +1,71 @@
+.container {
+  /*  padding: 0 2rem; */
+  background-color: #140e1e;
+  color: white;
+  width: 100vw;
+  /*   cursor: url("../public/pictures/Cursor.png"), auto;
+ */
+}
+
+.main {
+  min-height: 100vh;
+  padding: 4rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.button {
+  font-size: 50px;
+  font-family: "sofia-pro-SemiBold";
+  height: 70px;
+  width: 200px;
+  border-top-left-radius: 14px;
+  border-bottom-right-radius: 14px;
+  background-color: white;
+  color:#140e1e;
+}
+
+.button:hover {
+  background-color: #a89cba;
+  /*   color: #0f0e3f;
+ */
+  border: 2px solid #0f0e3f;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 2rem 0;
+  /*   border-top: 1px solid #eaeaea;
+ */
+  background: rgb(20, 14, 30);
+  background: linear-gradient(
+    180deg,
+    rgba(20, 14, 30, 1) 0%,
+    rgba(15, 14, 63, 1) 94%,
+    rgba(15, 14, 63, 1) 100%
+  );
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+}
+
+@media (max-width: 1366px) {
+  .button {
+    font-size: 30px;
+    height: 50px;
+    width: 120px;
+  }
+}
+
+@media (max-width: 600px) {
+  .grid {
+    width: 100%;
+    flex-direction: column;
+  }
+}
+
