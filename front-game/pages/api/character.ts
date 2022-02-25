@@ -37,17 +37,18 @@ gameplayContract.on(
 
     console.log("[API] moving", tokenId, x_int, y_int);
 
-    //update character
-    let new_character = await blockchainService.getCharacterInfo(tokenId);
+    //update all characters
+    cachedCharacters = await blockchainService.getAllCharacters();
 
-    console.log("new_character", new_character);
-    let old_character = cachedCharacters.filter(
-      (c: any) => c.id === tokenId
-    )[0];
+    //update just 1 character
+    // let new_character = await blockchainService.getCharacterInfo(tokenId);
 
-    console.log("old_character", old_character);
-    if (old_character)
-      cachedCharacters[cachedCharacters.indexOf(old_character)] = new_character;
+    // let old_character = cachedCharacters.filter(
+    //   (c: any) => c.id === tokenId
+    // )[0];
+
+    // if (old_character)
+    //   cachedCharacters[cachedCharacters.indexOf(old_character)] = new_character;
   }
 );
 
@@ -63,7 +64,6 @@ export default async function handler(
     let result: any = [];
     if (!cachedCharacters) {
       console.log("- putting characters in cache");
-
       cachedCharacters = await blockchainService.getAllCharacters();
       console.log("- characters cached!", cachedCharacters);
     }
