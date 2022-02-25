@@ -60,7 +60,7 @@ const Presentation = (): JSX.Element => {
             <div className={styles.description}>
               <p>
                 On-Chain<br></br> apocalyptic<br></br> yield game with <br></br>
-                procedural map.
+                procedural W0RLD.
               </p>
             </div>
             <div
