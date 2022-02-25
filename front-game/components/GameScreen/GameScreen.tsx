@@ -223,19 +223,19 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
 
   useEffect(() => {
     (async () => {
-      if (!randomQuoteId)
-        setRandomQuoteId(Math.floor(randomQuotes.length * Math.random()));
+      console.log("new tiles! update characters");
+      console.log("events", events);
+      //let characters_ = await blockchainService.getAllCharacters();
 
-      if (!library) return;
+      let characters_ = (await axios.get(API_URL + `/character`)).data.result;
+      console.log("characters_", characters_);
+      setCharacters(characters_ as any);
+    })();
+  }, [events]);
 
-      //setUserBalance(await library.eth.getBalance(account));
-
-      setTotalSupply(await await blockchainService.totalSupply());
-
-      const _character: any =
-        characterId === null
-          ? {}
-          : await blockchainService.getCharacterInfo(characterId);
+  useEffect(() => {
+    (async () => {
+      setRandomQuoteId(Math.floor(randomQuotes.length * Math.random()));
 
       if (!tiles || !tiles.length) {
         //DIRECT WEB3 CALL
@@ -254,22 +254,28 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
         ).data.result;
 
         setTiles(_tiles as unknown as Array<TileType>);
-      }
 
-      //load charater info
+        setLoading(false);
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      console.log("update my character");
+      const _character: any =
+        characterId === null
+          ? {}
+          : await blockchainService.getCharacterInfo(characterId);
+
+      //load character info
       if (tiles && _character && Number.isInteger(_character.x)) {
+        console.log("actually updating");
         setCharacter(_character);
         setSpiceMined(await blockchainService.getSpiceMined(characterId));
       }
-
-      setLoading(false);
-
-      let characters_ = await blockchainService.getAllCharacters();
-
-      console.log("characters_", characters_);
-      setCharacters(characters_ as any);
     })();
-  }, [library, actions, characterId, toastMessage, events]);
+  }, [characterId, events]);
 
   const selectNft = async (e: any) => {
     // @ts-ignore: Object is possibly 'null'.
