@@ -3,7 +3,7 @@
   margin-top: 10rem;
   margin-bottom: 30rem;
 
-  h1{
+  h1 {
     font-size: 50px;
     font-family: "sofia-pro-SemiBold";
   }
@@ -27,61 +27,58 @@
 }
 
 @media (max-width: 1366px) {
-
   .container {
-  margin-top: 5rem;
-  margin-bottom: 20rem;
+    margin-top: 5rem;
+    margin-bottom: 15rem;
 
-  h1{
-    font-size: 40px;
-    font-family: "sofia-pro-SemiBold";
-  }
-  
+    h1 {
+      font-size: 40px;
+      font-family: "sofia-pro-SemiBold";
+    }
+
     h2 {
       font-size: 25px;
       font-family: "sofia-pro";
       line-height: 30px;
     }
-  
+
     p {
       font-family: "sofia-pro";
       font-size: 20px;
       line-height: 30px;
       margin-top: 0;
     }
-  
-    
   }
 }
 
 @media (max-width: 576px) {
-
   .container {
     height: 140vh;
-  margin-top: 1rem;
-  /* margin-bottom: 30rem; */
+    margin-top: 1rem;
 
-  h1{
-    font-size: 40px;
-    font-family: "sofia-pro-SemiBold";
-  }
-  
+    h1 {
+      font-size: 40px;
+      font-family: "sofia-pro-SemiBold";
+    }
+
     h2 {
       font-size: 25px;
       font-family: "sofia-pro";
       line-height: 30px;
     }
-  
+
     p {
       font-family: "sofia-pro";
       font-size: 20px;
       line-height: 30px;
       margin-top: 0;
     }
-  
-    
   }
-
 }
 
-
+@media (max-width: 400px) {
+  .container {
+    height: 140vh;
+    margin-bottom: 20rem;
+  }
+}

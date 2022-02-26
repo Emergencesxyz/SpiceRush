@@ -36,7 +36,7 @@ const Home: NextPage = () => {
       <div style={{ width: "100%", position: "relative" }}>
         <Presentation />
       </div>
-      <div>
+      <div style={{ marginTop: "8vh" }}>
         <Section
           inverse={false}
           isMobile={isMobile}
@@ -55,14 +55,14 @@ const Home: NextPage = () => {
         <Section
           inverse={true}
           isMobile={isMobile}
-          Image="../pictures/crystal.png"
+          Image="../pictures/ape_gradient.png"
           Text={
             <>
               <h1>{textSection.section2.title}</h1>
               <p>{textSection.section2.part1}</p>
               <p>{textSection.section2.part2}</p>
               <p>{textSection.section2.part3}</p>
-              <p>{textSection.section2.part4}</p>
+              {/* <p>{textSection.section2.part4}</p> */}
               <Button className={styles.button}>more</Button>
             </>
           }
@@ -72,7 +72,7 @@ const Home: NextPage = () => {
         <Section
           inverse={false}
           isMobile={isMobile}
-          Image="../pictures/land_desert_crystal.png"
+          Image="../pictures/land3d.png"
           Text={
             <>
               <h1>{textSection.section3.title}</h1>
@@ -88,7 +88,7 @@ const Home: NextPage = () => {
         <Section
           inverse={true}
           isMobile={isMobile}
-          Image="../pictures/ape_bioshock.png"
+          Image="../pictures/ape_baseball_gradient.png"
           Text={
             <>
               <h1>{textSection.section4.title}</h1>

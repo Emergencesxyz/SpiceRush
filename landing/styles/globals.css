@@ -1,6 +1,5 @@
 @import "bootstrap/dist/css/bootstrap.min.css";
 
-
 html,
 body {
   padding: 0;
@@ -47,6 +46,6 @@ a {
   text-decoration: none;
 }
 
-* {
+/* * {
   box-sizing: border-box;
-}
+} */

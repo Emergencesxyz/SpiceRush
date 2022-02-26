@@ -18,16 +18,16 @@ const Roadmap = () => {
         style={{
           display: "flex",
           justifyContent: "center",
-       }}
+          textAlign: "center",
+          marginBottom: "30px",
+        }}
       >
-        <h1>
-          Roadmap
-        </h1>
+        <h1>Roadmap</h1>
       </Row>
       <Row className={styles.roadmap}>
         <Chrono
           /*           items={textRoadmap}
-           */ mode= {!isMobile ? "VERTICAL_ALTERNATING" : "VERTICAL"}
+           */ mode={!isMobile ? "VERTICAL_ALTERNATING" : "VERTICAL"}
           hideControls
           /*           timelineCircleDimension="40"
            */ theme={{

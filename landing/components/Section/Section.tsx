@@ -20,10 +20,24 @@ const Section: FunctionComponent<Props> = (props): JSX.Element => {
 
   return (
     <Row className={styles.container} style={{ flexDirection: style }}>
-      <Col className={styles.imageContainer}>
-        <img src={props.Image} />
-      </Col>
-      <Col className={styles.text}>{props.Text}</Col>
+      {!props.isMobile ? (
+        <>
+          <div className="justify-content-center" style={{ width: "40%" }}>
+            <img src={props.Image} />
+          </div>
+          <div style={{ width: "60%" }}>{props.Text}</div>
+        </>
+      ) : (
+        <>
+          <div className="justify-content-center">
+            <img
+              style={{ width: "100%", marginBottom: "30px" }}
+              src={props.Image}
+            />
+          </div>
+          <div style={{ textAlign: "left" }}>{props.Text}</div>
+        </>
+      )}
     </Row>
   );
 };

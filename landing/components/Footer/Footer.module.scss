@@ -10,9 +10,9 @@
   font-size: 26px;
 }
 
- @media (max-width: 576px) {
-
+@media (max-width: 576px) {
   .footerRow1 {
+    width: 80%;
     padding-left: 1rem;
     padding-right: 1rem;
     color: #a89cba;
