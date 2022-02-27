@@ -133,7 +133,7 @@ const ActionBox: FunctionComponent<Props> = ({
             </Col>
             <Col>
               <button onClick={center} className={styles.pushable}>
-                <span className={styles.front}>Center map.</span>
+                <span className={styles.front}>Center map</span>
               </button>
             </Col>
           </Row>

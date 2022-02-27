@@ -21,6 +21,8 @@ import { useCookies } from "react-cookie";
 
 import { TileType } from "../../types";
 
+import { Toaster, toast, useToaster } from "react-hot-toast";
+
 const { randomQuotes } = consts;
 
 const GameScreen: FunctionComponent = (): JSX.Element => {
@@ -53,10 +55,10 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
   const [loading, setLoading] = useState<Boolean>(false);
   const [toastMessage, setToastMessage] = useState<String>("");
   const [totalSupply, setTotalSupply] = useState<number>(0);
-
   const [events, setEvents] = useState<any>([]);
-
   const [characters, setCharacters] = useState<Array<any>>([]);
+
+  const { toasts, handlers } = useToaster();
 
   const blockchainService = new BlockchainService(account);
   const databaseService = new DatabaseService();
@@ -79,6 +81,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
     (async () => {
       //refresh map &character every 10 seconds
 
+      toast("💀 you are dead");
       async function refresh() {
         console.log(`update tiles & characters!`);
 
@@ -118,11 +121,8 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
           const y_int = parseInt(y.toString());
 
           console.log("moving", tokenId.toString(), x_int, y_int);
-          _events.push({
-            type: "🏃",
-            content: `#${tokenId} moved to (${x},${y}) !`,
-          });
-          setEvents(_events);
+
+          toast(`🏃 #${tokenId} moved to (${x},${y}) !`);
         }
       );
 
@@ -135,7 +135,8 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
             type: "⛏️",
             content: `#${tokenId} mined $${_spiceAmount}  !`,
           });
-          setEvents(_events);
+
+          toast(`⛏️ #${tokenId} mined $${_spiceAmount}  !`);
 
           setLoading(false);
         }
@@ -149,7 +150,8 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
             type: "😴",
             content: `#${tokenId} is taking a nap  !`,
           });
-          setEvents(_events);
+
+          toast(`😴 #${tokenId} is taking a nap  !`);
           setLoading(false);
         }
       );
@@ -162,7 +164,8 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
             type: "🛬",
             content: `#${tokenId} spawned on the map. Watch out !`,
           });
-          setEvents(_events);
+
+          toast(`🛬 #${tokenId} spawned on the map. Watch out !`);
           setLoading(false);
         }
       );
@@ -173,7 +176,8 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
           type: "💀",
           content: `# ${tokenId} left us. RIP ! `,
         });
-        setEvents(_events);
+
+        toast(`💀 # ${tokenId} left us. RIP ! `);
         setLoading(false);
       });
 
@@ -185,7 +189,8 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
             type: "💪",
             content: `#${_tokenId} has leveled up. Fear him !`,
           });
-          setEvents(_events);
+
+          toast(`💪 #${_tokenId} has leveled up. Fear him !`);
           setLoading(false);
         }
       );
@@ -201,7 +206,8 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
           type: "MINT",
           content: `#${to.slice(0, 8)} minted NFT #${_tokenId}  !`,
         });
-        setEvents(_events);
+
+        toast(`#${to.slice(0, 8)} minted NFT #${_tokenId}  !`);
 
         console.log("account ", account === to);
         if (account && to === account) {
@@ -311,6 +317,13 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
           <Toast.Body>{toastMessage}</Toast.Body>
         </Toast>
 
+        <Toaster
+          toastOptions={{
+            className: styles.toaster,
+            style: {},
+          }}
+        />
+
         <Row>
           <span className={styles.quotes}>{randomQuotes[randomQuoteId]}</span>
         </Row>
@@ -318,7 +331,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
         <Row>
           <Col xs={3}></Col>
           <Col>
-            <Row>
+            <Row style={{ marginBottom: "1em" }}>
               <Accordion>
                 <Accordion.Item
                   style={{ width: "fit-content", color: "black" }}
@@ -394,17 +407,6 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
                   </div>
                 );
               })}
-            </Row>
-            <Row>
-              <br />
-              {events.map((event: any, i: number) => {
-                return (
-                  <div className={styles.events} key={i}>
-                    {event.type} ⬪ {event.content}
-                  </div>
-                );
-              })}
-              <br />
             </Row>
           </Col>
         </Row>
