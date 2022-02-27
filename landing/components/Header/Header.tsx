@@ -30,12 +30,10 @@ const Header: FunctionComponent<Props> = ({
         <Nav.Link className={styles.brand} href="/#topSection">
           <h1>
             <img
-              src="/pictures/logo_white.png"
+              src="/pictures/logo_text.png"
               alt="Apinator"
-              style={{ maxWidth: "2em" }}
+              style={{ maxWidth: "5em" }}
             />
-            APINATOr
-            <span style={{ color: "#d04183", fontSize: "20px" }}>2042</span>
           </h1>
         </Nav.Link>
         <Navbar.Toggle aria-controls="navbar" style={{ border: "none" }}>
