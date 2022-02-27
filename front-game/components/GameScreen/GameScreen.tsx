@@ -77,17 +77,25 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
 
   useEffect(() => {
     (async () => {
-      //refresh map every 10 seconds
+      //refresh map &character every 10 seconds
 
-      async function refreshMap() {
-        console.log(`update tiles!"`);
+      async function refresh() {
+        console.log(`update tiles & characters!`);
 
         let _tiles = (await axios.get(API_URL + `/map`)).data.result;
-
         setTiles(_tiles as unknown as Array<TileType>);
+
+        let characters_ = (await axios.get(API_URL + `/character`)).data.result;
+        console.log("characters_", characters_);
+        setCharacters(characters_ as any);
+
+        //wait a bit while  api is updating cached map
+        (function sleep(ms: any) {
+          return new Promise((resolve) => setTimeout(resolve, ms));
+        })(1000);
       }
-      refreshMap();
-      const interval = setInterval(() => refreshMap(), 10000);
+      refresh();
+      const interval = setInterval(() => refresh(), 10000);
       return () => {
         clearInterval(interval);
       };
@@ -220,23 +228,6 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
       }
     })();
   }, []);
-
-  useEffect(() => {
-    (async () => {
-      console.log("new events! update characters");
-
-      //let characters_ = await blockchainService.getAllCharacters();
-
-      //wait a bit while  api is updating cached map
-      (function sleep(ms: any) {
-        return new Promise((resolve) => setTimeout(resolve, ms));
-      })(1000);
-
-      let characters_ = (await axios.get(API_URL + `/character`)).data.result;
-      console.log("characters_", characters_);
-      setCharacters(characters_ as any);
-    })();
-  }, [events]);
 
   useEffect(() => {
     (async () => {

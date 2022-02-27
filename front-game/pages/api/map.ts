@@ -97,7 +97,7 @@ export default async function handler(
     //UPDATE MAP
     console.log("POST");
     // Handle any other HTTP method
-    console.log(req.body);
+    //console.log(req.body);
     const y = parseInt(req.body.y as string);
     const x = parseInt(req.body.x as string);
     const tokenId = parseInt(req.body.tokenId as string);
