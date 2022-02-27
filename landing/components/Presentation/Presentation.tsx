@@ -125,7 +125,7 @@ const Presentation = (): JSX.Element => {
                 <div className={styles.description}>
                   <p>
                     First DeFi Yield Game <br></br> with on-chain <br></br>{" "}
-                    procedural map.
+                    procedural WORLD.
                   </p>
                 </div>
               </div>
