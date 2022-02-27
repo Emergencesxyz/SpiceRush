@@ -65,7 +65,12 @@ const Tile: FunctionComponent<Props> = ({
           {!countCharacters && (
             <span>
               <IconGame name="hood" size="30px" /> No one is here. <br />
-              Sounds like free unclaimed $spice to me..
+              {spiceAmount && (
+                <span>
+                  {" "}
+                  You should pay a visit to claim this sweet unclaimed spice.{" "}
+                </span>
+              )}
             </span>
           )}
           <br />
@@ -73,6 +78,12 @@ const Tile: FunctionComponent<Props> = ({
             <span>
               You are the only one here. <strong>Wait</strong>.. what was{" "}
               <em>that</em> noise in the dark ?
+            </span>
+          )}
+          {currentPosition && countCharacters > 1 && (
+            <span>
+              You are NOT the only one here. <br />
+              Watch out for your back... some people are trigger-happy..
             </span>
           )}
         </Toast.Body>
