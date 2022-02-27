@@ -72,45 +72,47 @@ const Map: FunctionComponent<Props> = ({
       tile.x < x + Math.ceil(DEFAULT_CHUNK_SIZE / 2)
   );
 
-  const xMin = (chunk[0] as any).x;
-  const yMin = (chunk[0] as any).y;
-  const xMax = xMin + Math.ceil(Math.sqrt(chunk.length));
-  const yMax = yMin + Math.ceil(Math.sqrt(chunk.length));
-
   let tilesComponent = [];
 
-  for (let x = xMin; x < xMax; x++) {
-    let row = [];
-    for (let y = yMin; y < yMax; y++) {
-      let tile: any = tiles.filter(
-        (tile) => (tile as any).x === x && (tile as any).y === y
-      )[0];
+  if (chunk && chunk.length) {
+    const xMin = (chunk[0] as any).x;
+    const yMin = (chunk[0] as any).y;
+    const xMax = xMin + Math.ceil(Math.sqrt(chunk.length));
+    const yMax = yMin + Math.ceil(Math.sqrt(chunk.length));
 
-      if (!tile) continue;
+    for (let x = xMin; x < xMax; x++) {
+      let row = [];
+      for (let y = yMin; y < yMax; y++) {
+        let tile: any = tiles.filter(
+          (tile) => (tile as any).x === x && (tile as any).y === y
+        )[0];
 
-      const currentPosition =
-        character && character.x === tile.x && character.y === tile.y;
+        if (!tile) continue;
 
-      const countCharacters = characters
-        ? characters?.filter((c) => c.x === tile.x && c.y === tile.y).length
-        : 0;
+        const currentPosition =
+          character && character.x === tile.x && character.y === tile.y;
 
-      row.push(
-        <Tile
-          key={tile.x + ";" + tile.y}
-          level={tile.level}
-          spiceAmount={tile.spiceAmount}
-          foesAmount={tile.foesAmount}
-          isExplored={tile.isExplored}
-          currentPosition={currentPosition}
-          x={tile.x}
-          y={tile.y}
-          countCharacters={countCharacters}
-          characters={characters}
-        />
-      );
+        const countCharacters = characters
+          ? characters?.filter((c) => c.x === tile.x && c.y === tile.y).length
+          : 0;
+
+        row.push(
+          <Tile
+            key={tile.x + ";" + tile.y}
+            level={tile.level}
+            spiceAmount={tile.spiceAmount}
+            foesAmount={tile.foesAmount}
+            isExplored={tile.isExplored}
+            currentPosition={currentPosition}
+            x={tile.x}
+            y={tile.y}
+            countCharacters={countCharacters}
+            characters={characters}
+          />
+        );
+      }
+      tilesComponent.push(<div>{row}</div>);
     }
-    tilesComponent.push(<div>{row}</div>);
   }
 
   return (
