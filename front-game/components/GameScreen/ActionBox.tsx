@@ -1,7 +1,7 @@
 import styles from "./GameScreenC.module.scss";
 
 import { Row, Button, Col } from "react-bootstrap";
-import { useState, FunctionComponent } from "react";
+import { useState, useEffect, FunctionComponent } from "react";
 import { useWeb3React } from "@web3-react/core";
 import BlockchainService from "../../services/BlockchainService";
 
@@ -30,8 +30,14 @@ const ActionBox: FunctionComponent<Props> = ({
 }): JSX.Element => {
   const { account, library } = useWeb3React();
   const [sounds, setSounds] = useState<Object | null>(null);
+  const [blockchainService, setBlockchainService] = useState<any>(null);
 
-  const blockchainService = new BlockchainService(account);
+  useEffect(() => {
+    (async () => {
+      console.log("ACTION account", account);
+      setBlockchainService(new BlockchainService(account));
+    })();
+  }, [account]);
 
   const moveCharacter = async (e: any) => {
     let x, y: number;
