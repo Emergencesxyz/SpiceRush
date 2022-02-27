@@ -34,13 +34,15 @@ const Tile: FunctionComponent<Props> = ({
     (async () => {})();
   }, [toastMessage]);
 
-  let characterDesc = countCharacters
-    ? countCharacters + " character(s) here."
-    : "";
+  let characterDesc = `- ${countCharacters} players  
+                       - $${spiceAmount} spice to mine  
+                       - ${foesAmount} monsters 
+    `;
+
   return (
     <>
       <Toast
-        show={toastMessage.msg && toastMessage.msg.length > 0}
+        show={toastMessage.title && toastMessage.title.length > 0}
         className={styles2.toast}
         onClose={() => setToastMessage({ title: "", msg: "" })}
       >
@@ -49,7 +51,31 @@ const Tile: FunctionComponent<Props> = ({
           <strong className="me-auto">{toastMessage.title}</strong>
           <small> </small>
         </Toast.Header>
-        <Toast.Body>{toastMessage.msg}</Toast.Body>
+        <Toast.Body style={{ textAlign: "left" }}>
+          On this land : <br />
+          <IconGame name="gem" size="30px" /> ${spiceAmount} spice to mine.
+          <br />
+          <IconGame name="skull" size="30px" /> {foesAmount} monsters
+          <br />
+          {countCharacters > 0 && (
+            <span>
+              <IconGame name="hood" size="30px" /> {countCharacters} players{" "}
+            </span>
+          )}
+          {!countCharacters && (
+            <span>
+              <IconGame name="hood" size="30px" /> No one is here. <br />
+              Sounds like free unclaimed $spice to me..
+            </span>
+          )}
+          <br />
+          {currentPosition && countCharacters === 1 && (
+            <span>
+              You are the only one here. <strong>Wait</strong>.. what was{" "}
+              <em>that</em> noise in the dark ?
+            </span>
+          )}
+        </Toast.Body>
       </Toast>
 
       <div
