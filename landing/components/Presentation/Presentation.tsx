@@ -40,10 +40,7 @@ const Presentation = (): JSX.Element => {
             onReady={() => setIsVideoLoaded(true)}
           />
         ) : (
-          /*           <div style={{ height:"100%", position: "absolute"}}>
-           */ <VideoMobile mainVideo="/videos/mobile_video.mp4" />
-          /*           </div>
-           */
+          <VideoMobile mainVideo="/videos/mobile_video.mp4" />
         )}
       </div>
       <div className={styles.groupButtons}>
@@ -60,7 +57,7 @@ const Presentation = (): JSX.Element => {
             <div className={styles.description}>
               <p>
                 On-Chain<br></br> apocalyptic<br></br> yield game with <br></br>
-                procedural W0RLD.
+                procedural map.
               </p>
             </div>
             <div
