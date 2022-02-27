@@ -33,13 +33,10 @@ const Map: FunctionComponent<Props> = ({
   useEffect(() => {
     (async () => {
       try {
-        //we do not use API + caching for now
-        //let characters_ = (await axios.get(API_URL + `/character`)).data.result;
-        // let characters_ = await blockchainService.getAllCharacters();
-        // setCharacters(characters_ as any);
+        console.log("originCoords", originCoords);
       } catch (e: any) {}
     })();
-  }, []);
+  }, [originCoords]);
 
   const moveMap = async (e: any) => {
     let x: number, y: number;
@@ -64,6 +61,7 @@ const Map: FunctionComponent<Props> = ({
 
   // console.log("Map characters", characters);
 
+  console.log("[RENDER] MAP with coords", originCoords);
   const { x, y } = originCoords;
 
   let chunk: any = tiles.filter(

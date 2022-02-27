@@ -86,7 +86,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
         setTiles(_tiles as unknown as Array<TileType>);
 
         let characters_ = (await axios.get(API_URL + `/character`)).data.result;
-        console.log("characters_", characters_);
+        //console.log("characters_", characters_);
         setCharacters(characters_ as any);
 
         //wait a bit while  api is updating cached map
@@ -137,7 +137,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
           });
           setEvents(_events);
 
-          setLoading(true);
+          setLoading(false);
         }
       );
 
@@ -150,7 +150,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
             content: `#${tokenId} is taking a nap  !`,
           });
           setEvents(_events);
-          setLoading(true);
+          setLoading(false);
         }
       );
 
@@ -163,7 +163,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
             content: `#${tokenId} spawned on the map. Watch out !`,
           });
           setEvents(_events);
-          setLoading(true);
+          setLoading(false);
         }
       );
 
@@ -174,7 +174,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
           content: `# ${tokenId} left us. RIP ! `,
         });
         setEvents(_events);
-        setLoading(true);
+        setLoading(false);
       });
 
       gameplayContract.on(
@@ -186,7 +186,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
             content: `#${_tokenId} has leveled up. Fear him !`,
           });
           setEvents(_events);
-          setLoading(true);
+          setLoading(false);
         }
       );
 
