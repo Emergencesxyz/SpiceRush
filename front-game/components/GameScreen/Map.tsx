@@ -18,6 +18,7 @@ interface Props {
   characters: Array<any>;
 }
 const API_URL = process.env.API_URL;
+const DEFAULT_CHUNK_SIZE = parseInt(process.env.DEFAULT_CHUNK_SIZE as string);
 
 const Map: FunctionComponent<Props> = ({
   tiles,
@@ -63,12 +64,23 @@ const Map: FunctionComponent<Props> = ({
 
   // console.log("Map characters", characters);
 
-  const xMin = (tiles[0] as any).x;
-  const yMin = (tiles[0] as any).y;
-  const xMax = xMin + Math.ceil(Math.sqrt(tiles.length));
-  const yMax = yMin + Math.ceil(Math.sqrt(tiles.length));
+  const { x, y } = originCoords;
+
+  let chunk: any = tiles.filter(
+    (tile: any) =>
+      tile.y >= y - Math.floor(DEFAULT_CHUNK_SIZE / 2) &&
+      tile.y < y + Math.ceil(DEFAULT_CHUNK_SIZE / 2) &&
+      tile.x >= x - Math.floor(DEFAULT_CHUNK_SIZE / 2) &&
+      tile.x < x + Math.ceil(DEFAULT_CHUNK_SIZE / 2)
+  );
+
+  const xMin = (chunk[0] as any).x;
+  const yMin = (chunk[0] as any).y;
+  const xMax = xMin + Math.ceil(Math.sqrt(chunk.length));
+  const yMax = yMin + Math.ceil(Math.sqrt(chunk.length));
 
   let tilesComponent = [];
+
   for (let x = xMin; x < xMax; x++) {
     let row = [];
     for (let y = yMin; y < yMax; y++) {

@@ -77,7 +77,30 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
 
   useEffect(() => {
     (async () => {
+      //refresh map every 10 seconds
+
+      async function refreshMap() {
+        console.log(`update tiles!"`);
+
+        let _tiles = (await axios.get(API_URL + `/map`)).data.result;
+
+        setTiles(_tiles as unknown as Array<TileType>);
+      }
+      refreshMap();
+      const interval = setInterval(() => refreshMap(), 10000);
+      return () => {
+        clearInterval(interval);
+      };
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
       console.log("useEffect 2");
+
+      //refresh map every x second
+
+      //event listeners that will popup in event box
       gameplayContract.on(
         "moving",
         async (tokenId, x, y, energy, xp, nextActionTime) => {
@@ -92,22 +115,6 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
             content: `#${tokenId} moved to (${x},${y}) !`,
           });
           setEvents(_events);
-
-          //update map
-
-          //wait a bit while  api is updating cached map
-          (function sleep(ms: any) {
-            return new Promise((resolve) => setTimeout(resolve, ms));
-          })(1000);
-
-          let _tiles = (
-            await axios.get(
-              API_URL +
-                `/map?x=${originCoords.x}=&y=${originCoords.y}&range=${DEFAULT_CHUNK_SIZE}`
-            )
-          ).data.result;
-
-          setTiles(_tiles as unknown as Array<TileType>);
         }
       );
 
@@ -195,7 +202,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
         }
       });
     })();
-  }, [tiles]);
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -207,19 +214,12 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
 
       const { x, y } = originCoords;
 
-      console.log(`old : (${x_},${y_}) | new (${x},${y}) `);
-
       if (x_ !== x || y_ !== y) {
-        let _tiles = (
-          await axios.get(
-            API_URL +
-              `/map?x=${originCoords.x}=&y=${originCoords.y}&range=${DEFAULT_CHUNK_SIZE}`
-          )
-        ).data.result;
+        let _tiles = (await axios.get(API_URL + `/map`)).data.result;
         setTiles(_tiles);
       }
     })();
-  }, [originCoords]);
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -251,12 +251,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
         // );
 
         //with API
-        let _tiles = (
-          await axios.get(
-            API_URL +
-              `/map?x=${originCoords.x}=&y=${originCoords.y}&range=${DEFAULT_CHUNK_SIZE}`
-          )
-        ).data.result;
+        let _tiles = (await axios.get(API_URL + `/map`)).data.result;
 
         setTiles(_tiles as unknown as Array<TileType>);
 

@@ -109,9 +109,9 @@ export default async function handler(
       console.log("- map cached!");
     } else {
       //we just update the specific tile
-      console.log("oldTile", cachedMap[x][y]);
+      //console.log("oldTile", cachedMap[x][y]);
       let newTile = await blockchainService.getMapChunk(x, y, 0);
-      console.log("newTile", newTile);
+      // console.log("newTile", newTile);
       //update cache
     }
 
