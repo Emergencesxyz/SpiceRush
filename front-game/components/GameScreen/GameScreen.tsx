@@ -384,7 +384,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
 
           <Col>
             <Row>
-              <div>{totalSupply} players</div>
+              <div>{characters ? characters.length : "0"} players</div>
               Leaderboard
               {characters.slice(0, 3).map((c, i) => {
                 return (

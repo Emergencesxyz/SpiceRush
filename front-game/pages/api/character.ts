@@ -65,7 +65,7 @@ export default async function handler(
     if (!cachedCharacters) {
       console.log("- putting characters in cache");
       cachedCharacters = await blockchainService.getAllCharacters();
-      console.log("- characters cached!", cachedCharacters);
+      console.log("- characters cached!");
     }
     result = cachedCharacters;
 
