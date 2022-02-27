@@ -65,7 +65,7 @@ const Tile: FunctionComponent<Props> = ({
           {!countCharacters && (
             <span>
               <IconGame name="hood" size="30px" /> No one is here. <br />
-              {spiceAmount && (
+              {spiceAmount !== null && spiceAmount > 0 && (
                 <span>
                   {" "}
                   You should pay a visit to claim this sweet unclaimed spice.{" "}
@@ -114,7 +114,7 @@ const Tile: FunctionComponent<Props> = ({
             {foesAmount}
           </div>
         )}
-        {isExplored && countCharacters && (
+        {isExplored && countCharacters > 0 && (
           <div>
             <IconGame name="hood" size="15px" />
             {countCharacters}
