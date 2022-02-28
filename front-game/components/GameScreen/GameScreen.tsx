@@ -81,7 +81,6 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
     (async () => {
       //refresh map &character every 10 seconds
 
-      toast("💀 you are dead");
       async function refresh() {
         console.log(`update tiles & characters!`);
 
@@ -111,47 +110,42 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
 
       //refresh map every x second
 
+      async function updateCharacter() {
+        const _character: any =
+          characterId === null
+            ? {}
+            : await blockchainService.getCharacterInfo(characterId);
+        //load character info
+        setCharacter(_character);
+      }
       //event listeners that will popup in event box
       gameplayContract.on(
         "moving",
         async (tokenId, x, y, energy, xp, nextActionTime) => {
-          let _events = [...events];
-
           const x_int = parseInt(x.toString());
           const y_int = parseInt(y.toString());
 
-          console.log("moving", tokenId.toString(), x_int, y_int);
-
           toast(`🏃 #${tokenId} moved to (${x},${y}) !`);
+          updateCharacter();
+          setLoading(false);
         }
       );
 
       gameplayContract.on(
         "mining",
         (tokenId, _bank, _spiceAmount, _xp, _nextActionTime) => {
-          let _events = [...events];
-          console.log("copy", _events);
-          _events.push({
-            type: "⛏️",
-            content: `#${tokenId} mined $${_spiceAmount}  !`,
-          });
-
           toast(`⛏️ #${tokenId} mined $${_spiceAmount}  !`);
-
+          updateCharacter();
           setLoading(false);
         }
       );
 
       gameplayContract.on(
         "resting",
-        (tokenId, _bank, _spiceAmount, _xp, _nextActionTime) => {
-          let _events = [...events];
-          _events.push({
-            type: "😴",
-            content: `#${tokenId} is taking a nap  !`,
-          });
-
+        async (tokenId, _bank, _spiceAmount, _xp, _nextActionTime) => {
           toast(`😴 #${tokenId} is taking a nap  !`);
+          setLoading(false);
+          updateCharacter();
           setLoading(false);
         }
       );
@@ -159,38 +153,23 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
       gameplayContract.on(
         "spawned",
         (tokenId, _bank, _spiceAmount, _xp, _nextActionTime) => {
-          let _events = [...events];
-          _events.push({
-            type: "🛬",
-            content: `#${tokenId} spawned on the map. Watch out !`,
-          });
-
           toast(`🛬 #${tokenId} spawned on the map. Watch out !`);
+          updateCharacter();
           setLoading(false);
         }
       );
 
       gameplayContract.on("died", (tokenId, _bank, x, y) => {
-        let _events = [...events];
-        _events.push({
-          type: "💀",
-          content: `# ${tokenId} left us. RIP ! `,
-        });
-
         toast(`💀 # ${tokenId} left us. RIP ! `);
+        updateCharacter();
         setLoading(false);
       });
 
       gameplayContract.on(
         "leveledUp",
         (_tokenId, _mining, _hpMax, _energyMax) => {
-          let _events = [...events];
-          _events.push({
-            type: "💪",
-            content: `#${_tokenId} has leveled up. Fear him !`,
-          });
-
           toast(`💪 #${_tokenId} has leveled up. Fear him !`);
+          updateCharacter();
           setLoading(false);
         }
       );
@@ -200,12 +179,6 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
         console.log("tokenId", from, to, tokenId);
 
         const _tokenId = parseInt(tokenId.toString());
-
-        let _events = [...events];
-        _events.push({
-          type: "MINT",
-          content: `#${to.slice(0, 8)} minted NFT #${_tokenId}  !`,
-        });
 
         toast(`#${to.slice(0, 8)} minted NFT #${_tokenId}  !`);
 
