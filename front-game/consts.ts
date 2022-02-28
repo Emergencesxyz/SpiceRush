@@ -1608,5 +1608,21 @@ const constants = {
     " This is a zero-sum game. You can decide to stay on your own, cooperate with others, or play it dirty and get your hands on your neighbors $SPICE.",
     "[AD] Cheap fields to buy in the wastelands*. Presence of $SPICE : likely. Don't miss the train. *Chances of certain death. ",
   ],
+
+  tutorial: {
+    energy:
+      '📚 This is your energy amount. It decreases when you take any action. Click on "rest" when low on energy.',
+    character:
+      "📚 This is all the information about your character. Click anywhere to learn more",
+    hp: "📚 Literally vital. Lose all your health and you will have to restart again.",
+    mining:
+      "📚 The more mining power, the more $SPICE you can extract from the lands.",
+    spiceMined:
+      '📚 The alpha and omega of this game. Click on "Mine" to extract spice from your current land. You will be able to trade this against real tokens! ',
+    lvl: "📚 Your current level.  An arrow animation will appear beside your stats when you will have passed a level.",
+    xp: "📚  Take actions to earn experience and increase your level. ",
+    position:
+      "📚  This is your current position on the map. The tile on which you are will be bordered with blue. Click on center to view your position or spawn to appear on the map. ",
+  },
 };
 export default constants;

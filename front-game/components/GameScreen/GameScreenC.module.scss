@@ -56,6 +56,10 @@
   vertical-align: middle;
 }
 
+.characterItem {
+  cursor: pointer;
+}
+
 .actionBox {
   font-family: "Retrogaming", "Franklin Gothic Medium", "Arial Narrow", Arial,
     sans-serif;
@@ -99,6 +103,11 @@
 .buttonCol Button:hover {
   background: none;
   color: #ffa40b;
+}
+.nobg,
+.nobg:hover,
+.nobg:focus {
+  background: none;
 }
 
 .pushable,

@@ -359,6 +359,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
                       character={character}
                       spiceMined={spiceMined}
                       characterId={characterId}
+                      toast={toast}
                     />
                   ) : (
                     <img src={"/robot.gif"} className={styles.loadingGif} />
