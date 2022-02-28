@@ -48,10 +48,13 @@ const CharacterBox: FunctionComponent<Props> = ({
 
   const showTutorial = async (e: any, msg: string) => {
     toast(
-      (t) => (
+      (t: any) => (
         <div>
           {msg} <br />
-          <Button className={styles.nobg} onClick={() => toast.dismiss(t.id)}>
+          <Button
+            className={styles.nobg}
+            onClick={() => (toast as any).dismiss(t.id)}
+          >
             ❌
           </Button>
         </div>

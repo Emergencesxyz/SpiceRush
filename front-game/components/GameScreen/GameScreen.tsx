@@ -77,7 +77,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
     provider
   );
 
-  const [dontRunTutorial, setTutorial] = useState<boolean>(
+  const [dontRunTutorial, setTutorial] = useState<boolean | null>(
     (cookies as any).dontRunTutorial ? true : null
   );
   const [tutorialStep, setTutorialStep] = useState<number>(0);
