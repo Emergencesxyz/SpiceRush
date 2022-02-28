@@ -1609,7 +1609,7 @@ const constants = {
     "[AD] Cheap fields to buy in the wastelands*. Presence of $SPICE : likely. Don't miss the train. *Chances of certain death. ",
   ],
 
-  tutorial: {
+  tutorial_character: {
     energy:
       '📚 This is your energy amount. It decreases when you take any action. Click on "rest" when low on energy.',
     character:
@@ -1624,5 +1624,17 @@ const constants = {
     position:
       "📚  This is your current position on the map. The tile on which you are will be bordered with blue. Click on center to view your position or spawn to appear on the map. ",
   },
+  tutorial_intro: [
+    "👋 So.. first time here uh ?",
+    "😊 Let me help you with this mess.",
+    "👛 First, connect your wallet. I'll wait.",
+    "✔️ Done ? Great, now mint a NFT or if you have already one, input your ID and press select.",
+    "Ok, the character screen should have popped up by now. Click on any icon to get more information.",
+    "Below is the map, it's made of tiles. Actually just a portion of it. Click on the arrows to look orther parts of the map.   Click on a tile to get more information.",
+    "Go to action screen and spawn to appear on the map. Your tile should be bordered with blue.",
+    "🏃 Now press any arrow from the action screen to move your character.",
+    "👀 Check if the tile has some spice on it. if it has, press mine to get it, if not continue moving until you find a tile with spice on it.",
+    "🎉 Congratulations, your earned some spice. Keep it, you will be able to trade it against real tokens in the future!",
+  ],
 };
 export default constants;

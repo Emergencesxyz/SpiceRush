@@ -13,6 +13,7 @@ interface Props {
   spiceMined: number | null;
   characterId: number | null;
   toast: Function;
+  setTutorialStep: Function;
 }
 
 const CharacterBox: FunctionComponent<Props> = ({
@@ -20,6 +21,7 @@ const CharacterBox: FunctionComponent<Props> = ({
   spiceMined,
   characterId,
   toast,
+  setTutorialStep,
 }): JSX.Element => {
   const { account, library } = useWeb3React();
   const { energy, hp, mining, energyMax, hpMax, miningMax } = character.stats;
@@ -65,7 +67,7 @@ const CharacterBox: FunctionComponent<Props> = ({
           Apinator #{characterId} {!hp ? <IconGame name="skull" /> : null}
         </h4>
         <span
-          onClick={(e) => showTutorial(e, consts.tutorial.lvl)}
+          onClick={(e) => showTutorial(e, consts.tutorial_character.lvl)}
           className={styles.characterItem}
         >
           <span style={{ color: canLvlUp ? "orange" : "inherit" }}>
@@ -74,26 +76,23 @@ const CharacterBox: FunctionComponent<Props> = ({
         </span>
         ⬪{" "}
         <span
-          onClick={(e) => showTutorial(e, consts.tutorial.xp)}
+          onClick={(e) => showTutorial(e, consts.tutorial_character.xp)}
           className={styles.characterItem}
         >
           {character.xp} xp ⬪{" "}
         </span>{" "}
         <span
-          onClick={(e) => showTutorial(e, consts.tutorial.position)}
+          onClick={(e) => showTutorial(e, consts.tutorial_character.position)}
           className={styles.characterItem}
         >
           ({character.x}, {character.y})
         </span>
-        <Button
-          onClick={(e) => showTutorial(e, consts.tutorial.character)}
-          className={styles.nobg}
-        >
+        <Button onClick={(e) => setTutorialStep(0)} className={styles.nobg}>
           <IconGame name="question" size="20px" extension="gif" />{" "}
         </Button>
         <br />
         <span
-          onClick={(e) => showTutorial(e, consts.tutorial.energy)}
+          onClick={(e) => showTutorial(e, consts.tutorial_character.energy)}
           className={styles.characterItem}
         >
           <IconGame name="energy" />
@@ -113,7 +112,7 @@ const CharacterBox: FunctionComponent<Props> = ({
         </span>
         ⬪
         <span
-          onClick={(e) => showTutorial(e, consts.tutorial.hp)}
+          onClick={(e) => showTutorial(e, consts.tutorial_character.hp)}
           className={styles.characterItem}
         >
           <IconGame name="hp" />
@@ -132,7 +131,7 @@ const CharacterBox: FunctionComponent<Props> = ({
         </span>
         ⬪
         <span
-          onClick={(e) => showTutorial(e, consts.tutorial.mining)}
+          onClick={(e) => showTutorial(e, consts.tutorial_character.mining)}
           className={styles.characterItem}
         >
           <IconGame name="mining" />
@@ -149,7 +148,7 @@ const CharacterBox: FunctionComponent<Props> = ({
         )}
         ⬪
         <span
-          onClick={(e) => showTutorial(e, consts.tutorial.spiceMined)}
+          onClick={(e) => showTutorial(e, consts.tutorial_character.spiceMined)}
           className={styles.characterItem}
         >
           <IconGame name="gem" />

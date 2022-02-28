@@ -1,5 +1,5 @@
 import styles from "./GameScreenC.module.scss";
-import { Row, Col, Spinner, Toast, Accordion } from "react-bootstrap";
+import { Row, Col, Spinner, Toast, Accordion, Button } from "react-bootstrap";
 import { useState, FunctionComponent, useEffect } from "react";
 
 import { useWeb3React } from "@web3-react/core";
@@ -76,6 +76,63 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
     consts.apinatorABI,
     provider
   );
+
+  const [dontRunTutorial, setTutorial] = useState<boolean>(
+    (cookies as any).dontRunTutorial ? true : null
+  );
+  const [tutorialStep, setTutorialStep] = useState<number>(0);
+
+  const showTutorial = async () => {
+    toast(
+      (t) => (
+        <div>
+          {consts.tutorial_intro[tutorialStep]}
+
+          <br />
+          <Button
+            className={styles.nobg}
+            onClick={() => setTutorialStep(tutorialStep - 1)}
+          >
+            ⏪
+          </Button>
+
+          <Button className={styles.nobg} onClick={() => toast.dismiss()}>
+            ❌
+          </Button>
+
+          <Button
+            className={styles.nobg}
+            onClick={() => setTutorialStep(tutorialStep + 1)}
+          >
+            ⏩
+          </Button>
+        </div>
+      ),
+      { duration: Infinity }
+    );
+  };
+
+  useEffect(() => {
+    (async () => {
+      //intro tutorial
+      async function sleep(ms: any) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+      }
+
+      toast.dismiss();
+      showTutorial();
+      //await sleep(1000);
+
+      //await sleep(Infinity);
+      // toast("Let me guide you through this mess.");
+      // await sleep(2000);
+      // toast("First connect your wallet. I'll wait.");
+      // await sleep(2000);
+      // toast(
+      //   "Now let's choose a character. Mint a NFT or if you have already minted one, input your id and press select."
+      // );
+    })();
+  }, [tutorialStep]);
 
   useEffect(() => {
     (async () => {
@@ -360,6 +417,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
                       spiceMined={spiceMined}
                       characterId={characterId}
                       toast={toast}
+                      setTutorialStep={setTutorialStep}
                     />
                   ) : (
                     <img src={"/robot.gif"} className={styles.loadingGif} />
