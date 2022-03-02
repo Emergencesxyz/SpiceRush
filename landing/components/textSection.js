@@ -1,15 +1,9 @@
 const textSection = {
   section1: {
-    title: "Story",
-    part1: `2042 : after the Event, the metaverse fell into disarray. That
-        is when APE CORP created the Apinators to pacify the
-        Megalopolis.`,
-    part2: `With the shortage of almost
-        everything, the $SPICE, the last energy resource has become
-        highly valuable. Now everybody is trying to get their hands on
-        it.`,
-    part3: `Will you take the risk to adventure in the wastelands
-        to find it ...or wait for a certain death ?`,
+    title: "A game by GOLEM studio",
+    part1: `Golem is a decentralized software company with the ambition to 
+    release radically innovative blockchain-based games and apps. `,
+    part2: `Our first release will be Apinator 2042, a DeFi game taking place in a dystopian and hostile world : the Megalopolis. In which Apinators are ruthlessly fighting to survive and earn tokens.`,
   },
   section2: {
     title: "Play and earn $SPICE",
