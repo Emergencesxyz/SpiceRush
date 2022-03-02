@@ -44,12 +44,18 @@ const Presentation = (): JSX.Element => {
         )}
       </div>
       <div className={styles.groupButtons}>
+        {/*
         <div className={styles.button1}>
           <img src="pictures/discord.svg" alt="logoDiscord" />
         </div>
-        <div className={styles.button1}>
-          <img src="pictures/instagram.svg" alt="logoInsta" />
-        </div>
+        */}
+        <a
+          className={styles.button1}
+          href="https://twitter.com/Apinator_2042"
+          target="_blank"
+        >
+          <img src="pictures/twitter.svg" alt="logoInsta" />
+        </a>
       </div>
       {!isMobile ? (
         <div className={styles.countdownContainer}>
@@ -57,7 +63,7 @@ const Presentation = (): JSX.Element => {
             <div className={styles.description}>
               <p>
                 On-Chain<br></br> apocalyptic<br></br> yield game with <br></br>
-                procedural map.
+                procedural world.
               </p>
             </div>
             <div
