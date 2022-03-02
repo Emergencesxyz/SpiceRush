@@ -79,18 +79,10 @@ const Presentation = (): JSX.Element => {
                 className={[styles.hero, styles.glitch, styles.layers].join(
                   " "
                 )}
-                data-text="8.000"
+                data-text="APINATOR 2042"
               >
-                <span>8.000</span>
+                <div>APINATOR 2042</div>
               </h1>
-              <p
-                className={[styles.hero, styles.glitch, styles.layers].join(
-                  " "
-                )}
-                data-text="APINATORS"
-              >
-                <span>APINATORS</span>
-              </p>
             </div>
           </div>
 
@@ -115,18 +107,10 @@ const Presentation = (): JSX.Element => {
                     className={[styles.hero, styles.glitch, styles.layers].join(
                       " "
                     )}
-                    data-text="8.000"
+                    data-text="APINATOR 2042"
                   >
-                    8.000
+                    <div>APINATOR 2042</div>
                   </h1>
-                  <p
-                    className={[styles.hero, styles.glitch, styles.layers].join(
-                      " "
-                    )}
-                    data-text="APINATORS"
-                  >
-                    <span>APINATORS</span>
-                  </p>
                 </div>
                 <div className={styles.description}>
                   <p>

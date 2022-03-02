@@ -46,8 +46,34 @@ const Roadmap = () => {
               width: "80%",
             }}
           >
-            <h2>1 : Rise of the Apinator</h2>
+            <h2>1 : Golem DAO</h2>
+            <p>DAO Golem Token IEO</p>
+            <p> Golem token listing </p>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "flex-start",
+              width: "80%",
+            }}
+          >
+            <h2>2 : Megalopolis Conquest</h2>
+            <p> Lands auctions</p>
+            <p> NFT Character drop</p>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "flex-start",
+              width: "80%",
+            }}
+          >
+            <h2>3 : Rise of the Apinator </h2>
             <p>Alpha release: mining economy and on-chain procedural map</p>
+
+            <p>Big game contest </p>
           </div>
           <div
             style={{
@@ -57,33 +83,12 @@ const Roadmap = () => {
               width: "80%",
             }}
           >
-            <h2>2 : A new hope</h2>
+            <h2>4 : Expansion </h2>
             <p>Beta release: Powerup items collection. PVP system.</p>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "flex-start",
-              width: "80%",
-            }}
-          >
-            <h2>3 : Expansion of the Apeverse</h2>
             <p>
               Develop partnerships with other NFT collections to integrate them
               in the Apeverse. NFT rent system.
             </p>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "flex-start",
-              width: "80%",
-            }}
-          >
-            <h2>4 : Into the Metaverse</h2>
-            <p>Expand Apeverse to a fully 3D metaverse.</p>
           </div>
         </Chrono>
       </Row>

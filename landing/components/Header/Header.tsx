@@ -30,7 +30,7 @@ const Header: FunctionComponent<Props> = ({
         <Nav.Link className={styles.brand} href="/#topSection">
           <h1>
             <img
-              src="/pictures/logo_text.png"
+              src="/pictures/golem_logo.png"
               alt="Apinator"
               style={{ maxWidth: "5em" }}
             />
@@ -47,6 +47,17 @@ const Header: FunctionComponent<Props> = ({
         <Navbar.Collapse id="navbar" className=" justify-content-between">
           <Nav className={styles.navBar}>
             <Nav.Link href="/#topSection">
+              <span>
+                <a
+                  href="https://metapolis.gitbook.io/apinator-2042-v1/"
+                  target="_blank"
+                >
+                  Whitepaper
+                </a>
+              </span>
+            </Nav.Link>
+
+            <Nav.Link href="/#topSection">
               <span>Token</span>
             </Nav.Link>
             <Nav.Link href="/#mintSection">
@@ -55,6 +66,10 @@ const Header: FunctionComponent<Props> = ({
 
             <Nav.Link href="/#NFT">
               <span>Buy land</span>
+            </Nav.Link>
+
+            <Nav.Link href="/#NFT">
+              <span>Buy NFT</span>
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
