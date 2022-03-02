@@ -4,6 +4,7 @@ const textSection = {
     part1: `Golem is a decentralized software company with the ambition to 
     release radically innovative blockchain-based games and apps. `,
     part2: `Our first release will be Apinator 2042, a DeFi game taking place in a dystopian and hostile world : the Megalopolis. In which Apinators are ruthlessly fighting to survive and earn tokens.`,
+    part3: ``,
   },
   section2: {
     title: "Play and earn $SPICE",
