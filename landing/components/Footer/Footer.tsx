@@ -43,6 +43,9 @@ const Footer = () => {
           <a href="">Twitter</a>
         </Col>
       </Row>
+      <Row className={styles.footerRow2}>
+        Apinators 2042 - Powered by Golem - All rights reserved
+      </Row>
     </>
   );
 };
