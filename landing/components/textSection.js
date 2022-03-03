@@ -1,40 +1,33 @@
 const textSection = {
   section1: {
     title: "A game by GOLEM studio",
-    part1: `Golem is a decentralized software company with the ambition to 
+    part1: `Golem is a decentralized studio with the ambition to 
     release radically innovative blockchain-based games and apps. `,
-    part2: `Our first release will be Apinator 2042, a DeFi game taking place in a dystopian and hostile world : the Megalopolis. In which Apinators are ruthlessly fighting to survive and earn tokens.`,
+    part2: `Our first release will be Apinator 2042, a DeFi game taking place on Moon-K, a dystopian and hostile world, in which Apinators are ruthlessly fighting to survive and earn tokens.`,
     part3: ``,
   },
   section2: {
-    title: "Play and earn $SPICE",
-    part1: `Apinators 2042 is the first onchain yield game with a procedural
-    generated map.`,
-    part2: `ALL the genesis hodlers will
-    be entitled to a lifetime yield of $SPICE token.`,
-    part3: `Let your NFT mine idly or engage in the exploration of
-    the Apeverse to increase your yields. `,
-    part4: `Cooperate with others or play it dirty and get your hands on
-    your neighbors loot.`,
+    title: "A vast on-chain world",
+    part1: `Moon-K is a futuristic world composed of land tiles
+      with various environments, levels of richness and danger.`,
+    part2: `Acquire lands as NFT and earn passive
+    income from the game economy.`,
+    part3: ``,
   },
   section3: {
-    title: "Become a Land owner",
-    part1: `The Megalopolis is an infinite world composed of many tiles of
-    land with various environment, levels of richness and danger.`,
-    part2: `Being a land owner will bring you passive
-    income from the game economy.`,
-    part3: `As a player,
-    the land will also be a safe place for your character to rest
-    and avoid danger.`,
+    title: "Play and earn $SPICE",
+    part1: `Let your NFT generate passive yield or engage in the exploration of
+    the worldmap to increase your yields. `,
+    part2: `Cooperate with others or play it dirty and get your hands on
+    your neighbors loot.`,
+    part3: ``,
   },
+
   section4: {
-    title: "Evolutive NFTs",
-    part1: `Apinators are constantly enhancing.`,
-    part2: `Taking
-    any ingame action will bring experience.`,
-    part3: `Use them to
-    improve your yields or sell your NFT at a higher price on the
-    marketplace. `,
+    title: "Evolutive NFTs, improved yields",
+    part1: `Apinators are the NFT game characters.`,
+    part2: `Unlike other NFTs they are constantly enhancing as you play.`,
+    part3: `Earn experience, evolve and improve your travel, fight and mining capabilities.`,
   },
 };
 
