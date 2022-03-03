@@ -44,7 +44,7 @@ const Footer = () => {
         </Col>
       </Row>
       <Row className={styles.footerRow2}>
-        Apinators 2042 - Powered by Golem - All rights reserved
+        Apinators 2042 ©2021 - Powered by Golem - All rights reserved
       </Row>
     </>
   );
