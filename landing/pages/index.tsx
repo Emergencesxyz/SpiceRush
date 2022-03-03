@@ -55,15 +55,22 @@ const Home: NextPage = () => {
         <Section
           inverse={true}
           isMobile={isMobile}
-          Image="../pictures/crystal.png"
+          Image="../pictures/iso_city_1.png"
           Text={
             <>
               <h1>{textSection.section2.title}</h1>
               <p>{textSection.section2.part1}</p>
               <p>{textSection.section2.part2}</p>
-              <p>{textSection.section2.part3}</p>
               {/* <p>{textSection.section2.part4}</p> */}
-              <Button className={styles.button}>more</Button>
+              <Button className={styles.button}>
+                {" "}
+                <a
+                  href="https://metapolis.gitbook.io/apinator-2042-v1/ecosystem/staking#land-autostaking"
+                  target="_blank"
+                >
+                  more
+                </a>
+              </Button>
             </>
           }
         />
@@ -72,14 +79,21 @@ const Home: NextPage = () => {
         <Section
           inverse={false}
           isMobile={isMobile}
-          Image="../pictures/iso_city_1.png"
+          Image="../pictures/crystal.png"
           Text={
             <>
               <h1>{textSection.section3.title}</h1>
               <p>{textSection.section3.part1}</p>
               <p>{textSection.section3.part2}</p>
               <p>{textSection.section3.part3}</p>
-              <Button className={styles.button}>more</Button>
+              <Button className={styles.button}>
+                <a
+                  href="https://app.gitbook.com/o/OFYOnJLAwXIhyBYEPiBv/s/BZgaWwUM4ZlgP3Auovdb/gameplay/spice"
+                  target="_blank"
+                >
+                  more
+                </a>
+              </Button>
             </>
           }
         />
@@ -88,13 +102,22 @@ const Home: NextPage = () => {
         <Section
           inverse={true}
           isMobile={isMobile}
-          Image="../pictures/ape_card_stats.gif"
+          Image="../pictures/Carte teaser chiffres400.gif"
           Text={
             <>
               <h1>{textSection.section4.title}</h1>
               <p>{textSection.section4.part1}</p>
               <p>{textSection.section4.part2}</p>
               <p>{textSection.section4.part3}</p>
+              <Button className={styles.button}>
+                {" "}
+                <a
+                  href="https://app.gitbook.com/o/OFYOnJLAwXIhyBYEPiBv/s/BZgaWwUM4ZlgP3Auovdb/gameplay/character-stats"
+                  target="_blank"
+                >
+                  more
+                </a>
+              </Button>
             </>
           }
         />
