@@ -5,16 +5,8 @@ const Footer = () => {
   return (
     <>
       <Row className={styles.footerRow1}>
-        <Col style={{ display: "flex", flexDirection: "row" }}>
-          <Col
-            md={2}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              paddingRight: "40%",
-              lineHeight: "40px",
-            }}
-          >
+        <Col style={{ display: "flex", flexDirection: "row", width: "80%" }}>
+          <Col className={styles.links}>
             <a href="" target="_blank">
               Terms
             </a>
