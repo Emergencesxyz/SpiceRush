@@ -3,8 +3,7 @@
   background-color: #140e1e;
   color: white;
   width: 100vw;
-  /*   cursor: url("../public/pictures/Cursor.png"), auto;
- */
+  cursor: url("../public/pictures/Cursor.png"), auto;
 }
 
 .main {
