@@ -81,7 +81,7 @@ const Presentation = (): JSX.Element => {
                 )}
                 data-text="APINATOR 2042"
               >
-                <div>APINATOR 2042</div>
+                <span>APINATOR 2042</span>
               </h1>
             </div>
           </div>
