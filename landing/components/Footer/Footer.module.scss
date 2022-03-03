@@ -35,5 +35,20 @@
     color: #a89cba;
     font-family: "sofia-pro-SemiBold";
     font-size: 15px;
+
+    .links {
+      line-height: 40px;
+      padding-right: 10%;
+    }
+  }
+
+  .footerRow2 {
+    text-align: center;
+    width: 80%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    color: rgb(216, 216, 216);
+    font-family: "sofia-pro-SemiBold";
+    font-size: 17px;
   }
 }

@@ -19,7 +19,7 @@ const Footer = () => {
               Terms
             </a>
           </Col>
-          <Col>
+          <Col className={styles.links}>
             <a
               href="https://metapolis.gitbook.io/apinator-2042-v1/"
               target="_blank"
@@ -27,7 +27,7 @@ const Footer = () => {
               Whitepaper
             </a>
           </Col>
-          <Col>
+          <Col className={styles.links}>
             <a href="" target="_blank">
               Twitter
             </a>
