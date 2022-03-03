@@ -1,0 +1,174 @@
+.canvas {
+  padding: 0;
+  margin: auto;
+  color: white;
+  font-family: "Retrogaming", "Franklin Gothic Medium", "Arial Narrow", Arial,
+    sans-serif;
+  text-shadow: 2px 1px 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+.map {
+  background-color: rgba(0, 0, 0, 0.507);
+  border: 2px solid #5ebbbd;
+  padding: 2px;
+  border-radius: 10px;
+  width: 100%;
+  margin: auto;
+  box-shadow: 0 0 0.1rem #fff, 0 0 0.1rem #fff, 0 0 1rem #bc13fe,
+    0 0 0.2rem #bc13fe, 0 0 1rem #bc13fe, inset 0 0 0.5rem #bc13fe;
+}
+
+.placeholder {
+}
+.avatarBox {
+  border: 2px solid #5ebbbd;
+
+  border-radius: 10px;
+  width: fit-content;
+  margin: auto;
+  box-shadow: 0 0 0.1rem #fff, 0 0 0.1rem #fff, 0 0 1rem #bc13fe,
+    0 0 0.2rem #bc13fe, 0 0 1rem #bc13fe, inset 0 0 0.5rem #bc13fe;
+
+  max-height: 100px;
+  margin-bottom: 5px;
+}
+.avatarImg {
+  max-height: 95px;
+}
+.icon {
+  max-width: 25px;
+}
+
+.characterBox {
+  font-family: "Retrogaming", "Franklin Gothic Medium", "Arial Narrow", Arial,
+    sans-serif;
+  font-size: 0.7em;
+  border: 2px solid #5ebbbd;
+  padding: 2px;
+  border-radius: 10px;
+  width: auto;
+  margin-bottom: 5px;
+  box-shadow: 0 0 0.1rem #fff, 0 0 0.1rem #fff, 0 0 1rem #bc13fe,
+    0 0 0.2rem #bc13fe, 0 0 1rem #bc13fe, inset 0 0 0.5rem #bc13fe;
+
+  height: 100px;
+  line-height: 1em;
+  vertical-align: middle;
+}
+
+.characterItem {
+  cursor: pointer;
+}
+
+.actionBox {
+  font-family: "Retrogaming", "Franklin Gothic Medium", "Arial Narrow", Arial,
+    sans-serif;
+  background-color: rgba(0, 0, 0, 0.507);
+  border: 2px solid #5ebbbd;
+  border-radius: 10px;
+  margin: auto;
+  box-shadow: 0 0 0.1rem #fff, 0 0 0.1rem #fff, 0 0 1rem #bc13fe,
+    0 0 0.2rem #bc13fe, 0 0 1rem #bc13fe, inset 0 0 0.5rem #bc13fe;
+}
+
+.actionBoxRow {
+  margin-bottom: 1em;
+}
+
+.loadingGif {
+  max-width: 100px;
+}
+
+.btn-primary {
+  border: none;
+}
+.btn-primary:hover {
+}
+
+.quotes {
+  color: #e8b200;
+  text-align: left;
+  margin-bottom: 1em;
+  font-size: 0.73em;
+  font-style: italic;
+  text-shadow: 2px 1px 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+.buttonCol Button {
+  position: relative;
+  top: 40%;
+  background: none;
+  border: none;
+  color: #ffc73d;
+}
+.buttonCol Button:hover {
+  background: none;
+  color: #ffa40b;
+}
+.nobg,
+.nobg:hover,
+.nobg:focus {
+  background: none;
+  color: black;
+}
+
+.pushable,
+.pushable,
+.pushable:hover,
+.pushable:focus {
+  margin-top: 0.5em;
+  background: hsl(340deg 100% 32%);
+  border-radius: 12px;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline-offset: 4px;
+}
+.front:hover {
+  background: rgb(145, 2, 49);
+}
+
+.front {
+  pointer-events: none;
+  display: block;
+  padding: 0.5em 0.5em;
+  border-radius: 12px;
+  font-size: 0.8em;
+  background: hsl(345deg 100% 47%);
+  color: white;
+  transform: translateY(-6px);
+  text-shadow: 2px 1px 2px #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+.front:hover {
+  background: rgb(161, 6, 45);
+}
+.pushable:active .front {
+  transform: translateY(-2px);
+}
+
+.toast {
+  position: fixed;
+  z-index: 100;
+  top: 30%;
+  left: 30%;
+  width: 30%;
+  color: white;
+  background-color: rgb(42, 13, 88);
+}
+
+.events {
+  font-size: 0.8em;
+  color: #e8b200;
+  text-align: left;
+  text-shadow: 2px 2px 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+.spinner {
+  position: fixed;
+  color: grey;
+}
+
+.toaster {
+  text-shadow: none;
+}
+@media (max-width: 576px) {
+}

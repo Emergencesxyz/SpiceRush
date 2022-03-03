@@ -1,4 +1,4 @@
-import styles from "./GameScreen.module.scss";
+import styles from "./GameScreenC.module.scss";
 
 import { Row, Col, Button } from "react-bootstrap";
 import { FunctionComponent, useState, useEffect } from "react";
@@ -6,14 +6,19 @@ import Tile from "./Tile";
 
 import axios from "axios";
 
+import BlockchainService from "../../services/BlockchainService";
+import { TileType } from "../../types";
+
 interface Props {
-  tiles: Array<Object>;
+  tiles: Array<TileType>;
   character: any;
   originCoords: any;
   setOriginCoords: Function;
   setLoading: Function;
+  characters: Array<any>;
 }
 const API_URL = process.env.API_URL;
+const DEFAULT_CHUNK_SIZE = parseInt(process.env.DEFAULT_CHUNK_SIZE as string);
 
 const Map: FunctionComponent<Props> = ({
   tiles,
@@ -21,20 +26,17 @@ const Map: FunctionComponent<Props> = ({
   originCoords,
   setOriginCoords,
   setLoading,
+  characters,
 }): JSX.Element => {
-  const [characters, setCharacters] = useState<Array<any>>([]);
+  const blockchainService = new BlockchainService(null);
 
   useEffect(() => {
     (async () => {
       try {
-        let characters_ = (await axios.get(API_URL + `/character`)).data.result;
-        console.log("characters_", characters_);
-        setCharacters(characters_);
-      } catch (e: any) {
-        console.log("e", e.toString());
-      }
+        console.log("originCoords", originCoords);
+      } catch (e: any) {}
     })();
-  }, []);
+  }, [originCoords]);
 
   const moveMap = async (e: any) => {
     let x: number, y: number;
@@ -57,36 +59,62 @@ const Map: FunctionComponent<Props> = ({
     setLoading(true);
   };
 
-  console.log("Map characters", characters);
-  const tilesComponent = tiles.map((row: any, index: number) => {
-    return (
-      <div key={index}>
-        {row.map(function (tile: any) {
-          const currentPosition =
-            character && character.x === tile.x && character.y === tile.y;
+  // console.log("Map characters", characters);
 
-          const countCharacters = characters
-            ? characters?.filter((c) => c.x === tile.x && c.y === tile.y).length
-            : 0;
+  console.log("[RENDER] MAP with coords", originCoords);
+  const { x, y } = originCoords;
 
-          return (
-            <Tile
-              key={tile.x + ";" + tile.y}
-              level={tile.level}
-              spiceAmount={tile.spiceAmount}
-              foesAmount={tile.foesAmount}
-              isExplored={tile.isExplored}
-              currentPosition={currentPosition}
-              x={tile.x}
-              y={tile.y}
-              countCharacters={countCharacters}
-              characters={characters}
-            />
-          );
-        })}
-      </div>
-    );
-  });
+  let chunk: any = tiles.filter(
+    (tile: any) =>
+      tile.y >= y - Math.floor(DEFAULT_CHUNK_SIZE / 2) &&
+      tile.y < y + Math.ceil(DEFAULT_CHUNK_SIZE / 2) &&
+      tile.x >= x - Math.floor(DEFAULT_CHUNK_SIZE / 2) &&
+      tile.x < x + Math.ceil(DEFAULT_CHUNK_SIZE / 2)
+  );
+
+  let tilesComponent = [];
+
+  if (chunk && chunk.length) {
+    const xMin = (chunk[0] as any).x;
+    const yMin = (chunk[0] as any).y;
+    const xMax = xMin + Math.ceil(Math.sqrt(chunk.length));
+    const yMax = yMin + Math.ceil(Math.sqrt(chunk.length));
+
+    for (let x = xMin; x < xMax; x++) {
+      let row = [];
+      for (let y = yMin; y < yMax; y++) {
+        let tile: any = tiles.filter(
+          (tile) => (tile as any).x === x && (tile as any).y === y
+        )[0];
+
+        if (!tile) continue;
+
+        const currentPosition =
+          character && character.x === tile.x && character.y === tile.y;
+
+        const countCharacters = characters
+          ? characters?.filter((c) => c.x === tile.x && c.y === tile.y).length
+          : 0;
+
+        row.push(
+          <Tile
+            key={tile.x + ";" + tile.y}
+            level={tile.level}
+            spiceAmount={tile.spiceAmount}
+            foesAmount={tile.foesAmount}
+            isExplored={tile.isExplored}
+            currentPosition={currentPosition}
+            x={tile.x}
+            y={tile.y}
+            countCharacters={countCharacters}
+            characters={characters}
+          />
+        );
+      }
+      tilesComponent.push(<div>{row}</div>);
+    }
+  }
+
   return (
     <>
       <div className={styles.map}>

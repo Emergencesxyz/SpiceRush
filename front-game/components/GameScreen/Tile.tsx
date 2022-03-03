@@ -1,5 +1,5 @@
 import styles from "./Tile.module.scss";
-import styles2 from "./Gamescreen.module.scss";
+import styles2 from "./GameScreenC.module.scss";
 import { useState, FunctionComponent, useEffect } from "react";
 import IconGame from "./IconGame";
 import { Toast } from "react-bootstrap";
@@ -27,20 +27,22 @@ const Tile: FunctionComponent<Props> = ({
   countCharacters,
   characters,
 }): JSX.Element => {
-  const color = Math.floor(((level ? level + 5 : 0) * 255) / 100);
+  const color = Math.floor(((level ? level ** 1.7 : 0) * 255) / 100);
   const [toastMessage, setToastMessage] = useState<any>({ title: "", msg: "" });
 
   useEffect(() => {
     (async () => {})();
   }, [toastMessage]);
 
-  let characterDesc = countCharacters
-    ? countCharacters + " character(s) here."
-    : "";
+  let characterDesc = `- ${countCharacters} players  
+                       - $${spiceAmount} spice to mine  
+                       - ${foesAmount} monsters 
+    `;
+
   return (
     <>
       <Toast
-        show={toastMessage.msg && toastMessage.msg.length > 0}
+        show={toastMessage.title && toastMessage.title.length > 0}
         className={styles2.toast}
         onClose={() => setToastMessage({ title: "", msg: "" })}
       >
@@ -49,7 +51,42 @@ const Tile: FunctionComponent<Props> = ({
           <strong className="me-auto">{toastMessage.title}</strong>
           <small> </small>
         </Toast.Header>
-        <Toast.Body>{toastMessage.msg}</Toast.Body>
+        <Toast.Body style={{ textAlign: "left" }}>
+          On this land : <br />
+          <IconGame name="gem" size="30px" /> ${spiceAmount} spice to mine.
+          <br />
+          <IconGame name="skull" size="30px" /> {foesAmount} monsters
+          <br />
+          {countCharacters > 0 && (
+            <span>
+              <IconGame name="hood" size="30px" /> {countCharacters} players{" "}
+            </span>
+          )}
+          {!countCharacters && (
+            <span>
+              <IconGame name="hood" size="30px" /> No one is here. <br />
+              {spiceAmount !== null && spiceAmount > 0 && (
+                <span>
+                  {" "}
+                  You should pay a visit to claim this sweet unclaimed spice.{" "}
+                </span>
+              )}
+            </span>
+          )}
+          <br />
+          {currentPosition && countCharacters === 1 && (
+            <span>
+              You are the only one here. <strong>Wait</strong>.. what was{" "}
+              <em>that</em> noise in the dark ?
+            </span>
+          )}
+          {currentPosition && countCharacters > 1 && (
+            <span>
+              You are NOT the only one here. <br />
+              Watch out for your back... some people are trigger-happy..
+            </span>
+          )}
+        </Toast.Body>
       </Toast>
 
       <div
@@ -77,7 +114,7 @@ const Tile: FunctionComponent<Props> = ({
             {foesAmount}
           </div>
         )}
-        {isExplored && countCharacters && (
+        {isExplored && countCharacters > 0 && (
           <div>
             <IconGame name="hood" size="15px" />
             {countCharacters}

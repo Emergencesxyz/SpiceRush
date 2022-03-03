@@ -1,5 +1,6 @@
 import consts from "../consts";
 import Web3 from "web3";
+import { Tty } from "@mui/icons-material";
 
 var RPC_URL = process.env.RPC_URL;
 var APINATOR_CONTRACT_ADDRESS = process.env.APINATOR_CONTRACT_ADDRESS;
@@ -49,16 +50,30 @@ export default class BlockchainService {
     }
   }
 
+  async canLevelUp(nftId: number | null) {
+    try {
+      let charas = await this.gameplayContract.methods.charas(nftId).call();
+
+      const xp = parseInt(charas.xp);
+      const lvl = parseInt(charas.lvl);
+
+      return 100 * (lvl ** 2 + lvl) + 100 < xp;
+    } catch (e) {
+      return false;
+    }
+  }
+
   async getSpiceMined(nftId: number | null) {
     try {
-      return await this.gameplayContract.methods.bank(nftId).call();
+      return parseInt(await this.gameplayContract.methods.bank(nftId).call());
     } catch (e) {
       return null;
     }
   }
   async getCharacterInfo(nftId: number) {
     try {
-      const info = await this.gameplayContract.methods.charas(nftId).call();
+      let info = await this.gameplayContract.methods.charas(nftId).call();
+
       return {
         lvl: parseInt(info.lvl),
         nextActionTime: parseInt(info.nextActionTime),
@@ -73,7 +88,27 @@ export default class BlockchainService {
         x: parseInt(info.x),
         y: parseInt(info.y),
         xp: parseInt(info.xp),
+        id: nftId,
+        spiceMined: await this.getSpiceMined(nftId),
       };
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async getAllCharacters() {
+    try {
+      const totalSupply = await this.apinatorContract.methods
+        .totalSupply()
+        .call();
+
+      let characters = [];
+      for (let i = 0; i < parseInt(totalSupply); i++) {
+        let info: any = await this.getCharacterInfo(i);
+        characters.push(info);
+      }
+      characters.sort((a: any, b: any) => b.spiceMined - a.spiceMined);
+      return characters;
     } catch (e) {
       return null;
     }
@@ -82,20 +117,25 @@ export default class BlockchainService {
   async getMapChunk(x0: number, y0: number, chunkSize: number) {
     let tiles: any = [];
     try {
-      for (
-        let x = x0 - Math.floor(chunkSize / 2);
-        x <= Math.ceil(chunkSize / 2) + x0;
-        x++
-      ) {
-        let row = [];
-        for (
-          let y = y0 - Math.floor(chunkSize / 2);
-          y <= Math.ceil(chunkSize / 2) + y0;
-          y++
-        ) {
+      if (chunkSize === 0) {
+        let _tile = await this.gameplayContract.methods.map(x0, y0).call();
+
+        return [
+          {
+            foesAmount: parseInt(_tile.foesAmount),
+            isExplored: _tile.isExplored,
+            level: parseInt(_tile.level),
+            spiceAmount: parseInt(_tile.spiceAmount),
+            x: x0,
+            y: y0,
+          },
+        ];
+      }
+      for (let x = x0; x <= x0 + chunkSize; x++) {
+        for (let y = y0; y <= y0 + chunkSize; y++) {
           const _tile = await this.gameplayContract.methods.map(x, y).call();
 
-          row.push({
+          tiles.push({
             foesAmount: parseInt(_tile.foesAmount),
             isExplored: _tile.isExplored,
             level: parseInt(_tile.level),
@@ -104,11 +144,28 @@ export default class BlockchainService {
             y: y,
           });
         }
-        tiles.push(row);
       }
       return tiles;
     } catch (e) {
       return null;
+    }
+  }
+
+  async getMapChunkRect(x0: number, y0: number, x1: number, y1: number) {
+    let tiles = [];
+    for (let x = x0; x <= x1; x++) {
+      for (let y = y0; y <= y1; y++) {
+        const _tile = await this.gameplayContract.methods.map(x, y).call();
+
+        tiles.push({
+          foesAmount: parseInt(_tile.foesAmount),
+          isExplored: _tile.isExplored,
+          level: parseInt(_tile.level),
+          spiceAmount: parseInt(_tile.spiceAmount),
+          x: x,
+          y: y,
+        });
+      }
     }
   }
 
