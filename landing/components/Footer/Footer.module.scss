@@ -8,6 +8,15 @@
   color: #a89cba;
   font-family: "sofia-pro-SemiBold";
   font-size: 26px;
+
+  a {
+    &:hover {
+      color: #fff !important;
+    }
+    &:active {
+      color: "white";
+    }
+  }
 }
 
 @media (max-width: 576px) {
