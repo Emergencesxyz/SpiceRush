@@ -81,7 +81,9 @@ const Presentation = (): JSX.Element => {
                 )}
                 data-text="APINATOR 2042"
               >
-                <span>APINATOR 2042</span>
+                <span>
+                  APINATOR <span style={{ color: "#fc0362" }}>2042</span>
+                </span>
               </h1>
             </div>
           </div>
@@ -109,7 +111,9 @@ const Presentation = (): JSX.Element => {
                     )}
                     data-text="APINATOR 2042"
                   >
-                    <div>APINATOR 2042</div>
+                    <div>
+                      APINATOR <span style={{ color: "#fc0362" }}>2042</span>
+                    </div>
                   </h1>
                 </div>
                 <div className={styles.description}>
