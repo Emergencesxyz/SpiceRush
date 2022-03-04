@@ -49,8 +49,8 @@ const Presentation = (): JSX.Element => {
               className={styles.reactPlayer}
               loop
               url={[{ src: "/videos/mobile_video.mp4", type: "video/mp4" }]}
-              height="100%"
-              width="100%"
+              height={0}
+              width={0}
               onReady={() => setIsVideoLoaded(true)}
             />
 
