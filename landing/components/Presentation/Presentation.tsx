@@ -17,16 +17,15 @@ const Presentation = (): JSX.Element => {
 
   return (
     <section id="topSection" className={styles.presentationSection}>
+      {!isVideoLoaded && (
+        <div
+          style={{ display: "flex" }}
+          className={isVideoLoaded ? styles.videoLoaded : styles.videoLoading}
+        >
+          <img src="/pictures/loader.gif" alt="loader" />
+        </div>
+      )}
       <div className={styles.playerWrapper}>
-        {!isMobile && (
-          <div
-            style={{ display: "flex" }}
-            className={isVideoLoaded ? styles.videoLoaded : styles.videoLoading}
-          >
-            <img src="/pictures/loader.jpg" alt="loader" />
-          </div>
-        )}
-
         {!isMobile ? (
           <ReactPlayer
             playing
@@ -40,7 +39,21 @@ const Presentation = (): JSX.Element => {
             onReady={() => setIsVideoLoaded(true)}
           />
         ) : (
-          <VideoMobile mainVideo="/videos/mobile_video.mp4" />
+          <>
+            <ReactPlayer
+              playing
+              muted
+              playsInline
+              className={styles.reactPlayer}
+              loop
+              url={[{ src: "/videos/mobile_video.mp4", type: "video/mp4" }]}
+              height="100%"
+              width="100%"
+              onReady={() => setIsVideoLoaded(true)}
+            />
+
+            {<VideoMobile mainVideo="/videos/mobile_video.mp4" />}
+          </>
         )}
       </div>
       <div className={styles.groupButtons}>

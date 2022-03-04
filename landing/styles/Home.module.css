@@ -17,22 +17,31 @@
 }
 
 .button {
-  font-size: 50px;
+  font-size: 3vw;
   font-family: "sofia-pro-SemiBold";
-  height: 70px;
+  height: 7vh;
   width: fit-content;
   border-top-left-radius: 14px;
   border-bottom-right-radius: 14px;
   background-color: white;
   color: #140e1e;
-  padding: 0 !important;
+  padding-right: 1vw !important;
+  padding-left: 1vw !important;
+  cursor: url("../public/pictures/Cursor.png"), auto !important;
 }
 
 .button:hover {
   background-color: #a89cba;
-  /*   color: #0f0e3f;
- */
+  color: #140e1e !important;
   border: 2px solid #0f0e3f;
+}
+
+.a {
+  cursor: url("../public/pictures/Cursor.png"), auto !important;
+}
+.a:hover {
+  color: #fff !important;
+  font-size: 50px !important;
 }
 
 .footer {
