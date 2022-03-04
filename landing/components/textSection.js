@@ -7,7 +7,7 @@ const textSection = {
     part3: ``,
   },
   section2: {
-    title: "A vast on-chain world",
+    title: "Explore the world and acquire land",
     part1: `Moon-K is the first on-chain world proceduraly generated. `,
     part2: `It is a futuristic world composed of land tiles
     with various environments, levels of richness and danger.`,

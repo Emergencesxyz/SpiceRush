@@ -50,8 +50,11 @@ const Home: NextPage = () => {
 
               <Button className={styles.button}>
                 {" "}
-                <a href="" target="_blank">
-                  Buy GOLEM
+                <a
+                  href="https://app.gitbook.com/o/OFYOnJLAwXIhyBYEPiBv/s/BZgaWwUM4ZlgP3Auovdb/ecosystem/dao"
+                  target="_blank"
+                >
+                  more
                 </a>
               </Button>
             </>
