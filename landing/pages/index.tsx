@@ -47,6 +47,13 @@ const Home: NextPage = () => {
               <p>{textSection.section1.part1}</p>
               <p>{textSection.section1.part2}</p>
               <p>{textSection.section1.part3}</p>
+
+              <Button className={styles.button}>
+                {" "}
+                <a href="" target="_blank">
+                  Buy GOLEM
+                </a>
+              </Button>
             </>
           }
         />
