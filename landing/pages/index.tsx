@@ -37,7 +37,7 @@ const Home: NextPage = () => {
       <div style={{ width: "100%", position: "relative" }}>
         <Presentation />
       </div>
-      <div style={{ marginTop: "8vh" }}>
+      <div style={{ marginTop: "12vh", marginBottom: "12vh" }}>
         <Section
           inverse={false}
           isMobile={isMobile}
@@ -67,7 +67,7 @@ const Home: NextPage = () => {
           }
         />
       </div>
-      <div>
+      <div style={{ marginTop: "12vh", marginBottom: "12vh" }}>
         <Section
           inverse={true}
           isMobile={isMobile}
@@ -97,7 +97,7 @@ const Home: NextPage = () => {
           }
         />
       </div>
-      <div>
+      <div style={{ marginTop: "12vh", marginBottom: "12vh" }}>
         <Section
           inverse={false}
           isMobile={isMobile}
@@ -127,7 +127,7 @@ const Home: NextPage = () => {
           }
         />
       </div>
-      <div>
+      <div style={{ marginTop: "12vh", marginBottom: "12vh" }}>
         <Section
           inverse={true}
           isMobile={isMobile}
