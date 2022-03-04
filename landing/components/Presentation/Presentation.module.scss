@@ -21,7 +21,7 @@
     width: 100vw;
     height: 100vh;
     background-color: black;
-    z-index: 2;
+    z-index: 100;
 
     img {
       width: 100vw;
@@ -558,11 +558,7 @@
       width: 100vw;
     }
 
-    .videoLoading {
-      height: 100vw * 0.5625;
-    }
     .videoLoaded {
-      height: 100vw * 0.5625;
       animation: video-load 500ms linear 200ms forwards;
     }
 
