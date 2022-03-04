@@ -62,8 +62,8 @@ const Presentation = (): JSX.Element => {
           <div className={styles.content}>
             <div className={styles.description}>
               <p>
-                On-Chain<br></br> apocalyptic<br></br> yield game with <br></br>
-                procedural world.
+                Explore a new WORLD. <br />
+                Earn TOKENS.
               </p>
             </div>
             <div
@@ -114,8 +114,8 @@ const Presentation = (): JSX.Element => {
                 </div>
                 <div className={styles.description}>
                   <p>
-                    First DeFi Yield Game <br></br> with on-chain <br></br>{" "}
-                    procedural WORLD.
+                    Explore a new WORLD. <br />
+                    Earn TOKENS.
                   </p>
                 </div>
               </div>
