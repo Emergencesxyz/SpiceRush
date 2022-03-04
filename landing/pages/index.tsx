@@ -47,7 +47,7 @@ const Home: NextPage = () => {
               <h1>{textSection.section1.title}</h1>
               <p>{textSection.section1.part1}</p>
               <p>{textSection.section1.part2}</p>
-              <p>{textSection.section1.part3}</p>
+              {/* <p>{textSection.section1.part3}</p> */}
 
               <Button
                 className={styles.button}
