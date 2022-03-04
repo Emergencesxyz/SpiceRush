@@ -36,9 +36,6 @@
   border: 2px solid #0f0e3f;
 }
 
-.a {
-  cursor: url("../public/pictures/Cursor.png"), auto !important;
-}
 .a:hover {
   color: #fff !important;
   font-size: 50px !important;
