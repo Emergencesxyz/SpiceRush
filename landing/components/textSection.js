@@ -8,11 +8,11 @@ const textSection = {
   },
   section2: {
     title: "A vast on-chain world",
-    part1: `Moon-K is a futuristic world composed of land tiles
-      with various environments, levels of richness and danger.`,
-    part2: `Acquire lands as NFT and earn passive
+    part1: `Moon-K is the first on-chain world proceduraly generated. `,
+    part2: `It is a futuristic world composed of land tiles
+    with various environments, levels of richness and danger.`,
+    part3: `Acquire lands as NFT and earn passive
     income from the game economy.`,
-    part3: ``,
   },
   section3: {
     title: "Play and earn $SPICE",
