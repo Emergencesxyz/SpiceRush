@@ -23,9 +23,9 @@ const Presentation = (): JSX.Element => {
           className={isVideoLoaded ? styles.videoLoaded : styles.videoLoading}
         >
           {isMobile ? (
-            <img src="/pictures/loader.gif" alt="loader" />
-          ) : (
             <img src="/pictures/mobile-loader.gif" alt="mobile-loader" />
+          ) : (
+            <img src="/pictures/loader.gif" alt="loader" />
           )}
         </div>
       )}
