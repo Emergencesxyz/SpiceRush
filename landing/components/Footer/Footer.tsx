@@ -5,21 +5,13 @@ const Footer = () => {
   return (
     <>
       <Row className={styles.footerRow1}>
-        <Col style={{ display: "flex", flexDirection: "row" }}>
-          <Col
-            md={2}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              paddingRight: "40%",
-              lineHeight: "40px",
-            }}
-          >
+        <Col style={{ display: "flex", flexDirection: "row", width: "80%" }}>
+          <Col className={styles.links}>
             <a href="" target="_blank">
               Terms
             </a>
           </Col>
-          <Col>
+          <Col className={styles.links}>
             <a
               href="https://metapolis.gitbook.io/apinator-2042-v1/"
               target="_blank"
@@ -27,7 +19,7 @@ const Footer = () => {
               Whitepaper
             </a>
           </Col>
-          <Col>
+          <Col className={styles.links}>
             <a href="" target="_blank">
               Twitter
             </a>

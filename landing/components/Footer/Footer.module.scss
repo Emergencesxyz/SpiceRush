@@ -3,11 +3,27 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding-left: 14rem;
-  padding-right: 14rem;
+  /* padding-left: 10rem;
+  padding-right: 10rem; */
   color: #a89cba;
   font-family: "sofia-pro-SemiBold";
   font-size: 26px;
+
+  .links {
+    text-align: center;
+    width: 30%;
+    line-height: 40px;
+    /* padding-right: 10%; */
+
+    a {
+      &:hover {
+        color: #fff !important;
+      }
+      &:active {
+        color: "white";
+      }
+    }
+  }
 }
 
 .footerRow2 {
@@ -26,5 +42,15 @@
     color: #a89cba;
     font-family: "sofia-pro-SemiBold";
     font-size: 15px;
+  }
+
+  .footerRow2 {
+    text-align: center;
+    width: 80%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    color: rgb(216, 216, 216);
+    font-family: "sofia-pro-SemiBold";
+    font-size: 17px;
   }
 }
