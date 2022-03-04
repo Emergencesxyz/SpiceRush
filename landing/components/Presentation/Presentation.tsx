@@ -22,11 +22,9 @@ const Presentation = (): JSX.Element => {
           style={{ display: "flex" }}
           className={isVideoLoaded ? styles.videoLoaded : styles.videoLoading}
         >
-          {isMobile ? (
-            <img src="/pictures/mobile-loader.gif" alt="mobile-loader" />
-          ) : (
-            <img src="/pictures/loader.gif" alt="loader" />
-          )}
+          <div className={styles.loaderWrapper}>
+            <img src="/pictures/mobile-loader.gif" alt="loader" height="80%" />
+          </div>
         </div>
       )}
       <div className={styles.playerWrapper}>

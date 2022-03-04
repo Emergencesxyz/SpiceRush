@@ -23,8 +23,11 @@
     background-color: #140e1e;
     z-index: 100;
 
-    img {
-      width: 100vw;
+    .loaderWrapper {
+      width: 50vw;
+      height: 50vh;
+      display: flex;
+      justify-content: center;
     }
   }
 
