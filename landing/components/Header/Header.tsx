@@ -16,6 +16,9 @@ const Header: FunctionComponent<Props> = ({
 }): JSX.Element => {
   const [clickDiscord, setClickDiscord] = useState<boolean>(false);
   const [clickTiktok, setClickTiktok] = useState<boolean>(false);
+  const [isActive1, setIsActive1] = useState<boolean>(false);
+  const [isActive2, setIsActive2] = useState<boolean>(false);
+  const [isActive3, setIsActive3] = useState<boolean>(false);
 
   return (
     <Navbar
@@ -58,18 +61,34 @@ const Header: FunctionComponent<Props> = ({
             </Nav.Link>
 
             <Nav.Link href="/#topSection">
-              <span>Token</span>
+              <span>
+                <a
+                  href="https://metapolis.gitbook.io/apinator-2042-v1/gameplay/spice"
+                  target="_blank"
+                >
+                  Token
+                </a>
+              </span>
             </Nav.Link>
-            <Nav.Link href="/#mintSection">
-              <span>Staking</span>
+            <Nav.Link onClick={() => setIsActive1(true)}>
+              <div className="d-flex flex-column">
+                <span>Staking</span>
+                {isActive1 && <span>SOON</span>}
+              </div>
             </Nav.Link>
 
-            <Nav.Link href="/#NFT">
-              <span>Buy land</span>
+            <Nav.Link onClick={() => setIsActive2(true)}>
+              <div className="d-flex flex-column">
+                <span>Buy land</span>
+                {isActive2 && <span>SOON</span>}
+              </div>
             </Nav.Link>
 
-            <Nav.Link href="/#NFT">
-              <span>Buy NFT</span>
+            <Nav.Link onClick={() => setIsActive3(true)}>
+              <div className="d-flex flex-column">
+                <span>Buy NFT</span>
+                {isActive3 && <span>SOON</span>}
+              </div>
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

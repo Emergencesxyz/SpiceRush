@@ -11,7 +11,9 @@ import Header from "../components/Header/Header";
 
 const Home: NextPage = () => {
   const [isMobile, setIsmobile] = useState<boolean>(false);
-  const [isActive, setIsActive] = useState<boolean>(false);
+  const [isActive1, setIsActive1] = useState<boolean>(false);
+  const [isActive2, setIsActive2] = useState<boolean>(false);
+  const [isActive3, setIsActive3] = useState<boolean>(false);
 
   useEffect(() => {
     if (window.matchMedia("(max-width: 600px)").matches) {
@@ -52,8 +54,8 @@ const Home: NextPage = () => {
               <Button
                 className={styles.button}
                 /* onMouseEnter={() => setIsActive(true)}
-                onMouseLeave={() => setIsActive(false)} */
-                onClick={() => setIsActive(true)}
+                onMouseLeave={() => setIsActive(false)} 
+                onClick={() => setIsActive1(true)}*/
               >
                 <a
                   href="https://app.gitbook.com/o/OFYOnJLAwXIhyBYEPiBv/s/BZgaWwUM4ZlgP3Auovdb/ecosystem/dao"
@@ -62,7 +64,7 @@ const Home: NextPage = () => {
                   more
                 </a>
               </Button>
-              {isActive && <h1>SOON</h1>}
+              {/*   {isActive1 && <h1>SOON</h1>} */}
             </>
           }
         />
@@ -82,8 +84,8 @@ const Home: NextPage = () => {
                 className={
                   styles.button
                 } /* onMouseEnter={() => setIsActive(true)}
-                onMouseLeave={() => setIsActive(false)} */
-                onClick={() => setIsActive(true)}
+                onMouseLeave={() => setIsActive(false)} 
+                onClick={() => setIsActive2(true)}*/
               >
                 <a
                   href="https://metapolis.gitbook.io/apinator-2042-v1/ecosystem/staking#land-autostaking"
@@ -92,7 +94,7 @@ const Home: NextPage = () => {
                   more
                 </a>
               </Button>
-              {isActive && <h1>SOON</h1>}
+              {/* {isActive2 && <h1>SOON</h1>} */}
             </>
           }
         />
@@ -112,8 +114,8 @@ const Home: NextPage = () => {
                 className={
                   styles.button
                 } /* onMouseEnter={() => setIsActive(true)}
-                onMouseLeave={() => setIsActive(false)} */
-                onClick={() => setIsActive(true)}
+                onMouseLeave={() => setIsActive(false)} 
+                onClick={() => setIsActive3(true)}*/
               >
                 <a
                   href="https://app.gitbook.com/o/OFYOnJLAwXIhyBYEPiBv/s/BZgaWwUM4ZlgP3Auovdb/gameplay/spice"
@@ -122,7 +124,7 @@ const Home: NextPage = () => {
                   more
                 </a>
               </Button>
-              {isActive && <h1>SOON</h1>}
+              {/*  {isActive3 && <h1>SOON</h1>} */}
             </>
           }
         />
@@ -142,8 +144,8 @@ const Home: NextPage = () => {
                 className={
                   styles.button
                 } /* onMouseEnter={() => setIsActive(true)}
-                onMouseLeave={() => setIsActive(false)} */
-                onClick={() => setIsActive(true)}
+                onMouseLeave={() => setIsActive(false)} 
+                onClick={() => setIsActive(true)} */
               >
                 <a
                   href="https://app.gitbook.com/o/OFYOnJLAwXIhyBYEPiBv/s/BZgaWwUM4ZlgP3Auovdb/gameplay/character-stats"
