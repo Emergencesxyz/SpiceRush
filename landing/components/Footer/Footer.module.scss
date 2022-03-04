@@ -1,5 +1,5 @@
 .footerRow1 {
-  width: 100%;
+  width: 80%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -32,7 +32,7 @@
   padding-right: 14rem;
   color: rgb(216, 216, 216);
   font-family: "sofia-pro-SemiBold";
-  font-size: 17px;
+  font-size: 1vw;
 }
 
 @media (max-width: 576px) {
@@ -52,6 +52,6 @@
     padding-right: 0 !important;
     color: rgb(216, 216, 216);
     font-family: "sofia-pro-SemiBold";
-    font-size: 17px;
+    font-size: 12px;
   }
 }

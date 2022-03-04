@@ -51,19 +51,19 @@ const Home: NextPage = () => {
               <p>{textSection.section1.part2}</p>
               {/* <p>{textSection.section1.part3}</p> */}
 
-              <Button
-                className={styles.button}
-                /* onMouseEnter={() => setIsActive(true)}
+              <a
+                href="https://app.gitbook.com/o/OFYOnJLAwXIhyBYEPiBv/s/BZgaWwUM4ZlgP3Auovdb/ecosystem/dao"
+                target="_blank"
+              >
+                <Button
+                  className={styles.button}
+                  /* onMouseEnter={() => setIsActive(true)}
                 onMouseLeave={() => setIsActive(false)} 
                 onClick={() => setIsActive1(true)}*/
-              >
-                <a
-                  href="https://app.gitbook.com/o/OFYOnJLAwXIhyBYEPiBv/s/BZgaWwUM4ZlgP3Auovdb/ecosystem/dao"
-                  target="_blank"
                 >
                   more
-                </a>
-              </Button>
+                </Button>
+              </a>
               {/*   {isActive1 && <h1>SOON</h1>} */}
             </>
           }
@@ -80,20 +80,20 @@ const Home: NextPage = () => {
               <p>{textSection.section2.part1}</p>
               <p>{textSection.section2.part2}</p>
               <p>{textSection.section2.part3}</p>
-              <Button
-                className={
-                  styles.button
-                } /* onMouseEnter={() => setIsActive(true)}
+              <a
+                href="https://metapolis.gitbook.io/apinator-2042-v1/ecosystem/staking#land-autostaking"
+                target="_blank"
+              >
+                <Button
+                  className={
+                    styles.button
+                  } /* onMouseEnter={() => setIsActive(true)}
                 onMouseLeave={() => setIsActive(false)} 
                 onClick={() => setIsActive2(true)}*/
-              >
-                <a
-                  href="https://metapolis.gitbook.io/apinator-2042-v1/ecosystem/staking#land-autostaking"
-                  target="_blank"
                 >
                   more
-                </a>
-              </Button>
+                </Button>
+              </a>
               {/* {isActive2 && <h1>SOON</h1>} */}
             </>
           }
@@ -110,20 +110,20 @@ const Home: NextPage = () => {
               <p>{textSection.section3.part1}</p>
               <p>{textSection.section3.part2}</p>
               <p>{textSection.section3.part3}</p>
-              <Button
-                className={
-                  styles.button
-                } /* onMouseEnter={() => setIsActive(true)}
+              <a
+                href="https://app.gitbook.com/o/OFYOnJLAwXIhyBYEPiBv/s/BZgaWwUM4ZlgP3Auovdb/gameplay/spice"
+                target="_blank"
+              >
+                <Button
+                  className={
+                    styles.button
+                  } /* onMouseEnter={() => setIsActive(true)}
                 onMouseLeave={() => setIsActive(false)} 
                 onClick={() => setIsActive3(true)}*/
-              >
-                <a
-                  href="https://app.gitbook.com/o/OFYOnJLAwXIhyBYEPiBv/s/BZgaWwUM4ZlgP3Auovdb/gameplay/spice"
-                  target="_blank"
                 >
                   more
-                </a>
-              </Button>
+                </Button>
+              </a>
               {/*  {isActive3 && <h1>SOON</h1>} */}
             </>
           }
@@ -140,20 +140,20 @@ const Home: NextPage = () => {
               <p>{textSection.section4.part1}</p>
               <p>{textSection.section4.part2}</p>
               <p>{textSection.section4.part3}</p>
-              <Button
-                className={
-                  styles.button
-                } /* onMouseEnter={() => setIsActive(true)}
+              <a
+                href="https://app.gitbook.com/o/OFYOnJLAwXIhyBYEPiBv/s/BZgaWwUM4ZlgP3Auovdb/gameplay/character-stats"
+                target="_blank"
+              >
+                <Button
+                  className={
+                    styles.button
+                  } /* onMouseEnter={() => setIsActive(true)}
                 onMouseLeave={() => setIsActive(false)} 
                 onClick={() => setIsActive(true)} */
-              >
-                <a
-                  href="https://app.gitbook.com/o/OFYOnJLAwXIhyBYEPiBv/s/BZgaWwUM4ZlgP3Auovdb/gameplay/character-stats"
-                  target="_blank"
                 >
                   more
-                </a>
-              </Button>
+                </Button>
+              </a>
             </>
           }
         />

@@ -35,10 +35,17 @@
   color: #140e1e !important;
   border: 2px solid #0f0e3f;
 }
-
-.a:hover {
-  color: #fff !important;
-  font-size: 50px !important;
+.button:active {
+  background-color: white !important;
+  color: #140e1e !important;
+  border: 2px solid #0f0e3f;
+  box-shadow: none !important;
+}
+.button:focus {
+  background-color: white !important;
+  color: #140e1e !important;
+  border: 2px solid #0f0e3f;
+  box-shadow: none !important;
 }
 
 .footer {
