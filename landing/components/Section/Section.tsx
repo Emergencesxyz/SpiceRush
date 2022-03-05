@@ -33,10 +33,7 @@ const Section: FunctionComponent<Props> = (props): JSX.Element => {
       ) : (
         <>
           <div className="justify-content-center">
-            <img
-              style={{ width: "100%", marginBottom: "30px" }}
-              src={props.Image}
-            />
+            <img src={props.Image} />
           </div>
           <div style={{ textAlign: "left" }}>{props.Text}</div>
         </>

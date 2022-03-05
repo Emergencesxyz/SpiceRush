@@ -1,5 +1,5 @@
 .footerRow1 {
-  width: 100%;
+  width: 80%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -27,18 +27,19 @@
 }
 
 .footerRow2 {
+  margin-top: 3vh;
   padding-left: 14rem;
   padding-right: 14rem;
   color: rgb(216, 216, 216);
   font-family: "sofia-pro-SemiBold";
-  font-size: 17px;
+  font-size: 1vw;
 }
 
 @media (max-width: 576px) {
   .footerRow1 {
     width: 80%;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    /*  padding-left: 1rem;
+    padding-right: 1rem; */
     color: #a89cba;
     font-family: "sofia-pro-SemiBold";
     font-size: 15px;
@@ -47,10 +48,10 @@
   .footerRow2 {
     text-align: center;
     width: 80%;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
     color: rgb(216, 216, 216);
     font-family: "sofia-pro-SemiBold";
-    font-size: 17px;
+    font-size: 12px;
   }
 }

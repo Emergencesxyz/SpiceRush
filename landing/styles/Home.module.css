@@ -36,13 +36,17 @@
   color: #140e1e !important;
   border: 2px solid #0f0e3f;
 }
-
-.a {
-  cursor: url("../public/pictures/Cursor.png"), auto !important;
+.button:active {
+  background-color: white !important;
+  color: #140e1e !important;
+  border: 2px solid #0f0e3f;
+  box-shadow: none !important;
 }
-.a:hover {
-  color: #fff !important;
-  font-size: 50px !important;
+.button:focus {
+  background-color: white !important;
+  color: #140e1e !important;
+  border: 2px solid #0f0e3f;
+  box-shadow: none !important;
 }
 
 .footer {

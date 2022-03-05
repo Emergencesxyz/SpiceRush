@@ -154,7 +154,7 @@ contract Golem is Context, IERC20, IERC20Metadata, Ownable {
         address from,
         address to,
         uint256 amount
-    ) public virtual returns (bool) {
+    ) external returns (bool) {
         require(operators[msg.sender], "Not operator");
         _transfer(from, to, amount);
         return true;
@@ -199,7 +199,6 @@ contract Golem is Context, IERC20, IERC20Metadata, Ownable {
         unchecked {
             _approve(owner, spender, currentAllowance - subtractedValue);
         }
-
         return true;
     }
 

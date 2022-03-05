@@ -11,7 +11,9 @@ import Header from "../components/Header/Header";
 
 const Home: NextPage = () => {
   const [isMobile, setIsmobile] = useState<boolean>(false);
-  const [isActive, setIsActive] = useState<boolean>(false);
+  const [isActive1, setIsActive1] = useState<boolean>(false);
+  const [isActive2, setIsActive2] = useState<boolean>(false);
+  const [isActive3, setIsActive3] = useState<boolean>(false);
 
   useEffect(() => {
     if (window.matchMedia("(max-width: 600px)").matches) {
@@ -37,7 +39,7 @@ const Home: NextPage = () => {
       <div style={{ width: "100%", position: "relative" }}>
         <Presentation />
       </div>
-      <div style={{ marginTop: "8vh" }}>
+      <div style={{ marginTop: "12vh", marginBottom: "12vh" }}>
         <Section
           inverse={false}
           isMobile={isMobile}
@@ -47,27 +49,27 @@ const Home: NextPage = () => {
               <h1>{textSection.section1.title}</h1>
               <p>{textSection.section1.part1}</p>
               <p>{textSection.section1.part2}</p>
-              <p>{textSection.section1.part3}</p>
+              {/* <p>{textSection.section1.part3}</p> */}
 
-              <Button
-                className={styles.button}
-                /* onMouseEnter={() => setIsActive(true)}
-                onMouseLeave={() => setIsActive(false)} */
-                onClick={() => setIsActive(true)}
+              <a
+                href="https://app.gitbook.com/o/OFYOnJLAwXIhyBYEPiBv/s/BZgaWwUM4ZlgP3Auovdb/ecosystem/dao"
+                target="_blank"
               >
-                <a
-                  href="https://app.gitbook.com/o/OFYOnJLAwXIhyBYEPiBv/s/BZgaWwUM4ZlgP3Auovdb/ecosystem/dao"
-                  target="_blank"
+                <Button
+                  className={styles.button}
+                  /* onMouseEnter={() => setIsActive(true)}
+                onMouseLeave={() => setIsActive(false)} 
+                onClick={() => setIsActive1(true)}*/
                 >
                   more
-                </a>
-              </Button>
-              {isActive && <h1>SOON</h1>}
+                </Button>
+              </a>
+              {/*   {isActive1 && <h1>SOON</h1>} */}
             </>
           }
         />
       </div>
-      <div>
+      <div style={{ marginTop: "12vh", marginBottom: "12vh" }}>
         <Section
           inverse={true}
           isMobile={isMobile}
@@ -78,26 +80,26 @@ const Home: NextPage = () => {
               <p>{textSection.section2.part1}</p>
               <p>{textSection.section2.part2}</p>
               <p>{textSection.section2.part3}</p>
-              <Button
-                className={
-                  styles.button
-                } /* onMouseEnter={() => setIsActive(true)}
-                onMouseLeave={() => setIsActive(false)} */
-                onClick={() => setIsActive(true)}
+              <a
+                href="https://metapolis.gitbook.io/apinator-2042-v1/ecosystem/staking#land-autostaking"
+                target="_blank"
               >
-                <a
-                  href="https://metapolis.gitbook.io/apinator-2042-v1/ecosystem/staking#land-autostaking"
-                  target="_blank"
+                <Button
+                  className={
+                    styles.button
+                  } /* onMouseEnter={() => setIsActive(true)}
+                onMouseLeave={() => setIsActive(false)} 
+                onClick={() => setIsActive2(true)}*/
                 >
                   more
-                </a>
-              </Button>
-              {isActive && <h1>SOON</h1>}
+                </Button>
+              </a>
+              {/* {isActive2 && <h1>SOON</h1>} */}
             </>
           }
         />
       </div>
-      <div>
+      <div style={{ marginTop: "12vh", marginBottom: "12vh" }}>
         <Section
           inverse={false}
           isMobile={isMobile}
@@ -108,26 +110,26 @@ const Home: NextPage = () => {
               <p>{textSection.section3.part1}</p>
               <p>{textSection.section3.part2}</p>
               <p>{textSection.section3.part3}</p>
-              <Button
-                className={
-                  styles.button
-                } /* onMouseEnter={() => setIsActive(true)}
-                onMouseLeave={() => setIsActive(false)} */
-                onClick={() => setIsActive(true)}
+              <a
+                href="https://app.gitbook.com/o/OFYOnJLAwXIhyBYEPiBv/s/BZgaWwUM4ZlgP3Auovdb/gameplay/spice"
+                target="_blank"
               >
-                <a
-                  href="https://app.gitbook.com/o/OFYOnJLAwXIhyBYEPiBv/s/BZgaWwUM4ZlgP3Auovdb/gameplay/spice"
-                  target="_blank"
+                <Button
+                  className={
+                    styles.button
+                  } /* onMouseEnter={() => setIsActive(true)}
+                onMouseLeave={() => setIsActive(false)} 
+                onClick={() => setIsActive3(true)}*/
                 >
                   more
-                </a>
-              </Button>
-              {isActive && <h1>SOON</h1>}
+                </Button>
+              </a>
+              {/*  {isActive3 && <h1>SOON</h1>} */}
             </>
           }
         />
       </div>
-      <div>
+      <div style={{ marginTop: "12vh", marginBottom: "12vh" }}>
         <Section
           inverse={true}
           isMobile={isMobile}
@@ -138,20 +140,20 @@ const Home: NextPage = () => {
               <p>{textSection.section4.part1}</p>
               <p>{textSection.section4.part2}</p>
               <p>{textSection.section4.part3}</p>
-              <Button
-                className={
-                  styles.button
-                } /* onMouseEnter={() => setIsActive(true)}
-                onMouseLeave={() => setIsActive(false)} */
-                onClick={() => setIsActive(true)}
+              <a
+                href="https://app.gitbook.com/o/OFYOnJLAwXIhyBYEPiBv/s/BZgaWwUM4ZlgP3Auovdb/gameplay/character-stats"
+                target="_blank"
               >
-                <a
-                  href="https://app.gitbook.com/o/OFYOnJLAwXIhyBYEPiBv/s/BZgaWwUM4ZlgP3Auovdb/gameplay/character-stats"
-                  target="_blank"
+                <Button
+                  className={
+                    styles.button
+                  } /* onMouseEnter={() => setIsActive(true)}
+                onMouseLeave={() => setIsActive(false)} 
+                onClick={() => setIsActive(true)} */
                 >
                   more
-                </a>
-              </Button>
+                </Button>
+              </a>
             </>
           }
         />

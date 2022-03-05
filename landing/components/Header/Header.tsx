@@ -16,6 +16,9 @@ const Header: FunctionComponent<Props> = ({
 }): JSX.Element => {
   const [clickDiscord, setClickDiscord] = useState<boolean>(false);
   const [clickTiktok, setClickTiktok] = useState<boolean>(false);
+  const [isActive1, setIsActive1] = useState<boolean>(false);
+  const [isActive2, setIsActive2] = useState<boolean>(false);
+  const [isActive3, setIsActive3] = useState<boolean>(false);
 
   return (
     <Navbar
@@ -47,29 +50,49 @@ const Header: FunctionComponent<Props> = ({
         <Navbar.Collapse id="navbar" className=" justify-content-between">
           <Nav className={styles.navBar}>
             <Nav.Link href="/#topSection">
-              <span>
-                <a
-                  href="https://metapolis.gitbook.io/apinator-2042-v1/"
-                  target="_blank"
-                >
-                  Whitepaper
-                </a>
-              </span>
+              <div className="d-flex flex-column p-1">
+                <span>
+                  <a
+                    href="https://metapolis.gitbook.io/apinator-2042-v1/"
+                    target="_blank"
+                  >
+                    Whitepaper
+                  </a>
+                </span>
+              </div>
             </Nav.Link>
 
             <Nav.Link href="/#topSection">
-              <span>Token</span>
+              <div className="d-flex flex-column p-1">
+                <span>
+                  <a
+                    href="https://metapolis.gitbook.io/apinator-2042-v1/gameplay/spice"
+                    target="_blank"
+                  >
+                    Token
+                  </a>
+                </span>
+              </div>
             </Nav.Link>
-            <Nav.Link href="/#mintSection">
-              <span>Staking</span>
+            <Nav.Link onClick={() => setIsActive1(!isActive1)}>
+              <div className="d-flex flex-column p-1 text-center">
+                <span>Staking</span>
+                {isActive1 && <span>SOON</span>}
+              </div>
             </Nav.Link>
 
-            <Nav.Link href="/#NFT">
-              <span>Buy land</span>
+            <Nav.Link onClick={() => setIsActive2(!isActive2)}>
+              <div className="d-flex flex-column p-1 text-center">
+                <span>Buy land</span>
+                {isActive2 && <span>SOON</span>}
+              </div>
             </Nav.Link>
 
-            <Nav.Link href="/#NFT">
-              <span>Buy NFT</span>
+            <Nav.Link onClick={() => setIsActive3(!isActive3)}>
+              <div className="d-flex flex-column p-1 text-center">
+                <span>Buy NFT</span>
+                {isActive3 && <span>SOON</span>}
+              </div>
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
