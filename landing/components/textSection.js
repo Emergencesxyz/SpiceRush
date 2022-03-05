@@ -24,7 +24,7 @@ const textSection = {
   },
 
   section4: {
-    title: "Evolutive NFTs, improved yields",
+    title: "Evolutive NFTs, increased yields",
     part1: `Apinators are the NFT game characters.`,
     part2: `Unlike other NFTs they are constantly enhancing as you play.`,
     part3: `Earn experience, evolve and improve your travel, fight and mining capabilities.`,
