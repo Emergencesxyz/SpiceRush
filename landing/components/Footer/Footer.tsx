@@ -20,8 +20,13 @@ const Footer = () => {
             </a>
           </Col>
           <Col className={styles.links}>
-            <a href="" target="_blank">
+            <a href="https://twitter.com/Apinator_2042" target="_blank">
               Twitter
+            </a>
+          </Col>
+          <Col className={styles.links}>
+            <a href="https://t.me/apinator2042" target="_blank">
+              Telegram
             </a>
           </Col>
           {/*

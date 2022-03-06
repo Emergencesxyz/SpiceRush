@@ -59,17 +59,26 @@ const Presentation = (): JSX.Element => {
         )}
       </div>
       <div className={styles.groupButtons}>
-        {/*
-        <div className={styles.button1}>
-          <img src="pictures/discord.svg" alt="logoDiscord" />
-        </div>
-        */}
+        <a
+          className={styles.button1}
+          href="https://t.me/apinator2042"
+          target="_blank"
+        >
+          <img
+            style={{
+              filter: "invert(0%)",
+            }}
+            src="pictures/telegram.svg"
+            alt="telegram"
+          />
+        </a>
+
         <a
           className={styles.button1}
           href="https://twitter.com/Apinator_2042"
           target="_blank"
         >
-          <img src="pictures/twitter.svg" alt="logoInsta" />
+          <img src="pictures/twitter.svg" alt="twitter" />
         </a>
       </div>
       {!isMobile ? (
