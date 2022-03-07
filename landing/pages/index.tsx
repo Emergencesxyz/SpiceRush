@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import styles from "../styles/Home.module.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { Row, Col, Button } from "react-bootstrap";
 import Presentation from "../components/Presentation/Presentation";
 import Section from "../components/Section/Section";
@@ -43,6 +43,10 @@ const Home: NextPage = () => {
     }
   }, [inView]);
 
+  const video = useMemo(() => {
+    return <Presentation isMobile={isMobile} />;
+  }, [isMobile]);
+
   return (
     <div className={styles.container}>
       {
@@ -58,12 +62,10 @@ const Home: NextPage = () => {
           <Header />
         </header>
       }
-      <div style={{ width: "100%", position: "relative" }}>
-        <Presentation isMobile={isMobile} />
-      </div>
+      <div style={{ width: "100%", position: "relative" }}>{video}</div>
       <section ref={ref}>
         <motion.div
-          style={{ marginTop: "12vh", marginBottom: "12vh" }}
+          style={{ marginTop: "8vh", marginBottom: "12vh" }}
           animate={animation}
         >
           <Section
@@ -95,7 +97,10 @@ const Home: NextPage = () => {
             }
           />
         </motion.div>
-        <div style={{ marginTop: "12vh", marginBottom: "12vh" }}>
+        <motion.div
+          style={{ marginTop: "12vh", marginBottom: "12vh" }}
+          animate={animation}
+        >
           <Section
             inverse={true}
             isMobile={isMobile}
@@ -124,8 +129,11 @@ const Home: NextPage = () => {
               </>
             }
           />
-        </div>
-        <div style={{ marginTop: "12vh", marginBottom: "12vh" }}>
+        </motion.div>
+        <motion.div
+          style={{ marginTop: "12vh", marginBottom: "12vh" }}
+          animate={animation}
+        >
           <Section
             inverse={false}
             isMobile={isMobile}
@@ -154,8 +162,11 @@ const Home: NextPage = () => {
               </>
             }
           />
-        </div>
-        <div style={{ marginTop: "12vh", marginBottom: "12vh" }}>
+        </motion.div>
+        <motion.div
+          style={{ marginTop: "12vh", marginBottom: "12vh" }}
+          animate={animation}
+        >
           <Section
             inverse={true}
             isMobile={isMobile}
@@ -183,7 +194,7 @@ const Home: NextPage = () => {
               </>
             }
           />
-        </div>
+        </motion.div>
       </section>
       <div>
         <Roadmap />

@@ -23,12 +23,28 @@ const Section: FunctionComponent<Props> = (props): JSX.Element => {
       {!props.isMobile ? (
         <>
           <div
-            className="d-flex justify-content-center align-items-start text-center"
-            style={{ width: "40%" }}
+            style={{
+              width: "40%",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
           >
             <img src={props.Image} />
           </div>
-          <div style={{ width: "60%", paddingTop: "5vh" }}>{props.Text}</div>
+          <div
+            style={{
+              width: "60%",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "flex-start",
+              textAlign: "left",
+            }}
+          >
+            {props.Text}
+          </div>
         </>
       ) : (
         <>
