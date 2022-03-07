@@ -1,19 +1,17 @@
 /* eslint-disable @next/next/no-img-element */
-import { useEffect, useState } from "react";
+import { useEffect, useState, FunctionComponent } from "react";
 import { Col, Button } from "react-bootstrap";
 import styles from "./Presentation.module.scss";
 import ReactPlayer from "react-player";
 import VideoMobile from "../VideoMobile/VideoMobile";
 
-const Presentation = (): JSX.Element => {
-  const [isMobile, setIsmobile] = useState<boolean>(false);
-  const [isVideoLoaded, setIsVideoLoaded] = useState<boolean>(false);
+interface Props {
+  isMobile: boolean;
+}
 
-  useEffect(() => {
-    if (window.matchMedia("(max-width: 600px)").matches) {
-      setIsmobile(true);
-    }
-  }, []);
+const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
+  const { isMobile } = props;
+  const [isVideoLoaded, setIsVideoLoaded] = useState<boolean>(false);
 
   return (
     <section id="topSection" className={styles.presentationSection}>
