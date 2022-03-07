@@ -39,7 +39,7 @@ const Home: NextPage = () => {
         },
       });
     } else {
-      animation.start({ y: "40%", opacity: 0 });
+      animation.start({ y: "20%", opacity: 0 });
     }
   }, [inView]);
 
