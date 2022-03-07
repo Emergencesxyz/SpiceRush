@@ -49,29 +49,21 @@ const Header: FunctionComponent<Props> = ({
         </Navbar.Toggle>
         <Navbar.Collapse id="navbar" className=" justify-content-between">
           <Nav className={styles.navBar}>
-            <Nav.Link href="/#topSection">
+            <Nav.Link
+              href="https://metapolis.gitbook.io/apinator-2042-v1/"
+              target="_blank"
+            >
               <div className="d-flex flex-column p-1">
-                <span>
-                  <a
-                    href="https://metapolis.gitbook.io/apinator-2042-v1/"
-                    target="_blank"
-                  >
-                    Whitepaper
-                  </a>
-                </span>
+                <span>Whitepaper</span>
               </div>
             </Nav.Link>
 
-            <Nav.Link href="/#topSection">
+            <Nav.Link
+              href="https://metapolis.gitbook.io/apinator-2042-v1/gameplay/spice"
+              target="_blank"
+            >
               <div className="d-flex flex-column p-1">
-                <span>
-                  <a
-                    href="https://metapolis.gitbook.io/apinator-2042-v1/gameplay/spice"
-                    target="_blank"
-                  >
-                    Token
-                  </a>
-                </span>
+                <span>Token</span>
               </div>
             </Nav.Link>
             <Nav.Link onClick={() => setIsActive1(!isActive1)}>
