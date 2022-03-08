@@ -25,6 +25,8 @@
   border-bottom-right-radius: 14px;
   background-color: white;
   color: #140e1e;
+  box-shadow: none !important;
+  border: 1px solid lightgray;
   padding-right: 1vw !important;
   padding-left: 1vw !important;
   cursor: url("../public/pictures/Cursor.png"), auto !important;
@@ -33,18 +35,18 @@
 .button:hover {
   background-color: #a89cba;
   color: #140e1e !important;
-  border: 2px solid #0f0e3f;
+  border: 1px solid #0f0e3f;
 }
 .button:active {
   background-color: white !important;
   color: #140e1e !important;
-  border: 2px solid #0f0e3f;
+  border: 1px solid #0f0e3f;
   box-shadow: none !important;
 }
 .button:focus {
   background-color: white !important;
   color: #140e1e !important;
-  border: 2px solid #0f0e3f;
+  border: 1px solid #0f0e3f;
   box-shadow: none !important;
 }
 
@@ -80,5 +82,9 @@
   .grid {
     width: 100%;
     flex-direction: column;
+  }
+
+  .button {
+    font-size: 22px;
   }
 }
