@@ -638,7 +638,9 @@
         }
 
         .description {
+          display: inherit;
           p {
+            text-align: center;
             font-size: 25px;
             line-height: 1.2;
             padding: 0 !important;
