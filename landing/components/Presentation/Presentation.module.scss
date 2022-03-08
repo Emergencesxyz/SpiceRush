@@ -96,6 +96,7 @@
       z-index: 2;
       position: absolute;
       text-shadow: 4px 3px 3px #000000;
+      height: 40%;
 
       .description {
         text-align: left;
@@ -117,6 +118,20 @@
         font-size: 60px;
         padding: 0 !important;
         margin: 0 !important;
+      }
+
+      .logo {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        text-align: left;
+
+        img {
+          width: 120%;
+          margin-left: 0 !important;
+          top: 0;
+        }
       }
 
       .layers {

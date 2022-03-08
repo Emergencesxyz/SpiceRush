@@ -88,16 +88,8 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
                 Earn TOKENS.
               </p>
             </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "flex-end",
-                textAlign: "center",
-              }}
-            >
-              <h1
+            <div className={styles.logo}>
+              {/*  <h1
                 className={[styles.hero, styles.glitch, styles.layers].join(
                   " "
                 )}
@@ -106,7 +98,11 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
                 <span>
                   APINATOR <span style={{ color: "#fc0362" }}>2042</span>
                 </span>
-              </h1>
+              </h1> */}
+              <img
+                src="../pictures/Logo_Apinator_2042.png"
+                alt="logo-apinator"
+              />
             </div>
           </div>
 
@@ -118,16 +114,8 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
             <div className={styles.content}>
               <img src="/pictures/ape_sweat_gradient.png" alt="imageLP" />
               <div>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "flex-start",
-                    textAlign: "left",
-                  }}
-                >
-                  <h1
+                <div className={styles.logo}>
+                  {/*  <h1
                     className={[styles.hero, styles.glitch, styles.layers].join(
                       " "
                     )}
@@ -136,7 +124,11 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
                     <div>
                       APINATOR <span style={{ color: "#fc0362" }}>2042</span>
                     </div>
-                  </h1>
+                  </h1> */}
+                  <img
+                    src="../pictures/Logo_Apinator_2042.png"
+                    alt="logo-apinator"
+                  />
                 </div>
                 <div className={styles.description}>
                   <p>

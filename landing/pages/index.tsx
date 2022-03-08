@@ -71,7 +71,7 @@ const Home: NextPage = () => {
           <Section
             inverse={false}
             isMobile={isMobile}
-            Image="./pictures/baseball_cap_gradient.png"
+            Image="./pictures/Image95.png"
             Text={
               <>
                 <h1>{textSection.section1.title}</h1>
