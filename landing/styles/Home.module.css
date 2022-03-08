@@ -3,7 +3,7 @@
   background-color: #140e1e;
   color: white;
   width: 100vw;
-  cursor: url("../public/pictures/Cursor.png"), auto;
+  cursor: url("../public/pictures/Cursor.png") 25 15, auto !important;
 }
 
 .main {
@@ -29,7 +29,7 @@
   border: 1px solid lightgray;
   padding-right: 1vw !important;
   padding-left: 1vw !important;
-  cursor: url("../public/pictures/Cursor.png"), auto !important;
+  cursor: url("../public/pictures/Cursor.png") 25 15, auto !important;
 }
 
 .button:hover {

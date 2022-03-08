@@ -196,7 +196,7 @@ const Home: NextPage = () => {
           />
         </motion.div>
       </section>
-      <div>
+      <div style={{ marginTop: "30vh" }}>
         <Roadmap />
       </div>
 
