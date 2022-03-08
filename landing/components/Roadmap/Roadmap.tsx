@@ -29,11 +29,12 @@ const Roadmap = () => {
           /*           items={textRoadmap}
            */ mode={!isMobile ? "VERTICAL_ALTERNATING" : "VERTICAL"}
           hideControls
-          /*           timelineCircleDimension="40"
-           */ theme={{
+          timelineCircleDimension={28}
+          theme={{
             primary: "#fff",
-            secondary: "#fff",
+            secondary: "#140E1E",
             cardBgColor: "#140E1E",
+            /* cardBgColor: "#a89cba", */
             /*             cardForeColor: "#fff",
              */
           }}
@@ -55,7 +56,7 @@ const Roadmap = () => {
               display: "flex",
               flexDirection: "column",
               justifyContent: "flex-start",
-              width: "80%",
+              width: "90%",
             }}
           >
             <h2>2. Megalopolis Conquest</h2>
