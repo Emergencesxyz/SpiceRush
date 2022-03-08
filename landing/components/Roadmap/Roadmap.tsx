@@ -26,8 +26,7 @@ const Roadmap = () => {
       </Row>
       <Row className={styles.roadmap}>
         <Chrono
-          /*           items={textRoadmap}
-           */ mode={!isMobile ? "VERTICAL_ALTERNATING" : "VERTICAL"}
+          mode={!isMobile ? "VERTICAL_ALTERNATING" : "VERTICAL"}
           hideControls
           timelineCircleDimension={28}
           theme={{
@@ -35,8 +34,6 @@ const Roadmap = () => {
             secondary: "#140E1E",
             cardBgColor: "#140E1E",
             /* cardBgColor: "#a89cba", */
-            /*             cardForeColor: "#fff",
-             */
           }}
         >
           <div
