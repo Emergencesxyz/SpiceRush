@@ -1,5 +1,6 @@
 .navContainer {
   max-width: 4000px !important;
+
   background: rgb(0, 0, 6);
   background: linear-gradient(
     180deg,
@@ -27,12 +28,16 @@
       padding: 1;
       text-align: center;
       height: 3vh;
+      color: white;
 
       span {
-        color: white !important;
         transition: all 0.2s;
         font-size: 30px;
         line-height: 0.8;
+        /*   color: white; */
+      }
+      &:hover {
+        color: lightgrey !important;
       }
     }
 
