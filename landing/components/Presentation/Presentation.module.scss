@@ -555,7 +555,9 @@
     .countdownContainer {
       .content {
         .description {
+          display: inherit;
           p {
+            text-align: center;
             font-size: 40px;
           }
         }
