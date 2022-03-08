@@ -21,13 +21,18 @@
     height: 50px;
     padding-bottom: 5px;
 
-    a {
-      color: white !important;
+    .titleBox {
+      display: flex;
+      flex-direction: column;
+      padding: 1;
+      text-align: center;
+      height: 3vh;
 
       span {
+        color: white !important;
         transition: all 0.2s;
         font-size: 30px;
-        line-height: 1.1;
+        line-height: 0.8;
       }
     }
 
@@ -37,7 +42,8 @@
     }
 
     p {
-      font-size: 10px;
+      font-size: 15px;
+      color: lightgray !important;
     }
 
     .rrss {
@@ -102,6 +108,20 @@
 
     .navBar {
       height: fit-content;
+
+      .titleBox {
+        flex-direction: row;
+        width: 55vw;
+        justify-content: space-around;
+        align-items: baseline;
+
+        span {
+          color: white !important;
+          transition: all 0.2s;
+          font-size: 30px;
+          line-height: 0.8;
+        }
+      }
 
       h1 {
         font-size: 20px;

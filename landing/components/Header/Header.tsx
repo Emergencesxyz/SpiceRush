@@ -9,13 +9,13 @@ import {
 import styles from "./Header.module.scss";
 interface Props {
   currentElementIndexInViewport?: number;
+  isMobile: boolean;
 }
 
 const Header: FunctionComponent<Props> = ({
   currentElementIndexInViewport: index,
+  isMobile,
 }): JSX.Element => {
-  const [clickDiscord, setClickDiscord] = useState<boolean>(false);
-  const [clickTiktok, setClickTiktok] = useState<boolean>(false);
   const [isActive1, setIsActive1] = useState<boolean>(false);
   const [isActive2, setIsActive2] = useState<boolean>(false);
   const [isActive3, setIsActive3] = useState<boolean>(false);
@@ -53,7 +53,7 @@ const Header: FunctionComponent<Props> = ({
               href="https://metapolis.gitbook.io/apinator-2042-v1/"
               target="_blank"
             >
-              <div className="d-flex flex-column p-1">
+              <div className={styles.titleBox}>
                 <span>Whitepaper</span>
               </div>
             </Nav.Link>
@@ -62,28 +62,40 @@ const Header: FunctionComponent<Props> = ({
               href="https://metapolis.gitbook.io/apinator-2042-v1/gameplay/spice"
               target="_blank"
             >
-              <div className="d-flex flex-column p-1">
+              <div className={styles.titleBox}>
                 <span>Token</span>
               </div>
             </Nav.Link>
-            <Nav.Link onClick={() => setIsActive1(!isActive1)}>
-              <div className="d-flex flex-column p-1 text-center">
+            <Nav.Link
+              onMouseEnter={() => setIsActive1(!isActive1)}
+              onMouseLeave={() => setIsActive1(!isActive1)}
+            >
+              <div className={styles.titleBox}>
                 <span>Staking</span>
-                {isActive1 && <span>SOON</span>}
+                {isMobile && <p>Coming soon</p>}
+                {isActive1 && !isMobile && <p>Coming soon</p>}
               </div>
             </Nav.Link>
 
-            <Nav.Link onClick={() => setIsActive2(!isActive2)}>
-              <div className="d-flex flex-column p-1 text-center">
+            <Nav.Link
+              onMouseEnter={() => setIsActive2(!isActive2)}
+              onMouseLeave={() => setIsActive2(!isActive2)}
+            >
+              <div className={styles.titleBox}>
                 <span>Buy land</span>
-                {isActive2 && <span>SOON</span>}
+                {isMobile && <p>Coming soon</p>}
+                {isActive2 && !isMobile && <p>Coming soon</p>}
               </div>
             </Nav.Link>
 
-            <Nav.Link onClick={() => setIsActive3(!isActive3)}>
-              <div className="d-flex flex-column p-1 text-center">
+            <Nav.Link
+              onMouseEnter={() => setIsActive3(!isActive3)}
+              onMouseLeave={() => setIsActive3(!isActive3)}
+            >
+              <div className={styles.titleBox}>
                 <span>Buy NFT</span>
-                {isActive3 && <span>SOON</span>}
+                {isMobile && <p>Coming soon</p>}
+                {isActive3 && !isMobile && <p>Coming soon</p>}
               </div>
             </Nav.Link>
           </Nav>

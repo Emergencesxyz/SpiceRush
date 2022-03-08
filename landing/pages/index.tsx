@@ -59,7 +59,7 @@ const Home: NextPage = () => {
             zIndex: 10,
           }}
         >
-          <Header />
+          <Header isMobile={isMobile} />
         </header>
       }
       <div style={{ width: "100%", position: "relative" }}>{video}</div>
