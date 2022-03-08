@@ -67,7 +67,8 @@ const CharacterBox: FunctionComponent<Props> = ({
     <>
       <div className={styles.characterBox}>
         <h4>
-          Apinator #{characterId} {!hp ? <IconGame name="skull" /> : null}
+          Apinator #{character.name ? character.name : characterId}{" "}
+          {!hp ? <IconGame name="skull" /> : null}
         </h4>
         <span
           onClick={(e) => showTutorial(e, consts.tutorial_character.lvl)}
