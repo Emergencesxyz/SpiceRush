@@ -18,9 +18,11 @@
     a {
       &:hover {
         color: #fff !important;
+        cursor: url("../../public/pictures/Cursor.png"), auto !important;
       }
       &:active {
         color: "white";
+        cursor: url("../../public/pictures/Cursor.png"), auto !important;
       }
     }
   }
