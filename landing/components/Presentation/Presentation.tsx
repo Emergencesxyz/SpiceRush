@@ -102,6 +102,7 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
               <img
                 src="../pictures/Logo_Apinator_2042.png"
                 alt="logo-apinator"
+                style={{ width: "100%" }}
               />
             </div>
           </div>
@@ -131,6 +132,7 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
                   <img
                     src="../pictures/Logo_Apinator_2042.png"
                     alt="logo-apinator"
+                    style={{ width: "100%" }}
                   />
                 </div>
                 <div className={styles.description}>
