@@ -80,7 +80,7 @@ const Home: NextPage = () => {
                 {/* <p>{textSection.section1.part3}</p> */}
 
                 <a
-                  href="https://app.gitbook.com/o/OFYOnJLAwXIhyBYEPiBv/s/BZgaWwUM4ZlgP3Auovdb/ecosystem/dao"
+                  href="https://golemdao.gitbook.io/apinator-2042-by-golem/ecosystem/dao"
                   target="_blank"
                 >
                   <Button
@@ -112,7 +112,7 @@ const Home: NextPage = () => {
                 <p>{textSection.section2.part2}</p>
                 <p>{textSection.section2.part3}</p>
                 <a
-                  href="https://metapolis.gitbook.io/apinator-2042-v1/ecosystem/staking#land-autostaking"
+                  href="https://golemdao.gitbook.io/apinator-2042-by-golem/ecosystem/staking#land-autostaking"
                   target="_blank"
                 >
                   <Button
@@ -145,7 +145,7 @@ const Home: NextPage = () => {
                 <p>{textSection.section3.part2}</p>
                 <p>{textSection.section3.part3}</p>
                 <a
-                  href="https://app.gitbook.com/o/OFYOnJLAwXIhyBYEPiBv/s/BZgaWwUM4ZlgP3Auovdb/gameplay/spice"
+                  href="https://golemdao.gitbook.io/apinator-2042-by-golem/gameplay/spice"
                   target="_blank"
                 >
                   <Button
@@ -178,7 +178,7 @@ const Home: NextPage = () => {
                 <p>{textSection.section4.part2}</p>
                 <p>{textSection.section4.part3}</p>
                 <a
-                  href="https://app.gitbook.com/o/OFYOnJLAwXIhyBYEPiBv/s/BZgaWwUM4ZlgP3Auovdb/gameplay/character-stats"
+                  href="https://golemdao.gitbook.io/apinator-2042-by-golem/gameplay/character-stats"
                   target="_blank"
                 >
                   <Button

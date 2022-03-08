@@ -13,7 +13,7 @@ const Footer = () => {
           </Col>
           <Col className={styles.links}>
             <a
-              href="https://metapolis.gitbook.io/apinator-2042-v1/"
+              href="https://golemdao.gitbook.io/apinator-2042-by-golem/"
               target="_blank"
             >
               Whitepaper

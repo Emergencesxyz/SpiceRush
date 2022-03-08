@@ -50,7 +50,7 @@ const Header: FunctionComponent<Props> = ({
         <Navbar.Collapse id="navbar" className=" justify-content-between">
           <Nav className={styles.navBar}>
             <Nav.Link
-              href="https://metapolis.gitbook.io/apinator-2042-v1/"
+              href="https://golemdao.gitbook.io/apinator-2042-by-golem/"
               target="_blank"
             >
               <div className={styles.titleBox}>
@@ -59,7 +59,7 @@ const Header: FunctionComponent<Props> = ({
             </Nav.Link>
 
             <Nav.Link
-              href="https://metapolis.gitbook.io/apinator-2042-v1/gameplay/spice"
+              href="https://golemdao.gitbook.io/apinator-2042-by-golem/gameplay/spice"
               target="_blank"
             >
               <div className={styles.titleBox}>
