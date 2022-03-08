@@ -112,10 +112,13 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
         <>
           <div className={styles.countdownContainer}>
             <div className={styles.content}>
-              <img src="/pictures/ape_sweat_gradient.png" alt="imageLP" />
+              <img
+                src="/pictures/mobile-ape_sweat_gradient.png"
+                alt="imageLP"
+              />
               <div>
                 <div className={styles.logo}>
-                  {/*  <h1
+                  {/*   <h1
                     className={[styles.hero, styles.glitch, styles.layers].join(
                       " "
                     )}
