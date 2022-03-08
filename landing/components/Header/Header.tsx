@@ -16,6 +16,7 @@ const Header: FunctionComponent<Props> = ({
   currentElementIndexInViewport: index,
   isMobile,
 }): JSX.Element => {
+  const [isActive0, setIsActive0] = useState<boolean>(false);
   const [isActive1, setIsActive1] = useState<boolean>(false);
   const [isActive2, setIsActive2] = useState<boolean>(false);
   const [isActive3, setIsActive3] = useState<boolean>(false);
@@ -59,11 +60,13 @@ const Header: FunctionComponent<Props> = ({
             </Nav.Link>
 
             <Nav.Link
-              href="https://golemdao.gitbook.io/apinator-2042-by-golem/gameplay/spice"
-              target="_blank"
+              onMouseEnter={() => setIsActive0(!isActive0)}
+              onMouseLeave={() => setIsActive0(!isActive0)}
             >
               <div className={styles.titleBox}>
                 <span>Token</span>
+                {isMobile && <p>Coming soon</p>}
+                {isActive0 && !isMobile && <p>Coming soon</p>}
               </div>
             </Nav.Link>
             <Nav.Link
