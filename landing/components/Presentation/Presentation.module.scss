@@ -68,7 +68,7 @@
         background-color: #a89cba;
         color: white;
         border: 2px solid #a89cba;
-        cursor: url("../../public/pictures/Cursor.png"), auto !important;
+        cursor: url("../../public/pictures/Cursor.png") 25 15, auto !important;
       }
 
       img {
@@ -642,7 +642,7 @@
           display: inherit;
           width: 100%;
           text-align: center;
-          padding-bottom: 2vh;
+          padding-bottom: 5vh;
 
           p {
             text-align: center;
