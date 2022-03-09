@@ -82,12 +82,6 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
       {!isMobile ? (
         <div className={styles.countdownContainer}>
           <div className={styles.content}>
-            <div className={styles.description}>
-              <p>
-                Explore a new WORLD. <br />
-                Earn TOKENS.
-              </p>
-            </div>
             <div className={styles.logo}>
               {/*  <h1
                 className={[styles.hero, styles.glitch, styles.layers].join(
@@ -103,6 +97,12 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
                 src="../pictures/Logo_Apinator_2042_blanc.png"
                 alt="logo-apinator"
               />
+            </div>
+            <div className={styles.description}>
+              <p>
+                Explore a new WORLD. <br />
+                Earn TOKENS.
+              </p>
             </div>
           </div>
 
@@ -129,7 +129,7 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
                     </div>
                   </h1> */}
                   <img
-                    src="../pictures/Logo_Apinator_2042_blanc.png"
+                    src="../pictures/mobile-Logo_Apinator_2042_blanc.png"
                     alt="logo-apinator"
                     style={{ width: "100%" }}
                   />
