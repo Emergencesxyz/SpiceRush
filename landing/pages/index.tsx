@@ -12,6 +12,13 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useAnimation } from "framer-motion";
 
+import dynamic from "next/dynamic";
+
+const RoadmapDesktop = dynamic(
+  () => import("../components/RoadmapDesktop/RoadmapDesktop"),
+  { ssr: false }
+);
+
 const Home: NextPage = () => {
   const [isMobile, setIsmobile] = useState<boolean>(false);
   const [isActive1, setIsActive1] = useState<boolean>(false);
@@ -196,9 +203,7 @@ const Home: NextPage = () => {
           />
         </motion.div>
       </section>
-      <div style={{ marginTop: "30vh" }}>
-        <Roadmap />
-      </div>
+      <div style={{ marginTop: "30vh" }}>{isMobile && <Roadmap />}</div>
 
       <footer className={styles.footer}>
         <Footer />

@@ -30,7 +30,7 @@ const Roadmap = () => {
           timelineCircleDimension={28}
           theme={{
             primary: "#fff",
-            secondary: "#140E1E",
+            secondary: "#fff",
             cardBgColor: "#140E1E",
             /* cardBgColor: "#a89cba", */
           }}
