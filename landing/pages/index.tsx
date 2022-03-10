@@ -203,7 +203,10 @@ const Home: NextPage = () => {
           />
         </motion.div>
       </section>
-      <div style={{ marginTop: "30vh" }}>{isMobile && <Roadmap />}</div>
+      <div style={{ marginTop: "30vh" }}>
+        {isMobile && <Roadmap />}
+        {typeof window !== "undefined" && !isMobile && <RoadmapDesktop />}
+      </div>
 
       <footer className={styles.footer}>
         <Footer />

@@ -1905,6 +1905,11 @@ react-player@^2.9.0:
     prop-types "^15.7.2"
     react-fast-compare "^3.0.1"
 
+react-timeline-animation@^1.1.10:
+  version "1.1.10"
+  resolved "https://registry.yarnpkg.com/react-timeline-animation/-/react-timeline-animation-1.1.10.tgz#f8c79d649f937213f95f9ddd9064b582bd28f35c"
+  integrity sha512-11FmvPn2TPo1dtVl9Pjc+/Dy5W540CiSIjHeBbLEOZBxx226vo/TdFhPPlWMJjMJSsGFZdC/gIfAV8Jgv+s1aQ==
+
 react-transition-group@^4.4.1:
   version "4.4.2"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.4.2.tgz#8b59a56f09ced7b55cbd53c36768b922890d5470"
