@@ -19,7 +19,6 @@ const Roadmap = () => {
           display: "flex",
           justifyContent: "center",
           textAlign: "center",
-          marginBottom: "30px",
         }}
       >
         <h1>Roadmap</h1>
@@ -41,7 +40,7 @@ const Roadmap = () => {
               display: "flex",
               flexDirection: "column",
               justifyContent: "flex-start",
-              width: "80%",
+              width: "90%",
             }}
           >
             <h2>1. Golem DAO</h2>
@@ -65,7 +64,7 @@ const Roadmap = () => {
               display: "flex",
               flexDirection: "column",
               justifyContent: "flex-start",
-              width: "80%",
+              width: "90%",
             }}
           >
             <h2>3. Rise of the Apinator </h2>
@@ -78,7 +77,7 @@ const Roadmap = () => {
               display: "flex",
               flexDirection: "column",
               justifyContent: "flex-start",
-              width: "80%",
+              width: "90%",
             }}
           >
             <h2>4. Expansion </h2>
