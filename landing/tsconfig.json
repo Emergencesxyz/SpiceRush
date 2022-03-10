@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/RoadmapDesktop/RoadmapDesktop.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/RoadmapDesktop/RoadmapDesktop.jsx", "components/Roadmap/Roadmap.jsx"],
   "exclude": ["node_modules"]
 }

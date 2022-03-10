@@ -1,7 +1,23 @@
 .container {
-  height: 120vh;
   margin-top: 10rem;
-  margin-bottom: 15rem;
+  margin-bottom: 20rem;
+
+  /*  .text {
+    animation: 2s linear 0s forwards move;
+  }
+
+  @keyframes move {
+    0%,
+    25% {
+      transform: translateX(+40%);
+      left: 0%;
+    }
+    75%,
+    100% {
+      transform: translateX(0%);
+      left: 100%;
+    }
+  } */
 
   h1 {
     font-size: 50px;
@@ -9,77 +25,61 @@
   }
 
   h2 {
-    font-size: 40px;
+    font-size: 35px;
     font-family: "sofia-pro";
     line-height: 50px;
   }
 
   p {
     font-family: "sofia-pro";
-    font-size: 25px;
+    font-size: 20px;
     line-height: 30px;
     margin-top: 0;
     margin-bottom: 0.5vh;
   }
 
-  .roadmap {
-    font: size 50px;
+  .stub1 {
+    line-height: 300px;
+    font-size: 24px;
+    background-color: #eae4e4;
   }
-}
 
-@media (max-width: 1366px) {
-  .container {
-    margin-top: 5rem;
-    margin-bottom: 8rem !important;
-
-    h1 {
-      font-size: 40px;
-      font-family: "sofia-pro-SemiBold";
-    }
-
-    h2 {
-      font-size: 25px;
-      font-family: "sofia-pro";
-      line-height: 30px;
-    }
-
-    p {
-      font-family: "sofia-pro";
-      font-size: 20px;
-      line-height: 30px;
-      margin-top: 0;
-    }
+  .stub2 {
+    height: 1000px;
   }
-}
 
-@media (max-width: 576px) {
-  .container {
-    height: 120vh;
-    margin-top: 1rem;
-    margin-bottom: 9rem !important;
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-    h1 {
-      font-size: 40px;
-      font-family: "sofia-pro-SemiBold";
+    .timeline {
+      height: 300px;
+      width: 5px;
+      background-color: #e5e5e5;
+
+      .circleWrapper {
+        position: relative;
+
+        .circle {
+          width: 30px;
+          height: 30px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          border-radius: 50%;
+          background-color: #e5e5e5;
+        }
+
+        .message {
+          position: absolute;
+          top: 20%;
+          left: 50%;
+          min-width: 150px;
+          font-weight: bold;
+        }
+      }
     }
-
-    h2 {
-      font-size: 25px;
-      font-family: "sofia-pro";
-      line-height: 30px;
-    }
-
-    p {
-      font-family: "sofia-pro";
-      font-size: 20px;
-      line-height: 30px;
-      margin-top: 0;
-    }
-  }
-}
-
-@media (max-width: 400px) {
-  .container {
-    height: 140vh;
   }
 }
