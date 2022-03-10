@@ -6,7 +6,7 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
       <Head>
         <title>Apinator</title>
         <meta name="description" content="Apinator page" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/golem_favicon.png" />
         <script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-ZH6N1L9LGN"
