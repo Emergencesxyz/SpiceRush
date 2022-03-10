@@ -83,6 +83,9 @@
     width: 100%;
     flex-direction: column;
   }
+  .footer {
+    padding-top: 0 !important;
+  }
 
   .button {
     font-size: 22px;

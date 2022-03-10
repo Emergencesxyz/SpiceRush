@@ -6,11 +6,21 @@ import Presentation from "../components/Presentation/Presentation";
 import Section from "../components/Section/Section";
 import textSection from "../components/textSection";
 import Footer from "../components/Footer/Footer";
-import Roadmap from "../components/Roadmap/Roadmap";
 import Header from "../components/Header/Header";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useAnimation } from "framer-motion";
+
+import dynamic from "next/dynamic";
+
+const Roadmap = dynamic(() => import("../components/Roadmap/Roadmap"), {
+  ssr: false,
+});
+
+const RoadmapDesktop = dynamic(
+  () => import("../components/RoadmapDesktop/RoadmapDesktop"),
+  { ssr: false }
+);
 
 const Home: NextPage = () => {
   const [isMobile, setIsmobile] = useState<boolean>(false);
@@ -197,7 +207,8 @@ const Home: NextPage = () => {
         </motion.div>
       </section>
       <div style={{ marginTop: "30vh" }}>
-        <Roadmap />
+        {typeof window !== "undefined" && isMobile && <Roadmap />}
+        {typeof window !== "undefined" && !isMobile && <RoadmapDesktop />}
       </div>
 
       <footer className={styles.footer}>
