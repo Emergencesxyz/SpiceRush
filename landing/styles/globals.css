@@ -4,6 +4,9 @@ html,
 body {
   padding: 0;
   margin: 0;
+  background-color: #140e1e;
+  color: white;
+  cursor: url("../public/pictures/Cursor.png") 25 15, auto !important;
   font-family: sofia-pro, bladeRunner, sofia-pro-SemiBold, monopolSemiBold,
     -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
     Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
