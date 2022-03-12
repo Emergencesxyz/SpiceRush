@@ -186,7 +186,7 @@ const ConnectWallet = () => {
           </Dropdown>
         ) : (
           <Button
-            variant="dark"
+            variant="light"
             className="rounded-pill px-5 my-2"
             onClick={() => setShowModal(true)}
           >
