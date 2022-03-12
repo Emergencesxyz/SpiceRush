@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Row, Col, Button } from "react-bootstrap";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
+import ConnectWallet from "../../components/ConnectWallet/ConnectWallet";
 
 const Staking: NextPage = () => {
   const [isMobile, setIsmobile] = useState<boolean>(false);
@@ -19,7 +20,17 @@ const Staking: NextPage = () => {
       <header>
         <Header isMobile={isMobile} />
       </header>
-      <div style={{ height: "100vh" }}></div>
+      <div
+        style={{
+          height: "100vh",
+          width: "100vw",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <ConnectWallet />
+      </div>
       <div>
         <Footer />
       </div>
