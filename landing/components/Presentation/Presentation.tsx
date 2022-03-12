@@ -4,6 +4,7 @@ import { Col, Button } from "react-bootstrap";
 import styles from "./Presentation.module.scss";
 import ReactPlayer from "react-player";
 import VideoMobile from "../VideoMobile/VideoMobile";
+import MusicPlayer from "../MusicPlayer/MusicPlayer";
 
 interface Props {
   isMobile: boolean;
@@ -78,6 +79,7 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
         >
           <img src="pictures/twitter.svg" alt="twitter" />
         </a>
+        <MusicPlayer />
       </div>
       {!isMobile ? (
         <div className={styles.countdownContainer}>
