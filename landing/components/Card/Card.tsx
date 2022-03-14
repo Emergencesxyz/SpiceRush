@@ -18,8 +18,8 @@ const CardBody: FunctionComponent<Props> = (props) => {
     <Card className={styles.card}>
       <Card.Body>
         <Card.Title className={styles.header}>{header}</Card.Title>
+        {Image && <Card.Img variant="top" className={styles.img} src={Image} />}
         <Card.Text className={styles.text}>{text}</Card.Text>
-        {Image && <Card.Img variant="top" src={Image} />}
         {!isActive ? (
           <Button
             className={styles.button1}

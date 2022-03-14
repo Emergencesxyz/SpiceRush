@@ -1,5 +1,6 @@
 .container {
   height: 100vh;
+  margin-top: 15vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -27,9 +28,9 @@
   font-size: 20px;
 }
 
-@media (max-width: 576px) {
+/* @media (max-width: 576px) {
   .container {
     height: 100vh;
     margin-top: 15vh;
   }
-}
+} */
