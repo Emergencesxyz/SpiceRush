@@ -1,5 +1,5 @@
 .button1 {
-  cursor: pointer;
+  cursor: url("../../public/pictures/Cursor.png") 25 15, auto !important;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,6 +10,13 @@
   border: 1px solid lightgray;
   margin: 1rem;
   padding: 1rem;
+
+  &:hover {
+    background-color: #a89cba;
+    color: white;
+    border: 2px solid #a89cba;
+    cursor: url("../../public/pictures/Cursor.png") 25 15, auto !important;
+  }
 
   img {
     width: 80%;

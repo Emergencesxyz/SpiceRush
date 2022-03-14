@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
-import styles from "../staking/staking.module.scss";
 import { useEffect, useState, FunctionComponent, ReactNode } from "react";
 import { Button, Card } from "react-bootstrap";
+import styles from "../Card/Card.module.scss";
 
 interface Props {
   header: ReactNode;
@@ -14,7 +14,7 @@ interface Props {
 const CardBody: FunctionComponent<Props> = (props) => {
   const { header, text, Image, buttonTitle1, buttonTitle2 } = props;
   return (
-    <Card style={{ width: "18rem" }}>
+    <Card /* className={styles.card} */>
       <Card.Img variant="top" src="holder.js/100px180" />
       <Card.Body>
         <Card.Title>{header}</Card.Title>
