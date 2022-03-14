@@ -27,6 +27,26 @@
     justify-content: center;
     border-radius: 20px;
     font-size: 25px;
+    margin-bottom: 20px;
+    cursor: url("../../public/pictures/Cursor.png") 25 15, auto !important;
+
+    &:active {
+      border: 1px solid #0f0e3f;
+      box-shadow: none !important;
+    }
+    &:focus {
+      border: 1px solid #0f0e3f;
+      box-shadow: none !important;
+    }
+  }
+
+  .button2 {
+    background-color: #d100d1 !important;
+    border: none;
+    width: 15vw;
+    justify-content: center;
+    border-radius: 20px;
+    font-size: 25px;
     cursor: url("../../public/pictures/Cursor.png") 25 15, auto !important;
 
     &:active {
@@ -69,11 +89,12 @@
 
     .button1 {
       background-color: #8900f2 !important;
-      border: none;
       width: 50vw;
-      justify-content: center;
-      border-radius: 20px;
-      font-size: 25px;
+    }
+
+    .button2 {
+      background-color: #d100d1 !important;
+      width: 50vw;
     }
   }
 }

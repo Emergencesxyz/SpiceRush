@@ -20,24 +20,26 @@ const CardBody: FunctionComponent<Props> = (props) => {
         <Card.Title className={styles.header}>{header}</Card.Title>
         {Image && <Card.Img variant="top" className={styles.img} src={Image} />}
         <Card.Text className={styles.text}>{text}</Card.Text>
-        {!isActive ? (
-          <Button
-            className={styles.button1}
-            onClick={() => setIsActive(!isActive)}
-          >
-            {buttonTitle1}
-          </Button>
-        ) : (
-          <Button
-            className={styles.button1}
-            onClick={() => setIsActive(!isActive)}
-          >
-            SOON
-          </Button>
-        )}
-        {buttonTitle2 && (
-          <Button className={styles.button1}>{buttonTitle2}</Button>
-        )}
+        <div className="d-flex flex-column justify-content-center align-items-center">
+          {!isActive ? (
+            <Button
+              className={styles.button1}
+              onClick={() => setIsActive(!isActive)}
+            >
+              {buttonTitle1}
+            </Button>
+          ) : (
+            <Button
+              className={styles.button1}
+              onClick={() => setIsActive(!isActive)}
+            >
+              SOON
+            </Button>
+          )}
+          {buttonTitle2 && (
+            <Button className={styles.button2}>{buttonTitle2}</Button>
+          )}
+        </div>
       </Card.Body>
     </Card>
   );
