@@ -13,13 +13,28 @@ interface Props {
 
 const CardBody: FunctionComponent<Props> = (props) => {
   const { header, text, Image, buttonTitle1, buttonTitle2 } = props;
+  const [isActive, setIsActive] = useState<boolean>(false);
   return (
     <Card className={styles.card}>
       <Card.Body>
         <Card.Title className={styles.header}>{header}</Card.Title>
         <Card.Text className={styles.text}>{text}</Card.Text>
         {Image && <Card.Img variant="top" src={Image} />}
-        <Button className={styles.button1}>{buttonTitle1}</Button>
+        {!isActive ? (
+          <Button
+            className={styles.button1}
+            onClick={() => setIsActive(!isActive)}
+          >
+            {buttonTitle1}
+          </Button>
+        ) : (
+          <Button
+            className={styles.button1}
+            onClick={() => setIsActive(!isActive)}
+          >
+            SOON
+          </Button>
+        )}
         {buttonTitle2 && (
           <Button className={styles.button1}>{buttonTitle2}</Button>
         )}

@@ -23,6 +23,16 @@
     justify-content: center;
     border-radius: 20px;
     font-size: 25px;
+    cursor: url("../../public/pictures/Cursor.png") 25 15, auto !important;
+
+    &:active {
+      border: 1px solid #0f0e3f;
+      box-shadow: none !important;
+    }
+    &:focus {
+      border: 1px solid #0f0e3f;
+      box-shadow: none !important;
+    }
   }
 }
 
