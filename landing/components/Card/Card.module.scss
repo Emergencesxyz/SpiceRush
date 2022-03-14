@@ -25,3 +25,36 @@
     font-size: 25px;
   }
 }
+
+@media (max-width: 576px) {
+  .card {
+    width: 80vw !important;
+    background-color: transparent !important;
+    text-align: center;
+    border: 1px #8900f2 solid;
+
+    .header {
+      margin-bottom: 30px;
+      font-size: 18px;
+    }
+
+    .text {
+      margin-bottom: 30px;
+      font-size: 18px;
+
+      h2 {
+        margin-bottom: 0;
+        font-size: 40px;
+      }
+    }
+
+    .button1 {
+      background-color: #8900f2 !important;
+      border: none;
+      width: 50vw;
+      justify-content: center;
+      border-radius: 20px;
+      font-size: 25px;
+    }
+  }
+}
