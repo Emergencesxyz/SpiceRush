@@ -172,7 +172,11 @@ const ConnectWallet = () => {
       <Col className="d-flex justify-content-center">
         {account ? (
           <Dropdown>
-            <Dropdown.Toggle variant="dark" className="rounded-pill px-5 my-2">
+            <Dropdown.Toggle
+              variant="dark"
+              style={{ border: "1px white solid" }}
+              className="px-5 my-2"
+            >
               {`${account.substring(0, 6)}...${account.substring(
                 account.length - 4
               )}`}

@@ -23,11 +23,20 @@ const Staking: NextPage = () => {
       </header>
       <div className={styles.container}>
         <h1>STAKING</h1>
-        <div>
+        <div style={{ marginBottom: "30px" }}>
           <ConnectWallet />
         </div>
         <div>
-          <CardBody header={<p>test</p>} text={<p>test</p>} />
+          <CardBody
+            header={<p>Stake GOLEM → Earn GOLEM</p>}
+            text={
+              <>
+                <h2>2888%</h2>
+                <p>Current APY</p>
+              </>
+            }
+            buttonTitle1="STAKE"
+          />
         </div>
       </div>
       <div className={styles.footer}>

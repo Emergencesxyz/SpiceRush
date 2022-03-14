@@ -1,4 +1,27 @@
 .card {
-  width: "18rem";
-  background-color: none !important;
+  width: 50vw !important;
+  background-color: transparent !important;
+  text-align: center;
+  border: 1px #8900f2 solid;
+
+  .header {
+    margin-bottom: 30px;
+  }
+
+  .text {
+    margin-bottom: 30px;
+
+    h2 {
+      margin-bottom: 0;
+    }
+  }
+
+  .button1 {
+    background-color: #8900f2 !important;
+    border: none;
+    width: 15vw;
+    justify-content: center;
+    border-radius: 20px;
+    font-size: 25px;
+  }
 }

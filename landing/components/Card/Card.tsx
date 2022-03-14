@@ -14,14 +14,15 @@ interface Props {
 const CardBody: FunctionComponent<Props> = (props) => {
   const { header, text, Image, buttonTitle1, buttonTitle2 } = props;
   return (
-    <Card /* className={styles.card} */>
-      <Card.Img variant="top" src="holder.js/100px180" />
+    <Card className={styles.card}>
       <Card.Body>
-        <Card.Title>{header}</Card.Title>
-        <Card.Text>{text}</Card.Text>
-        {Image && <img src={Image}></img>}
-        <Button variant="primary">{buttonTitle1}</Button>
-        {buttonTitle2 && <Button variant="primary">{buttonTitle2}</Button>}
+        <Card.Title className={styles.header}>{header}</Card.Title>
+        <Card.Text className={styles.text}>{text}</Card.Text>
+        {Image && <Card.Img variant="top" src={Image} />}
+        <Button className={styles.button1}>{buttonTitle1}</Button>
+        {buttonTitle2 && (
+          <Button className={styles.button1}>{buttonTitle2}</Button>
+        )}
       </Card.Body>
     </Card>
   );
