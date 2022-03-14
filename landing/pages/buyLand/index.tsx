@@ -71,7 +71,8 @@ const buyLand: NextPage = () => {
                   </>
                 }
                 Image="../pictures/lands.gif"
-                buttonTitle1="STAKE"
+                buttonTitle1="CLAIM"
+                buttonTitle2="BUILD"
               />
             </div>
           </>
