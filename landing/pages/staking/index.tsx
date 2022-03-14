@@ -5,6 +5,7 @@ import { Row, Col, Button } from "react-bootstrap";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import ConnectWallet from "../../components/ConnectWallet/ConnectWallet";
+import CardBody from "../../components/Card/Card";
 
 const Staking: NextPage = () => {
   const [isMobile, setIsmobile] = useState<boolean>(false);
@@ -24,6 +25,9 @@ const Staking: NextPage = () => {
         <h1>STAKING</h1>
         <div>
           <ConnectWallet />
+        </div>
+        <div>
+          <CardBody header={<p>test</p>} text={<p>test</p>} />
         </div>
       </div>
       <div className={styles.footer}>
