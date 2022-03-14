@@ -41,33 +41,24 @@ const buyLand: NextPage = () => {
                 header={
                   <>
                     <Row className="d-flex flex-row">
-                      <div style={{ width: "20%" }}>
+                      <div style={{ width: "30%" }}>
                         <span>#53</span>
                       </div>
-                      <div style={{ width: "60%" }}>
+                      <div style={{ width: "40%" }}>
                         <span>LEVEL 2</span>
                       </div>
-                      <div style={{ width: "20%" }}>
+                      <div style={{ width: "30%" }}>
                         <span>[0;1]</span>
                       </div>
                     </Row>
                     <Row className="d-flex flex-row">
-                      <div
-                        style={{
-                          width: "50%",
-                          display: "flex",
-                          justifyContent: "flex-start",
-                        }}
-                      >
+                      <div style={{ width: "30%" }}>
                         <span>ID</span>
                       </div>
-                      <div
-                        style={{
-                          width: "50%",
-                          display: "flex",
-                          justifyContent: "flex-end",
-                        }}
-                      >
+                      <div style={{ width: "40%" }}>
+                        <span></span>
+                      </div>
+                      <div style={{ width: "30%", fontSize: "17px" }}>
                         <span>location</span>
                       </div>
                     </Row>
