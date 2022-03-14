@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import styles from "../styles/Home.module.css";
+import styles from "../staking/staking.module.scss";
 import { useEffect, useState } from "react";
 import { Row, Col, Button } from "react-bootstrap";
 import Header from "../../components/Header/Header";
@@ -20,18 +20,13 @@ const Staking: NextPage = () => {
       <header>
         <Header isMobile={isMobile} />
       </header>
-      <div
-        style={{
-          height: "100vh",
-          width: "100vw",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <ConnectWallet />
+      <div className={styles.container}>
+        <h1>STAKING</h1>
+        <div>
+          <ConnectWallet />
+        </div>
       </div>
-      <div>
+      <div className={styles.footer}>
         <Footer />
       </div>
     </>
