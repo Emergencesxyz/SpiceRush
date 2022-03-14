@@ -13,6 +13,12 @@
   }
 }
 
+.container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
 .connectButton {
   display: flex;
   align-items: center;

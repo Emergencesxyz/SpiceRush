@@ -169,12 +169,12 @@ const ConnectWallet = () => {
 
   return (
     <>
-      <Col className="d-flex justify-content-center">
+      <Col className={styles.container}>
         {account ? (
           <Dropdown>
             <Dropdown.Toggle
               variant="dark"
-              style={{ border: "1px white solid" }}
+              style={{ border: "1px white solid", width: "100%" }}
               className="px-5 my-2"
             >
               {`${account.substring(0, 6)}...${account.substring(
@@ -192,6 +192,7 @@ const ConnectWallet = () => {
           <Button
             variant="light"
             className=" px-5 my-2"
+            style={{ width: "100%", fontSize: "20px" }}
             onClick={() => setShowModal(true)}
           >
             CONNECT WALLET

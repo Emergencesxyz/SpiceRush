@@ -25,37 +25,37 @@ const Staking: NextPage = () => {
       </header>
       <div className={styles.container}>
         <h1>STAKING</h1>
-        <div style={{ marginBottom: "30px" }}>
+        <div className={styles.connectWallet}>
           <ConnectWallet />
         </div>
-        {!!account && !!library && (
-          <>
-            <div style={{ marginBottom: "30px" }}>
-              <CardBody
-                header={<p>Stake GOLEM → Earn GOLEM</p>}
-                text={
-                  <>
-                    <h2>2888%</h2>
-                    <p>Current APY</p>
-                  </>
-                }
-                buttonTitle1="STAKE"
-              />
-            </div>
-            <div>
-              <CardBody
-                header={<p>Stake GOLEM → Earn GOLEM</p>}
-                text={
-                  <>
-                    <h2>2888%</h2>
-                    <p>Current APY</p>
-                  </>
-                }
-                buttonTitle1="STAKE"
-              />
-            </div>
-          </>
-        )}
+        {/*  {!!account && !!library && ( */}
+        <>
+          <div style={{ marginBottom: "30px" }}>
+            <CardBody
+              header={<p>Stake GOLEM → Earn GOLEM</p>}
+              text={
+                <>
+                  <h2>2888%</h2>
+                  <p>Current APY</p>
+                </>
+              }
+              buttonTitle1="STAKE"
+            />
+          </div>
+          <div>
+            <CardBody
+              header={<p>Stake GOLEM → Earn GOLEM</p>}
+              text={
+                <>
+                  <h2>2888%</h2>
+                  <p>Current APY</p>
+                </>
+              }
+              buttonTitle1="STAKE"
+            />
+          </div>
+        </>
+        {/*  )} */}
       </div>
       <div className={styles.footer}>
         <Footer />

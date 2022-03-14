@@ -25,58 +25,58 @@ const buyLand: NextPage = () => {
       </header>
       <div className={styles.container}>
         <h1>LANDS</h1>
-        <div style={{ marginBottom: "30px" }}>
+        <div className={styles.connectWallet}>
           <ConnectWallet />
         </div>
-        {!!account && !!library && (
-          <>
-            <div>
-              <Button className={styles.button1}>MINT</Button>
-            </div>
-            <div>
-              <h1>MY LANDS</h1>
-            </div>
-            <div style={{ marginBottom: "30px" }}>
-              <CardBody
-                header={
-                  <>
-                    <Row className="d-flex flex-row">
-                      <div style={{ width: "30%" }}>
-                        <span>#53</span>
-                      </div>
-                      <div style={{ width: "40%" }}>
-                        <span>LEVEL 2</span>
-                      </div>
-                      <div style={{ width: "30%" }}>
-                        <span>[0;1]</span>
-                      </div>
-                    </Row>
-                    <Row className="d-flex flex-row">
-                      <div style={{ width: "30%" }}>
-                        <span>ID</span>
-                      </div>
-                      <div style={{ width: "40%" }}>
-                        <span></span>
-                      </div>
-                      <div style={{ width: "30%", fontSize: "17px" }}>
-                        <span>location</span>
-                      </div>
-                    </Row>
-                  </>
-                }
-                text={
-                  <>
-                    <h2>2888%</h2>
-                    <p>Current APY</p>
-                  </>
-                }
-                Image="../pictures/lands.gif"
-                buttonTitle1="CLAIM"
-                buttonTitle2="BUILD"
-              />
-            </div>
-          </>
-        )}
+        {/*    {!!account && !!library && ( */}
+        <>
+          <div>
+            <Button className={styles.button1}>MINT</Button>
+          </div>
+          <div style={{ marginBottom: "15px" }}>
+            <h1>MY LANDS</h1>
+          </div>
+          <div style={{ marginBottom: "30px" }}>
+            <CardBody
+              header={
+                <>
+                  <Row className="d-flex flex-row">
+                    <div style={{ width: "30%" }}>
+                      <span>#53</span>
+                    </div>
+                    <div style={{ width: "40%" }}>
+                      <span>LEVEL 2</span>
+                    </div>
+                    <div style={{ width: "30%" }}>
+                      <span>[0;1]</span>
+                    </div>
+                  </Row>
+                  <Row className="d-flex flex-row">
+                    <div style={{ width: "30%" }}>
+                      <span>ID</span>
+                    </div>
+                    <div style={{ width: "40%" }}>
+                      <span></span>
+                    </div>
+                    <div style={{ width: "30%", fontSize: "17px" }}>
+                      <span>location</span>
+                    </div>
+                  </Row>
+                </>
+              }
+              text={
+                <>
+                  <h2>2888%</h2>
+                  <p>Current APY</p>
+                </>
+              }
+              Image="../pictures/lands.gif"
+              buttonTitle1="CLAIM"
+              buttonTitle2="BUILD"
+            />
+          </div>
+        </>
+        {/* )} */}
       </div>
       <div className={styles.footer}>
         <Footer />
