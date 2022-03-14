@@ -191,10 +191,10 @@ const ConnectWallet = () => {
         ) : (
           <Button
             variant="light"
-            className="rounded-pill px-5 my-2"
+            className=" px-5 my-2"
             onClick={() => setShowModal(true)}
           >
-            Connect Wallet
+            CONNECT WALLET
           </Button>
         )}
       </Col>
