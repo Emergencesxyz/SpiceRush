@@ -29,18 +29,32 @@ const Staking: NextPage = () => {
           <ConnectWallet />
         </div>
         {!!account && !!library && (
-          <div>
-            <CardBody
-              header={<p>Stake GOLEM → Earn GOLEM</p>}
-              text={
-                <>
-                  <h2>2888%</h2>
-                  <p>Current APY</p>
-                </>
-              }
-              buttonTitle1="STAKE"
-            />
-          </div>
+          <>
+            <div style={{ marginBottom: "30px" }}>
+              <CardBody
+                header={<p>Stake GOLEM → Earn GOLEM</p>}
+                text={
+                  <>
+                    <h2>2888%</h2>
+                    <p>Current APY</p>
+                  </>
+                }
+                buttonTitle1="STAKE"
+              />
+            </div>
+            <div>
+              <CardBody
+                header={<p>Stake GOLEM → Earn GOLEM</p>}
+                text={
+                  <>
+                    <h2>2888%</h2>
+                    <p>Current APY</p>
+                  </>
+                }
+                buttonTitle1="STAKE"
+              />
+            </div>
+          </>
         )}
       </div>
       <div className={styles.footer}>
