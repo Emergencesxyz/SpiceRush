@@ -11,7 +11,9 @@ function getLibrary(provider: any): Web3 {
 function Apinator({ Component, pageProps }: AppProps) {
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </Web3ReactProvider>
   );
 }
