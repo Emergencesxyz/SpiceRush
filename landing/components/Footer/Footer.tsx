@@ -1,7 +1,12 @@
 import styles from "./Footer.module.scss";
+import { FunctionComponent } from "react";
 import { Row, Col } from "react-bootstrap";
+interface Props {
+  isMobile: boolean;
+}
 
-const Footer = () => {
+const Footer: FunctionComponent<Props> = (props): JSX.Element => {
+  const { isMobile } = props;
   return (
     <>
       <Row className={styles.footerRow1}>
@@ -49,8 +54,14 @@ const Footer = () => {
         </Col>
       </Row>
       <Row className={styles.footerRow2}>
-        <p>Apinators 2042 ©2021 - Powered by Golem</p>
-        <p>All rights reserved</p>
+        {isMobile ? (
+          <>
+            <p>Apinators 2042 ©2021 - Powered by Golem</p>
+            <p>All rights reserved</p>
+          </>
+        ) : (
+          <p>Apinators 2042 ©2021 - Powered by Golem All rights reserved</p>
+        )}
       </Row>
     </>
   );

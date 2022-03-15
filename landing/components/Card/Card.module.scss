@@ -30,6 +30,13 @@
     margin-bottom: 20px;
     cursor: url("../../public/pictures/Cursor.png") 25 15, auto !important;
 
+    /* &:hover {
+      background-color: #a89cba !important;
+      color: white;
+      border: 2px solid #a89cba;
+      cursor: url("../../public/pictures/Cursor.png") 25 15, auto !important;
+    } */
+
     &:active {
       border: 1px solid #0f0e3f;
       box-shadow: none !important;
@@ -48,6 +55,13 @@
     border-radius: 20px;
     font-size: 25px;
     cursor: url("../../public/pictures/Cursor.png") 25 15, auto !important;
+
+    /* &:hover {
+      background-color: #a89cba !important;
+      color: white;
+      border: 2px solid #a89cba;
+      cursor: url("../../public/pictures/Cursor.png") 25 15, auto !important;
+    } */
 
     &:active {
       border: 1px solid #0f0e3f;

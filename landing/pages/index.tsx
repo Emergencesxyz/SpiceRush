@@ -212,7 +212,7 @@ const Home: NextPage = () => {
       </div>
 
       <footer className={styles.footer}>
-        <Footer />
+        <Footer isMobile={isMobile} />
       </footer>
     </div>
   );

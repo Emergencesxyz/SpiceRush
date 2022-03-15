@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { useEffect, useState, FunctionComponent } from "react";
-import { Col, Button } from "react-bootstrap";
+import { useState, FunctionComponent } from "react";
 import styles from "./Presentation.module.scss";
 import ReactPlayer from "react-player";
 import VideoMobile from "../VideoMobile/VideoMobile";

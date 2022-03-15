@@ -4,22 +4,22 @@ import styles from "../Roadmap/Roadmap.module.scss";
 
 const Timeline = ({ setObserver, callback }) => {
   const [message1, setMessage1] = useState(<div className={styles.text}>
-    <h2>1. Golem DAO</h2>
+    <h2>Golem DAO</h2>
     <p> Golem Token IEO</p>
     <p> Golem Token listing </p>
   </div>);
   const [message2, setMessage2] = useState(<div className={styles.text}>
-    <h2>2. Megalopolis Conquest</h2>
+    <h2>Megalopolis Conquest</h2>
     <p> Lands auctions</p>
     <p> NFT Character drop</p>
   </div>);
   const [message3, setMessage3] = useState(<div className={styles.text}>
-    <h2>3. Rise of the Apinator </h2>
+    <h2>Rise of the Apinator </h2>
     <p>Alpha release: mining economy and on-chain procedural map</p>
     <p>Big game contest </p>
   </div>);
   const [message4, setMessage4] = useState(<div className={styles.text}>
-    <h2>4. Expansion </h2>
+    <h2>Expansion </h2>
     <p>
       Beta release: Powerup items collection. <br /> PVP system.
     </p>
@@ -41,6 +41,7 @@ const Timeline = ({ setObserver, callback }) => {
     alignItems: "center",
     justifyContent: "center",
     color: "white",
+    fontSize: "25px",
     borderRadius: "50%",
     backgroundColor: "#e5e5e5",
   };

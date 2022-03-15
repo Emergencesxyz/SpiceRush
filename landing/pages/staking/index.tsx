@@ -58,7 +58,7 @@ const Staking: NextPage = () => {
         )}
       </div>
       <div className={styles.footer}>
-        <Footer />
+        <Footer isMobile={isMobile} />
       </div>
     </>
   );
