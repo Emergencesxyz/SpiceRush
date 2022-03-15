@@ -29,9 +29,9 @@ const Player = () => {
       </div>
       <div className={styles.button1} onClick={() => toggleAudio()}>
         {isPlaying ? (
-          <img src="pictures/twitter.svg" alt="toggle on" />
+          <img src="pictures/sound.png" alt="toggle on" />
         ) : (
-          <img src="pictures/tiktok.svg" alt="toggle off" />
+          <img src="pictures/no-sound.png" alt="toggle off" />
         )}
       </div>
     </>
