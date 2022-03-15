@@ -40,7 +40,7 @@ const Timeline = ({ setObserver, callback }) => {
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
-    color: "purple",
+    color: "white",
     borderRadius: "50%",
     backgroundColor: "#e5e5e5",
   };

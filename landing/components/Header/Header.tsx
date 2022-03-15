@@ -34,7 +34,7 @@ const Header: FunctionComponent<Props> = ({
         <Nav.Link className={styles.brand} href="/#topSection">
           <h1>
             <img
-              src="/pictures/golem_logo_blanc.png"
+              src="/pictures/logo-test-2.png"
               alt="Apinator"
               style={{ maxWidth: "5em" }}
             />
