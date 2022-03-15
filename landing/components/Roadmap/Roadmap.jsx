@@ -6,7 +6,7 @@ const Timeline = ({ setObserver, callback }) => {
   const [message1, setMessage1] = useState(<div className={styles.text}>
     <h2>1. Golem DAO</h2>
     <p> Golem Token IEO</p>
-    <p> Golem token listing </p>
+    <p> Golem Token listing </p>
   </div>);
   const [message2, setMessage2] = useState(<div className={styles.text}>
     <h2>2. Megalopolis Conquest</h2>
@@ -40,7 +40,7 @@ const Timeline = ({ setObserver, callback }) => {
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
-    color: "white",
+    color: "purple",
     borderRadius: "50%",
     backgroundColor: "#e5e5e5",
   };

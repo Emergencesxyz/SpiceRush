@@ -60,7 +60,7 @@ const Timeline = ({ setObserver, callback }) => {
       <div className={styles.text}>
         <h2>1. Golem DAO</h2>
         <p> Golem Token IEO</p>
-        <p> Golem token listing </p>
+        <p> Golem Token listing </p>
       </div>
     );
     callback();
