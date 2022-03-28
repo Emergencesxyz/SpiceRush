@@ -31,7 +31,7 @@ const Header: FunctionComponent<Props> = ({
       style={{ width: "100vw" }}
     >
       <Container className={styles.navContainer}>
-        <Nav.Link className={styles.brand} href="/#topSection">
+        {/* <Nav.Link className={styles.brand} href="/#topSection">
           <h1>
             <img
               src="/pictures/logo-test-2.png"
@@ -39,7 +39,7 @@ const Header: FunctionComponent<Props> = ({
               style={{ maxWidth: "5em" }}
             />
           </h1>
-        </Nav.Link>
+        </Nav.Link> */}
         <Navbar.Toggle aria-controls="navbar" style={{ border: "none" }}>
           <img
             alt="menu burger"
