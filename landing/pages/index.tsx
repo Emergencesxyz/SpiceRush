@@ -147,7 +147,7 @@ const Home: NextPage = () => {
           <Section
             inverse={false}
             isMobile={isMobile}
-            Image="../pictures/crystal.png"
+            Image="../pictures/Carte_teaser_chiffres400.gif"
             Text={
               <>
                 <h1>{textSection.section3.title}</h1>
@@ -169,38 +169,6 @@ const Home: NextPage = () => {
                   </Button>
                 </a>
                 {/*  {isActive3 && <h1>SOON</h1>} */}
-              </>
-            }
-          />
-        </motion.div>
-        <motion.div
-          style={{ marginTop: "12vh", marginBottom: "12vh" }}
-          animate={animation}
-        >
-          <Section
-            inverse={true}
-            isMobile={isMobile}
-            Image="../pictures/Carte_teaser_chiffres400.gif"
-            Text={
-              <>
-                <h1>{textSection.section4.title}</h1>
-                <p>{textSection.section4.part1}</p>
-                <p>{textSection.section4.part2}</p>
-                <p>{textSection.section4.part3}</p>
-                <a
-                  href="https://golemdao.gitbook.io/apinator-2042-by-golem/gameplay/character-stats"
-                  target="_blank"
-                >
-                  <Button
-                    className={
-                      styles.button
-                    } /* onMouseEnter={() => setIsActive(true)}
-                onMouseLeave={() => setIsActive(false)} 
-                onClick={() => setIsActive(true)} */
-                  >
-                    more
-                  </Button>
-                </a>
               </>
             }
           />

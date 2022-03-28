@@ -1618,7 +1618,7 @@ const constants = {
     mining:
       "📚 The more mining power, the more $SPICE you can extract from the lands.",
     spiceMined:
-      '📚 The alpha and omega of this game. Click on "Mine" to extract spice from your current land. You will be able to trade this against real tokens! ',
+      '📚 This is the amount of SPICE ore you collected so far!   Click on "Mine" to extract spice ore from your current land. You will be able to trade this against real tokens! ',
     lvl: "📚 Your current level.  An arrow animation will appear beside your stats when you will have passed a level.",
     xp: "📚  Take actions to earn experience and increase your level. ",
     position:
