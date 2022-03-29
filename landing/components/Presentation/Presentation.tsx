@@ -96,31 +96,26 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
           <img src="/pictures/supreme1.png" alt="imageLP" />
         </div>
       ) : (
-        <>
-          <div className={styles.countdownContainer}>
-            <div className={styles.content}>
-              <img
-                src="/pictures/mobile-ape_sweat_gradient.png"
-                alt="imageLP"
-              />
-              <div>
-                <div className={styles.logo}>
-                  <img
-                    src="../pictures/mobile-Logo_Apinator_2042_blanc.png"
-                    alt="logo-apinator"
-                    style={{ width: "100%" }}
-                  />
-                </div>
-                <div className={styles.description}>
-                  <p>
-                    Explore a new WORLD. <br />
-                    Earn TOKENS.
-                  </p>
-                </div>
+        <div className={styles.countdownContainer}>
+          <div className={styles.content}>
+            <img src="/pictures/mobile-ape_sweat_gradient.png" alt="imageLP" />
+            <div>
+              <div className={styles.logo}>
+                <img
+                  src="../pictures/mobile-Logo_Apinator_2042_blanc.png"
+                  alt="logo-apinator"
+                  style={{ width: "100%" }}
+                />
+              </div>
+              <div className={styles.description}>
+                <p>
+                  Explore a new WORLD. <br />
+                  Earn TOKENS.
+                </p>
               </div>
             </div>
           </div>
-        </>
+        </div>
       )}
     </section>
   );

@@ -6,14 +6,48 @@
   cursor: url("../public/pictures/Cursor.png") 25 15, auto !important;
 }
 
-.main {
-  min-height: 100vh;
-  padding: 4rem 0;
-  flex: 1;
+.presentation {
+  width: 100%;
+  position: "relative";
+  box-shadow: 0 0 60px 60px #140e1e inset;
+}
+
+.sectionFooter {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
+  margin-top: 4vh;
+  /*   width: 100vw; */
+}
+.rectangle1 {
+  width: 40vw;
+  height: 0.2vh;
+  background: rgb(10, 189, 198);
+  background: linear-gradient(
+    90deg,
+    rgba(10, 189, 198, 1) 0%,
+    rgba(10, 189, 198, 1) 30%,
+    rgba(234, 0, 217, 1) 41%,
+    rgba(234, 0, 217, 1) 93%
+  );
+}
+
+.image {
+  width: 6vw;
+  padding: 0;
+}
+
+.rectangle2 {
+  width: 40vw;
+  height: 0.2vh;
+  background: rgb(234, 0, 217);
+  background: linear-gradient(
+    90deg,
+    rgba(234, 0, 217, 1) 1%,
+    rgba(234, 0, 217, 1) 2%,
+    rgba(10, 189, 198, 1) 53%
+  );
 }
 
 .cowboyScene {

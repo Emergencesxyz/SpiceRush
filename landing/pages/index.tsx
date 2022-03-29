@@ -72,12 +72,20 @@ const Home: NextPage = () => {
           <Header isMobile={isMobile} />
         </header>
       }
-      <div style={{ width: "100%", position: "relative" }}>{video}</div>
+      <div className={styles.presentation}>{video}</div>
+
+      <div className={styles.sectionFooter}>
+        <div className={styles.rectangle1}></div>
+        <img
+          className={styles.image}
+          src="./pictures/testLogo.png"
+          alt="testLogo"
+        />
+        <div className={styles.rectangle2}></div>
+      </div>
+
       <section ref={ref}>
-        <motion.div
-          style={{ marginTop: "8vh", marginBottom: "12vh" }}
-          animate={animation}
-        >
+        <motion.div style={{ marginBottom: "12vh" }} animate={animation}>
           <Section
             inverse={true}
             isMobile={isMobile}
