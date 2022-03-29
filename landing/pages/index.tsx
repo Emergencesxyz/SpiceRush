@@ -85,7 +85,7 @@ const Home: NextPage = () => {
       </div>
 
       <section ref={ref}>
-        <motion.div style={{ marginBottom: "12vh" }} animate={animation}>
+        <motion.div style={{ marginBottom: "6vh" }} animate={animation}>
           <Section
             inverse={true}
             isMobile={isMobile}
@@ -112,7 +112,7 @@ const Home: NextPage = () => {
         </motion.div>
         <div className={styles.cowboyScene}></div>
         <motion.div
-          style={{ marginTop: "12vh", marginBottom: "12vh" }}
+          style={{ marginTop: "6vh", marginBottom: "6vh" }}
           animate={animation}
         >
           <Section
@@ -141,7 +141,7 @@ const Home: NextPage = () => {
           />
         </motion.div>
         <motion.div
-          style={{ marginTop: "12vh", marginBottom: "12vh" }}
+          style={{ marginTop: "6vh", marginBottom: "6vh" }}
           animate={animation}
         >
           <Section
