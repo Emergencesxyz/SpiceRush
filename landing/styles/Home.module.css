@@ -136,6 +136,11 @@
 }
 
 @media (max-width: 600px) {
+  .cowboyScene {
+    background-image: url("../public/pictures/Scene-cowboy-mobile.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
   .grid {
     width: 100%;
     flex-direction: column;

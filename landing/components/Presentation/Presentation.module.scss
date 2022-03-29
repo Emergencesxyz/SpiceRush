@@ -257,11 +257,14 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        text-align: center;
+        width: 90%;
         margin-right: 0;
-        margin-bottom: 5vh;
+        margin-bottom: 1vh;
+        margin-left: 5%;
 
         img {
-          width: 85%;
+          width: 90%;
           margin-left: 0;
           z-index: 10;
         }
@@ -273,6 +276,7 @@
           align-items: center;
           text-align: left;
           z-index: 100000;
+          width: 100%;
 
           img {
             width: 80%;
@@ -288,7 +292,7 @@
 
           p {
             text-align: center;
-            font-size: 25px;
+            font-size: 40px;
             line-height: 1.2;
             padding: 0 !important;
           }

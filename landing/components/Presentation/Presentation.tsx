@@ -108,10 +108,7 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
                 />
               </div>
               <div className={styles.description}>
-                <p>
-                  Explore a new WORLD. <br />
-                  Earn TOKENS.
-                </p>
+                <p>Earn SPICE or die trying</p>
               </div>
             </div>
           </div>
