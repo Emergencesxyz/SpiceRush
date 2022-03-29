@@ -23,10 +23,14 @@ import { TileType } from "../../types";
 
 import { Toaster, toast, useToaster } from "react-hot-toast";
 
+import { isMobile } from "react-device-detect";
+
 const { randomQuotes } = consts;
 
 const GameScreen: FunctionComponent = (): JSX.Element => {
-  const DEFAULT_CHUNK_SIZE = parseInt(process.env.DEFAULT_CHUNK_SIZE as string);
+  const DEFAULT_CHUNK_SIZE = isMobile
+    ? 3
+    : parseInt(process.env.DEFAULT_CHUNK_SIZE as string);
   const DEFAULT_MAP_SIZE = parseInt(process.env.DEFAULT_MAP_SIZE as string);
 
   const API_URL = process.env.API_URL;
@@ -354,13 +358,14 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
           }}
         />
 
+        {!isMobile && (
+          <Row>
+            <span className={styles.quotes}>{randomQuotes[randomQuoteId]}</span>
+          </Row>
+        )}
         <Row>
-          <span className={styles.quotes}>{randomQuotes[randomQuoteId]}</span>
-        </Row>
-
-        <Row>
-          <Col xs={3}></Col>
-          <Col>
+          {!isMobile && <Col xs={3}></Col>}
+          <Col xs={12} lg={3}>
             <Row style={{ marginBottom: "1em" }}>
               <Accordion>
                 <Accordion.Item
@@ -404,13 +409,13 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
         )}
 
         <Row>
-          <Col xs={8}>
+          <Col xs={12} lg={8}>
             {character && (
               <Row>
-                <Col xs={3}>
+                <Col xs={12} lg={3}>
                   <NftAvatar />
                 </Col>
-                <Col>
+                <Col xs={12} lg={8}>
                   {character ? (
                     <CharacterBox
                       character={character}
@@ -459,7 +464,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
             )}
           </Col>
           {character && (
-            <Col xs={4}>
+            <Col xs={12} lg={4}>
               <ActionBox
                 character={character}
                 actions={actions}

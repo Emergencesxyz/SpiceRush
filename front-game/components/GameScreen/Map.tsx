@@ -9,6 +9,8 @@ import axios from "axios";
 import BlockchainService from "../../services/BlockchainService";
 import { TileType } from "../../types";
 
+import { isMobile } from "react-device-detect";
+
 interface Props {
   tiles: Array<TileType>;
   character: any;
@@ -18,7 +20,9 @@ interface Props {
   characters: Array<any>;
 }
 const API_URL = process.env.API_URL;
-const DEFAULT_CHUNK_SIZE = parseInt(process.env.DEFAULT_CHUNK_SIZE as string);
+const DEFAULT_CHUNK_SIZE = isMobile
+  ? 3
+  : parseInt(process.env.DEFAULT_CHUNK_SIZE as string);
 
 const Map: FunctionComponent<Props> = ({
   tiles,
