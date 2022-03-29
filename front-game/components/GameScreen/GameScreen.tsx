@@ -23,10 +23,14 @@ import { TileType } from "../../types";
 
 import { Toaster, toast, useToaster } from "react-hot-toast";
 
+import { isMobile } from "react-device-detect";
+
 const { randomQuotes } = consts;
 
 const GameScreen: FunctionComponent = (): JSX.Element => {
-  const DEFAULT_CHUNK_SIZE = parseInt(process.env.DEFAULT_CHUNK_SIZE as string);
+  const DEFAULT_CHUNK_SIZE = isMobile
+    ? 3
+    : parseInt(process.env.DEFAULT_CHUNK_SIZE as string);
   const DEFAULT_MAP_SIZE = parseInt(process.env.DEFAULT_MAP_SIZE as string);
 
   const API_URL = process.env.API_URL;
