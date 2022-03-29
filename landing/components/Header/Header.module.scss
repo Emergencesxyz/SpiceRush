@@ -102,6 +102,7 @@
 @media (max-width: 576px) {
   .navContainer {
     padding: 5px;
+    justify-content: end !important;
 
     .brand {
       display: block;

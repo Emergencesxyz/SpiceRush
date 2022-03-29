@@ -141,6 +141,32 @@
     background-repeat: no-repeat;
     background-size: cover;
   }
+  .button {
+    width: 34%;
+  }
+  .sectionFooter {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /*   width: 100vw; */
+  }
+
+  .rectangle1 {
+    width: 35vw;
+    height: 0.2vh;
+  }
+
+  .image {
+    width: 50px;
+    padding: 0;
+  }
+
+  .rectangle2 {
+    width: 35vw;
+    height: 0.2vh;
+  }
+
   .grid {
     width: 100%;
     flex-direction: column;

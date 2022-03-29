@@ -34,23 +34,6 @@ const Footer: FunctionComponent<Props> = (props): JSX.Element => {
               Telegram
             </a>
           </Col>
-          {/*
-          <Col
-            md={2}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              lineHeight: "40px",
-            }}
-          >
-            <a href="" target="_blank">
-              Staking
-            </a>
-            <a href="" target="_blank">
-              Token
-            </a>
-          </Col>
-            */}
         </Col>
       </Row>
       <Row className={styles.footerRow2}>
