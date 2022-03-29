@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import TimelineObserver from "react-timeline-animation";
 import styles from "../RoadmapDesktop/RoadmapDesktop.module.scss";
 
+
+
 const Timeline = ({ setObserver, callback }) => {
   const [message1, setMessage1] = useState("");
   const [message2, setMessage2] = useState("");
@@ -29,8 +31,36 @@ const Timeline = ({ setObserver, callback }) => {
     backgroundColor: "#e5e5e5",
   };
 
+/*   const topHexagon = {
+    width: 0,
+    borderBottom: "30px solid #6C6",
+    borderLeft: "52px solid transparent",
+    borderRight: "52px solid transparent",
+  }
+
+  const middleHexagon = {
+    width: "45px",
+    height: "45px",
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    color: "white",
+    fontSize: "25px",
+    borderRadius: "50%",
+    backgroundColor: "#e5e5e5",
+  };
+
+  const bottomHexagon = {
+    width: 0,
+    borderTop: "30px solid #6C6",
+    borderLeft: "52px solid transparent",
+    borderRight: "52px solid transparent",
+  } */
+
   const circleWrapper = {
     position: "relative",
+  
+    
   };
   const wrapper = {
     display: "flex",
@@ -40,7 +70,7 @@ const Timeline = ({ setObserver, callback }) => {
   };
   const timeline = {
     height: "200px",
-    width: "8px",
+    width: "6px",
     backgroundColor: "#e5e5e5",
   };
   const message = {
@@ -118,6 +148,14 @@ const Timeline = ({ setObserver, callback }) => {
         </div>
         <div style={message}>{message1}</div>
       </div>
+      {/* <div style={circleWrapper} ref={circle1}>
+        <div style={topHexagon}></div>
+        <div style={middleHexagon}>
+          1
+        </div>
+        <div style={bottomHexagon}></div>
+        <div style={message}>{message1}</div>
+      </div> */}
       <div id="timeline2" ref={timeline2} style={timeline} />
       <div style={circleWrapper}>
         <div id="circle2" ref={circle2} style={circle}>
@@ -152,12 +190,11 @@ export default function RoadmapDesktop() {
 
   return (
     <div className={styles.container}>
-      {/* <div className={styles.stub1}>⬇️ scroll to start ⬇️</div> */}
       <h1 style={{ textAlign: "center" }}>Roadmap</h1>
       <TimelineObserver
         initialColor="#e5e5e5"
         fillColor="purple"
-        handleObserve={(setObserver) => (
+       handleObserve={(setObserver) => (
           <Timeline
             callback={onCallback}
             className={styles.timeline}
@@ -165,7 +202,6 @@ export default function RoadmapDesktop() {
           />
         )}
       />
-      {/*  <div style={stub2}>{message}</div> */}
     </div>
   );
 }
