@@ -19,14 +19,29 @@
 .button {
   font-size: 2.2vw;
   font-family: "sofia-pro-SemiBold";
-  width: fit-content;
+  width: 10vw;
   height: fit-content;
   border-top-left-radius: 14px;
   border-bottom-right-radius: 14px;
-  background-color: white;
-  color: #140e1e;
-  box-shadow: none !important;
-  border: 1px solid lightgray;
+  background-color: #1b1a4e;
+  color: white;
+  /* box-shadow: none !important;
+  border: 1px solid lightgray; */
+  box-shadow: 0 0 6px 0 rgba(157, 96, 212, 0.5);
+  border: solid 3px transparent;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0)
+    ),
+    linear-gradient(
+      120deg,
+      rgba(10, 189, 198, 1) 0%,
+      rgba(234, 0, 217, 1) 50%,
+      rgba(10, 189, 198, 1) 100%
+    );
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  box-shadow: 2px 1000px 1px #1b1a4e inset;
   padding-right: 1vw !important;
   padding-left: 1vw !important;
   cursor: url("../public/pictures/Cursor.png") 25 15, auto !important;

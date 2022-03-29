@@ -84,29 +84,15 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
         <div className={styles.countdownContainer}>
           <div className={styles.content}>
             <div className={styles.logo}>
-              {/*  <h1
-                className={[styles.hero, styles.glitch, styles.layers].join(
-                  " "
-                )}
-                data-text="APINATOR 2042"
-              >
-                <span>
-                  APINATOR <span style={{ color: "#fc0362" }}>2042</span>
-                </span>
-              </h1> */}
               <img
                 src="../pictures/Logo_Apinator_2042_blanc.png"
                 alt="logo-apinator"
               />
             </div>
             <div className={styles.description}>
-              <p>
-                Explore a new WORLD. <br />
-                Earn TOKENS.
-              </p>
+              <p>Earn SPICE or die trying</p>
             </div>
           </div>
-
           <img src="/pictures/supreme1.png" alt="imageLP" />
         </div>
       ) : (
@@ -119,16 +105,6 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
               />
               <div>
                 <div className={styles.logo}>
-                  {/*   <h1
-                    className={[styles.hero, styles.glitch, styles.layers].join(
-                      " "
-                    )}
-                    data-text="APINATOR 2042"
-                  >
-                    <div>
-                      APINATOR <span style={{ color: "#fc0362" }}>2042</span>
-                    </div>
-                  </h1> */}
                   <img
                     src="../pictures/mobile-Logo_Apinator_2042_blanc.png"
                     alt="logo-apinator"

@@ -79,28 +79,23 @@ const Home: NextPage = () => {
           animate={animation}
         >
           <Section
-            inverse={false}
+            inverse={true}
             isMobile={isMobile}
             Image="./pictures/Image95.png"
             Text={
               <>
                 <h1>{textSection.section1.title}</h1>
+                <br></br>
                 <p>{textSection.section1.part1}</p>
+                <br></br>
                 <p>{textSection.section1.part2}</p>
-                {/* <p>{textSection.section1.part3}</p> */}
+                <br></br>
 
                 <a
                   href="https://golemdao.gitbook.io/apinator-2042-by-golem/ecosystem/dao"
                   target="_blank"
                 >
-                  <Button
-                    className={styles.button}
-                    /* onMouseEnter={() => setIsActive(true)}
-                onMouseLeave={() => setIsActive(false)} 
-                onClick={() => setIsActive1(true)}*/
-                  >
-                    more
-                  </Button>
+                  <Button className={styles.button}>more</Button>
                 </a>
                 {/*   {isActive1 && <h1>SOON</h1>} */}
               </>
@@ -112,28 +107,24 @@ const Home: NextPage = () => {
           animate={animation}
         >
           <Section
-            inverse={true}
+            inverse={false}
             isMobile={isMobile}
             Image="../pictures/lands.gif"
             Text={
               <>
                 <h1>{textSection.section2.title}</h1>
+                <br></br>
                 <p>{textSection.section2.part1}</p>
+                <br></br>
                 <p>{textSection.section2.part2}</p>
+                <br></br>
                 <p>{textSection.section2.part3}</p>
+                <br></br>
                 <a
                   href="https://golemdao.gitbook.io/apinator-2042-by-golem/ecosystem/staking#land-autostaking"
                   target="_blank"
                 >
-                  <Button
-                    className={
-                      styles.button
-                    } /* onMouseEnter={() => setIsActive(true)}
-                onMouseLeave={() => setIsActive(false)} 
-                onClick={() => setIsActive2(true)}*/
-                  >
-                    more
-                  </Button>
+                  <Button className={styles.button}>more</Button>
                 </a>
                 {/* {isActive2 && <h1>SOON</h1>} */}
               </>
@@ -145,15 +136,19 @@ const Home: NextPage = () => {
           animate={animation}
         >
           <Section
-            inverse={false}
+            inverse={true}
             isMobile={isMobile}
             Image="../pictures/Carte_teaser_chiffres400.gif"
             Text={
               <>
                 <h1>{textSection.section3.title}</h1>
+                <br></br>
                 <p>{textSection.section3.part1}</p>
+                <br></br>
                 <p>{textSection.section3.part2}</p>
+                <br></br>
                 <p>{textSection.section3.part3}</p>
+                <br></br>
                 <a
                   href="https://golemdao.gitbook.io/apinator-2042-by-golem/gameplay/spice"
                   target="_blank"
