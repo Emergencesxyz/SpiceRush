@@ -358,13 +358,14 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
           }}
         />
 
-        <Row>
-          <span className={styles.quotes}>{randomQuotes[randomQuoteId]}</span>
-        </Row>
-
+        {!isMobile && (
+          <Row>
+            <span className={styles.quotes}>{randomQuotes[randomQuoteId]}</span>
+          </Row>
+        )}
         <Row>
           {!isMobile && <Col xs={3}></Col>}
-          <Col xs={12}>
+          <Col xs={12} lg={3}>
             <Row style={{ marginBottom: "1em" }}>
               <Accordion>
                 <Accordion.Item
@@ -411,10 +412,10 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
           <Col xs={12}>
             {character && (
               <Row>
-                <Col xs={3}>
+                <Col xs={12} lg={3}>
                   <NftAvatar />
                 </Col>
-                <Col xs={12}>
+                <Col xs={12} lg={8}>
                   {character ? (
                     <CharacterBox
                       character={character}
@@ -463,7 +464,7 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
             )}
           </Col>
           {character && (
-            <Col xs={4}>
+            <Col xs={12} lg={4}>
               <ActionBox
                 character={character}
                 actions={actions}
