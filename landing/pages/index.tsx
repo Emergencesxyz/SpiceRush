@@ -102,9 +102,7 @@ const Home: NextPage = () => {
             }
           />
         </motion.div>
-        <div className={styles.cowboyScene}>
-          {/* <img src="./pictures/Scene-cowboy.png" alt="cowboyScene" /> */}
-        </div>
+        <div className={styles.cowboyScene}></div>
         <motion.div
           style={{ marginTop: "12vh", marginBottom: "12vh" }}
           animate={animation}

@@ -24,7 +24,7 @@ const Section: FunctionComponent<Props> = (props): JSX.Element => {
         <>
           <div
             style={{
-              width: "50%",
+              width: "55%",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
@@ -35,7 +35,7 @@ const Section: FunctionComponent<Props> = (props): JSX.Element => {
           </div>
           <div
             style={{
-              width: "50%",
+              width: "45%",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
