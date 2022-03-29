@@ -16,6 +16,13 @@
   align-items: center;
 }
 
+.cowboyScene {
+  background-image: url("../public/pictures/Scene-cowboy.png");
+  height: 90vh;
+  width: 100vw;
+  box-shadow: 0 0 60px 60px #140e1e inset;
+}
+
 .button {
   font-size: 2.2vw;
   font-family: "sofia-pro-SemiBold";

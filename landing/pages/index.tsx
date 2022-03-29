@@ -81,7 +81,7 @@ const Home: NextPage = () => {
           <Section
             inverse={true}
             isMobile={isMobile}
-            Image="./pictures/Image95.png"
+            Image="./pictures/iso_city_2.png"
             Text={
               <>
                 <h1>{textSection.section1.title}</h1>
@@ -102,6 +102,9 @@ const Home: NextPage = () => {
             }
           />
         </motion.div>
+        <div className={styles.cowboyScene}>
+          {/* <img src="./pictures/Scene-cowboy.png" alt="cowboyScene" /> */}
+        </div>
         <motion.div
           style={{ marginTop: "12vh", marginBottom: "12vh" }}
           animate={animation}
