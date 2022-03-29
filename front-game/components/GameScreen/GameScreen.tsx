@@ -363,8 +363,8 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
         </Row>
 
         <Row>
-          <Col xs={3}></Col>
-          <Col>
+          {!isMobile && <Col xs={3}></Col>}
+          <Col xs={12}>
             <Row style={{ marginBottom: "1em" }}>
               <Accordion>
                 <Accordion.Item
@@ -408,13 +408,13 @@ const GameScreen: FunctionComponent = (): JSX.Element => {
         )}
 
         <Row>
-          <Col xs={8}>
+          <Col xs={12}>
             {character && (
               <Row>
                 <Col xs={3}>
                   <NftAvatar />
                 </Col>
-                <Col>
+                <Col xs={12}>
                   {character ? (
                     <CharacterBox
                       character={character}
