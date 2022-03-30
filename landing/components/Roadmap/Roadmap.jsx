@@ -157,7 +157,6 @@ export default function Roadmap() {
 
   return (
     <div className={styles.container}>
-      {/* <div className={styles.stub1}>⬇️ scroll to start ⬇️</div> */}
       <h1 style={{ textAlign: "center" , marginBottom: "50px"}}>Roadmap</h1>
       <TimelineObserver
         initialColor="#e5e5e5"
@@ -170,7 +169,6 @@ export default function Roadmap() {
           />
         )}
       />
-      {/*  <div style={stub2}>{message}</div> */}
     </div>
   );
 }

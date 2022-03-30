@@ -1,6 +1,13 @@
 .container {
-  margin-top: 10rem;
+  padding-top: 1rem;
   margin-bottom: 26rem;
+  background: rgb(50, 1, 50);
+  background: linear-gradient(
+    180deg,
+    rgba(50, 1, 50, 1) 0%,
+    rgba(20, 14, 30, 1) 25%,
+    rgba(20, 14, 30, 1) 100%
+  );
 
   .text {
     animation: 1.2s linear 0s forwards move;
@@ -22,6 +29,8 @@
   h1 {
     font-size: 50px;
     font-family: "sofia-pro-SemiBold";
+    text-align: center;
+    margin-top: 10vh;
   }
 
   h2 {

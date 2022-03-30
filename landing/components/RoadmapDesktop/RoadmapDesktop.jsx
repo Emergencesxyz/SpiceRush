@@ -190,7 +190,7 @@ export default function RoadmapDesktop() {
 
   return (
     <div className={styles.container}>
-      <h1 style={{ textAlign: "center" }}>Roadmap</h1>
+      <h1 >Roadmap</h1>
       <TimelineObserver
         initialColor="#e5e5e5"
         fillColor="purple"
