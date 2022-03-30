@@ -1,0 +1,13 @@
+.cowboyScene {
+  /*  background-image: url("../../public/pictures/Scene-cowboy.png"); */
+  height: 90vh;
+  width: 100%;
+  box-shadow: 0 0 60px 60px #140e1e inset;
+
+  .reactPlayer {
+    margin-top: 30px;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}

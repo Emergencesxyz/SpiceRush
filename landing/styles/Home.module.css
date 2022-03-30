@@ -49,17 +49,10 @@
   );
 }
 
-.cowboyScene {
-  background-image: url("../public/pictures/Scene-cowboy.png");
-  height: 90vh;
-  width: 100vw;
-  box-shadow: 0 0 60px 60px #140e1e inset;
-}
-
 .button {
   font-size: 2.2vw;
   font-family: "sofia-pro-SemiBold";
-  width: 10vw;
+  width: 9vw;
   height: fit-content;
   border-top-left-radius: 14px;
   border-bottom-right-radius: 14px;
@@ -116,14 +109,14 @@
   font-size: 20px;
 }
 
-@media (max-width: 1366px) {
+/* @media (max-width: 1366px) {
   .button {
     font-size: 30px;
     height: 50px;
     width: fit-content;
     max-width: 200px;
   }
-}
+} */
 
 @media (max-width: 600px) {
   .cowboyScene {

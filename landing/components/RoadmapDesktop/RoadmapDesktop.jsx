@@ -19,6 +19,8 @@ const Timeline = ({ setObserver, callback }) => {
   const circle3 = useRef(null);
   const circle4 = useRef(null);
 
+/*   const color:  */
+
   const circle = {
     width: "45px",
     height: "45px",
@@ -194,6 +196,12 @@ export default function RoadmapDesktop() {
       <TimelineObserver
         initialColor="#e5e5e5"
         fillColor="purple"
+       /*  fillColor='linear-gradient(
+          180deg,
+          rgba(50, 1, 50, 1),
+          rgba(20, 14, 30, 1) ,
+         yellow
+        )' */
        handleObserve={(setObserver) => (
           <Timeline
             callback={onCallback}

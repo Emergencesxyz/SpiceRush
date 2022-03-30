@@ -7,6 +7,7 @@ import Section from "../components/Section/Section";
 import textSection from "../components/textSection";
 import Footer from "../components/Footer/Footer";
 import Header from "../components/Header/Header";
+import Scene from "../components/Scene/Scene";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useAnimation } from "framer-motion";
@@ -110,7 +111,7 @@ const Home: NextPage = () => {
             }
           />
         </motion.div>
-        {<div className={styles.cowboyScene}></div>}
+        <Scene isMobile={isMobile} />
         <motion.div
           style={{ marginTop: "6vh", marginBottom: "6vh" }}
           animate={animation}
