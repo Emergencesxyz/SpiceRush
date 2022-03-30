@@ -11,6 +11,11 @@
   position: "relative";
 }
 
+.scene {
+  width: 100%;
+  position: "relative";
+}
+
 .sectionFooter {
   display: flex;
   flex-direction: row;

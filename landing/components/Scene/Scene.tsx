@@ -18,7 +18,7 @@ const Scene: FunctionComponent<Props> = (props): JSX.Element => {
           playing
           muted
           playsInline
-          /*  className={styles.reactPlayer} */
+          className={styles.reactPlayer}
           loop
           url={[{ src: "/videos/sceneCowboy.mp4", type: "video/mp4" }]}
           height="100%"
@@ -31,7 +31,7 @@ const Scene: FunctionComponent<Props> = (props): JSX.Element => {
             playing
             muted
             playsInline
-            /* className={styles.reactPlayer} */
+            className={styles.reactPlayer}
             loop
             url={[
               {

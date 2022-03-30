@@ -111,7 +111,9 @@ const Home: NextPage = () => {
             }
           />
         </motion.div>
-        <Scene isMobile={isMobile} />
+        <div className={styles.scene}>
+          <Scene isMobile={isMobile} />
+        </div>
         <motion.div
           style={{ marginTop: "6vh", marginBottom: "6vh" }}
           animate={animation}
