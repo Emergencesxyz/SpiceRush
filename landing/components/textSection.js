@@ -10,7 +10,7 @@ const textSection = {
  
   */
   section2: {
-    title: "Conquer, Build, Expand",
+    title: "Conquer, Build, Expand ",
     part1: `Acquire land NFTs and earn passive income from the game economy.`,
     part2: `Build facilities, increase your yields or protect yourself.`,
     part3: `Hurry before your opponents get ahead of you.`,

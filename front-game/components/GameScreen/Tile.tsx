@@ -46,7 +46,7 @@ const Tile: FunctionComponent<Props> = ({
         className={styles2.toast}
         onClose={() => setToastMessage({ title: "", msg: "" })}
       >
-        <Toast.Header>
+        <Toast.Header className={styles2.toastHeader}>
           <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
           <strong className="me-auto">{toastMessage.title}</strong>
           <small> </small>

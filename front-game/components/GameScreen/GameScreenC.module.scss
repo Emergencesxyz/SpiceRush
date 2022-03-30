@@ -156,6 +156,11 @@
   background-color: rgb(42, 13, 88);
 }
 
+.toastHeader {
+  color: black;
+  text-shadow: none;
+}
+
 .events {
   font-size: 0.8em;
   color: #e8b200;
@@ -171,4 +176,10 @@
   text-shadow: none;
 }
 @media (max-width: 576px) {
+  .toast {
+    position: fixed;
+    z-index: 100;
+    left: 5%;
+    width: 90%;
+  }
 }
