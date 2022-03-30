@@ -9,7 +9,6 @@
 .presentation {
   width: 100%;
   position: "relative";
-  box-shadow: 0 0 60px 60px #140e1e inset;
 }
 
 .sectionFooter {
@@ -17,7 +16,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin-top: 4vh;
+  /* margin-top: 4vh; */
   /*   width: 100vw; */
 }
 .rectangle1 {

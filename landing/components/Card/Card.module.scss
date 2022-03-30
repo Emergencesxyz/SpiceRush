@@ -21,7 +21,8 @@
   }
 
   .button1 {
-    background-color: #8900f2 !important;
+    /*  background-color: #8900f2 !important; */
+    background-color: blue !important;
     border: none;
     width: 15vw;
     justify-content: center;
@@ -34,7 +35,7 @@
 
     &:before {
       content: "";
-      background: linear-gradient(
+      background:/*  linear-gradient(
         45deg,
         #ff0000,
         #ff7300,
@@ -45,6 +46,13 @@
         #7a00ff,
         #ff00c8,
         #ff0000
+      ); */ linear-gradient(
+        45deg,
+        #140e1e,
+        #0fb7c4,
+        #2f82b1,
+        #504e9d,
+        #721889
       );
       position: absolute;
       top: -2px;

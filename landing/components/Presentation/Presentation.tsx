@@ -93,7 +93,7 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
               <p>Earn SPICE or die trying</p>
             </div>
           </div>
-          <img src="/pictures/supreme1.png" alt="imageLP" />
+          <img src="/pictures/ape_sweat_gradient.png" alt="imageLP" />
         </div>
       ) : (
         <div className={styles.countdownContainer}>
