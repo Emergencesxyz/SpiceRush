@@ -88,7 +88,7 @@
   cursor: url("../public/pictures/Cursor.png") 25 15, auto !important;
 }
 
-.button:hover {
+/* .button:hover {
   background-color: #a89cba;
   color: #140e1e !important;
   border: 1px solid #0f0e3f;
@@ -104,22 +104,13 @@
   color: #140e1e !important;
   border: 1px solid #0f0e3f;
   box-shadow: none !important;
-}
+} */
 
 .footer {
   display: flex;
   flex-direction: column;
   flex: 1;
   padding: 1rem 0;
-  /*   border-top: 1px solid #eaeaea;
- */
-  /* background: rgb(20, 14, 30);
-  background: linear-gradient(
-    180deg,
-    rgba(20, 14, 30, 1) 0%,
-    rgba(15, 14, 63, 1) 94%,
-    rgba(15, 14, 63, 1) 100%
-  ); */
   background: rgba(10, 189, 198, 0.2);
   justify-content: center;
   align-items: center;

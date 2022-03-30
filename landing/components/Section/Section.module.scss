@@ -93,8 +93,8 @@
     .contentContainer {
       height: 100%;
       padding: 0;
-      padding-left: 2rem;
-      padding-right: 2rem;
+      padding-left: 1rem;
+      padding-right: 1rem;
       align-items: center;
       justify-content: center;
       text-align: center;
@@ -110,8 +110,9 @@
       }
 
       h1 {
-        font-size: 40px;
+        font-size: 30px;
         line-height: 50px;
+        text-align: center;
       }
 
       p {

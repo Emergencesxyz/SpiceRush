@@ -10,7 +10,7 @@ const Footer: FunctionComponent<Props> = (props): JSX.Element => {
   return (
     <>
       <Row className={styles.footerRow1}>
-        <Col style={{ display: "flex", flexDirection: "row", width: "80%" }}>
+        <Col className={styles.subRow}>
           <Col className={styles.links}>
             <a href="" target="_blank">
               Terms
@@ -24,6 +24,8 @@ const Footer: FunctionComponent<Props> = (props): JSX.Element => {
               Whitepaper
             </a>
           </Col>
+        </Col>
+        <Col className={styles.subRow}>
           <Col className={styles.links}>
             <a href="https://twitter.com/Apinator_2042" target="_blank">
               Twitter
