@@ -7,9 +7,9 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
         <title>Apinator</title>
         <meta name="description" content="Apinator page" />
         <link rel="icon" href="/favicon_golem.png" />
-        {/*  <script
+        <script
           async
-          src="https://www.googletagmanager.com/gtag/js?id=G-ZH6N1L9LGN"
+          src="https://www.googletagmanager.com/gtag/js?id=G-40CDCTP9RQ"
         ></script>
         <script
           dangerouslySetInnerHTML={{
@@ -20,7 +20,7 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
               gtag('config', 'G-ZH6N1L9LGN', { page_path: window.location.pathname });
             `,
           }}
-        /> */}
+        />
       </Head>
 
       <main>{children}</main>
