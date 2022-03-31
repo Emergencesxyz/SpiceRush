@@ -28,18 +28,16 @@
     z-index: 3;
   }
 }
-/* @media (max-width: 576px) {
+@media (max-width: 576px) {
   .sceneSection {
-    height: 90vh;
+    height: auto;
     .cowboyScene {
-      overflow: hidden;
-      position: relative;
-      padding-top: 0;
+      padding-top: 0%; /* Player ratio: 100 / (1280 / 720) */
 
-      .reactPlayer {
+      /*   .reactPlayer {
         height: 80%;
         margin-top: 30px;
-      }
+      } */
     }
   }
-} */
+}

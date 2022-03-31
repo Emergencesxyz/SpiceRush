@@ -187,9 +187,12 @@ const Home: NextPage = () => {
         {typeof window !== "undefined" && !isMobile && <RoadmapDesktop />}
       </div>
 
-      <footer className={styles.footer}>
+      <div className={styles.hexagons}>
+        <img src="../pictures/hexagonals.svg" />
+      </div>
+      <div className={styles.footer}>
         <Footer isMobile={isMobile} />
-      </footer>
+      </div>
     </div>
   );
 };
