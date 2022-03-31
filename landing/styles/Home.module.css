@@ -61,10 +61,8 @@
   height: fit-content;
   border-top-left-radius: 14px;
   border-bottom-right-radius: 14px;
-  background-color: #1b1a4e;
+  /*   background-color: #1b1a4e; */
   color: white;
-  /* box-shadow: none !important;
-  border: 1px solid lightgray; */
   box-shadow: 0 0 6px 0 rgba(157, 96, 212, 0.5);
   border: solid 3px transparent;
   background-image: linear-gradient(
@@ -83,12 +81,79 @@
   padding-right: 1vw !important;
   padding-left: 1vw !important;
   cursor: url("../public/pictures/Cursor.png") 25 15, auto !important;
+  position: relative;
+}
+
+.button:before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #140e1e,
+    #0fb7c4,
+    #2f82b1,
+    #504e9d,
+    #721889
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(10px);
+  width: calc(100% + 6px);
+  height: calc(100% + 6px);
+  animation: glowing 20s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+.button:active {
+  color: white;
+}
+
+.button:hover {
+  box-shadow: 2px 1000px 1px #240046 inset;
+  border: 3px solid purple;
+}
+
+.button:hover:before {
+  opacity: 1;
+}
+
+.button:after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #8900f2;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+
+.button:focus {
+  border: 1px solid #0f0e3f;
+  box-shadow: none !important;
+}
+
+@keyframes glowing {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
 }
 
 /* .button:hover {
-  background-color: #a89cba;
-  color: #140e1e !important;
-  border: 1px solid #0f0e3f;
+  box-shadow: 2px 1000px 1px #240046 inset;
+  outline: none !important;
+  border: 1px solid white;
 }
 .button:active {
   background-color: white !important;
