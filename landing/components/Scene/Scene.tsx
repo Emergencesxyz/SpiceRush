@@ -21,7 +21,7 @@ const Scene: FunctionComponent<Props> = (props): JSX.Element => {
             playsInline
             className={styles.reactPlayer}
             loop
-            url={[{ src: "/videos/new_video.mp4", type: "video/mp4" }]}
+            url={[{ src: "/videos/new2.webm", type: "video/webm" }]}
             height="100%"
             width="100%"
             /*   onReady={() => setIsVideoLoaded(true)} */
