@@ -59,15 +59,15 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
       <div className={styles.groupButtons}>
         <a
           className={styles.button1}
-          href="https://t.me/apinator2042"
+          href="https://discord.gg/MZMPRgWsuZ"
           target="_blank"
         >
           <img
             style={{
               filter: "invert(0%)",
             }}
-            src="pictures/telegram.svg"
-            alt="telegram"
+            src="pictures/discord.svg"
+            alt="discord"
           />
         </a>
 
