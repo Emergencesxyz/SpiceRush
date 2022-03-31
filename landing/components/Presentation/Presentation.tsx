@@ -33,7 +33,8 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
             playsInline
             className={styles.reactPlayer}
             loop
-            url={[{ src: "/videos/rainVideo.mp4", type: "video/mp4" }]}
+            /*             url={[{ src: "/videos/rainVideo.mp4", type: "video/mp4" }]}
+             */ url={[{ src: "/videos/new2.webm", type: "video/webm" }]}
             height="100%"
             width="100%"
             onReady={() => setIsVideoLoaded(true)}
