@@ -150,7 +150,7 @@ const Home: NextPage = () => {
           <Section
             inverse={true}
             isMobile={isMobile}
-            Image="../pictures/Carte_teaser_chiffres400.gif"
+            Image="../pictures/ape_card_stats_uncovered.gif"
             Text={
               <>
                 <h1>{textSection.section3.title}</h1>
