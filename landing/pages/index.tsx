@@ -57,6 +57,9 @@ const Home: NextPage = () => {
   const video = useMemo(() => {
     return <Presentation isMobile={isMobile} />;
   }, [isMobile]);
+  const scene = useMemo(() => {
+    return <Scene isMobile={isMobile} />;
+  }, [isMobile]);
 
   return (
     <div className={styles.container}>
@@ -111,9 +114,7 @@ const Home: NextPage = () => {
             }
           />
         </motion.div>
-        <div className={styles.scene}>
-          <Scene isMobile={isMobile} />
-        </div>
+        <div className={styles.scene}>{scene}</div>
         <motion.div
           style={{ marginTop: "6vh", marginBottom: "6vh" }}
           animate={animation}
