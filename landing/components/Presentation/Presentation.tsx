@@ -31,6 +31,7 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
             playing
             muted
             playsInline
+            controls
             className={styles.reactPlayer}
             loop
             /*             url={[{ src: "/videos/rainVideo.mp4", type: "video/mp4" }]}
