@@ -12,41 +12,43 @@ const Scene: FunctionComponent<Props> = (props): JSX.Element => {
   const { isMobile } = props;
 
   return (
-    <div className={styles.cowboyScene}>
-      {!isMobile ? (
-        <ReactPlayer
-          playing
-          muted
-          playsInline
-          className={styles.reactPlayer}
-          loop
-          url={[{ src: "/videos/sceneCowboy.mp4", type: "video/mp4" }]}
-          height="100%"
-          width="100%"
-          /*   onReady={() => setIsVideoLoaded(true)} */
-        />
-      ) : (
-        <>
+    <div className={styles.sceneSection}>
+      <div className={styles.cowboyScene}>
+        {!isMobile ? (
           <ReactPlayer
             playing
             muted
             playsInline
             className={styles.reactPlayer}
             loop
-            url={[
-              {
-                src: "/videos/sceneCowboyMobile.mp4",
-                type: "video/mp4",
-              },
-            ]}
-            height={0}
-            width={0}
-            /* onReady={() => setIsVideoLoaded(true)} */
+            url={[{ src: "/videos/new_video.mp4", type: "video/mp4" }]}
+            height="100%"
+            width="100%"
+            /*   onReady={() => setIsVideoLoaded(true)} */
           />
+        ) : (
+          <>
+            <ReactPlayer
+              playing
+              muted
+              playsInline
+              className={styles.reactPlayer}
+              loop
+              url={[
+                {
+                  src: "/videos/sceneCowboyMobile.mp4",
+                  type: "video/mp4",
+                },
+              ]}
+              height={0}
+              width={0}
+              /* onReady={() => setIsVideoLoaded(true)} */
+            />
 
-          {<VideoMobile mainVideo="/videos/sceneCowboyMobile.mp4" />}
-        </>
-      )}
+            {<VideoMobile mainVideo="/videos/sceneCowboyMobile.mp4" />}
+          </>
+        )}
+      </div>
     </div>
   );
 };

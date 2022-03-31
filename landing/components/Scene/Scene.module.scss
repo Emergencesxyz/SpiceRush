@@ -1,16 +1,17 @@
-.cowboyScene {
-  /*  background-image: url("../../public/pictures/Scene-cowboy.png"); */
-  /* height: 90vh;
-  width: 100%;
-  box-shadow: 0 0 60px 60px #140e1e inset;
-  overflow: hidden; */
-  position: relative;
-  padding-top: 56.25%;
+.sceneSection {
+  height: 100vh;
+  overflow: hidden;
 
-  .reactPlayer {
-    margin-top: 30px;
-    position: absolute;
-    top: 0;
-    left: 0;
+  .cowboyScene {
+    overflow: hidden;
+    position: relative;
+    padding-top: 56.25%;
+
+    .reactPlayer {
+      margin-top: 30px;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
   }
 }
