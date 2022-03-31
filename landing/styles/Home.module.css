@@ -173,6 +173,11 @@
   bottom: 0;
   margin-left: 12%;
   position: absolute;
+  background-image: url("../public/pictures/hexagonals.svg");
+  background-repeat: no-repeat;
+  /*background-size: cover; */
+  height: 50vh;
+  width: 100%;
 }
 
 .footer {
@@ -192,6 +197,16 @@
     background-repeat: no-repeat;
     background-size: cover;
   }
+  .hexagons {
+    /*   bottom: 0; */
+    margin-left: 0;
+    /*  position: absolute;
+    background-image: url("../public/pictures/hexagonals.svg");
+    background-repeat: no-repeat;
+    height: 50vh;
+    width: 100%; */
+  }
+
   .button {
     width: 34%;
   }

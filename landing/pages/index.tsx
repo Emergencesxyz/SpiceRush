@@ -188,7 +188,7 @@ const Home: NextPage = () => {
       </div>
 
       <div className={styles.hexagons}>
-        <img src="../pictures/hexagonals.svg" />
+        {/* <img src="../pictures/hexagonals.svg" /> */}
       </div>
       <div className={styles.footer}>
         <Footer isMobile={isMobile} />
