@@ -2,7 +2,7 @@ const textSection = {
   section1: {
     title: "Survival Blockchain Play-to-Earn",
     part1: ` Moon-K is the first on-chain world proceduraly generated. `,
-    part2: `It is an apocalyptic world composed of land with various environments, resource amount and danger.`,
+    part2: `Will you stay in the megalopolis or adventure in the hostile but rich wastelands ?`,
     part3: ``,
   },
 
