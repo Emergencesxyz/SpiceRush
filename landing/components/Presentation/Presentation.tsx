@@ -73,7 +73,7 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
 
         <a
           className={styles.button1}
-          href="https://twitter.com/Apinator_2042"
+          href="https://twitter.com/Spice_Rush"
           target="_blank"
         >
           <img src="pictures/twitter.svg" alt="twitter" />

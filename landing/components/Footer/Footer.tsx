@@ -27,7 +27,7 @@ const Footer: FunctionComponent<Props> = (props): JSX.Element => {
         </Col>
         <Col className={styles.subRow}>
           <Col className={styles.links}>
-            <a href="https://twitter.com/Apinator_2042" target="_blank">
+            <a href="https://twitter.com/Spice_Rush" target="_blank">
               Twitter
             </a>
           </Col>
