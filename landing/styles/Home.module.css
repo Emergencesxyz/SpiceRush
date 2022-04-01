@@ -198,8 +198,7 @@
     background-size: cover;
   }
   .hexagons {
-    /*     height:
- */
+    height: 80vh;
     background-position: 25%;
   }
 
