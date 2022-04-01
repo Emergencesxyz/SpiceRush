@@ -171,12 +171,11 @@
 
 .hexagons {
   bottom: 0;
-  /*  margin-left: 12%; */
   position: absolute;
   background-image: url("../public/pictures/hexagonals.svg");
   background-repeat: no-repeat;
   background-position: 40%;
-  /*background-size: cover; */
+  pointer-events: none;
   height: 50vh;
   width: 100%;
 }
