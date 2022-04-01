@@ -14,7 +14,7 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
   const [isVideoLoaded, setIsVideoLoaded] = useState<boolean>(false);
 
   return (
-    <section id="topSection" className={styles.presentationSection}>
+    <section className={styles.presentationSection}>
       {!isVideoLoaded && (
         <div
           style={{ display: "flex" }}
@@ -99,7 +99,12 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
         <div className={styles.countdownContainer}>
           <div className={styles.content}>
             <img src="/pictures/mobile-ape_sweat_gradient.png" alt="imageLP" />
-            <div>
+            <div
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(20, 14, 30, 0) 0%, #140E1E 75.56%, #140E1E 100%)",
+              }}
+            >
               <div className={styles.logo}>
                 <img
                   src="../pictures/mobile-Logo_Apinator_2042_blanc.png"

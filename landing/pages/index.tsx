@@ -54,9 +54,10 @@ const Home: NextPage = () => {
     }
   }, [inView]);
 
-  const video = useMemo(() => {
+  const VideoComponent: JSX.Element = useMemo(() => {
     return <Presentation isMobile={isMobile} />;
   }, [isMobile]);
+
   const scene = useMemo(() => {
     return <Scene isMobile={isMobile} />;
   }, [isMobile]);
@@ -76,7 +77,8 @@ const Home: NextPage = () => {
           <Header isMobile={isMobile} />
         </header>
       }
-      <div className={styles.presentation}>{video}</div>
+
+      {VideoComponent}
 
       <div className={styles.sectionFooter}>
         <div className={styles.rectangle1}></div>
