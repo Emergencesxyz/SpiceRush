@@ -4,14 +4,15 @@ import styles from "../Roadmap/Roadmap.module.scss";
 
 const Timeline = ({ setObserver, callback }) => {
   const [message1, setMessage1] = useState(<div className={styles.text}>
-    <h2>Golem DAO</h2>
-    <p> Golem Token IEO</p>
-    <p> Golem Token listing </p>
+    <h2>Singularity</h2>
+    <p>MVP / Whitepaper / Website</p>
+    <p>DAO creation</p>
+    <p> Whitelist Campaign </p>
   </div>);
   const [message2, setMessage2] = useState(<div className={styles.text}>
     <h2>Megalopolis Conquest</h2>
     <p> Lands auctions</p>
-    <p> NFT Character drop</p>
+    <p> Token Listing </p>
   </div>);
   const [message3, setMessage3] = useState(<div className={styles.text}>
     <h2>Rise of the Apinator </h2>
