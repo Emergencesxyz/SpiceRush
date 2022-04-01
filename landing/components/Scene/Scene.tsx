@@ -25,7 +25,6 @@ const Scene: FunctionComponent<Props> = (props): JSX.Element => {
               url={[{ src: "/videos/sceneCowboy.mp4", type: "video/mp4" }]}
               height="100%"
               width="100%"
-              /*   onReady={() => setIsVideoLoaded(true)} */
             />
           ) : (
             <VideoMobile mainVideo="/videos/sceneCowboyMobile.mp4" />
