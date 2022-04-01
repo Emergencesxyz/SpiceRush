@@ -30,19 +30,9 @@
 }
 @media (max-width: 576px) {
   .sceneSection {
-    height: 75vh;
+    height: auto;
     .cowboyScene {
-      overflow: hidden;
-      position: relative;
-      padding-top: 0;
-
-      .reactPlayer {
-        height: 100%;
-        margin-top: 30px;
-      }
-    }
-
-    .shadow {
+      padding-top: 0%; /* Player ratio: 100 / (1280 / 720) */
     }
   }
 }

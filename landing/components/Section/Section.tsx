@@ -58,7 +58,7 @@ const Section: FunctionComponent<Props> = (props): JSX.Element => {
       </Row>
       <Row className={styles.sectionFooter}>
         <div className={styles.rectangle1}></div>
-        <img src="./pictures/testLogo.png" alt="testLogo" />
+        <img src="./pictures/HexagonLogo.svg" alt="testLogo" />
         <div className={styles.rectangle2}></div>
       </Row>
     </div>

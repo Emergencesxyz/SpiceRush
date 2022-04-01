@@ -4,11 +4,23 @@
   color: white;
   width: 100vw;
   cursor: url("../public/pictures/Cursor.png") 25 15, auto !important;
+  position: relative;
 }
 
-.presentation {
+/* .presentation {
   width: 100%;
   position: "relative";
+} */
+
+.shadow {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  box-shadow: inset 0 -50px 80px 30px #140e1e;
+  top: 0;
+  left: 0;
+  padding-bottom: 10px;
+  z-index: 3;
 }
 
 .scene {
@@ -168,6 +180,17 @@
   box-shadow: none !important;
 } */
 
+.hexagons {
+  bottom: 0;
+  position: absolute;
+  background-image: url("../public/pictures/hexagonals.svg");
+  background-repeat: no-repeat;
+  background-position: 40%;
+  pointer-events: none;
+  height: 50vh;
+  width: 100%;
+}
+
 .footer {
   display: flex;
   flex-direction: column;
@@ -179,21 +202,17 @@
   font-size: 20px;
 }
 
-/* @media (max-width: 1366px) {
-  .button {
-    font-size: 30px;
-    height: 50px;
-    width: fit-content;
-    max-width: 200px;
-  }
-} */
-
 @media (max-width: 600px) {
   .cowboyScene {
     background-image: url("../public/pictures/Scene-cowboy-mobile.png");
     background-repeat: no-repeat;
     background-size: cover;
   }
+  .hexagons {
+    height: 80vh;
+    background-position: 25%;
+  }
+
   .button {
     width: 34%;
   }

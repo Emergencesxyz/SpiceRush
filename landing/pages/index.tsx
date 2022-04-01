@@ -54,8 +54,12 @@ const Home: NextPage = () => {
     }
   }, [inView]);
 
-  const video = useMemo(() => {
+  const VideoComponent: JSX.Element = useMemo(() => {
     return <Presentation isMobile={isMobile} />;
+  }, [isMobile]);
+
+  const scene = useMemo(() => {
+    return <Scene isMobile={isMobile} />;
   }, [isMobile]);
 
   return (
@@ -73,7 +77,8 @@ const Home: NextPage = () => {
           <Header isMobile={isMobile} />
         </header>
       }
-      <div className={styles.presentation}>{video}</div>
+
+      {VideoComponent}
 
       <div className={styles.sectionFooter}>
         <div className={styles.rectangle1}></div>
@@ -111,9 +116,7 @@ const Home: NextPage = () => {
             }
           />
         </motion.div>
-        <div className={styles.scene}>
-          <Scene isMobile={isMobile} />
-        </div>
+        <div className={styles.scene}>{scene}</div>
         <motion.div
           style={{ marginTop: "6vh", marginBottom: "6vh" }}
           animate={animation}
@@ -186,9 +189,10 @@ const Home: NextPage = () => {
         {typeof window !== "undefined" && !isMobile && <RoadmapDesktop />}
       </div>
 
-      <footer className={styles.footer}>
+      <div className={styles.hexagons}></div>
+      <div className={styles.footer}>
         <Footer isMobile={isMobile} />
-      </footer>
+      </div>
     </div>
   );
 };
