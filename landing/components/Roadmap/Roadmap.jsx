@@ -5,25 +5,28 @@ import styles from "../Roadmap/Roadmap.module.scss";
 const Timeline = ({ setObserver, callback }) => {
   const [message1, setMessage1] = useState(<div className={styles.text}>
     <h2>Singularity</h2>
-    <p>MVP / Whitepaper / Website</p>
-    <p>DAO creation</p>
-    <p> Whitelist Campaign </p>
+    <p>MVP </p>
+    <p> Team </p>
   </div>);
   const [message2, setMessage2] = useState(<div className={styles.text}>
     <h2>Megalopolis Conquest</h2>
-    <p> Lands auctions</p>
-    <p> Token Listing </p>
+    <p> Alpha release testnet </p>
+    <p>  Game contest </p>
   </div>);
   const [message3, setMessage3] = useState(<div className={styles.text}>
     <h2>Rise of the Apinator </h2>
-    <p>Alpha release: mining economy and on-chain procedural map</p>
+    <p>NFT Sale </p>
+    <p>Beta release mainnet</p>
     <p>Big game contest </p>
   </div>);
   const [message4, setMessage4] = useState(<div className={styles.text}>
     <h2>Expansion </h2>
     <p>
-      Beta release: Powerup items collection. <br /> PVP system.
+      DAO Launch
     </p>
+    <p>SRG token listing </p>
+    <p>Item collection</p>
+    <p>Improved PVP</p>
   </div>);
 
   const timeline1 = useRef(null);

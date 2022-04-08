@@ -91,9 +91,9 @@ const Timeline = ({ setObserver, callback }) => {
   const someCallback = () => {
     setMessage1(
       <div className={styles.text}>
-        <h2>Golem DAO</h2>
-        <p> Golem Token IEO</p>
-        <p> Golem Token listing </p>
+        <h2>Singularity</h2>
+        <p> MVP </p>
+        <p> Team </p>
       </div>
     );
     callback();
@@ -103,8 +103,8 @@ const Timeline = ({ setObserver, callback }) => {
     setMessage2(
       <div className={styles.text}>
         <h2>Megalopolis Conquest</h2>
-        <p> Lands auctions</p>
-        <p> NFT Character drop</p>
+        <p> Alpha release testnet  </p>
+        <p> Game contest </p>
       </div>
     );
   };
@@ -113,8 +113,9 @@ const Timeline = ({ setObserver, callback }) => {
     setMessage3(
       <div className={styles.text}>
         <h2>Rise of the Apinator </h2>
-        <p>Alpha release: mining economy and on-chain procedural map</p>
-        <p>Big game contest </p>
+        <p>NFT Sale</p>
+        <p>Beta release mainnet</p>
+        <p>Big game contest</p>
       </div>
     );
   };
@@ -124,8 +125,12 @@ const Timeline = ({ setObserver, callback }) => {
       <div className={styles.text}>
         <h2>Expansion </h2>
         <p>
-          Beta release: Powerup items collection. <br /> PVP system.
-        </p>
+      DAO Launch
+    </p>
+    <p>SRG token listing </p>
+    <p>Item collection</p>
+    <p>Enhanced PVP </p>
+    
       </div>
     );
   };
