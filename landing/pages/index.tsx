@@ -147,7 +147,10 @@ const Home: NextPage = () => {
           />
         </motion.div>
         <motion.div
-          style={{ marginTop: "6vh", marginBottom: "6vh" }}
+          style={{
+            marginTop: "6vh",
+            marginBottom: !isMobile ? "1.5vh" : "5vh",
+          }}
           animate={animation}
         >
           <Section
@@ -184,7 +187,7 @@ const Home: NextPage = () => {
           />
         </motion.div>
       </section>
-      <div style={{ marginTop: "5vh" }}>
+      <div /* style={{ marginTop: "5vh" }} */>
         {typeof window !== "undefined" && isMobile && <Roadmap />}
         {typeof window !== "undefined" && !isMobile && <RoadmapDesktop />}
       </div>
