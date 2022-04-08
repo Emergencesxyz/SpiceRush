@@ -57,7 +57,7 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
         )}
       </div>
       <div className={styles.groupButtons}>
-        <a
+        {/* <a
           className={styles.button1}
           href="https://discord.gg/MZMPRgWsuZ"
           target="_blank"
@@ -69,7 +69,7 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
             src="pictures/discord.svg"
             alt="discord"
           />
-        </a>
+        </a> */}
 
         <a
           className={styles.button1}
@@ -84,7 +84,7 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
         <div className={styles.countdownContainer}>
           <div className={styles.content}>
             <div className={styles.logo}>
-              <img src="../pictures/logo_spicerush.png" alt="logo-apinator" />
+              <img src="../pictures/logoCici2.png" alt="logo-apinator" />
             </div>
             <div className={styles.description}>
               <p>Earn SPICE or die trying</p>
