@@ -84,7 +84,7 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
         <div className={styles.countdownContainer}>
           <div className={styles.content}>
             <div className={styles.logo}>
-              <img src="../pictures/logoCici2.png" alt="logo-apinator" />
+              <img src="../pictures/logoCici1.png" alt="logo-apinator" />
             </div>
             <div className={styles.description}>
               <p>Earn SPICE or die trying</p>
