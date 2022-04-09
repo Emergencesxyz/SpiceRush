@@ -6,7 +6,7 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
       <Head>
         <title>Spice Rush</title>
         <meta name="description" content="Apinator page" />
-        <link rel="icon" href="/favicon_golem.png" />
+        <link rel="icon" href="/favicon.png" />
         <script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-40CDCTP9RQ"

@@ -106,7 +106,7 @@ const Home: NextPage = () => {
                 <br></br>
 
                 <a
-                  href="https://golemdao.gitbook.io/apinator-2042-by-golem/ecosystem/dao"
+                  href="https://golemdao.gitbook.io/spicerush/ecosystem/dao"
                   target="_blank"
                 >
                   <Button className={styles.button}>more</Button>
@@ -136,7 +136,7 @@ const Home: NextPage = () => {
                 <p>{textSection.section2.part3}</p>
                 <br></br>
                 <a
-                  href="https://golemdao.gitbook.io/apinator-2042-by-golem/ecosystem/staking#land-autostaking"
+                  href="https://golemdao.gitbook.io/spicerush/ecosystem/staking#land-autostaking"
                   target="_blank"
                 >
                   <Button className={styles.button}>more</Button>
@@ -168,7 +168,7 @@ const Home: NextPage = () => {
                 <p>{textSection.section3.part3}</p>
                 <br></br>
                 <a
-                  href="https://golemdao.gitbook.io/apinator-2042-by-golem/gameplay/spice"
+                  href="https://golemdao.gitbook.io/spicerush/gameplay/spice"
                   target="_blank"
                 >
                   <Button

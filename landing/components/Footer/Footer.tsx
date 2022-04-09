@@ -17,10 +17,7 @@ const Footer: FunctionComponent<Props> = (props): JSX.Element => {
             </a>
           </Col>
           <Col className={styles.links}>
-            <a
-              href="https://golemdao.gitbook.io/apinator-2042-by-golem/"
-              target="_blank"
-            >
+            <a href="https://golemdao.gitbook.io/spicerush/" target="_blank">
               Whitepaper
             </a>
           </Col>
