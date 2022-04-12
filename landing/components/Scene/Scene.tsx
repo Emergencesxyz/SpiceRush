@@ -22,12 +22,14 @@ const Scene: FunctionComponent<Props> = (props): JSX.Element => {
               playsInline
               className={styles.reactPlayer}
               loop
-              url={[{ src: "/videos/sceneCowboy.mp4", type: "video/mp4" }]}
+             
+              url={[{ src: "/videos/rainVideo.mp4", type: "video/mp4" }]}
               height="100%"
               width="100%"
             />
           ) : (
-            <VideoMobile mainVideo="/videos/sceneCowboyMobile.mp4" />
+            
+              <VideoMobile mainVideo="/videos/mobile_video.mp4" />
           )}
         </div>
         <div className={styles.shadow}></div>

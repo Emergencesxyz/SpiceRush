@@ -33,7 +33,7 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
             playsInline
             className={styles.reactPlayer}
             loop
-            url={[{ src: "/videos/rainVideo.mp4", type: "video/mp4" }]}
+            url={[{ src: "/videos/sceneCowboy.mp4", type: "video/mp4" }]}
             height="100%"
             width="100%"
             onReady={() => setIsVideoLoaded(true)}
@@ -52,7 +52,7 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
               onReady={() => setIsVideoLoaded(true)}
             />
 
-            {<VideoMobile mainVideo="/videos/mobile_video.mp4" />}
+            {<VideoMobile mainVideo="/videos/sceneCowboyMobile.mp4" />}
           </>
         )}
       </div>
@@ -90,12 +90,12 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
               <p>Earn SPICE or die trying</p>
             </div>
           </div>
-          <img src="/pictures/supreme1.png" alt="imageLP" />
+          {/* <img src="/pictures/supreme1.png" alt="imageLP" /> */}
         </div>
       ) : (
         <div className={styles.countdownContainer}>
           <div className={styles.content}>
-            <img src="/pictures/mobile-ape_sweat_gradient.png" alt="imageLP" />
+            {/* <img src="/pictures/mobile-ape_sweat_gradient.png" alt="imageLP" /> */}
             <div
               style={{
                 background:
