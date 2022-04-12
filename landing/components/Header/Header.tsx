@@ -93,16 +93,6 @@ const Header: FunctionComponent<Props> = ({
               </div>
             </Nav.Link>
 
-            <Nav.Link
-              onMouseEnter={() => setIsActive3(!isActive3)}
-              onMouseLeave={() => setIsActive3(!isActive3)}
-            >
-              <div className={styles.titleBox}>
-                <span>Buy NFT</span>
-                {isMobile && <p>Coming soon</p>}
-                {isActive3 && !isMobile && <p>Coming soon</p>}
-              </div>
-            </Nav.Link>
             {isMobile && (
               <Nav.Link href="https://twitter.com/Spice_Rush" target="_blank">
                 <div className={styles.titleBox}>
