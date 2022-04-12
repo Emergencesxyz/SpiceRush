@@ -33,13 +33,13 @@ const VideoSection: FunctionComponent<Props> = (props): JSX.Element => {
           <img src="../pictures/lands.gif" />
         </div>
         <div className={styles.text}>
-          <h1>{textSection.section3.title}</h1>
+          <h1>{textSection.section2.title}</h1>
           <br></br>
-          <p>{textSection.section3.part1}</p>
+          <p>{textSection.section2.part1}</p>
           <br></br>
-          <p>{textSection.section3.part2}</p>
+          <p>{textSection.section2.part2}</p>
           <br></br>
-          <p>{textSection.section3.part3}</p>
+          <p>{textSection.section2.part3}</p>
           <br></br>
           <a
             href="https://golemdao.gitbook.io/spicerush/gameplay/spice"
