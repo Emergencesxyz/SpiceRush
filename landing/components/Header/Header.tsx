@@ -2,9 +2,7 @@ import { useState, FunctionComponent } from "react";
 import {
   Nav,
   Navbar,
-  Container,
-  OverlayTrigger,
-  Tooltip,
+  Container
 } from "react-bootstrap";
 import MusicPlayer from "../MusicPlayer/MusicPlayer"
 import styles from "./Header.module.scss";

@@ -1,5 +1,8 @@
 .navContainer {
-  max-width: 4000px !important;
+  max-width: 3600px !important;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width:100vw;
   background: rgb(0, 0, 6);
   background: linear-gradient(
     180deg,
