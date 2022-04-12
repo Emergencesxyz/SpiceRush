@@ -29,25 +29,50 @@ const VideoSection: FunctionComponent<Props> = (props): JSX.Element => {
         )}
       </div>
       <Row className={styles.contentContainer}>
-        <div className={styles.image}>
-          <img src="../pictures/lands.gif" />
-        </div>
-        <div className={styles.text}>
-          <h1>{textSection.section2.title}</h1>
-          <br></br>
-          <p>{textSection.section2.part1}</p>
-          <br></br>
-          <p>{textSection.section2.part2}</p>
-          <br></br>
-          <p>{textSection.section2.part3}</p>
-          <br></br>
-          <a
-            href="https://golemdao.gitbook.io/spicerush/gameplay/spice"
-            target="_blank"
-          >
-            <Button className={styles.button}>more</Button>
-          </a>
-        </div>
+        {!isMobile ? (
+          <>
+            <div className={styles.image}>
+              <img src="../pictures/lands.gif" />
+            </div>
+            <div className={styles.text}>
+              <h1>{textSection.section2.title}</h1>
+              <br></br>
+              <p>{textSection.section2.part1}</p>
+              <br></br>
+              <p>{textSection.section2.part2}</p>
+              <br></br>
+              <p>{textSection.section2.part3}</p>
+              <br></br>
+              <a
+                href="https://golemdao.gitbook.io/spicerush/gameplay/spice"
+                target="_blank"
+              >
+                <Button className={styles.button}>more</Button>
+              </a>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className={styles.text}>
+              <h1>{textSection.section2.title}</h1>
+              <br></br>
+              <p>{textSection.section2.part1}</p>
+              <div className={styles.image}>
+                <img src="../pictures/lands.gif" />
+              </div>
+              <p>{textSection.section2.part2}</p>
+              <br></br>
+              <p>{textSection.section2.part3}</p>
+              <br></br>
+              <a
+                href="https://golemdao.gitbook.io/spicerush/gameplay/spice"
+                target="_blank"
+              >
+                <Button className={styles.button}>more</Button>
+              </a>
+            </div>
+          </>
+        )}
       </Row>
       <Row className={styles.sectionFooter}>
         <div className={styles.rectangle1}></div>
