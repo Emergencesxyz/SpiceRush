@@ -20,7 +20,7 @@ const VideoSection: FunctionComponent<Props> = (props): JSX.Element => {
             muted
             playsInline
             loop
-            url={[{ src: "/videos/rainVideo.mp4", type: "video/mp4" }]}
+            url={[{ src: "/videos/optimisedNoRain.mp4", type: "video/mp4" }]}
             height="100%"
             width="100%"
           />
@@ -29,29 +29,25 @@ const VideoSection: FunctionComponent<Props> = (props): JSX.Element => {
         )}
       </div>
       <Row className={styles.contentContainer}>
-            <div
-            className={styles.image}
-            >
-              <img src="../pictures/lands.gif" />
-            </div>
-            <div
-              className={styles.text}
-            >
-              <h1>{textSection.section3.title}</h1>
-              <br></br>
-              <p>{textSection.section3.part1}</p>
-              <br></br>
-              <p>{textSection.section3.part2}</p>
-              <br></br>
-              <p>{textSection.section3.part3}</p>
-              <br></br>
-              <a
-                href="https://golemdao.gitbook.io/spicerush/gameplay/spice"
-                target="_blank"
-              >
-                <Button className={styles.button}>more</Button>
-              </a>
-            </div>
+        <div className={styles.image}>
+          <img src="../pictures/lands.gif" />
+        </div>
+        <div className={styles.text}>
+          <h1>{textSection.section3.title}</h1>
+          <br></br>
+          <p>{textSection.section3.part1}</p>
+          <br></br>
+          <p>{textSection.section3.part2}</p>
+          <br></br>
+          <p>{textSection.section3.part3}</p>
+          <br></br>
+          <a
+            href="https://golemdao.gitbook.io/spicerush/gameplay/spice"
+            target="_blank"
+          >
+            <Button className={styles.button}>more</Button>
+          </a>
+        </div>
       </Row>
       <Row className={styles.sectionFooter}>
         <div className={styles.rectangle1}></div>

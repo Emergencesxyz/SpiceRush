@@ -29,7 +29,7 @@ const Header: FunctionComponent<Props> = ({
       className="p-0"
       variant="dark"
       collapseOnSelect
-      style={{ width: "100vw" }}
+      style={{ width: "100vw", display:"flex" }}
     >
       <Container className={styles.navContainer}>
         {/* <Nav.Link className={styles.brand} href="/#topSection">
