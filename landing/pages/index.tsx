@@ -85,7 +85,10 @@ const Home: NextPage = () => {
       </div>
 
       <section ref={ref}>
-        <motion.div style={{ marginBottom: "6vh" }} animate={animation}>
+        <motion.div
+          style={{ marginBottom: !isMobile ? "6vh" : "0px" }}
+          animate={animation}
+        >
           <Section
             inverse={true}
             isMobile={isMobile}
@@ -105,7 +108,6 @@ const Home: NextPage = () => {
                 >
                   <Button className={styles.button}>more</Button>
                 </a>
-               
               </>
             }
           />
@@ -116,7 +118,7 @@ const Home: NextPage = () => {
         <motion.div
           style={{
             marginTop: "6vh",
-            marginBottom: !isMobile ? "1.5vh" : "5vh",
+            marginBottom: !isMobile ? "1.5vh" : "0px",
           }}
           animate={animation}
         >
@@ -141,7 +143,6 @@ const Home: NextPage = () => {
                 >
                   <Button className={styles.button}>more</Button>
                 </a>
-               
               </>
             }
           />
