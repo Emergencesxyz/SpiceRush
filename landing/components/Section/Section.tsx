@@ -45,6 +45,7 @@ const Section: FunctionComponent<Props> = (props): JSX.Element => {
                 textAlign: "left",
               }}
             >
+              {props.Title}
               {props.Text}
             </div>
           </>

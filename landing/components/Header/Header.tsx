@@ -6,6 +6,7 @@ import {
   OverlayTrigger,
   Tooltip,
 } from "react-bootstrap";
+import MusicPlayer from "../MusicPlayer/MusicPlayer"
 import styles from "./Header.module.scss";
 interface Props {
   currentElementIndexInViewport?: number;
@@ -40,13 +41,14 @@ const Header: FunctionComponent<Props> = ({
             />
           </h1>
         </Nav.Link> */}
+        {isMobile &&<MusicPlayer />}
         <Navbar.Toggle aria-controls="navbar" style={{ border: "none" }}>
-          <img
-            alt="menu burger"
-            width="30"
-            height="30"
-            src="/pictures/burger.png"
-          />
+            <img
+              alt="menu burger"
+              width="30"
+              height="30"
+              src="/pictures/burger.png"
+            />
         </Navbar.Toggle>
         <Navbar.Collapse id="navbar" className=" justify-content-between">
           <Nav className={styles.navBar}>
@@ -101,6 +103,20 @@ const Header: FunctionComponent<Props> = ({
                 {isActive3 && !isMobile && <p>Coming soon</p>}
               </div>
             </Nav.Link>
+            {isMobile && (
+              <Nav.Link href="https://twitter.com/Spice_Rush" target="_blank">
+                <div className={styles.titleBox}>
+                  <span>Twitter</span>
+                </div>
+              </Nav.Link>
+            )}
+            {isMobile && (
+              <Nav.Link href="https://discord.gg/MZMPRgWsuZ" target="_blank">
+                <div className={styles.titleBox}>
+                  <span>Discord</span>
+                </div>
+              </Nav.Link>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

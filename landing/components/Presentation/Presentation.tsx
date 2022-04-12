@@ -56,6 +56,7 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
           </>
         )}
       </div>
+      {!isMobile &&
       <div className={styles.groupButtons}>
         {/* <a
           className={styles.button1}
@@ -70,7 +71,6 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
             alt="discord"
           />
         </a> */}
-
         <a
           className={styles.button1}
           href="https://twitter.com/Spice_Rush"
@@ -80,6 +80,7 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
         </a>
         <MusicPlayer />
       </div>
+      }
       {!isMobile ? (
         <div className={styles.countdownContainer}>
           <div className={styles.content}>
@@ -104,9 +105,9 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
             >
               <div className={styles.logo}>
                 <img
-                  src="../pictures/logo_spicerush_mobile.png"
+                  src="../pictures/logoCici1.png"
                   alt="logo-apinator"
-                  style={{ width: "100%" }}
+                  style={{ width: "70%" }}
                 />
               </div>
               <div className={styles.description}>
