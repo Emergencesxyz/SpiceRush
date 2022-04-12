@@ -56,10 +56,6 @@ const Home: NextPage = () => {
     return <Presentation isMobile={isMobile} />;
   }, [isMobile]);
 
- /*  const scene = useMemo(() => {
-    return <Scene isMobile={isMobile} />;
-  }, [isMobile]); */
-
   return (
     <div className={styles.container}>
       {
@@ -109,11 +105,11 @@ const Home: NextPage = () => {
                 >
                   <Button className={styles.button}>more</Button>
                 </a>
+               
               </>
             }
           />
         </motion.div>
-        {/* <div className={styles.scene}>{scene}</div> */}
         <div>
           <VideoSection isMobile={isMobile} />
         </div>
@@ -128,7 +124,7 @@ const Home: NextPage = () => {
             inverse={true}
             isMobile={isMobile}
             Image="../pictures/ApeWithStats.png"
-          /*  Image = "../pictures/test.svg" */
+            /*  Image = "../pictures/test.svg" */
             Title={<h1>{textSection.section3.title}</h1>}
             Text={
               <>
@@ -145,6 +141,7 @@ const Home: NextPage = () => {
                 >
                   <Button className={styles.button}>more</Button>
                 </a>
+               
               </>
             }
           />

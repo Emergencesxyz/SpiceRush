@@ -94,6 +94,7 @@
   box-shadow: 2px 1000px 1px #1b1a4e inset;
   padding-right: 1vw !important;
   padding-left: 1vw !important;
+  margin-bottom: 40px;
   cursor: url("../public/pictures/Cursor.png") 25 15, auto !important;
   position: relative;
 }

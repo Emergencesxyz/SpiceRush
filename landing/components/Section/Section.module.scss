@@ -90,7 +90,10 @@
 
 @media (max-width: 576px) {
   .container {
-    height: 120vh;
+    height:auto;
+    padding-top: 40px;
+    padding-bottom: 40px;
+
     .contentContainer {
       height: 100%;
       padding: 0;
@@ -118,7 +121,7 @@
 
       p {
         font-size: 20px;
-        margin-bottom: 0;
+        margin: 0;
       }
     }
     .sectionFooter {
