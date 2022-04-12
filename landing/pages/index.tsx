@@ -7,7 +7,8 @@ import Section from "../components/Section/Section";
 import textSection from "../components/textSection";
 import Footer from "../components/Footer/Footer";
 import Header from "../components/Header/Header";
-import Scene from "../components/Scene/Scene";
+/* import Scene from "../components/Scene/Scene"; */
+import VideoSection from "../components/VideoSection/VideoSection";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useAnimation } from "framer-motion";
@@ -25,9 +26,6 @@ const RoadmapDesktop = dynamic(
 
 const Home: NextPage = () => {
   const [isMobile, setIsmobile] = useState<boolean>(false);
-  const [isActive1, setIsActive1] = useState<boolean>(false);
-  const [isActive2, setIsActive2] = useState<boolean>(false);
-  const [isActive3, setIsActive3] = useState<boolean>(false);
   const { ref, inView } = useInView();
   const animation = useAnimation();
 
@@ -58,9 +56,9 @@ const Home: NextPage = () => {
     return <Presentation isMobile={isMobile} />;
   }, [isMobile]);
 
-  const scene = useMemo(() => {
+ /*  const scene = useMemo(() => {
     return <Scene isMobile={isMobile} />;
-  }, [isMobile]);
+  }, [isMobile]); */
 
   return (
     <div className={styles.container}>
@@ -96,9 +94,9 @@ const Home: NextPage = () => {
             inverse={true}
             isMobile={isMobile}
             Image="./pictures/iso_city_2.png"
+            Title={<h1>{textSection.section1.title}</h1>}
             Text={
               <>
-                <h1>{textSection.section1.title}</h1>
                 <br></br>
                 <p>{textSection.section1.part1}</p>
                 <br></br>
@@ -111,41 +109,12 @@ const Home: NextPage = () => {
                 >
                   <Button className={styles.button}>more</Button>
                 </a>
-                {/*   {isActive1 && <h1>SOON</h1>} */}
               </>
             }
           />
         </motion.div>
-        <div className={styles.scene}>{scene}</div>
-        <motion.div
-          style={{ marginTop: "6vh", marginBottom: "6vh" }}
-          animate={animation}
-        >
-          <Section
-            inverse={false}
-            isMobile={isMobile}
-            Image="../pictures/lands.gif"
-            Text={
-              <>
-                <h1>{textSection.section2.title}</h1>
-                <br></br>
-                <p>{textSection.section2.part1}</p>
-                <br></br>
-                <p>{textSection.section2.part2}</p>
-                <br></br>
-                <p>{textSection.section2.part3}</p>
-                <br></br>
-                <a
-                  href="https://golemdao.gitbook.io/spicerush/ecosystem/staking#land-autostaking"
-                  target="_blank"
-                >
-                  <Button className={styles.button}>more</Button>
-                </a>
-                {/* {isActive2 && <h1>SOON</h1>} */}
-              </>
-            }
-          />
-        </motion.div>
+        {/* <div className={styles.scene}>{scene}</div> */}
+        <VideoSection isMobile={isMobile} />
         <motion.div
           style={{
             marginTop: "6vh",
@@ -157,9 +126,9 @@ const Home: NextPage = () => {
             inverse={true}
             isMobile={isMobile}
             Image="../pictures/ApeWithStats.png"
+            Title={<h1>{textSection.section3.title}</h1>}
             Text={
               <>
-                <h1>{textSection.section3.title}</h1>
                 <br></br>
                 <p>{textSection.section3.part1}</p>
                 <br></br>
@@ -174,14 +143,11 @@ const Home: NextPage = () => {
                   <Button
                     className={
                       styles.button
-                    } /* onMouseEnter={() => setIsActive(true)}
-                onMouseLeave={() => setIsActive(false)} 
-                onClick={() => setIsActive3(true)}*/
+                    } 
                   >
                     more
                   </Button>
                 </a>
-                {/*  {isActive3 && <h1>SOON</h1>} */}
               </>
             }
           />

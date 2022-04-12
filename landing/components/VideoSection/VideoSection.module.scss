@@ -1,0 +1,153 @@
+.container {
+    height: 100vh;
+    width: 100%;
+
+    .video{
+        position: absolute;
+    }
+
+    .contentContainer {
+        position: relative;
+        height: 95%;
+        display: flex;
+        padding: 6rem;
+        padding-bottom: 0;
+        width: 100vw;
+
+        .text {
+            padding-top: 10vh;
+            width: 45vw;
+            line-height: 40px;
+        }
+
+        img {
+            width: 80%;
+            margin-bottom: "30px";
+        }
+
+        h1 {
+            font-size: 50px;
+            font-family: "sofia-pro-SemiBold";
+        }
+
+        p {
+            font-size: 30px;
+            font-family: "sofia-pro";
+        }
+    }
+
+    .sectionFooter {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        /*   width: 100vw; */
+
+        .rectangle1 {
+            width: 40vw;
+            height: 0.2vh;
+            background: rgb(10, 189, 198);
+            background: linear-gradient(90deg,
+                    rgba(10, 189, 198, 1) 0%,
+                    rgba(10, 189, 198, 1) 30%,
+                    rgba(234, 0, 217, 1) 41%,
+                    rgba(234, 0, 217, 1) 93%);
+        }
+
+        img {
+            width: 6vw;
+            padding: 0;
+        }
+
+        .rectangle2 {
+            width: 40vw;
+            height: 0.2vh;
+            background: rgb(234, 0, 217);
+            background: linear-gradient(90deg,
+                    rgba(234, 0, 217, 1) 1%,
+                    rgba(234, 0, 217, 1) 2%,
+                    rgba(10, 189, 198, 1) 53%);
+        }
+    }
+}
+
+@media (max-width: 1366px) {
+    .container {
+        .contentContainer {
+            .text {
+                width: 45vw;
+                line-height: 35px;
+            }
+
+            h1 {
+                font-size: 40px;
+            }
+
+            p {
+                font-size: 20px;
+            }
+        }
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        height: 120vh;
+
+        .contentContainer {
+            height: 100%;
+            padding: 0;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin: 0 !important;
+
+            .text {
+                width: 80%;
+            }
+
+            img {
+                width: 70%;
+                margin-bottom: 30px;
+            }
+
+            h1 {
+                font-size: 30px;
+                line-height: 40px;
+                text-align: center;
+            }
+
+            p {
+                font-size: 20px;
+                margin-bottom: 0;
+            }
+        }
+
+        .sectionFooter {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+
+            .rectangle1 {
+                width: 35vw;
+                height: 0.2vh;
+            }
+
+            img {
+                width: 50px;
+                padding: 0;
+            }
+
+            .rectangle2 {
+                width: 35vw;
+                height: 0.2vh;
+            }
+        }
+    }
+}

@@ -5,6 +5,7 @@ import styles from "./Section.module.scss";
 interface Props {
   Image?: string;
   Text: ReactNode;
+  Title: ReactNode;
   Button?: ReactNode;
   inverse: boolean;
   isMobile: boolean;
@@ -50,6 +51,7 @@ const Section: FunctionComponent<Props> = (props): JSX.Element => {
         ) : (
           <>
             <div className="justify-content-center">
+              {props.Title}
               <img src={props.Image} />
             </div>
             <div style={{ textAlign: "left" }}>{props.Text}</div>
