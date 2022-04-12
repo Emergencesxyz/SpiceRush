@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { useState, FunctionComponent } from "react";
+import { useState, useEffect, FunctionComponent } from "react";
 import styles from "./Presentation.module.scss";
 import ReactPlayer from "react-player";
 import VideoMobile from "../VideoMobile/VideoMobile";
@@ -12,6 +12,13 @@ interface Props {
 const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
   const { isMobile } = props;
   const [isVideoLoaded, setIsVideoLoaded] = useState<boolean>(false);
+
+   useEffect(() => {
+     if (window) {
+       const body = (document as any).querySelector("body");
+       body.style.overflow = !isVideoLoaded ? "hidden" : "auto";
+     }
+   }, [isVideoLoaded]);
 
   return (
     <section className={styles.presentationSection}>
@@ -56,9 +63,9 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
           </>
         )}
       </div>
-      {!isMobile &&
-      <div className={styles.groupButtons}>
-        {/* <a
+      {!isMobile && (
+        <div className={styles.groupButtons}>
+          {/* <a
           className={styles.button1}
           href="https://discord.gg/MZMPRgWsuZ"
           target="_blank"
@@ -71,16 +78,16 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
             alt="discord"
           />
         </a> */}
-        <a
-          className={styles.button1}
-          href="https://twitter.com/Spice_Rush"
-          target="_blank"
-        >
-          <img src="pictures/twitter.svg" alt="twitter" />
-        </a>
-        <MusicPlayer />
-      </div>
-      }
+          <a
+            className={styles.button1}
+            href="https://twitter.com/Spice_Rush"
+            target="_blank"
+          >
+            <img src="pictures/twitter.svg" alt="twitter" />
+          </a>
+          <MusicPlayer />
+        </div>
+      )}
       {!isMobile ? (
         <div className={styles.countdownContainer}>
           <div className={styles.content}>
@@ -124,3 +131,13 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
 };
 
 export default Presentation;
+ {
+   /* <div
+          style={{ display: "flex" }}
+          className={isVideoLoaded ? styles.videoLoaded : styles.videoLoading}
+        >
+          <div className={styles.loaderWrapper}>
+            <img src="/pictures/mobile-loader.gif" alt="loader" height="80%" />
+          </div>
+        </div> */
+ }
