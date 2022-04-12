@@ -5,6 +5,8 @@
   width: 100vw;
   cursor: url("../public/pictures/Cursor.png") 25 15, auto !important;
   position: relative;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 /* .presentation {
@@ -67,7 +69,7 @@
 }
 
 .button {
-  font-size: 2.2vw;
+  font-size: 28px;
   font-family: "sofia-pro-SemiBold";
   width: 9vw;
   height: fit-content;
