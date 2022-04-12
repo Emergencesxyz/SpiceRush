@@ -114,7 +114,9 @@ const Home: NextPage = () => {
           />
         </motion.div>
         {/* <div className={styles.scene}>{scene}</div> */}
-        <VideoSection isMobile={isMobile} />
+        <div>
+          <VideoSection isMobile={isMobile} />
+        </div>
         <motion.div
           style={{
             marginTop: "6vh",
@@ -140,13 +142,7 @@ const Home: NextPage = () => {
                   href="https://golemdao.gitbook.io/spicerush/gameplay/spice"
                   target="_blank"
                 >
-                  <Button
-                    className={
-                      styles.button
-                    } 
-                  >
-                    more
-                  </Button>
+                  <Button className={styles.button}>more</Button>
                 </a>
               </>
             }

@@ -2,22 +2,43 @@
     height: 100vh;
     width: 100%;
 
-    .video{
+    .video {
         position: absolute;
     }
 
     .contentContainer {
         position: relative;
-        height: 95%;
+        height: 100%;
         display: flex;
-        padding: 6rem;
-        padding-bottom: 0;
-        width: 100vw;
+        flex-direction: row;
+        align-items: flex-end;
+        padding-bottom: 5vh;
+        padding-right: 3vw;
+        padding-left: 3vw;
+        margin:0;
+        width: 100%; 
+        background: linear-gradient(180deg, rgba(20, 14, 30, 0) 0%, #140E1E 75.56%, #140E1E 100%);
+
+        .image{
+            display:flex;
+            width:50%;
+            height:60%;
+            justify-content: center;
+            align-items: center;
+        }
 
         .text {
-            padding-top: 10vh;
-            width: 45vw;
+            width:50%;
+            height:65%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: left;
+            padding-bottom: 3vh;
             line-height: 40px;
+            background-color: #140e1e;
+            border-radius: 30px;
+            opacity: 0.9;
         }
 
         img {
@@ -33,6 +54,98 @@
         p {
             font-size: 30px;
             font-family: "sofia-pro";
+        }
+
+        .button {
+            font-size: 2.2vw;
+            font-family: "sofia-pro-SemiBold";
+            width: 9vw;
+            height: fit-content;
+            border-top-left-radius: 14px;
+            border-bottom-right-radius: 14px;
+            /*   background-color: #1b1a4e; */
+            color: white;
+            box-shadow: 0 0 6px 0 rgba(157, 96, 212, 0.5);
+            border: solid 3px transparent;
+            background-image: linear-gradient(rgba(255, 255, 255, 0),
+                    rgba(255, 255, 255, 0)),
+                linear-gradient(120deg,
+                    rgba(10, 189, 198, 1) 0%,
+                    rgba(234, 0, 217, 1) 50%,
+                    rgba(10, 189, 198, 1) 100%);
+            background-origin: border-box;
+            background-clip: content-box, border-box;
+            box-shadow: 2px 1000px 1px #1b1a4e inset;
+            padding-right: 1vw !important;
+            padding-left: 1vw !important;
+            cursor: url("../../public/pictures/Cursor.png") 25 15, auto !important;
+            position: relative;
+        }
+        
+        .button:before {
+            content: "";
+            background: linear-gradient(45deg,
+                    #140e1e,
+                    #0fb7c4,
+                    #2f82b1,
+                    #504e9d,
+                    #721889);
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            background-size: 400%;
+            z-index: -1;
+            filter: blur(10px);
+            width: calc(100% + 6px);
+            height: calc(100% + 6px);
+            animation: glowing 20s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            border-radius: 10px;
+        }
+        
+        .button:active {
+            color: white;
+        }
+        
+        .button:hover {
+            box-shadow: 2px 1000px 1px #240046 inset;
+            border: 3px solid purple;
+        }
+        
+        .button:hover:before {
+            opacity: 1;
+        }
+        
+        .button:after {
+            z-index: -1;
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #8900f2;
+            left: 0;
+            top: 0;
+            border-radius: 10px;
+        }
+        
+        .button:focus {
+            border: 1px solid #0f0e3f;
+            box-shadow: none !important;
+        }
+        
+        @keyframes glowing {
+            0% {
+                background-position: 0 0;
+            }
+        
+            50% {
+                background-position: 400% 0;
+            }
+        
+            100% {
+                background-position: 0 0;
+            }
         }
     }
 

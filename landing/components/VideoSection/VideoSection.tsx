@@ -9,7 +9,7 @@ interface Props {
 }
 
 const VideoSection: FunctionComponent<Props> = (props): JSX.Element => {
-  const isMobile = props;
+  const {isMobile} = props;
 
   return (
     <div className={styles.container}>
@@ -29,28 +29,13 @@ const VideoSection: FunctionComponent<Props> = (props): JSX.Element => {
         )}
       </div>
       <Row className={styles.contentContainer}>
-        {!isMobile ? (
-          <>
             <div
-              style={{
-                width: "55%",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
+            className={styles.image}
             >
               <img src="../pictures/lands.gif" />
             </div>
             <div
-              style={{
-                width: "45%",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "flex-start",
-                textAlign: "left",
-              }}
+              className={styles.text}
             >
               <h1>{textSection.section3.title}</h1>
               <br></br>
@@ -67,15 +52,6 @@ const VideoSection: FunctionComponent<Props> = (props): JSX.Element => {
                 <Button className={styles.button}>more</Button>
               </a>
             </div>
-          </>
-        ) : (
-          <>
-            {/*  <div className="justify-content-center">
-              <img src={props.Image} />
-            </div>
-            <div style={{ textAlign: "left" }}>{props.Text}</div> */}
-          </>
-        )}
       </Row>
       <Row className={styles.sectionFooter}>
         <div className={styles.rectangle1}></div>
