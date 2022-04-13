@@ -214,6 +214,7 @@
   .hexagons {
     height: 80vh;
     background-position: 25%;
+    background-image: url("../public/pictures/mobileHexagons.svg");
   }
 
   .button {
