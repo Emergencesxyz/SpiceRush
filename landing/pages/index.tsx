@@ -147,11 +147,12 @@ const Home: NextPage = () => {
             }
           />
         </motion.div>
+
+        <div>
+          {typeof window !== "undefined" && isMobile && <Roadmap />}
+          {typeof window !== "undefined" && !isMobile && <RoadmapDesktop />}
+        </div>
       </section>
-      <div>
-        {typeof window !== "undefined" && isMobile && <Roadmap />}
-        {typeof window !== "undefined" && !isMobile && <RoadmapDesktop />}
-      </div>
 
       <div className={styles.hexagons}></div>
       <div className={styles.footer}>
