@@ -9,7 +9,7 @@ interface Props {
 }
 
 const VideoSection: FunctionComponent<Props> = (props): JSX.Element => {
-  const {isMobile} = props;
+  const { isMobile } = props;
 
   return (
     <div className={styles.container}>
