@@ -5,7 +5,7 @@
   width: 100vw;
   cursor: url("../public/pictures/Cursor.png") 25 15, auto !important;
   position: relative;
-  overflow-y: scroll;
+  overflow-y: hidden;
   overflow-x: hidden;
 }
 
@@ -191,7 +191,7 @@
   background-repeat: no-repeat;
   background-position: 40%;
   pointer-events: none;
-  height: 60vh;
+  height: 45vh;
   width: 100%;
 }
 
