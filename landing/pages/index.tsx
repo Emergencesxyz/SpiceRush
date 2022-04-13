@@ -86,7 +86,7 @@ const Home: NextPage = () => {
 
       <section ref={ref}>
         <motion.div
-          style={{ marginBottom: !isMobile ? "5vh" : "0" }}
+          style={{ marginBottom: !isMobile ? "6vh" : "0" }}
           animate={animation}
         >
           <Section
