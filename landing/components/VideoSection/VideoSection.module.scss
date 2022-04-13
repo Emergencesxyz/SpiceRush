@@ -5,6 +5,7 @@
 
     .video {
         position: absolute;
+        z-index: 0;
     }
 
     .contentContainer {
@@ -30,11 +31,12 @@
 
         .text {
             width:50%;
-            height:68%;
+            height:auto;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
             align-items: left;
+            padding-top: 3vh;
             padding-bottom: 3vh;
             padding-left: 2vw;
             line-height: 40px;
@@ -49,13 +51,13 @@
         }
 
         h1 {
-            font-size: 45px;
+            font-size: 40px;
             font-family: "sofia-pro-SemiBold";
             margin-bottom: 0;
         }
 
         p {
-            font-size: 26px;
+            font-size: 22px;
             font-family: "sofia-pro";
             margin-bottom: 0;
         }
