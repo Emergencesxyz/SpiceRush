@@ -1,8 +1,19 @@
 import React from "react";
-import { useState, useRef } from "react";
+import {
+  useEffect,
+  useState,
+  FunctionComponent,
+  ReactNode,
+  useRef,
+} from "react";
 import styles from "../MusicPlayer/MusicPlayer.module.scss";
 
-const Player = () => {
+interface Props {
+  isMobile: boolean;
+}
+
+const Player: FunctionComponent<Props> = (props): JSX.Element => {
+  const { isMobile } = props;
   const refAudio = useRef<any>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
@@ -27,11 +38,20 @@ const Player = () => {
           src="../audio/apinato.mp3"
         ></audio>
       </div>
-      <div className={styles.button1} onClick={() => toggleAudio()}>
+      <div
+        className={!isMobile ? styles.button1 : styles.buttonMobile}
+        onClick={() => toggleAudio()}
+      >
         {isPlaying ? (
-          <img src="pictures/soundOn.png" alt="toggle on" />
+          <img
+            src={isMobile ? "pictures/soundOn.png" : "pictures/sound.png"}
+            alt="toggle on"
+          />
         ) : (
-          <img src="pictures/soundOff.png" alt="toggle off" />
+          <img
+            src={isMobile ? "pictures/soundOff.png" : "pictures/no-sound.png"}
+            alt="toggle off"
+          />
         )}
       </div>
     </>

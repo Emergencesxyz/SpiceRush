@@ -13,12 +13,12 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
   const { isMobile } = props;
   const [isVideoLoaded, setIsVideoLoaded] = useState<boolean>(false);
 
-   useEffect(() => {
-     if (window) {
-       const body = (document as any).querySelector("body");
-       body.style.overflow = !isVideoLoaded ? "hidden" : "auto";
-     }
-   }, [isVideoLoaded]);
+  useEffect(() => {
+    if (window) {
+      const body = (document as any).querySelector("body");
+      body.style.overflow = !isVideoLoaded ? "hidden" : "auto";
+    }
+  }, [isVideoLoaded]);
 
   return (
     <section className={styles.presentationSection}>
@@ -85,7 +85,7 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
           >
             <img src="pictures/twitter.svg" alt="twitter" />
           </a>
-          <MusicPlayer />
+          <MusicPlayer isMobile={isMobile} />
         </div>
       )}
       {!isMobile ? (
@@ -131,8 +131,8 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
 };
 
 export default Presentation;
- {
-   /* <div
+{
+  /* <div
           style={{ display: "flex" }}
           className={isVideoLoaded ? styles.videoLoaded : styles.videoLoading}
         >
@@ -140,4 +140,4 @@ export default Presentation;
             <img src="/pictures/mobile-loader.gif" alt="loader" height="80%" />
           </div>
         </div> */
- }
+}

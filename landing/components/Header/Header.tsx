@@ -101,7 +101,7 @@ const Header: FunctionComponent<Props> = ({
                 </div>
               </Nav.Link>
             )}
-            {isMobile && <MusicPlayer />}
+            {isMobile && <MusicPlayer isMobile={isMobile} />}
           </Nav>
         </Navbar.Collapse>
       </Container>
