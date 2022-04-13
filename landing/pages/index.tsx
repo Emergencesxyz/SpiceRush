@@ -8,6 +8,7 @@ import textSection from "../components/textSection";
 import Footer from "../components/Footer/Footer";
 import Header from "../components/Header/Header";
 /* import Scene from "../components/Scene/Scene"; */
+/* import RoadmapV2 from "../components/RoadmapV2/RoadmapV2"; */
 import VideoSection from "../components/VideoSection/VideoSection";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
