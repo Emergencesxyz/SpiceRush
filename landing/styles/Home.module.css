@@ -213,7 +213,7 @@
     background-size: cover;
   }
   .hexagons {
-    height: 80vh;
+    height: 60vh;
     background-position: 25%;
     background-image: url("../public/pictures/mobileHexagons.svg");
   }
