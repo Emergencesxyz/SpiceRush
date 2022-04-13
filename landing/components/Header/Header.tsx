@@ -1,10 +1,6 @@
 import { useState, FunctionComponent } from "react";
-import {
-  Nav,
-  Navbar,
-  Container
-} from "react-bootstrap";
-import MusicPlayer from "../MusicPlayer/MusicPlayer"
+import { Nav, Navbar, Container } from "react-bootstrap";
+import MusicPlayer from "../MusicPlayer/MusicPlayer";
 import styles from "./Header.module.scss";
 interface Props {
   currentElementIndexInViewport?: number;
@@ -27,7 +23,7 @@ const Header: FunctionComponent<Props> = ({
       className="p-0"
       variant="dark"
       collapseOnSelect
-      style={{ width: "100vw", display:"flex" }}
+      style={{ width: "100vw", display: "flex" }}
     >
       <Container className={styles.navContainer}>
         {/* <Nav.Link className={styles.brand} href="/#topSection">
@@ -39,14 +35,14 @@ const Header: FunctionComponent<Props> = ({
             />
           </h1>
         </Nav.Link> */}
-        {isMobile &&<MusicPlayer />}
+
         <Navbar.Toggle aria-controls="navbar" style={{ border: "none" }}>
-            <img
-              alt="menu burger"
-              width="30"
-              height="30"
-              src="/pictures/burger.png"
-            />
+          <img
+            alt="menu burger"
+            width="30"
+            height="30"
+            src="/pictures/burger.png"
+          />
         </Navbar.Toggle>
         <Navbar.Collapse id="navbar" className=" justify-content-between">
           <Nav className={styles.navBar}>
@@ -105,6 +101,7 @@ const Header: FunctionComponent<Props> = ({
                 </div>
               </Nav.Link>
             )}
+            {isMobile && <MusicPlayer />}
           </Nav>
         </Navbar.Collapse>
       </Container>
