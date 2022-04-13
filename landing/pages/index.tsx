@@ -37,7 +37,6 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     if (inView) {
-      console.log("use effect hook, inView =", inView);
       animation.start({
         y: 0,
         opacity: 1,
