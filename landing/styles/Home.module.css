@@ -187,10 +187,11 @@
   bottom: 0;
   position: absolute;
   background-image: url("../public/pictures/hexagonals.svg");
+  background-size: contain;
   background-repeat: no-repeat;
   background-position: 40%;
   pointer-events: none;
-  height: 50vh;
+  height: 60vh;
   width: 100%;
 }
 
