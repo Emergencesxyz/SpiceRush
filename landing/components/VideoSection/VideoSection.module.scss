@@ -70,7 +70,6 @@
             height: fit-content;
             border-top-left-radius: 14px;
             border-bottom-right-radius: 14px;
-            /*   background-color: #1b1a4e; */
             color: white;
             box-shadow: 0 0 6px 0 rgba(157, 96, 212, 0.5);
             border: solid 3px transparent;
@@ -161,7 +160,6 @@
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        /*   width: 100vw; */
 
         .rectangle1 {
             width: 40vw;
@@ -190,25 +188,6 @@
         }
     }
 }
-
-/* @media (max-width: 1366px) {
-    .container {
-        .contentContainer {
-            .text {
-                width: 45vw;
-                line-height: 35px;
-            }
-
-            h1 {
-                font-size: 40px;
-            }
-
-            p {
-                font-size: 20px;
-            }
-        }
-    }
-} */
 
 @media (max-width: 576px) {
     .container {

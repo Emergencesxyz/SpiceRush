@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  useEffect,
-  useState,
-  FunctionComponent,
-  ReactNode,
-  useRef,
-} from "react";
+import { useState, FunctionComponent, useRef } from "react";
 import styles from "../MusicPlayer/MusicPlayer.module.scss";
 
 interface Props {

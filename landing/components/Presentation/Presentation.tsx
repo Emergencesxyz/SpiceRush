@@ -98,12 +98,10 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
               <p>Earn SPICE or die trying</p>
             </div>
           </div>
-          {/* <img src="/pictures/supreme1.png" alt="imageLP" /> */}
         </div>
       ) : (
         <div className={styles.countdownContainer}>
           <div className={styles.content}>
-            {/* <img src="/pictures/mobile-ape_sweat_gradient.png" alt="imageLP" /> */}
             <div
               style={{
                 background:
@@ -131,13 +129,3 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
 };
 
 export default Presentation;
-{
-  /* <div
-          style={{ display: "flex" }}
-          className={isVideoLoaded ? styles.videoLoaded : styles.videoLoading}
-        >
-          <div className={styles.loaderWrapper}>
-            <img src="/pictures/mobile-loader.gif" alt="loader" height="80%" />
-          </div>
-        </div> */
-}

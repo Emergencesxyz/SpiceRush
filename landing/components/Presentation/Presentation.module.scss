@@ -97,9 +97,6 @@
       left: 0;
       z-index: 2;
       position: absolute;
-      /* text-shadow: 5px 8px 10px #000000; */
-      /* text-shadow: 0 0 42px #000000, 0 0 82px #000000, 0 0 92px #000000,
-        0 0 102px #000000, 0 0 130px #000000; */
 
       .description {
         width: 100%;
@@ -143,14 +140,12 @@
       padding: 0 !important;
       margin-left: 39%;
       position: relative;
-      /*   margin-bottom: 9vh; */
     }
     .sectionFooter {
       display: flex;
       flex-direction: row;
       justify-content: center;
       align-items: center;
-      /*   width: 100vw; */
 
       .rectangle1 {
         width: 40vw;

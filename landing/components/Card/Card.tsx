@@ -1,5 +1,4 @@
-import type { NextPage } from "next";
-import { useEffect, useState, FunctionComponent, ReactNode } from "react";
+import { useState, FunctionComponent, ReactNode } from "react";
 import { Button, Card } from "react-bootstrap";
 import styles from "../Card/Card.module.scss";
 
