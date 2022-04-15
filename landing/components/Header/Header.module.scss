@@ -1,6 +1,8 @@
 .navContainer {
-  max-width: 4000px !important;
-
+  max-width: 3600px !important;
+  overflow-y: hidden !important;
+  overflow-x: hidden !important;
+  width:100vw;
   background: rgb(0, 0, 6);
   background: linear-gradient(
     180deg,
@@ -16,6 +18,8 @@
 
   .navBar {
     width: 100%;
+    padding-left: 22%;
+    padding-right: 22%;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -33,9 +37,8 @@
 
       span {
         transition: all 0.2s;
-        font-size: 30px;
+        font-size: 25px;
         line-height: 0.8;
-        /*   color: white; */
       }
       &:hover {
         color: lightgrey !important;

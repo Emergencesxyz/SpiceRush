@@ -23,16 +23,21 @@
   }
 }
 
-@media (max-width: 576px) {
-  .button1 {
-    height: 50px;
-    width: 50px !important;
-    border-bottom-right-radius: 14px;
-    margin: 0.5rem;
-    padding: 0.6rem;
+.buttonMobile {
+  cursor: url("../../public/pictures/Cursor.png") 25 15, auto !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  width: 80px !important;
+  border-bottom-right-radius: 14px;
+  background-color: none;
+  border: none;
+  margin: 1rem;
+  padding: 1rem;
 
-    img {
-      width: 100%;
-    }
+  img {
+    width: 80%;
   }
 }
+

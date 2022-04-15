@@ -5,8 +5,8 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
     <>
       <Head>
         <title>Spice Rush</title>
-        <meta name="description" content="Apinator page" />
-        <link rel="icon" href="/favicon.png" />
+        <meta name="description" content="Spice Rush page" />
+        <link rel="icon" href="/faviconSpiceRush.svg" />
         <script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-40CDCTP9RQ"
@@ -24,10 +24,6 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
       </Head>
 
       <main>{children}</main>
-
-      {/* <footer>
-        <Footer />
-      </footer> */}
     </>
   );
 }

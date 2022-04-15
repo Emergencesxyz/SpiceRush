@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { useState, FunctionComponent } from "react";
+import { useState, useEffect, FunctionComponent } from "react";
 import styles from "./Presentation.module.scss";
 import ReactPlayer from "react-player";
 import VideoMobile from "../VideoMobile/VideoMobile";
@@ -12,6 +12,13 @@ interface Props {
 const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
   const { isMobile } = props;
   const [isVideoLoaded, setIsVideoLoaded] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (window) {
+      const body = (document as any).querySelector("body");
+      body.style.overflow = !isVideoLoaded ? "hidden" : "auto";
+    }
+  }, [isVideoLoaded]);
 
   return (
     <section className={styles.presentationSection}>
@@ -33,7 +40,7 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
             playsInline
             className={styles.reactPlayer}
             loop
-            url={[{ src: "/videos/rainVideo.mp4", type: "video/mp4" }]}
+            url={[{ src: "/videos/sceneCowboy.mp4", type: "video/mp4" }]}
             height="100%"
             width="100%"
             onReady={() => setIsVideoLoaded(true)}
@@ -52,12 +59,13 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
               onReady={() => setIsVideoLoaded(true)}
             />
 
-            {<VideoMobile mainVideo="/videos/mobile_video.mp4" />}
+            {<VideoMobile mainVideo="/videos/sceneCowboyMobile.mp4" />}
           </>
         )}
       </div>
-      <div className={styles.groupButtons}>
-        {/* <a
+      {!isMobile && (
+        <div className={styles.groupButtons}>
+          {/* <a
           className={styles.button1}
           href="https://discord.gg/MZMPRgWsuZ"
           target="_blank"
@@ -70,16 +78,16 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
             alt="discord"
           />
         </a> */}
-
-        <a
-          className={styles.button1}
-          href="https://twitter.com/Spice_Rush"
-          target="_blank"
-        >
-          <img src="pictures/twitter.svg" alt="twitter" />
-        </a>
-        <MusicPlayer />
-      </div>
+          <a
+            className={styles.button1}
+            href="https://twitter.com/Spice_Rush"
+            target="_blank"
+          >
+            <img src="pictures/twitter.svg" alt="twitter" />
+          </a>
+          <MusicPlayer isMobile={isMobile} />
+        </div>
+      )}
       {!isMobile ? (
         <div className={styles.countdownContainer}>
           <div className={styles.content}>
@@ -90,12 +98,10 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
               <p>Earn SPICE or die trying</p>
             </div>
           </div>
-          <img src="/pictures/supreme1.png" alt="imageLP" />
         </div>
       ) : (
         <div className={styles.countdownContainer}>
           <div className={styles.content}>
-            <img src="/pictures/mobile-ape_sweat_gradient.png" alt="imageLP" />
             <div
               style={{
                 background:
@@ -104,9 +110,9 @@ const Presentation: FunctionComponent<Props> = (props): JSX.Element => {
             >
               <div className={styles.logo}>
                 <img
-                  src="../pictures/logo_spicerush_mobile.png"
+                  src="../pictures/logoCici1.png"
                   alt="logo-apinator"
-                  style={{ width: "100%" }}
+                  style={{ width: "70%" }}
                 />
               </div>
               <div className={styles.description}>

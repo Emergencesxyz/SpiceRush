@@ -21,7 +21,6 @@
   }
 
   .button1 {
-    /*  background-color: #8900f2 !important; */
     background-color: blue !important;
     border: none;
     width: 15vw;
@@ -35,18 +34,8 @@
 
     &:before {
       content: "";
-      background:/*  linear-gradient(
-        45deg,
-        #ff0000,
-        #ff7300,
-        #fffb00,
-        #48ff00,
-        #00ffd5,
-        #002bff,
-        #7a00ff,
-        #ff00c8,
-        #ff0000
-      ); */ linear-gradient(
+      background:
+      linear-gradient(
         45deg,
         #140e1e,
         #0fb7c4,
@@ -114,13 +103,6 @@
     border-radius: 20px;
     font-size: 25px;
     cursor: url("../../public/pictures/Cursor.png") 25 15, auto !important;
-
-    /* &:hover {
-      background-color: #a89cba !important;
-      color: white;
-      border: 2px solid #a89cba;
-      cursor: url("../../public/pictures/Cursor.png") 25 15, auto !important;
-    } */
 
     &:active {
       border: 1px solid #0f0e3f;

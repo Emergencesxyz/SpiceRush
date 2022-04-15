@@ -7,7 +7,9 @@ import Section from "../components/Section/Section";
 import textSection from "../components/textSection";
 import Footer from "../components/Footer/Footer";
 import Header from "../components/Header/Header";
-import Scene from "../components/Scene/Scene";
+/* import Scene from "../components/Scene/Scene"; */
+/* import RoadmapV2 from "../components/RoadmapV2/RoadmapV2"; */
+import VideoSection from "../components/VideoSection/VideoSection";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useAnimation } from "framer-motion";
@@ -25,9 +27,6 @@ const RoadmapDesktop = dynamic(
 
 const Home: NextPage = () => {
   const [isMobile, setIsmobile] = useState<boolean>(false);
-  const [isActive1, setIsActive1] = useState<boolean>(false);
-  const [isActive2, setIsActive2] = useState<boolean>(false);
-  const [isActive3, setIsActive3] = useState<boolean>(false);
   const { ref, inView } = useInView();
   const animation = useAnimation();
 
@@ -39,7 +38,6 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     if (inView) {
-      console.log("use effect hook, inView =", inView);
       animation.start({
         y: 0,
         opacity: 1,
@@ -56,10 +54,6 @@ const Home: NextPage = () => {
 
   const VideoComponent: JSX.Element = useMemo(() => {
     return <Presentation isMobile={isMobile} />;
-  }, [isMobile]);
-
-  const scene = useMemo(() => {
-    return <Scene isMobile={isMobile} />;
   }, [isMobile]);
 
   return (
@@ -91,14 +85,17 @@ const Home: NextPage = () => {
       </div>
 
       <section ref={ref}>
-        <motion.div style={{ marginBottom: "6vh" }} animate={animation}>
+        <motion.div
+          style={{ marginBottom: !isMobile ? "6vh" : "0" }}
+          animate={animation}
+        >
           <Section
             inverse={true}
             isMobile={isMobile}
             Image="./pictures/iso_city_2.png"
+            Title={<h1>{textSection.section1.title}</h1>}
             Text={
               <>
-                <h1>{textSection.section1.title}</h1>
                 <br></br>
                 <p>{textSection.section1.part1}</p>
                 <br></br>
@@ -111,55 +108,28 @@ const Home: NextPage = () => {
                 >
                   <Button className={styles.button}>more</Button>
                 </a>
-                {/*   {isActive1 && <h1>SOON</h1>} */}
               </>
             }
           />
         </motion.div>
-        <div className={styles.scene}>{scene}</div>
-        <motion.div
-          style={{ marginTop: "6vh", marginBottom: "6vh" }}
-          animate={animation}
-        >
-          <Section
-            inverse={false}
-            isMobile={isMobile}
-            Image="../pictures/lands.gif"
-            Text={
-              <>
-                <h1>{textSection.section2.title}</h1>
-                <br></br>
-                <p>{textSection.section2.part1}</p>
-                <br></br>
-                <p>{textSection.section2.part2}</p>
-                <br></br>
-                <p>{textSection.section2.part3}</p>
-                <br></br>
-                <a
-                  href="https://golemdao.gitbook.io/spicerush/ecosystem/staking#land-autostaking"
-                  target="_blank"
-                >
-                  <Button className={styles.button}>more</Button>
-                </a>
-                {/* {isActive2 && <h1>SOON</h1>} */}
-              </>
-            }
-          />
-        </motion.div>
+        <div>
+          <VideoSection isMobile={isMobile} />
+        </div>
         <motion.div
           style={{
             marginTop: "6vh",
-            marginBottom: !isMobile ? "1.5vh" : "5vh",
+            marginBottom: !isMobile ? "1.5vh" : "0px",
           }}
           animate={animation}
         >
           <Section
             inverse={true}
             isMobile={isMobile}
-            Image="../pictures/ape_card_stats_uncovered.gif"
+            Image="../pictures/ApeWithStats.png"
+            /*  Image = "../pictures/test.svg" */
+            Title={<h1>{textSection.section3.title}</h1>}
             Text={
               <>
-                <h1>{textSection.section3.title}</h1>
                 <br></br>
                 <p>{textSection.section3.part1}</p>
                 <br></br>
@@ -171,26 +141,18 @@ const Home: NextPage = () => {
                   href="https://golemdao.gitbook.io/spicerush/gameplay/spice"
                   target="_blank"
                 >
-                  <Button
-                    className={
-                      styles.button
-                    } /* onMouseEnter={() => setIsActive(true)}
-                onMouseLeave={() => setIsActive(false)} 
-                onClick={() => setIsActive3(true)}*/
-                  >
-                    more
-                  </Button>
+                  <Button className={styles.button}>more</Button>
                 </a>
-                {/*  {isActive3 && <h1>SOON</h1>} */}
               </>
             }
           />
         </motion.div>
+
+        <div>
+          {typeof window !== "undefined" && isMobile && <Roadmap />}
+          {typeof window !== "undefined" && !isMobile && <RoadmapDesktop />}
+        </div>
       </section>
-      <div /* style={{ marginTop: "5vh" }} */>
-        {typeof window !== "undefined" && isMobile && <Roadmap />}
-        {typeof window !== "undefined" && !isMobile && <RoadmapDesktop />}
-      </div>
 
       <div className={styles.hexagons}></div>
       <div className={styles.footer}>

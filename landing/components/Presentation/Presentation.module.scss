@@ -8,7 +8,6 @@
   }
 
   .reactPlayer {
-    margin-top: 30px;
     position: absolute;
     top: 0;
     left: 0;
@@ -92,16 +91,12 @@
 
     .content {
       width: 50%;
-      margin-bottom: 1%;
       margin-left: 25%;
       display: flex;
       flex-direction: column;
       left: 0;
       z-index: 2;
       position: absolute;
-      /* text-shadow: 5px 8px 10px #000000; */
-      /* text-shadow: 0 0 42px #000000, 0 0 82px #000000, 0 0 92px #000000,
-        0 0 102px #000000, 0 0 130px #000000; */
 
       .description {
         width: 100%;
@@ -109,7 +104,7 @@
         align-items: center;
         justify-content: center;
         text-align: center;
-        font-size: "45px";
+        font-size: 45px;
         font-family: "sofia-pro";
         line-height: 1;
       }
@@ -145,14 +140,12 @@
       padding: 0 !important;
       margin-left: 39%;
       position: relative;
-      /*   margin-bottom: 9vh; */
     }
     .sectionFooter {
       display: flex;
       flex-direction: row;
       justify-content: center;
       align-items: center;
-      /*   width: 100vw; */
 
       .rectangle1 {
         width: 40vw;
@@ -250,7 +243,7 @@
       display: flex;
       justify-content: center;
       position: static;
-      height: fit-content;
+      height: auto;
       top: 0;
       padding-inline: 20px;
       text-align: center;
@@ -264,8 +257,7 @@
         text-align: center;
         width: 100%;
         margin-right: 0;
-        margin-bottom: 1vh;
-        margin-left: 0%;
+        margin-left: 0;
 
         img {
           width: 90%;

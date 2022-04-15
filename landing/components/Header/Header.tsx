@@ -1,11 +1,6 @@
 import { useState, FunctionComponent } from "react";
-import {
-  Nav,
-  Navbar,
-  Container,
-  OverlayTrigger,
-  Tooltip,
-} from "react-bootstrap";
+import { Nav, Navbar, Container } from "react-bootstrap";
+import MusicPlayer from "../MusicPlayer/MusicPlayer";
 import styles from "./Header.module.scss";
 interface Props {
   currentElementIndexInViewport?: number;
@@ -28,7 +23,7 @@ const Header: FunctionComponent<Props> = ({
       className="p-0"
       variant="dark"
       collapseOnSelect
-      style={{ width: "100vw" }}
+      style={{ width: "100vw", display: "flex" }}
     >
       <Container className={styles.navContainer}>
         {/* <Nav.Link className={styles.brand} href="/#topSection">
@@ -40,6 +35,7 @@ const Header: FunctionComponent<Props> = ({
             />
           </h1>
         </Nav.Link> */}
+
         <Navbar.Toggle aria-controls="navbar" style={{ border: "none" }}>
           <img
             alt="menu burger"
@@ -91,16 +87,21 @@ const Header: FunctionComponent<Props> = ({
               </div>
             </Nav.Link>
 
-            <Nav.Link
-              onMouseEnter={() => setIsActive3(!isActive3)}
-              onMouseLeave={() => setIsActive3(!isActive3)}
-            >
-              <div className={styles.titleBox}>
-                <span>Buy NFT</span>
-                {isMobile && <p>Coming soon</p>}
-                {isActive3 && !isMobile && <p>Coming soon</p>}
-              </div>
-            </Nav.Link>
+            {isMobile && (
+              <Nav.Link href="https://twitter.com/Spice_Rush" target="_blank">
+                <div className={styles.titleBox}>
+                  <span>Twitter</span>
+                </div>
+              </Nav.Link>
+            )}
+            {isMobile && (
+              <Nav.Link href="https://discord.gg/MZMPRgWsuZ" target="_blank">
+                <div className={styles.titleBox}>
+                  <span>Discord</span>
+                </div>
+              </Nav.Link>
+            )}
+            {isMobile && <MusicPlayer isMobile={isMobile} />}
           </Nav>
         </Navbar.Collapse>
       </Container>

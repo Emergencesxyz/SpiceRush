@@ -5,6 +5,8 @@
   width: 100vw;
   cursor: url("../public/pictures/Cursor.png") 25 15, auto !important;
   position: relative;
+  overflow-y: hidden;
+  overflow-x: hidden;
 }
 
 /* .presentation {
@@ -67,9 +69,9 @@
 }
 
 .button {
-  font-size: 2.2vw;
+  font-size: 28px;
   font-family: "sofia-pro-SemiBold";
-  width: 9vw;
+  width: 134px;
   height: fit-content;
   border-top-left-radius: 14px;
   border-bottom-right-radius: 14px;
@@ -92,6 +94,7 @@
   box-shadow: 2px 1000px 1px #1b1a4e inset;
   padding-right: 1vw !important;
   padding-left: 1vw !important;
+  margin-bottom: 40px;
   cursor: url("../public/pictures/Cursor.png") 25 15, auto !important;
   position: relative;
 }
@@ -184,10 +187,11 @@
   bottom: 0;
   position: absolute;
   background-image: url("../public/pictures/hexagonals.svg");
+  background-size: contain;
   background-repeat: no-repeat;
   background-position: 40%;
   pointer-events: none;
-  height: 50vh;
+  height: 45vh;
   width: 100%;
 }
 
@@ -209,8 +213,9 @@
     background-size: cover;
   }
   .hexagons {
-    height: 80vh;
+    height: 60vh;
     background-position: 25%;
+    background-image: url("../public/pictures/mobileHexagons.svg");
   }
 
   .button {

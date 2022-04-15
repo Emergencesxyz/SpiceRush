@@ -3,9 +3,6 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  /* padding-left: 10rem;
-  padding-right: 10rem; */
-  /*   color: #a89cba; */
   color: white;
   font-family: "sofia-pro-SemiBold";
   font-size: 26px;
@@ -20,7 +17,6 @@
     text-align: center;
     width: 30%;
     line-height: 40px;
-    /* padding-right: 10%; */
 
     a {
       &:hover {
@@ -50,11 +46,9 @@
   .footerRow1 {
     width: 95%;
     flex-direction: column;
-    /*  padding-left: 1rem;
-    padding-right: 1rem; */
     color: white;
     font-family: "sofia-pro-SemiBold";
-    font-size: 15px;
+    font-size: 14px;
 
     .subRow {
       width: 100%;

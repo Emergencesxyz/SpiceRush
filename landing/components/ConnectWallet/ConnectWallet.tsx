@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Button, Spinner, Col, Dropdown, Modal } from "react-bootstrap";
 import styles from "../ConnectWallet/ConnectWallet.module.scss";
 import Web3 from "web3";
-import contractAbi from "../../WalletHelpers/contractAbi.json";
 import { useWeb3React, UnsupportedChainIdError } from "@web3-react/core";
 import {
   NoEthereumProviderError,

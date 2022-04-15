@@ -78,36 +78,6 @@ const Timeline = ({ setObserver, callback }) => {
     height: "1000px",
   };
 
- /*  const someCallback = () => {
-    setMessage1(
-      
-    );
-    callback();
-  };
-
-  const someCallback2 = () => {
-    setMessage2(
-      
-    );
-  };
-
-  const someCallback3 = () => {
-    setMessage3(
-      
-    );
-  };
-
-  const someCallback4 = () => {
-    setMessage4(
-      <div className={styles.text}>
-        <h2>4. Expansion </h2>
-        <p>
-          Beta release: Powerup items collection. <br /> PVP system.
-        </p>
-      </div>
-    );
-  }; */
-
   useEffect(() => {
     setObserver(timeline1.current);
     setObserver(timeline2.current);
@@ -168,7 +138,6 @@ export default function Roadmap() {
         fillColor="purple"
         handleObserve={(setObserver) => (
           <Timeline
-            /* callback={onCallback} */
             className={styles.timeline}
             setObserver={setObserver}
           />

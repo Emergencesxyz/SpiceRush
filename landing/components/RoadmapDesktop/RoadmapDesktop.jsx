@@ -19,8 +19,6 @@ const Timeline = ({ setObserver, callback }) => {
   const circle3 = useRef(null);
   const circle4 = useRef(null);
 
-/*   const color:  */
-
   const circle = {
     width: "45px",
     height: "45px",
@@ -33,37 +31,10 @@ const Timeline = ({ setObserver, callback }) => {
     backgroundColor: "#e5e5e5",
   };
 
-/*   const topHexagon = {
-    width: 0,
-    borderBottom: "30px solid #6C6",
-    borderLeft: "52px solid transparent",
-    borderRight: "52px solid transparent",
-  }
-
-  const middleHexagon = {
-    width: "45px",
-    height: "45px",
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    color: "white",
-    fontSize: "25px",
-    borderRadius: "50%",
-    backgroundColor: "#e5e5e5",
-  };
-
-  const bottomHexagon = {
-    width: 0,
-    borderTop: "30px solid #6C6",
-    borderLeft: "52px solid transparent",
-    borderRight: "52px solid transparent",
-  } */
-
   const circleWrapper = {
     position: "relative",
-  
-    
   };
+
   const wrapper = {
     display: "flex",
     flexDirection: "column",
@@ -156,14 +127,6 @@ const Timeline = ({ setObserver, callback }) => {
         </div>
         <div style={message}>{message1}</div>
       </div>
-      {/* <div style={circleWrapper} ref={circle1}>
-        <div style={topHexagon}></div>
-        <div style={middleHexagon}>
-          1
-        </div>
-        <div style={bottomHexagon}></div>
-        <div style={message}>{message1}</div>
-      </div> */}
       <div id="timeline2" ref={timeline2} style={timeline} />
       <div style={circleWrapper}>
         <div id="circle2" ref={circle2} style={circle}>
@@ -202,12 +165,6 @@ export default function RoadmapDesktop() {
       <TimelineObserver
         initialColor="#e5e5e5"
         fillColor="purple"
-       /*  fillColor='linear-gradient(
-          180deg,
-          rgba(50, 1, 50, 1),
-          rgba(20, 14, 30, 1) ,
-         yellow
-        )' */
        handleObserve={(setObserver) => (
           <Timeline
             callback={onCallback}
