@@ -18,6 +18,7 @@ const Timeline = ({ setObserver, callback }) => {
     <p>NFT Sale </p>
     <p>Beta release mainnet</p>
     <p>Big game contest </p>
+    <p>Scholarships</p>
   </div>);
   const [message4, setMessage4] = useState(<div className={styles.text}>
     <h2>Expansion </h2>
