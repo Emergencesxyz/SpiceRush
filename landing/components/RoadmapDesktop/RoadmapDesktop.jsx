@@ -86,6 +86,7 @@ const Timeline = ({ setObserver, callback }) => {
         <h2>Rise of the Apinator </h2>
         <p>NFT Sale</p>
         <p>Beta release mainnet</p>
+        <p>Scholarships</p>
         <p>Big game contest</p>
       </div>
     );
