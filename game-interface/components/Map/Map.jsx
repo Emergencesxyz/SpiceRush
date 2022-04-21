@@ -17,6 +17,7 @@ let currentZoom = 1;
 let camera;
 let image;
 let _this;
+let clickOut;
 
 function preload() {
     this.load.image('tiles', 'gameAssets/tiles.png');
@@ -94,6 +95,9 @@ function create() {
 
 function update(time, delta) {
     controls.update(delta);
+
+    // Prevent interactions with outside canvas click
+    if(clickOut) return;
 
     const worldPoint = this.input.activePointer.positionToCamera(camera);
 
@@ -196,7 +200,7 @@ export default function Map({ apeDirection }) {
   useEffect(() => {
     if(!image) return;
     updateApeImage(apeDirection)
-  }, [apeDirection, isLoaded]);
+  }, [apeDirection]);
 
   return (
       <>
@@ -210,6 +214,8 @@ export default function Map({ apeDirection }) {
             <button onClick={() => mapControls('zoomOut')}>zoomOut</button>
         </div>
         <div
+            onMouseLeave={() => clickOut = true}
+            onMouseEnter={() => clickOut = false}
             ref={parentRef}
         ></div>
       </>
