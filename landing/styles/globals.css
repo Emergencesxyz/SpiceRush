@@ -4,6 +4,7 @@ html,
 body {
   padding: 0;
   margin: 0;
+  overflow-x: hidden;
   background-color: #140e1e;
   color: white;
   cursor: url("../public/pictures/Cursor.png") 25 15, auto !important;
