@@ -20,10 +20,14 @@
 
     a {
       &:hover {
-        color: #fff !important;
+        color: lightgrey !important;
         cursor: url("../../public/pictures/Cursor.png") 25 15, auto !important;
       }
       &:active {
+        color: "white";
+        cursor: url("../../public/pictures/Cursor.png") 25 15, auto !important;
+      }
+      &:focus {
         color: "white";
         cursor: url("../../public/pictures/Cursor.png") 25 15, auto !important;
       }

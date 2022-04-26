@@ -154,7 +154,7 @@ const Home: NextPage = () => {
         </div>
       </section>
 
-      <div className={styles.hexagons}></div>
+      {/* <div className={styles.hexagons}></div> */}
       <div className={styles.footer}>
         <Footer isMobile={isMobile} />
       </div>
