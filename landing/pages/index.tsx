@@ -117,8 +117,7 @@ const Home: NextPage = () => {
         </div>
         <motion.div
           style={{
-            marginTop: "6vh",
-            marginBottom: !isMobile ? "1.5vh" : "0px",
+            marginTop: "6vh"
           }}
           animate={animation}
         >
@@ -154,7 +153,7 @@ const Home: NextPage = () => {
         </div>
       </section>
 
-      {/* <div className={styles.hexagons}></div> */}
+      <div className={styles.hexagons}></div>
       <div className={styles.footer}>
         <Footer isMobile={isMobile} />
       </div>
