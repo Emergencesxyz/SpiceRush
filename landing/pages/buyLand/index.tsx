@@ -11,7 +11,7 @@ import CardBody from "../../components/Card/Card";
 const buyLand: NextPage = () => {
   const [isMobile, setIsmobile] = useState<boolean>(false);
   const { account, library } = useWeb3React();
-
+  //zbi
   useEffect(() => {
     if (window.matchMedia("(max-width: 600px)").matches) {
       setIsmobile(true);
