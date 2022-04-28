@@ -1,12 +1,14 @@
 import { useRef, useEffect, useState } from 'react';
+import { testTiles } from "../../borrar";
 import Phaser from "phaser";
 
 const width = 40;
 const height = 38;
 const tileWidth = 32;
 const tileHeight = 32;
-const apePositionX = tileWidth*20-tileWidth/2;
-const apePositionY = tileHeight*25-tileHeight/2;
+let apePositionX = tileWidth*20-tileWidth/2;
+let apePositionY = tileHeight*25-tileHeight/2;
+
 let map;
 let controls;
 let marker;
@@ -17,23 +19,22 @@ let currentZoom = 1;
 let camera;
 let image;
 let _this;
-let clickOut;
+let clickOut = true;
 
 function preload() {
-    this.load.image('tiles', 'gameAssets/tiles.png');
-    this.load.image('0', 'gameAssets/0.png');
-    this.load.image('1', 'gameAssets/1.png');
-    this.load.image('2', 'gameAssets/2.png');
-    this.load.image('3', 'gameAssets/3.png');
-    this.load.image('4', 'gameAssets/4.png');
+    this.load.image('tiles', 'assets/tiles.png');
+    this.load.image('0', 'assets/0.png');
+    this.load.image('1', 'assets/1.png');
+    this.load.image('2', 'assets/2.png');
+    this.load.image('3', 'assets/3.png');
+    this.load.image('4', 'assets/4.png');
 }
 
 function create() {
     _this = this
     // Build a random level as a 2D array
     let level = [];
-    for (var y = 0; y < height; y++)
-    {
+    for (var y = 0; y < height; y++) {
         var row = [];
         for (var x = 0; x < width; x++)
         {
@@ -49,8 +50,10 @@ function create() {
     map.forEachTile((tile)=>{
         tile.properties = {value: Math.random()}
     })
+
     const tileset = map.addTilesetImage('tiles');
     const layer = map.createLayer(0, tileset, 0, 0);
+    layer.putTileAt(5, 1, 1);
 
     // adding cursor pointer in map
     marker = this.add.graphics();
@@ -112,6 +115,8 @@ function update(time, delta) {
     if (this.input.manager.activePointer.isDown)
     {
         const tile = map.getTileAt(pointerTileX, pointerTileY);
+        const test = map.getTileAt(1, 1);
+        console.log('test', test)
 
         if (tile)
         {
@@ -123,7 +128,6 @@ function update(time, delta) {
 function updateApeImage (position) {
     image.destroy();
     image = null;
-
     image = _this.add.image(apePositionX, apePositionY, ''+position);
 }
 
@@ -134,34 +138,46 @@ function refreshMap () {
 }
 
 function mapControls (action) {
-    if(action == "up") {
-        const newY = currentY > 32 ? currentY + 32 : currentY
-        camera.setScroll(currentX,newY)
-        currentY = newY;
-    } else if (action == "rigth") {
-        const newX = currentX < 0 ? 0 + 32 : currentX + 32
-        camera.setScroll(newX,currentY)
-        currentX = newX;
-    } else if (action == "left") {
-        const newX = currentX < 0 ? 0 - 32 : currentX - 32
-        camera.setScroll(newX,currentY)
-        currentX = newX;
-    } else if (action == "down") {
-        const newY = currentY > 32 ? currentY - 32 : currentY
-        camera.setScroll(currentX,newY)
-        currentY = newY;
-    } else if (action == "zoomIn") {
-        camera.setZoom(currentZoom + 0.1)
-        currentZoom += 0.1
-    } else if (action == "zoomOut") {
-        camera.setZoom(currentZoom - 0.1)
-        currentZoom -= 0.1
+    switch (action) {
+        case "up": {
+                const newY = currentY > tileHeight ? currentY + tileHeight : currentY
+                camera.setScroll(currentX,newY)
+                currentY = newY
+            }
+            break;
+        case "rigth": {
+                const newX = currentX < 0 ? 0 + tileWidth : currentX + tileWidth
+                camera.setScroll(newX,currentY)
+                currentX = newX;
+            }
+            break;
+        case "left": {
+                const newX = currentX < 0 ? 0 - tileWidth : currentX - tileWidth
+                camera.setScroll(newX,currentY)
+                currentX = newX;
+            }
+            break;
+        case "down": {
+                const newY = currentY > tileHeight ? currentY - tileHeight : currentY
+                camera.setScroll(currentX,newY)
+                currentY = newY;
+            }
+            break;
+        case "zoomIn":
+            camera.setZoom(currentZoom + 0.1)
+            currentZoom += 0.1
+            break;
+        case "zoomOut":
+            camera.setZoom(currentZoom - 0.1)
+            currentZoom -= 0.1
+            break;
+        default:
+            console.log(`No control sor ${action}.`);
     }
 }
 
 
 export default function Map({ playerDirection }) {
-    const [isLoaded, setIsLoaded] = useState(false);
     const parentRef = useRef(null);
 
     useEffect(() => {
@@ -179,24 +195,18 @@ export default function Map({ playerDirection }) {
         });
 
     // Refreshing map every 10 secs
-    const interval = setInterval(() => {
-        refreshMap();
-        propertiesText.setText('Values: ')
-    }, 10000);
+    // const interval = setInterval(() => {
+    //     refreshMap();
+    //     propertiesText.setText('Values: ')
+    // }, 10000);
 
-    setIsLoaded(true)
     return () => {
         game.destroy();
-        clearInterval(interval);
+        // clearInterval(interval);
     }
   }, []);
 
-  // remove first useless canvas, TODO: find a real solution
-  useEffect(() => {
-    isLoaded && parentRef.current.removeChild(parentRef.current.children[0])
-  }, [isLoaded]);
-
-  // Handling ape direction
+  // Handling Ape direction
   useEffect(() => {
     if(!image) return;
     updateApeImage(playerDirection)
