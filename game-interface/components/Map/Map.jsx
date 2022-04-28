@@ -160,7 +160,7 @@ function mapControls (action) {
 }
 
 
-export default function Map({ apeDirection }) {
+export default function Map({ playerDirection }) {
     const [isLoaded, setIsLoaded] = useState(false);
     const parentRef = useRef(null);
 
@@ -199,8 +199,8 @@ export default function Map({ apeDirection }) {
   // Handling ape direction
   useEffect(() => {
     if(!image) return;
-    updateApeImage(apeDirection)
-  }, [apeDirection]);
+    updateApeImage(playerDirection)
+  }, [playerDirection]);
 
   return (
       <>
