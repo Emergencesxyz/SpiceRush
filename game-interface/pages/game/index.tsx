@@ -8,6 +8,7 @@ import { useWeb3React } from "@web3-react/core";
 import BlockchainService from "../../services/BlockchainService";
 
 import { testTiles } from "../../borrar";
+import LandSection from "../../components/LandSection/LandSection";
 
 const Map = dynamic(() => import("../../components/Map/Map"), {
   ssr: false,
@@ -24,11 +25,8 @@ export default function Game() {
 
   useEffect(() => {
     (async () => {
-      console.log('character info', characterInfo);
-
       console.log('getting tiles')
       // const tiles = await blockchainService.getMapPlayer(characterInfo.x, characterInfo.y, 10);
-      console.log('tiles', tiles)
       setTiles(testTiles);
       setLoading(false);
     })()
@@ -46,6 +44,8 @@ export default function Game() {
     >
       <Header />
 
+      <LandSection />
+
       <div style={{ display: "flex" }}>
         <Player />
 
@@ -53,11 +53,7 @@ export default function Game() {
           {loading ? (
             <h1>creating map from blockchain</h1>
           ) : (
-            <Map
-              playerDirection={playerDirection}
-              tiles={tiles}
-              character={characterInfo}
-            />
+            <Map />
           )}
         </div>
       </div>

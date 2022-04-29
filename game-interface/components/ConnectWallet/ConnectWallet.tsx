@@ -16,6 +16,7 @@ import { injected, walletconnect, walletlink } from "../../WalletHelpers/connect
 import { Col, Button, Dropdown, Spinner, Modal } from "react-bootstrap";
 import styles from "./ConnectWallet.module.scss";
 
+
 function getErrorMessage(error: Error) {
   if (error instanceof NoEthereumProviderError) {
     return "Install MetaMask on desktop or visit from Metamask app browser on mobile.";

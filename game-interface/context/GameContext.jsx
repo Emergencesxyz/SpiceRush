@@ -6,6 +6,7 @@ const GameContextProvider = (props) => {
   const [playerDirection, setPlayerDirection] = useState(0);
   const [characterInfo, setCharacterInfo] = useState(0);
   const [tiles, setTiles] = useState([]);
+  const [selectedTile, setSelectedTile] = useState({})
 
   return (
     <GameContext.Provider
@@ -15,7 +16,9 @@ const GameContextProvider = (props) => {
         characterInfo,
         setCharacterInfo,
         tiles,
-        setTiles
+        setTiles,
+        selectedTile,
+        setSelectedTile
       }}
     >
       {props.children}

@@ -18,7 +18,7 @@ const Header = (): JSX.Element => {
     }
 
     return (
-        <div style={{ display: "flex", alignItems: "center", marginTop: "50px", marginBottom: "150px" }}>
+        <div style={{ display: "flex", alignItems: "center", marginTop: "50px", marginBottom: "30px" }}>
             <h4>{account}</h4>
             <button onClick={() => Router.push("/")}>
                 change character
