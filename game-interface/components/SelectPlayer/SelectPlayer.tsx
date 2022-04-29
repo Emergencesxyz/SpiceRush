@@ -41,11 +41,6 @@ const SelectPlayer = () => {
     console.log('info', _character)
     setCharacterInfo(_character);
 
-    // Getting tiles
-    // const tiles = await blockchainService.getMapChunk(_character.x, _character.y, 10);
-    //setTiles(testTiles);
-
-
     //load character info
     // if (tiles && _character && Number.isInteger(_character.x)) {
     //   setSpiceMined(await blockchainService.getSpiceMined(characterId));

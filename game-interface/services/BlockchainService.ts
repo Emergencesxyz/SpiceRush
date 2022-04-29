@@ -151,6 +151,29 @@ export default class BlockchainService {
     }
   }
 
+  async getMapPlayer(x0: number, y0: number, chunkSize: number) {
+    let tiles: any = [];
+    try {
+      for (let y = y0 + chunkSize; y > y0 - chunkSize; y--) {
+        for (let x = x0 - chunkSize; x < x0 + chunkSize; x++) {
+          const _tile = await this.gameplayContract.methods.map(x, y).call();
+
+          tiles.push({
+            foesAmount: parseInt(_tile.foesAmount),
+            isExplored: _tile.isExplored,
+            level: parseInt(_tile.level),
+            spiceAmount: parseInt(_tile.spiceAmount),
+            x: x,
+            y: y,
+          });
+        }
+      }
+      return tiles;
+    } catch (e) {
+      return null;
+    }
+  }
+
   async getMapChunkRect(x0: number, y0: number, x1: number, y1: number) {
     let tiles = [];
     for (let x = x0; x <= x1; x++) {

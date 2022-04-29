@@ -1,13 +1,12 @@
 import { useRef, useEffect, useState } from 'react';
-import { testTiles } from "../../borrar";
 import Phaser from "phaser";
 
-const width = 40;
-const height = 38;
+const width = 20;
+const height = 20;
 const tileWidth = 32;
 const tileHeight = 32;
-let apePositionX = tileWidth*20-tileWidth/2;
-let apePositionY = tileHeight*25-tileHeight/2;
+let apePositionX;
+let apePositionY;
 
 let map;
 let controls;
@@ -15,11 +14,12 @@ let marker;
 let propertiesText;
 let currentX = 0;
 let currentY = 0;
-let currentZoom = 1;
+let currentZoom = 2;
 let camera;
 let image;
 let _this;
 let clickOut = true;
+let mapTiles;
 
 function preload() {
     this.load.image('tiles', 'assets/tiles.png');
@@ -31,24 +31,29 @@ function preload() {
 }
 
 function create() {
-    _this = this
+    _this = this;
     // Build a random level as a 2D array
     let level = [];
-    for (var y = 0; y < height; y++) {
-        var row = [];
-        for (var x = 0; x < width; x++)
-        {
-            var tileIndex = Phaser.Math.RND.integerInRange(30, 50);
-            row.push(tileIndex);
+    let row = [];
+
+    for (let i = 0; i <= mapTiles.length; i++) {
+        // const toPush = !mapTiles[i].isExplored ? -1 : mapTiles[i].level;
+        if(row.length < 20) {
+            row.push(mapTiles[i].level);
+        } else {
+            level.push(row);
+            if(i !== mapTiles.length) {
+                row = [];
+                row.push(mapTiles[i].level);
+            }
         }
-        level.push(row);
     }
 
     // create THE map
     map = this.make.tilemap({ data: level, tileWidth, tileHeight });
     // adding value to tiles
-    map.forEachTile((tile)=>{
-        tile.properties = {value: Math.random()}
+    map.forEachTile((tile, index)=>{
+        tile.properties = mapTiles[index]
     })
 
     const tileset = map.addTilesetImage('tiles');
@@ -83,9 +88,11 @@ function create() {
     controls = new Phaser.Cameras.Controls.FixedKeyControl(controlConfig);
 
     // Center camera in ape position (width/2, height/2)
-    currentX = apePositionX - 400;
-    currentY = apePositionY - 300
+    camera.setZoom(currentZoom);
+    currentX = apePositionX - tileWidth * width/2;
+    currentY = apePositionY - tileHeight * height/2;
     camera.setScroll(currentX, currentY)
+
 
     propertiesText = this.add.text(16, 540, 'Values: ', {
         fontSize: '18px',
@@ -115,8 +122,7 @@ function update(time, delta) {
     if (this.input.manager.activePointer.isDown)
     {
         const tile = map.getTileAt(pointerTileX, pointerTileY);
-        const test = map.getTileAt(1, 1);
-        console.log('test', test)
+        console.log('test', tile)
 
         if (tile)
         {
@@ -177,12 +183,18 @@ function mapControls (action) {
 }
 
 
-export default function Map({ playerDirection }) {
+export default function Map({ playerDirection, tiles, character }) {
     const parentRef = useRef(null);
+    mapTiles = tiles;
+    // 10 for chunkn size
+    apePositionX = tileWidth * 10 + tileWidth/2;
+    apePositionY = tileHeight * 10 + tileHeight/2;
 
     useEffect(() => {
         const game = new Phaser.Game({
             parent: parentRef.current,
+            // width: tileWidth * width,
+            // height: tileHeight * height,
             width: 800,
             height: 600,
             resolution: 1,
