@@ -94,13 +94,13 @@ const Header: FunctionComponent<Props> = ({
                 </div>
               </Nav.Link>
             )}
-            {isMobile && (
+            {/* {isMobile && (
               <Nav.Link href="https://discord.gg/MZMPRgWsuZ" target="_blank">
                 <div className={styles.titleBox}>
                   <span>Discord</span>
                 </div>
               </Nav.Link>
-            )}
+            )} */}
             {isMobile && <MusicPlayer isMobile={isMobile} />}
           </Nav>
         </Navbar.Collapse>
