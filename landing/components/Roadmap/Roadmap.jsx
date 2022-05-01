@@ -132,6 +132,11 @@ export default function Roadmap() {
 
   return (
     <div className={styles.container}>
+      <div className={styles.sectionFooter}>
+        <div className={styles.rectangle1}></div>
+        <img src="./pictures/HexagonLogo.svg" alt="testLogo" />
+        <div className={styles.rectangle2}></div>
+      </div>
       <h1 style={{ textAlign: "center" , marginBottom: "50px"}}>Roadmap</h1>
       <TimelineObserver
         initialColor="#e5e5e5"

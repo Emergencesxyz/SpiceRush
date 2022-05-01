@@ -78,7 +78,7 @@ const Home: NextPage = () => {
         <div className={styles.rectangle1}></div>
         <img
           className={styles.image}
-          src="./pictures/testLogo.png"
+          src="./pictures/HexagonLogo.svg"
           alt="testLogo"
         />
         <div className={styles.rectangle2}></div>
