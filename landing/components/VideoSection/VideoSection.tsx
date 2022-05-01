@@ -29,6 +29,7 @@ const VideoSection: FunctionComponent<Props> = (props): JSX.Element => {
         )}
       </div>
       <Row className={styles.contentContainer}>
+        <div className={styles.content}>
         {!isMobile ? (
           <>
             <div className={styles.image}>
@@ -73,12 +74,14 @@ const VideoSection: FunctionComponent<Props> = (props): JSX.Element => {
             </div>
           </>
         )}
-      </Row>
-      <Row className={styles.sectionFooter}>
+        </div>
+        <div className={styles.sectionFooter}>
         <div className={styles.rectangle1}></div>
         <img src="./pictures/HexagonLogo.svg" alt="testLogo" />
         <div className={styles.rectangle2}></div>
+      </div>
       </Row>
+      
     </div>
   );
 };
