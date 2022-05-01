@@ -1,49 +1,38 @@
-import { useState } from "react";
-import dynamic from "next/dynamic";
-import styles from "../styles/Home.module.css";
-// import Map from "../components/Map/Map";
-
-
-const Map = dynamic(() => import("../components/Map/Map"), {
-  ssr: false,
-});
+import { useState, useEffect } from "react";
+import { useWeb3React } from "@web3-react/core";
+import ConnectWallet from "../components/ConnectWallet/ConnectWallet";
+import SelectPlayer from "../components/SelectPlayer/SelectPlayer";
+import { MoralisProvider } from "react-moralis";
+import { useRouter } from 'next/router';
+import { injected, walletconnect, walletlink } from "../WalletHelpers/connectors";
 
 export default function Home() {
-  const [apeDirection, setApeDirection] = useState(0);
+  const router = useRouter();
+  const context = useWeb3React();
+  const { account, library, connector, deactivate } = context;
+
+  useEffect(() => {
+    if (!!router.query?.disconnect) {
+      if (connector === injected) {
+        deactivate();
+      } else {
+        (connector as any).close();
+      }
+    }
+  }, [])
 
   return (
-    <div style={{ width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
-      <div onClick={(e) => e.stopPropagation()}>
-        User Panel controls
-        <button
-          onMouseEnter={() => setApeDirection(1)}
-          onMouseLeave={() => setApeDirection(0)}
-        >
-          rigth
-        </button>
-        <button
-          onMouseEnter={() => setApeDirection(2)}
-          onMouseLeave={() => setApeDirection(0)}
-        >
-          down
-        </button>
-        <button
-          onMouseEnter={() => setApeDirection(3)}
-          onMouseLeave={() => setApeDirection(0)}
-        >
-          left
-        </button>
-        <button
-          onMouseEnter={() => setApeDirection(4)}
-          onMouseLeave={() => setApeDirection(0)}
-        >
-          up
-        </button>
+    <MoralisProvider
+      appId="4mKjTljUgN4ctOdYeOML5JV7at07qXEOXf8EBPGL"
+      serverUrl="https://8kzhmqqwag9j.usemoralis.com:2053/server"
+    >
+      <div style={{ width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
+        {!!account && !!library ? (
+          <SelectPlayer />
+        ) : (
+          <ConnectWallet />
+        )}
       </div>
-
-      <div style={{ border: "1px solid red", width: "800px", height: "600px" }}>
-        <Map apeDirection={apeDirection} />
-      </div>
-    </div>
+    </MoralisProvider>
   );
 }

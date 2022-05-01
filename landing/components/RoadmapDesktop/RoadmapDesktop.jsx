@@ -102,7 +102,7 @@ const Timeline = ({ setObserver, callback }) => {
     <p>SRG token listing </p>
     <p>Item collection</p>
     <p>Enhanced PVP </p>
-    
+
       </div>
     );
   };
@@ -161,6 +161,11 @@ export default function RoadmapDesktop() {
 
   return (
     <div className={styles.container}>
+      <div className={styles.sectionFooter}>
+        <div className={styles.rectangle1}></div>
+        <img src="./pictures/HexagonLogo.svg" alt="testLogo" />
+        <div className={styles.rectangle2}></div>
+      </div>
       <h1 >Roadmap</h1>
       <TimelineObserver
         initialColor="#e5e5e5"
