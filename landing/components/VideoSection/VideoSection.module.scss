@@ -2,6 +2,45 @@
     height: 110vh;
     width: 100vw;
     position:relative;
+
+    .sectionTop {
+        position:absolute;
+        top:-100px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin-top: 30px;
+        z-index:2;
+        width:100vw;
+
+        .rectangle1 {
+            width: 40vw;
+            height: 0.2vh;
+            background: rgb(10, 189, 198);
+            background: linear-gradient(90deg,
+                    rgba(10, 189, 198, 1) 0%,
+                    rgba(10, 189, 198, 1) 30%,
+                    rgba(234, 0, 217, 1) 41%,
+                    rgba(234, 0, 217, 1) 93%);
+        }
+
+        img {
+            height:100px;
+            width:100px;
+            padding: 0;
+        }
+
+        .rectangle2 {
+            width: 40vw;
+            height: 0.2vh;
+            background: rgb(234, 0, 217);
+            background: linear-gradient(90deg,
+                    rgba(234, 0, 217, 1) 1%,
+                    rgba(234, 0, 217, 1) 2%,
+                    rgba(10, 189, 198, 1) 53%);
+        }
+    }
     
 
     .video {
@@ -9,7 +48,6 @@
         z-index: 0;
         height:100%;
         width:100%;
-        
     }
 
     .contentContainer {
@@ -30,7 +68,6 @@
         .content{
         display: flex;
         flex-direction: row;
-
 
         .image {
             display:flex;
@@ -171,6 +208,8 @@
         justify-content: center;
         align-items: center;
         margin-top: 30px;
+        padding:0;
+        z-index:2;
 
         .rectangle1 {
             width: 40vw;
@@ -205,8 +244,28 @@
 
 @media (max-width: 576px) {
     .container {
-        height: 145vh;
+        height: 155vh;
        width: 100vw;
+
+       .sectionTop {
+        top:-50px;
+     
+        
+        .rectangle1 {
+            width: 35vw;
+            height: 0.2vh;
+        }
+
+        img {
+            width: 50px;
+            padding: 0;
+        }
+
+        .rectangle2 {
+            width: 35vw;
+            height: 0.2vh;
+        }
+    }
 
         .contentContainer {
             padding: 0;
@@ -214,16 +273,17 @@
             justify-content: center;
             text-align: left;
             margin-top: 0 !important;
+    
 
             .content{
-                
+                flex-direction: column;
 
             .text {
                 width: 98%;
                 height:auto;
                 padding: 1.5rem;
                 padding-top: 40px;
-                padding-bottom: 40px;
+                padding-bottom: 10px;
                 align-items: flex-start;
                 margin-top: 10vh;
                 
@@ -261,13 +321,8 @@
         }
 
             .sectionFooter {
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-                align-items: center;
-                width: 100%;
-                padding: 0;
-                margin: 0;
+                margin-top: 0;
+                z-index:2;
     
                 .rectangle1 {
                     width: 35vw;

@@ -13,6 +13,11 @@ const VideoSection: FunctionComponent<Props> = (props): JSX.Element => {
 
   return (
     <div className={styles.container}>
+       <div className={styles.sectionTop}>
+        <div className={styles.rectangle1}></div>
+        <img src="./pictures/HexagonLogo.svg" alt="testLogo" />
+        <div className={styles.rectangle2}></div>
+      </div>
       <div className={styles.video}>
         {!isMobile ? (
           <ReactPlayer
