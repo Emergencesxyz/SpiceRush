@@ -1,4 +1,23 @@
 .container {
-    background-color: linear-gradient(180deg, #110F35 0%, #140E1E 40.1%, #140E1E 100%);
+  background: linear-gradient(180deg, #110f35 0%, #140e1e 40.1%, #140e1e 100%);
+  position: relative;
 
+  .connect {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 25%;
+  }
+
+  .hexagons {
+    bottom: 0;
+    position: absolute;
+    background-image: url("../public/assets/hexagonals.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 40%;
+    pointer-events: none;
+    height: 20vh;
+    width: 100%;
+  }
 }
