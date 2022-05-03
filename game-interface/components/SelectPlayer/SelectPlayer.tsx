@@ -36,16 +36,26 @@ const SelectPlayer = () => {
           token_address: "0x680b20466bbc756E82Ce93d12E8179ecB688D9F5",
         });
 
-        setUserNFTs(getUserNFTs?.result);
+        await fetchCharacterInfo(getUserNFTs.result);
       }
     })();
   }, []);
+
+  const fetchCharacterInfo = async (userNFTs: any) => {
+    let characterInfo: any = [];
+    for (let userNFT of userNFTs) {
+      const _character = await blockchainService.getCharacterInfo(
+        +userNFT.token_id
+      );
+      characterInfo.push(_character);
+    }
+    setUserNFTs(characterInfo);
+  };
 
   const selectNFT = async (id: string) => {
     const _character = await blockchainService.getCharacterInfo(+id);
 
     console.log("info", _character);
-    setCharacterInfo(_character);
 
     //load character info
     // if (tiles && _character && Number.isInteger(_character.x)) {
@@ -64,24 +74,48 @@ const SelectPlayer = () => {
           className={styles.apecard}
         >
           <Card className={styles.content}>
-            <Card.Body style={{ width: "100%" }}>
-              <Card.Text>
-                <img src="/assets/nft.png" alt="nft ape" /># {e.token_id}
-              </Card.Text>
-              <Card.Link href="#">Life points: </Card.Link>
-              <Card.Text
+            <Card.Body
+              style={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  height: "60%",
+                }}
+              >
+                <div>
+                  <img src="/assets/nft.png" alt="nft ape" /># {e.id}
+                </div>
+                <div>
+                  <span>lvl: {e.lvl}</span>
+                  <span>xp: {e.xp}/3000</span>
+                  <span>
+                    pos: [{e.x},{e.y}]
+                  </span>
+                </div>
+              </div>
+
+              <div
                 style={{
                   display: "flex",
                   flexDirection: "row",
                   width: "100%",
+                  height: "40%",
                 }}
               >
                 <img src="/assets/ic_spice_ore.png" alt="spice ore" />
                 <div>
                   <p>Spice Ore:</p>
-                  <h3>230039</h3>
+                  <h3>{e.spiceMined}</h3>
                 </div>
-              </Card.Text>
+              </div>
             </Card.Body>
           </Card>
         </div>
@@ -98,7 +132,6 @@ const SelectPlayer = () => {
         padding: "50px",
       }}
     >
-      {/* <h1>{account}</h1> */}
       {ApeCards()}
     </div>
   );
