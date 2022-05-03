@@ -6,7 +6,7 @@ import BlockchainService from "../../services/BlockchainService";
 const Player = (): JSX.Element => {
     const { account, library } = useWeb3React();
     const gameContext = useContext(GameContext);
-    const { setPlayerDirection, characterInfo } = gameContext;
+    const { setPlayerDirection, characterInfo, setCharacterInfo } = gameContext;
     const blockchainService = new BlockchainService(account);
 
     const moveCharacter = async (e: any) => {
@@ -15,17 +15,17 @@ const Player = (): JSX.Element => {
         // audioScifi.play();
 
         if (e === "right") {
-            x = characterInfo.x;
-            y = characterInfo.y + 1;
-        } else if (e === "left") {
-            x = characterInfo.x;
-            y = characterInfo.y - 1;
-        } else if (e === "up") {
-            x = characterInfo.x - 1;
-            y = characterInfo.y;
-        } else if (e === "down") {
             x = characterInfo.x + 1;
             y = characterInfo.y;
+        } else if (e === "left") {
+            x = characterInfo.x - 1;
+            y = characterInfo.y;
+        } else if (e === "up") {
+            x = characterInfo.x;
+            y = characterInfo.y + 1;
+        } else if (e === "down") {
+            x = characterInfo.x;
+            y = characterInfo.y - 1;
         } else return;
 
         let res = await blockchainService.moveCharacter(
@@ -35,8 +35,10 @@ const Player = (): JSX.Element => {
             library
         );
 
-        // TODO: update character in game context
-        console.log("res", res);
+        if (res) {
+            // TODO: update character in game context
+            setCharacterInfo({ ...characterInfo, x, y })
+        }
     };
 
     return (

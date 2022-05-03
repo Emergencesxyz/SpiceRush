@@ -5,6 +5,7 @@ import SelectPlayer from "../components/SelectPlayer/SelectPlayer";
 import { MoralisProvider } from "react-moralis";
 import { useRouter } from 'next/router';
 import { injected, walletconnect, walletlink } from "../WalletHelpers/connectors";
+import styles from "../styles/Home.module.scss";
 
 export default function Home() {
   const router = useRouter();
@@ -26,7 +27,7 @@ export default function Home() {
       appId="4mKjTljUgN4ctOdYeOML5JV7at07qXEOXf8EBPGL"
       serverUrl="https://8kzhmqqwag9j.usemoralis.com:2053/server"
     >
-      <div style={{ width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
+      <div className={styles.container} style={{ width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
         {!!account && !!library ? (
           <SelectPlayer />
         ) : (

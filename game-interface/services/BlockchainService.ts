@@ -198,6 +198,8 @@ export default class BlockchainService {
       value: "0",
     };
 
+    let succes = false;
+
     this.gameplayContract = new library.eth.Contract(
       consts.gameplayABI as any,
       GAMEPLAY_CONTRACT_ADDRESS
@@ -207,9 +209,12 @@ export default class BlockchainService {
       .move(nftId, x, y)
       .send(txParams)
       .on("transactionHash", function (hash: any) {
-        const audioSuccess = new Audio("./sounds/success.mp3");
-        audioSuccess.play();
+        // const audioSuccess = new Audio("./sounds/success.mp3");
+        // audioSuccess.play();
+        succes = true;
       });
+
+    return succes;
   }
 
   async spawn(nftId: number, library: any) {

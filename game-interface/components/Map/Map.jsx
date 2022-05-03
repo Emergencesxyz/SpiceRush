@@ -14,7 +14,7 @@ let controls;
 let marker;
 let currentX = 0;
 let currentY = 0;
-let currentZoom = 2;
+let currentZoom = 1;
 let camera;
 let image;
 let _this;
@@ -217,6 +217,13 @@ export default function Map() {
     if(!image) return;
     updateApeImage(playerDirection)
   }, [playerDirection]);
+
+  useEffect(() => {
+      if(!image) return;
+      image.destroy();
+      image = null;
+      image = _this.add.image(apePositionX, apePositionY, 0);
+  }, [characterInfo])
 
   return (
       <>
