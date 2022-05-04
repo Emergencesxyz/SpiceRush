@@ -86,19 +86,60 @@ const SelectPlayer = () => {
               <div
                 style={{
                   display: "flex",
-                  flexDirection: "column",
+                  flexDirection: "row",
                   height: "60%",
                 }}
               >
-                <div>
-                  <img src="/assets/nft.png" alt="nft ape" /># {e.id}
-                </div>
-                <div>
-                  <span>lvl: {e.lvl}</span>
-                  <span>xp: {e.xp}/3000</span>
-                  <span>
-                    pos: [{e.x},{e.y}]
-                  </span>
+                <img src="/assets/nft.png" alt="nft ape" />
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    width: "50%",
+                  }}
+                >
+                  <span># {e.id}</span>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        color: "#0ABDC6",
+                      }}
+                    >
+                      <span>Lvl</span>
+                      <span style={{ fontSize: "22px" }}> {e.lvl}</span>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "space-evenly",
+                        alignItems: "left",
+                      }}
+                    >
+                      <div>
+                        <span style={{ paddingRight: "5px" }}>
+                          <img src="/assets/xp.png" alt="xp" />
+                        </span>
+                        <span> {e.xp}/30000</span>
+                      </div>
+                      <div>
+                        <span style={{ paddingRight: "5px" }}>
+                          <img src="/assets/position.svg" alt="pos" />
+                        </span>
+                        <span>
+                          [{e.x},{e.y}]
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
