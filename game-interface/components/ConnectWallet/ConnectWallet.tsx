@@ -12,10 +12,13 @@ import {
   useEagerConnect,
   useInactiveListener,
 } from "../../WalletHelpers/hooks";
-import { injected, walletconnect, walletlink } from "../../WalletHelpers/connectors";
+import {
+  injected,
+  walletconnect,
+  walletlink,
+} from "../../WalletHelpers/connectors";
 import { Col, Button, Dropdown, Spinner, Modal } from "react-bootstrap";
 import styles from "./ConnectWallet.module.scss";
-
 
 function getErrorMessage(error: Error) {
   if (error instanceof NoEthereumProviderError) {
@@ -57,7 +60,7 @@ const ConnectWallet = () => {
     } else {
       (connector as any).close();
     }
-  }
+  };
 
   const toggle = () => setShowModal(!showModal);
 
@@ -171,14 +174,18 @@ const ConnectWallet = () => {
 
   return (
     <>
-      <Col style={{ display: "flex", justifyContent: "center" }}>
+      <Col
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <Button
           variant="dark"
           className={styles.button}
           onClick={() => setShowModal(true)}
-        >
-          Connect Wallet
-        </Button>
+        ></Button>
       </Col>
 
       <Modal
