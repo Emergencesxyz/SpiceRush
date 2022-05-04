@@ -1,9 +1,12 @@
 .container {
-    padding-left: 70px;
+    padding-inline: 50px;
+
+    .firstWrapper {
+        padding-inline: 50px;
+    }
 
     .playerInfo {
         position: relative;
-        margin-bottom: 50px;
 
         img {
             width: 330px;
@@ -12,6 +15,113 @@
         .playerStats {
             position: absolute;
             bottom: 0;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding-bottom: 5px;
+
+            .leftWrapper {
+                display: flex;
+                align-items: flex-end;
+                width: 75%;
+                padding-right: 10px;
+
+                .left {
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+
+                    .name {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 80%;
+                        height: 30px;
+                        background: radial-gradient(49.81% 3712.33% at 50.19% 50%, #090C25 0%, #09071C 47.4%, #0B0719 100%);
+                        opacity: 0.7;
+                        border-radius: 7px;
+
+                        p {
+                            font-size: 18px;
+                            margin-bottom: 0;
+                        }
+                    }
+
+                    img {
+                        width: auto;
+                        height: 35px;
+                    }
+
+                    .lock {
+                        &:hover {
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+
+            .right {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                justify-content: flex-end;
+
+                p {
+                    margin-bottom: 0;
+                }
+
+                .title {
+                    color: #0ABDC6;
+                    font-size: 15px;
+                    margin-right: 7px;
+                }
+
+                .level {
+                    color: #0ABDC6;
+                    font-size: 55px;
+                    line-height: 1;
+                }
+
+                .xp {
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items: center;
+
+                    img {
+                        height: 18px;
+                        width: auto;
+                        margin-right: 5px;
+                    }
+
+                    p {
+                        font-size: 9px;
+                    }
+                }
+            }
+        }
+    }
+
+    .statsContainer {
+        padding: 10px 30px;
+        width: 100%;
+        background-image: url('/assets/stats_container.png');
+        background-size: 100% 100%;
+        margin-bottom: 15px;
+
+        .statsSection {
+            display: flex;
+            align-items: center;
+            margin-block: 10px;
+
+            p {
+                margin-bottom: 0;
+            }
+
+            img {
+                height: 30px;
+                width: auto;
+                margin-right: 10px;
+            }
         }
     }
 }

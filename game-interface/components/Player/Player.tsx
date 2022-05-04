@@ -44,20 +44,62 @@ const Player = (): JSX.Element => {
 
     return (
         <div className={styles.container}>
-            <div className={styles.playerInfo}>
-                <img src="/assets/nft_player.png" alt="nft image" />
-                <div className={styles.playerStats}>
-                    <div className={styles.left}>
+            <div className={styles.firstWrapper}>
+                <div className={styles.playerInfo}>
+                    <img src="/assets/nft_player.png" alt="nft image" />
+                    <div className={styles.playerStats}>
+                        <div className={styles.leftWrapper}>
+                            <div className={styles.left}>
+                                <img src="/assets/name_logo.png" alt="name logo" />
+                                <div className={styles.name}>
+                                    <p>
+                                        #NO NAME
+                                    </p>
+                                </div>
+                                <div className={styles.lock} onClick={() => console.log('lock click')}>
+                                    <img src="/assets/lock.png" alt="lock logo" />
+                                </div>
+                            </div>
+                        </div>
 
+                        <div className={styles.right}>
+                            <p className={styles.title}>Lvl</p>
+                            <p className={styles.level}>{characterInfo.lvl}</p>
+                            <div className={styles.xp}>
+                                <img src="/assets/xp.png" alt="xp icon" />
+                                <p>{characterInfo.xp} / 10000</p>
+                            </div>
+                            <div className={styles.xp}>
+                                <img src="/assets/pos.png" alt="xp icon" />
+                                <p>[{characterInfo.x}, {characterInfo.y} ]</p>
+                            </div>
+                        </div>
                     </div>
-
-                    <div className={styles.left}>
-
-                    </div>
-                    <p>id: {characterInfo.id}</p>
-                    <p>lvl: {characterInfo.lvl}</p>
-                    <p>xp: {characterInfo.xp}</p>
                 </div>
+            </div>
+
+
+            <div className={styles.statsContainer}>
+                <div className={styles.statsSection}>
+                    <img src="/assets/pic.png" alt="pic logo" />
+                    <p>sdfsdf</p>
+                </div>
+                <div className={styles.statsSection}>
+                    <img src="/assets/hearth.png" alt="hearth logo" />
+                    <div style={{ border: "1px solid red", width: "100%", height: "30px" }}></div>
+                </div>
+                <div className={styles.statsSection}>
+                    <img src="/assets/energy.png" alt="energy logo" />
+                    <div style={{ border: "1px solid red", width: "100%", height: "30px" }}></div>
+                </div>
+            </div>
+
+            <div className={styles.controls}>
+                <div>
+
+                </div>
+
+
             </div>
 
             <div style={{ display: "flex", alignItems: "center" }}>

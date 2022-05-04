@@ -54,6 +54,7 @@ const SelectPlayer = () => {
 
   const selectNFT = async (player: any) => {
     setCharacterInfo(player)
+    console.log('ape', player)
 
     //load character info
     // if (tiles && _character && Number.isInteger(_character.x)) {

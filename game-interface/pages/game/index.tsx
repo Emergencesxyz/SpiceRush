@@ -39,11 +39,11 @@ export default function Game() {
       <Header />
 
       <div className={styles.playZone}>
-        <Col md={3}>
+        <Col md={4}>
           <Player />
         </Col>
 
-        <Col md={6}>
+        <Col md={5}>
           {loading ? (
             <h1>creating map from blockchain</h1>
           ) : (

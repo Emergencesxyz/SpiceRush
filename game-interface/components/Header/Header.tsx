@@ -20,6 +20,11 @@ const Header = (): JSX.Element => {
         } else {
             (connector as any).close();
         }
+
+        // Router.push({
+        //     pathname: "/",
+        //     query: { disconnect: true },
+        // })
     }
 
     return (
