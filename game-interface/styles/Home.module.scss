@@ -7,6 +7,18 @@
     flex-direction: column;
     justify-content: center;
     height: 25%;
+
+    .account {
+      position: relative;
+      display: flex;
+      text-align: center;
+      justify-content: center;
+
+      p {
+        position: absolute;
+        font-size: 14px;
+      }
+    }
   }
 
   .hexagons {
@@ -22,7 +34,7 @@
   }
 
   .playZone {
-      display: flex;
-      width: 100vw;
+    display: flex;
+    width: 100vw;
   }
 }
