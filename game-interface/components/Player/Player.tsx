@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { GameContext } from "../../context/GameContext";
 import { useWeb3React } from "@web3-react/core";
 import BlockchainService from "../../services/BlockchainService";
+import styles from "./Player.module.scss";
 
 const Player = (): JSX.Element => {
     const { account, library } = useWeb3React();
@@ -42,11 +43,21 @@ const Player = (): JSX.Element => {
     };
 
     return (
-        <div>
-            <div>
-                <p>id: {characterInfo.id}</p>
-                <p>lvl: {characterInfo.lvl}</p>
-                <p>xp: {characterInfo.xp}</p>
+        <div className={styles.container}>
+            <div className={styles.playerInfo}>
+                <img src="/assets/nft_player.png" alt="nft image" />
+                <div className={styles.playerStats}>
+                    <div className={styles.left}>
+
+                    </div>
+
+                    <div className={styles.left}>
+
+                    </div>
+                    <p>id: {characterInfo.id}</p>
+                    <p>lvl: {characterInfo.lvl}</p>
+                    <p>xp: {characterInfo.xp}</p>
+                </div>
             </div>
 
             <div style={{ display: "flex", alignItems: "center" }}>

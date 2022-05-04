@@ -1,0 +1,17 @@
+.container {
+    padding-left: 70px;
+
+    .playerInfo {
+        position: relative;
+        margin-bottom: 50px;
+
+        img {
+            width: 330px;
+        }
+
+        .playerStats {
+            position: absolute;
+            bottom: 0;
+        }
+    }
+}

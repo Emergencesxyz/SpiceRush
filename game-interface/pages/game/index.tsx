@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import styles from "../styles/Home.module.css";
+import styles from "../../styles/Home.module.scss";
 import { GameContext } from "../../context/GameContext";
 import Header from "../../components/Header/Header";
 import Player from "../../components/Player/Player";
@@ -9,6 +9,7 @@ import BlockchainService from "../../services/BlockchainService";
 
 import { testTiles } from "../../borrar";
 import LandSection from "../../components/LandSection/LandSection";
+import { Col } from "react-bootstrap";
 
 const Map = dynamic(() => import("../../components/Map/Map"), {
   ssr: false,
@@ -27,35 +28,32 @@ export default function Game() {
     (async () => {
       console.log('getting tiles')
       // const tiles = await blockchainService.getMapPlayer(characterInfo.x, characterInfo.y, 10);
+      // setTiles(tiles);
       setTiles(testTiles);
       setLoading(false);
     })()
   }, [])
 
   return (
-    <div
-      style={{
-        width: "100vw",
-        height: "100vh",
-        display: "flex",
-        alignItems: "center",
-        flexDirection: "column"
-      }}
-    >
+    <div className={styles.container}>
       <Header />
 
-      <LandSection />
+      <div className={styles.playZone}>
+        <Col md={3}>
+          <Player />
+        </Col>
 
-      <div style={{ display: "flex" }}>
-        <Player />
-
-        <div style={{ border: "1px solid red", width: "800px", height: "600px" }}>
+        <Col md={6}>
           {loading ? (
             <h1>creating map from blockchain</h1>
           ) : (
             <Map />
           )}
-        </div>
+        </Col>
+
+        <Col md={3}>
+          <LandSection />
+        </Col>
       </div>
     </div>
   )

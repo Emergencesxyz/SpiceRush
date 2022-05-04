@@ -1,5 +1,6 @@
 import { useRef, useEffect, useContext } from 'react';
 import { GameContext } from "../../context/GameContext";
+import styles from "./Map.module.scss";
 import Phaser from "phaser";
 
 const width = 20;
@@ -103,7 +104,6 @@ export default function Map() {
         // TODO: fix this shit
         currentX = apePositionX - layer.width/2 - 64;
         currentY = apePositionY - layer.height/2 + 32;
-        console.log('camera', currentX, currentY, 'ape', apePositionX, apePositionY)
         camera.setScroll(currentX, currentY);
 
     }
@@ -134,6 +134,8 @@ export default function Map() {
     }
 
     function updateApeImage (position) {
+        // TODO: fix this fucking bug
+        // if(!_this?.add?.image) return;
         image.destroy();
         image = null;
         image = _this.add.image(apePositionX, apePositionY, ''+position);
@@ -189,8 +191,8 @@ export default function Map() {
             parent: parentRef.current,
             // width: tileWidth * width,
             // height: tileHeight * height,
-            width: 800,
-            height: 600,
+            width: "100%",
+            height: "100%",
             resolution: 1,
             pixelArt: true,
             scene: {
@@ -214,12 +216,12 @@ export default function Map() {
 
   // Handling Ape direction
   useEffect(() => {
-    if(!image) return;
+    if(!image || !_this) return;
     updateApeImage(playerDirection)
   }, [playerDirection]);
 
   useEffect(() => {
-      if(!image) return;
+      if(!image || !_this) return;
       image.destroy();
       image = null;
       image = _this.add.image(apePositionX, apePositionY, 0);
@@ -227,6 +229,24 @@ export default function Map() {
 
   return (
       <>
+        <div className={styles.spiceWrapper}>
+            <div className={styles.spiceInfo}>
+                <img src="/assets/spice_ore.png" alt="spice or icon"/>
+                <div>
+                    <p>Spice Ore</p>
+                    <h4>{characterInfo.spiceMined}</h4>
+                </div>
+            </div>
+
+            <div className={styles.spiceInfo}>
+                <img src="/assets/spice.png" alt="spice or icon"/>
+                <div>
+                    <p>Spice</p>
+                    <h4>234 000</h4>
+                </div>
+            </div>
+        </div>
+
         <div>
             Map controls
             <button onClick={() => mapControls('down')}>down</button>
