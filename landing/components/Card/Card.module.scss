@@ -34,8 +34,7 @@
 
     &:before {
       content: "";
-      background:
-      linear-gradient(
+      background: linear-gradient(
         45deg,
         #140e1e,
         #0fb7c4,
@@ -117,7 +116,7 @@
 
 @media (max-width: 576px) {
   .card {
-    width: 85vw !important;
+    width: 100% !important;
     background-color: transparent !important;
     text-align: center;
     border: 1px #8900f2 solid;

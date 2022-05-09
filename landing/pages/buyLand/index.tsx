@@ -37,35 +37,43 @@ const buyLand: NextPage = () => {
               <Table className={styles.table}>
                 <tbody>
                   <tr>
-                    <td colSpan={2} style={{ textAlign: "center" }}>
+                    <td colSpan={3} style={{ textAlign: "center" }}>
                       <strong>ApeX6</strong> Microchips
                     </td>
                   </tr>
                   <tr>
-                    <td colSpan={2} style={{ textAlign: "center" }}>
+                    <td colSpan={3} style={{ textAlign: "center" }}>
                       <img src="/pictures/microchip_side_1.png" alt="chip" />
                     </td>
                   </tr>
                   <tr>
-                    <td>Referral Code*</td>
+                    <td colSpan={2}>Referral Code*</td>
                     <td style={{ textAlign: "right" }}>2389</td>
                   </tr>
                   <tr>
                     <td>Amount</td>
+                    <td style={{ color: "transparent" }}>FOUND</td>
                     <td style={{ textAlign: "right" }}>1</td>
                   </tr>
                   <tr>
                     <td>Price</td>
-                    <td style={{ textAlign: "right" }}>25 MATIC</td>
+                    <td colSpan={3} style={{ textAlign: "right" }}>
+                      25 MATIC
+                    </td>
                   </tr>
-                  <span style={{ color: "red", fontSize: "13px" }}>
+                  <em
+                    style={{
+                      color: "red",
+                      fontSize: "13px",
+                    }}
+                  >
                     *5 MATIC Instant claimable cashback per NFT
-                  </span>
+                  </em>
                 </tbody>
               </Table>
             </div>
 
-            <div style={{ marginBottom: "30px" }}>
+            <div style={{ marginBottom: "30px", width: "100%" }}>
               <CardBody
                 header={
                   <Row className="d-flex flex-row">
