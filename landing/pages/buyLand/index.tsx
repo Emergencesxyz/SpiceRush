@@ -10,7 +10,7 @@ import CardBody from "../../components/Card/Card";
 
 const buyLand: NextPage = () => {
   const [isMobile, setIsmobile] = useState<boolean>(false);
-  const { account } = useWeb3React();
+  const { account, library } = useWeb3React();
   //zbiz
   useEffect(() => {
     if (window.matchMedia("(max-width: 600px)").matches) {
@@ -28,7 +28,7 @@ const buyLand: NextPage = () => {
         <div className={styles.connectWallet}>
           <ConnectWallet />
         </div>
-        {!!account && (
+        {!!account && library && (
           <>
             <div>
               <InputGroup>
