@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import styles from "../buyLand/buyLand.module.scss";
 import { useEffect, useState } from "react";
 import { useWeb3React } from "@web3-react/core";
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col, Button, InputGroup, Form } from "react-bootstrap";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import ConnectWallet from "../../components/ConnectWallet/ConnectWallet";
@@ -10,7 +10,7 @@ import CardBody from "../../components/Card/Card";
 
 const buyLand: NextPage = () => {
   const [isMobile, setIsmobile] = useState<boolean>(false);
-  const { account, library } = useWeb3React();
+  const { account } = useWeb3React();
   //zbiz
   useEffect(() => {
     if (window.matchMedia("(max-width: 600px)").matches) {
@@ -24,23 +24,31 @@ const buyLand: NextPage = () => {
         <Header isMobile={isMobile} />
       </header>
       <div className={styles.container}>
-        <h1>LANDS</h1>
+        <h1>CHIPS</h1>
         <div className={styles.connectWallet}>
           <ConnectWallet />
         </div>
-        {!!account && !!library && (
+        {!!account && (
           <>
             <div>
+              <InputGroup>
+                <Form.Control
+                  placeholder="referral"
+                  aria-label="referral"
+                  aria-describedby="referral"
+                  className={styles.noBorder}
+                />
+              </InputGroup>
               <Button className={styles.button1}>MINT</Button>
             </div>
             <div style={{ marginBottom: "15px" }}>
-              <h1>MY LANDS</h1>
+              <h1>COLLECTED CHIPS</h1>
             </div>
             <div style={{ marginBottom: "30px" }}>
               <CardBody
                 header={
                   <>
-                    <Row className="d-flex flex-row">
+                    {/*  <Row className="d-flex flex-row">
                       <div style={{ width: "30%" }}>
                         <span>#53</span>
                       </div>
@@ -61,17 +69,17 @@ const buyLand: NextPage = () => {
                       <div style={{ width: "30%", fontSize: "17px" }}>
                         <span>location</span>
                       </div>
-                    </Row>
+                    </Row> */}
                   </>
                 }
                 text={
                   <>
-                    <h2>2888%</h2>
-                    <p>Current APY</p>
+                    <h2>ID:</h2>
+                    {/* <p>Current APY</p> */}
                   </>
                 }
                 Image="../pictures/lands.gif"
-                buttonTitle1="CLAIM"
+                buttonTitle1="CLAIM REWARD"
                 buttonTitle2="BUILD"
               />
             </div>

@@ -13,6 +13,25 @@
     margin-bottom: 30px;
   }
 
+  .noBorder {
+    border: 1px solid white;
+    box-shadow: none;
+    background-color: transparent;
+    border-radius: 50rem;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+
+    :focus {
+      background-color: transparent;
+    }
+
+    ::placeholder {
+      color: white;
+    }
+  }
+
   .button1 {
     background-color: #8900f2 !important;
     border: none;

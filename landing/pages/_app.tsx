@@ -1,16 +1,32 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import Layout from "../components/layouts/default";
-import { Web3ReactProvider } from "@web3-react/core";
-import Web3 from "web3";
+import { CoinbaseWallet } from "@web3-react/coinbase-wallet";
+import { Web3ReactHooks, Web3ReactProvider } from "@web3-react/core";
+import { MetaMask } from "@web3-react/metamask";
+import { WalletConnect } from "@web3-react/walletconnect";
+import {
+  coinbaseWallet,
+  hooks as coinbaseWalletHooks,
+} from "../connectors/coinbaseWallet";
+import { hooks as metaMaskHooks, metaMask } from "../connectors/metaMask";
+import {
+  hooks as walletConnectHooks,
+  walletConnect,
+} from "../connectors/walletConnect";
 
-function getLibrary(provider: any): Web3 {
-  return new Web3(provider);
-}
+const connectors: [
+  MetaMask | WalletConnect | CoinbaseWallet,
+  Web3ReactHooks
+][] = [
+  [metaMask, metaMaskHooks],
+  [walletConnect, walletConnectHooks],
+  [coinbaseWallet, coinbaseWalletHooks],
+];
 
 function Apinator({ Component, pageProps }: AppProps) {
   return (
-    <Web3ReactProvider getLibrary={getLibrary}>
+    <Web3ReactProvider connectors={connectors}>
       <Layout>
         <Component {...pageProps} />
       </Layout>
