@@ -1,5 +1,6 @@
 .container {
   height: auto;
+  min-height: 100vh;
   margin-top: 15vh;
   display: flex;
   flex-direction: column;
@@ -30,6 +31,11 @@
       width: 200px;
       height: 200px;
     }
+
+    .dropdown {
+      background-color: transparent !important;
+      border: 1px solid white;
+    }
   }
 
   .noBorder {
@@ -52,11 +58,13 @@
   }
 
   .button1 {
-    background-color: #8900f2 !important;
+    background-color: #d100d1 !important;
     border: none;
     width: 15vw;
     justify-content: center;
-    border-radius: 20px;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+
     font-size: 25px;
     cursor: url("../../public/pictures/Cursor.png") 25 15, auto !important;
     margin-bottom: 30px;
@@ -93,7 +101,6 @@
 @media (max-width: 576px) {
   .container {
     max-height: 400vh;
-    min-height: 100vh;
     justify-content: center;
     align-items: center;
     padding: 10px;
