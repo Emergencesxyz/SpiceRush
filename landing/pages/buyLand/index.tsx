@@ -73,7 +73,7 @@ const buyLand: NextPage = () => {
               </Table>
             </div>
 
-            <div style={{ marginBottom: "30px", width: "100%" }}>
+            <div style={{ marginBottom: "30px" }}>
               <CardBody
                 header={
                   <Row className="d-flex flex-row">
