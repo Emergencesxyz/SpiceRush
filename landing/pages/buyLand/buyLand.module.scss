@@ -1,5 +1,5 @@
 .container {
-  height: 120vh;
+  height: auto;
   margin-top: 15vh;
   display: flex;
   flex-direction: column;
@@ -9,8 +9,22 @@
   h1 {
     font-size: 30px;
   }
+  P {
+    font-size: 15px;
+  }
   .connectWallet {
     margin-bottom: 30px;
+  }
+
+  .table {
+    background: transparent;
+    color: white;
+    width: 100%;
+    font-size: 30px;
+
+    td {
+      padding: 16px;
+    }
   }
 
   .noBorder {
@@ -73,10 +87,25 @@
 @media (max-width: 576px) {
   .container {
     max-height: 400vh;
-    height: 150vh;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
 
     h1 {
       font-size: 30px;
+    }
+
+    .table {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 100%;
+      font-size: 30px;
+      padding: 20px;
+
+      td {
+        padding: 16px;
+      }
     }
 
     .connectWallet {

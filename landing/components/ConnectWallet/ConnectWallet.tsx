@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react";
+import { Button, Spinner, Col, Dropdown, Modal } from "react-bootstrap";
+import styles from "../ConnectWallet/ConnectWallet.module.scss";
+import Web3 from "web3";
 import { useWeb3React, UnsupportedChainIdError } from "@web3-react/core";
 import {
   NoEthereumProviderError,
@@ -6,19 +9,15 @@ import {
 } from "@web3-react/injected-connector";
 import { UserRejectedRequestError as UserRejectedRequestErrorWalletConnect } from "@web3-react/walletconnect-connector";
 import { UserRejectedRequestError as UserRejectedRequestErrorFrame } from "@web3-react/frame-connector";
-import Web3 from "web3";
-
-import {
-  useEagerConnect,
-  useInactiveListener,
-} from "../../WalletHelpers/hooks";
 import {
   injected,
   walletconnect,
   walletlink,
 } from "../../WalletHelpers/connectors";
-import { Col, Button, Dropdown, Spinner, Modal } from "react-bootstrap";
-import styles from "./ConnectWallet.module.scss";
+import {
+  useEagerConnect,
+  useInactiveListener,
+} from "../../WalletHelpers/hooks";
 
 function getErrorMessage(error: Error) {
   if (error instanceof NoEthereumProviderError) {
@@ -38,29 +37,20 @@ function getErrorMessage(error: Error) {
 }
 
 const ConnectWallet = () => {
-  const context = useWeb3React<Web3>();
-  const { connector, account, activate, deactivate, error } = context;
+  const { connector, account, activate, deactivate, active, library, error } =
+    useWeb3React<Web3>();
   const [activatingConnector, setActivatingConnector] = useState<any>();
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState<boolean>();
 
   useEffect(() => {
     if (activatingConnector && activatingConnector === connector) {
       setActivatingConnector(undefined);
-      if (!error) setShowModal(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activatingConnector, connector]);
 
   const triedEager = useEagerConnect();
   useInactiveListener(!triedEager || !!activatingConnector);
-
-  const killSession = () => {
-    if (connector === injected) {
-      deactivate();
-    } else {
-      (connector as any).close();
-    }
-  };
 
   const toggle = () => setShowModal(!showModal);
 
@@ -84,6 +74,10 @@ const ConnectWallet = () => {
     return (
       <Col className={styles.modalContent}>
         <h2>Connect your wallet.</h2>
+        {/* <p>
+          By connecting your wallet, you agree to our <br /> Terms of Service and our Privacy
+          Policy.
+        </p> */}
 
         {/* Metamask */}
         <Button
@@ -91,6 +85,7 @@ const ConnectWallet = () => {
           onClick={() => {
             setActivatingConnector(injected);
             activate(injected);
+            toggle();
           }}
         >
           <div className={styles.buttonContent}>
@@ -103,7 +98,7 @@ const ConnectWallet = () => {
               <>
                 Metamask
                 <img
-                  src="assets/metamask.svg"
+                  src="pictures/metamask.svg"
                   width={30}
                   height={30}
                   alt="logo metamask"
@@ -119,6 +114,7 @@ const ConnectWallet = () => {
           onClick={() => {
             setActivatingConnector(walletconnect);
             activate(walletconnect);
+            toggle();
           }}
         >
           <div className={styles.buttonContent}>
@@ -131,10 +127,10 @@ const ConnectWallet = () => {
               <>
                 WalletConnect
                 <img
-                  src="assets/walletConnect.svg"
+                  src="pictures/walletConnect.svg"
                   width={30}
                   height={30}
-                  alt="logo metamask"
+                  alt="logo walletconnect"
                 />
               </>
             )}
@@ -147,6 +143,7 @@ const ConnectWallet = () => {
           onClick={() => {
             setActivatingConnector(walletlink);
             activate(walletlink);
+            toggle();
           }}
         >
           <div className={styles.buttonContent}>
@@ -159,10 +156,10 @@ const ConnectWallet = () => {
               <>
                 WalletLink
                 <img
-                  src="assets/walletlink.png"
+                  src="pictures/walletlink.png"
                   width={30}
                   height={30}
-                  alt="logo metamask"
+                  alt="logo walletlink"
                 />
               </>
             )}
@@ -174,18 +171,35 @@ const ConnectWallet = () => {
 
   return (
     <>
-      <Col
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Button
-          variant="dark"
-          className={styles.button}
-          onClick={() => setShowModal(true)}
-        ></Button>
+      <Col className={styles.container}>
+        {account ? (
+          <Dropdown>
+            <Dropdown.Toggle
+              variant="dark"
+              style={{ border: "1px white solid", width: "100%" }}
+              className="px-5 my-2"
+            >
+              {`${account.substring(0, 6)}...${account.substring(
+                account.length - 4
+              )}`}
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={() => deactivate()}>
+                Disconnect
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        ) : (
+          <Button
+            variant="light"
+            className=" px-5 my-2"
+            style={{ width: "100%", fontSize: "20px" }}
+            onClick={() => setShowModal(true)}
+          >
+            CONNECT WALLET
+          </Button>
+        )}
       </Col>
 
       <Modal

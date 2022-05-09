@@ -4,41 +4,44 @@ import styles from "../Card/Card.module.scss";
 
 interface Props {
   header: ReactNode;
-  text: ReactNode;
-  Image?: string;
+  subtitle: ReactNode;
+  textTitle1: ReactNode;
+  textTitle2: ReactNode;
+  textSubtitle1?: ReactNode;
+  textSubtitle2?: ReactNode;
   buttonTitle1?: string;
   buttonTitle2?: string;
+  footer: ReactNode;
 }
 
 const CardBody: FunctionComponent<Props> = (props) => {
-  const { header, text, Image, buttonTitle1, buttonTitle2 } = props;
-  const [isActive, setIsActive] = useState<boolean>(false);
+  const {
+    header,
+    subtitle,
+    textTitle1,
+    textSubtitle1,
+    textTitle2,
+    textSubtitle2,
+    buttonTitle1,
+    buttonTitle2,
+    footer,
+  } = props;
   return (
     <Card className={styles.card}>
       <Card.Body>
         <Card.Title className={styles.header}>{header}</Card.Title>
-        {Image && <Card.Img variant="top" className={styles.img} src={Image} />}
-        <Card.Text className={styles.text}>{text}</Card.Text>
+        <Card.Subtitle className={styles.text}>{subtitle}</Card.Subtitle>
         <div className="d-flex flex-column justify-content-center align-items-center">
-          {!isActive ? (
-            <Button
-              className={styles.button1}
-              onClick={() => setIsActive(!isActive)}
-            >
-              {buttonTitle1}
-            </Button>
-          ) : (
-            <Button
-              className={styles.button1}
-              onClick={() => setIsActive(!isActive)}
-            >
-              SOON
-            </Button>
-          )}
+          <Card.Text className={styles.text}>{textTitle1}</Card.Text>
+          <Button className={styles.button1}>{buttonTitle1}</Button>
+          {textSubtitle1}
+          <Card.Text className={styles.text}>{textTitle2}</Card.Text>
           {buttonTitle2 && (
             <Button className={styles.button2}>{buttonTitle2}</Button>
           )}
+          {textSubtitle2}
         </div>
+        {footer}
       </Card.Body>
     </Card>
   );
