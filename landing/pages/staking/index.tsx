@@ -10,7 +10,7 @@ import CardBody from "../../components/Card/Card";
 
 const Staking: NextPage = () => {
   const [isMobile, setIsmobile] = useState<boolean>(false);
-  const { account, library } = useWeb3React();
+  const { account } = useWeb3React();
 
   useEffect(() => {
     if (window.matchMedia("(max-width: 600px)").matches) {
@@ -28,7 +28,7 @@ const Staking: NextPage = () => {
         <div className={styles.connectWallet}>
           <ConnectWallet />
         </div>
-        {!!account && !!library && (
+        {!!account && (
           <>
             <div style={{ marginBottom: "30px" }}>
               <CardBody
