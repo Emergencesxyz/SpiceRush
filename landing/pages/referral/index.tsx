@@ -157,18 +157,18 @@ const buyLand: NextPage = () => {
         <Header isMobile={isMobile} />
       </header>
       <div className={styles.container}>
-        <Button className={styles.button1} onClick={() => addNetwork(web3)}>
-          {chainId == 80001 ? (
-            <span>Switch to mainnet</span>
-          ) : (
-            <span>Switch to testnet</span>
-          )}
-        </Button>
         <div className={styles.connectWallet}>
           <ConnectWallet />
         </div>
         {!!account && library && (
           <>
+            <Button className={styles.button1} onClick={() => addNetwork(web3)}>
+              {chainId == 80001 ? (
+                <span>Switch to mainnet</span>
+              ) : (
+                <span>Switch to testnet</span>
+              )}
+            </Button>
             <div>
               <Table className={styles.table}>
                 <tbody>
