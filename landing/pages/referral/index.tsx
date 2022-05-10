@@ -22,9 +22,15 @@ import {
 } from "../../WalletHelpers/contractVariables";
 import Web3 from "web3";
 
+declare global {
+  interface Window {
+    ethereum: any;
+  }
+}
+
 const buyLand: NextPage = () => {
   const [isMobile, setIsmobile] = useState<boolean>(false);
-  const { account, library } = useWeb3React();
+  const { account, library, chainId } = useWeb3React();
   const [nftQuantity, setNftQuantity] = useState<number>(1);
   const [nftPrice, setNftPrice] = useState<number>(0.25);
   const [code, setCode] = useState<any>("");
@@ -33,6 +39,7 @@ const buyLand: NextPage = () => {
   const [totalRewards, setTotalRewards] = useState<number>(0);
   const [isActive, setIsActive] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+  const [isTestnet, setIsTestNet] = useState<boolean>(false);
   const maxTransaction: number = 5;
 
   const web3 = new Web3(provider);
@@ -54,6 +61,57 @@ const buyLand: NextPage = () => {
       }
     })();
   }, [account, library]);
+
+  async function addNetwork(type: any) {
+    if (typeof web3 !== "undefined") {
+      let network: any = 0;
+      network = chainId;
+      let netID = network.toString();
+      let params;
+      if (netID == "80001") {
+        params = [
+          {
+            chainId: "0x89",
+            chainName: "Polygon Mainnet",
+            nativeCurrency: {
+              name: "MATIC",
+              symbol: "MATIC",
+              decimals: 18,
+            },
+            rpcUrls: ["https://polygon-rpc.com/"],
+            blockExplorerUrls: ["https://polygonscan.com/"],
+          },
+        ];
+      } else {
+        {
+          params = [
+            {
+              chainId: "0x13881",
+              chainName: "Polygon Mumbai",
+              nativeCurrency: {
+                name: "MATIC",
+                symbol: "MATIC",
+                decimals: 18,
+              },
+              rpcUrls: ["https://matic-mumbai.chainstacklabs.com"],
+              blockExplorerUrls: ["https://mumbai.polygonscan.com/"],
+            },
+          ];
+        }
+      }
+
+      if (!window.ethereum) {
+        alert("No crypto wallet found");
+        return;
+      }
+      window.ethereum
+        .request({ method: "wallet_addEthereumChain", params })
+        .then(() => console.log("Success"))
+        .catch((error: any) => console.log("Error", error.message));
+    } else {
+      alert("Unable to locate a compatible web3 browser!");
+    }
+  }
 
   const hasFunds = async (nftsPrice: number) => {
     return nftsPrice <= (await library.eth.getBalance(account));
@@ -99,6 +157,13 @@ const buyLand: NextPage = () => {
         <Header isMobile={isMobile} />
       </header>
       <div className={styles.container}>
+        <Button className={styles.button1} onClick={() => addNetwork(web3)}>
+          {chainId == 80001 ? (
+            <span>Switch to mainnet</span>
+          ) : (
+            <span>Switch to testnet</span>
+          )}
+        </Button>
         <div className={styles.connectWallet}>
           <ConnectWallet />
         </div>
