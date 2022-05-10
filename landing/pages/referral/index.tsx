@@ -245,45 +245,47 @@ const buyLand: NextPage = () => {
               </Button>
             </div>
 
-            <div style={{ marginBottom: "30px" }}>
-              <CardBody
-                header={
-                  <Row className="d-flex flex-row">
-                    <h1> REFERRALS CASHBACK</h1>
-                  </Row>
-                }
-                subtitle={
-                  <Row className="d-flex flex-row">
-                    <span style={{ color: "red", fontSize: "20px" }}>
-                      Share your referral link to get a 5 MATIC reward for each
-                      mint !
-                    </span>
-                  </Row>
-                }
-                textTitle1={
-                  <>
-                    <h2>{totalRewards} MATIC</h2>
-                    <p>available cashback</p>
-                  </>
-                }
-                textTitle2={
-                  <>
-                    <h2>{userCode == 0 ? "-" : userCode}</h2>
-                    <p>your referral code</p>
-                  </>
-                }
-                textSubtitle2={<p>your referral link</p>}
-                buttonTitle1="CLAIM"
-                buttonTitle2="SHARE"
-                footer={
-                  <p>
-                    You referred{" "}
-                    <span style={{ fontSize: "30px" }}>{totalReferred}</span>{" "}
-                    mints
-                  </p>
-                }
-              />
-            </div>
+            {chainId !== 80001 && (
+              <div style={{ marginBottom: "30px" }}>
+                <CardBody
+                  header={
+                    <Row className="d-flex flex-row">
+                      <h1> REFERRALS CASHBACK</h1>
+                    </Row>
+                  }
+                  subtitle={
+                    <Row className="d-flex flex-row">
+                      <span style={{ color: "red", fontSize: "20px" }}>
+                        Share your referral link to get a 5 MATIC reward for
+                        each mint !
+                      </span>
+                    </Row>
+                  }
+                  textTitle1={
+                    <>
+                      <h2>{totalRewards} MATIC</h2>
+                      <p>available cashback</p>
+                    </>
+                  }
+                  textTitle2={
+                    <>
+                      <h2>{userCode == 0 ? "-" : userCode}</h2>
+                      <p>your referral code</p>
+                    </>
+                  }
+                  textSubtitle2={<p>your referral link</p>}
+                  buttonTitle1="CLAIM"
+                  buttonTitle2="SHARE"
+                  footer={
+                    <p>
+                      You referred{" "}
+                      <span style={{ fontSize: "30px" }}>{totalReferred}</span>{" "}
+                      mints
+                    </p>
+                  }
+                />
+              </div>
+            )}
           </>
         )}
       </div>
