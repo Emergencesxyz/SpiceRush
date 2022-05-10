@@ -33,11 +33,17 @@ const CardBody: FunctionComponent<Props> = (props) => {
         <Card.Subtitle className={styles.text}>{subtitle}</Card.Subtitle>
         <div className="d-flex flex-column justify-content-center align-items-center">
           <Card.Text className={styles.text}>{textTitle1}</Card.Text>
-          <Button className={styles.button1}>{buttonTitle1}</Button>
+          <div className={styles.buttonContainer}>
+            <Button className={styles.button1}>{buttonTitle1}</Button>
+            <div className={styles.rectangle1}></div>
+          </div>
           {textSubtitle1}
           <Card.Text className={styles.text}>{textTitle2}</Card.Text>
           {buttonTitle2 && (
-            <Button className={styles.button2}>{buttonTitle2}</Button>
+            <div className={styles.buttonContainer}>
+              <Button className={styles.button1}>{buttonTitle2}</Button>
+              <div className={styles.rectangle1}></div>
+            </div>
           )}
           {textSubtitle2}
         </div>

@@ -152,16 +152,24 @@ const Minter: NextPage = () => {
                 </tbody>
               </Table>
             </div>
-            <div>
+
+            <div className={styles.buttonContainer}>
               <Button
                 className={styles.button1}
                 onClick={() => mintNFT(nftQuantity, code)}
               >
                 MINT
               </Button>
+              <div className={styles.rectangle1}></div>
             </div>
 
-            <div style={{ marginBottom: "30px" }}>
+            <div
+              style={{
+                marginBottom: "30px",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
               <CardBody
                 header={
                   <Row className="d-flex flex-row">

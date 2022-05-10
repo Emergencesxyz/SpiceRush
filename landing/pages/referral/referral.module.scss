@@ -16,25 +16,40 @@
   .connectWallet {
     margin-bottom: 30px;
   }
-  .button1 {
-    background-color: #d100d1 !important;
-    border: none;
-    width: 15vw;
+  .buttonContainer {
+    position: relative;
+    display: flex;
     justify-content: center;
-    border-top-left-radius: 10px;
-    border-bottom-right-radius: 10px;
 
-    font-size: 25px;
-    cursor: url("../../public/pictures/Cursor.png") 25 15, auto !important;
-    margin-bottom: 30px;
+    .button1 {
+      position: absolute;
+      border: none;
+      width: 15vw;
+      justify-content: center;
+      font-size: 25px;
+      cursor: url("../../public/pictures/Cursor.png") 25 15, auto !important;
+      margin-bottom: 30px;
+      box-sizing: border-box;
+      background: linear-gradient(182.37deg, #ea00d9 1.97%, #ca00bb 86.51%);
+      border-radius: 14px 4px;
+      top: 0;
+      z-index: 2;
 
-    &:active {
-      border: 1px solid #0f0e3f;
-      box-shadow: none !important;
+      &:active {
+        box-shadow: none !important;
+      }
+      &:focus {
+        box-shadow: none !important;
+      }
     }
-    &:focus {
-      border: 1px solid #0f0e3f;
-      box-shadow: none !important;
+    .rectangle1 {
+      position: absolute;
+      top: 0;
+      width: 15vw;
+      height: 56.34px;
+      background: #95008a;
+      box-shadow: 0px 0px 12px rgba(234, 0, 217, 0.6);
+      border-radius: 14px 4px;
     }
   }
 }
@@ -71,8 +86,14 @@
     .connectWallet {
       width: 80vw;
     }
-    .button1 {
-      width: 80vw;
+    .buttonContainer {
+      margin-bottom: 40px;
+      .button1 {
+        width: 80vw;
+      }
+      .rectangle1 {
+        width: 80vw;
+      }
     }
   }
 }

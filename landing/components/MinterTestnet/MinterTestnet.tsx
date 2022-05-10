@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import styles from "../Minter/Minter.module.scss";
+import styles from "../MinterTestnet/MinterTestnet.module.scss";
 import { useEffect, useState } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { Button, Table, Dropdown } from "react-bootstrap";
@@ -130,13 +130,14 @@ const MinterTestnet: NextPage = () => {
                 </tbody>
               </Table>
             </div>
-            <div>
+            <div className={styles.buttonContainer}>
               <Button
                 className={styles.button1}
                 onClick={() => mintNFT(nftQuantity)}
               >
                 MINT
               </Button>
+              <div className={styles.rectangle1}></div>
             </div>
           </>
         )}

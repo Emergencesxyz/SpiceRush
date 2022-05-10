@@ -95,13 +95,19 @@ const buyLand: NextPage = () => {
         </div>
         {!!account && library && (
           <>
-            <Button className={styles.button1} onClick={() => addNetwork(web3)}>
-              {isTestnet ? (
-                <span>Switch to mainnet</span>
-              ) : (
-                <span>Switch to testnet</span>
-              )}
-            </Button>
+            <div className={styles.buttonContainer}>
+              <Button
+                className={styles.button1}
+                onClick={() => addNetwork(web3)}
+              >
+                {isTestnet ? (
+                  <span>Switch to mainnet</span>
+                ) : (
+                  <span>Switch to testnet</span>
+                )}
+              </Button>
+              <div className={styles.rectangle1}></div>
+            </div>
             {isTestnet ? <MinterTestnet /> : <Minter />}
           </>
         )}
