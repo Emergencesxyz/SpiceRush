@@ -173,7 +173,7 @@ const ConnectWallet = () => {
     <>
       <Col className={styles.container}>
         {account ? (
-          <Dropdown>
+          <Dropdown style={{ width: "100%" }}>
             <Dropdown.Toggle
               variant="dark"
               style={{ border: "1px white solid", width: "100%" }}
