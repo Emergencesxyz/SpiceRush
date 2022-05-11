@@ -239,7 +239,7 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
                     mints
                   </p>
                 }
-                referralCode={userCode}
+                userCode={userCode}
               />
             </div>
           </>

@@ -15,7 +15,7 @@ interface Props {
   buttonTitle1?: string;
   buttonTitle2?: string;
   footer: ReactNode;
-  referralCode: string;
+  userCode: string;
 }
 
 const CardBody: FunctionComponent<Props> = (props) => {
@@ -30,7 +30,7 @@ const CardBody: FunctionComponent<Props> = (props) => {
     buttonTitle1,
     buttonTitle2,
     footer,
-    referralCode,
+    userCode,
   } = props;
 
   const contract = new library.eth.Contract(
@@ -56,6 +56,8 @@ const CardBody: FunctionComponent<Props> = (props) => {
     }
   };
 
+  console.log();
+
   return (
     <Card className={styles.card}>
       <Card.Body>
@@ -71,7 +73,7 @@ const CardBody: FunctionComponent<Props> = (props) => {
           <Card.Text className={styles.text}>{textTitle2}</Card.Text>
           {buttonTitle2 && (
             <a
-              href={`https://twitter.com/intent/tweet?url=http://localhost:3000/referral/${referralCode}&text=Join_Us`}
+              href={`https://twitter.com/intent/tweet?url=https://www.spicerush.io/?number=${userCode}&text=Join_Us`}
               target="_blank"
             >
               <div className={styles.buttonContainer}>
@@ -83,10 +85,9 @@ const CardBody: FunctionComponent<Props> = (props) => {
           )}
           <div>
             <span>{textSubtitle2}</span>
-            <a
-              href="`http://localhost:3000/referral/${referralCode}`"
-              target="_blank"
-            >{`http://localhost:3000/referral/${referralCode}`}</a>
+            <span>
+              {userCode && `https://www.spicerush.io/?number=${userCode}`}
+            </span>
           </div>
         </div>
         {footer}
