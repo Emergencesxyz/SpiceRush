@@ -1,11 +1,17 @@
-import type { NextPage } from "next";
 import styles from "../Minter/Minter.module.scss";
-import { useEffect, useState } from "react";
+import { useEffect, useState, FunctionComponent } from "react";
 import { useWeb3React } from "@web3-react/core";
-import { Row, Button, Table, Dropdown } from "react-bootstrap";
+import {
+  Row,
+  Button,
+  Table,
+  Dropdown,
+  InputGroup,
+  FormControl,
+} from "react-bootstrap";
 import CardBody from "../Card/Card";
 import contractABI from "../../WalletHelpers/contractAbi.json";
-import { contractAddress } from "../../WalletHelpers/contractVariables";
+import { contractAddressTestnet } from "../../WalletHelpers/contractVariables";
 
 declare global {
   interface Window {
@@ -13,11 +19,15 @@ declare global {
   }
 }
 
-const Minter: NextPage = () => {
-  const { account, library, chainId } = useWeb3React();
+interface Props {
+  referralCode: any;
+}
+
+const Minter: FunctionComponent<Props> = (props): JSX.Element => {
+  const { referralCode } = props;
+  const { account, library } = useWeb3React();
   const [nftQuantity, setNftQuantity] = useState<number>(1);
   const [nftPrice, setNftPrice] = useState<number>(0.25);
-  const [code, setCode] = useState<any>(0);
   const [userCode, setUserCode] = useState<any>("");
   const [totalReferred, setTotalReferred] = useState<number>(0);
   const [totalRewards, setTotalRewards] = useState<number>(0);
@@ -26,7 +36,7 @@ const Minter: NextPage = () => {
 
   const contract = new library.eth.Contract(
     contractABI as any,
-    contractAddress
+    contractAddressTestnet
   );
 
   useEffect(() => {
@@ -45,7 +55,7 @@ const Minter: NextPage = () => {
     return nftsPrice <= (await library.eth.getBalance(account));
   };
 
-  const mintNFT = async (amount: number, referralCode: number) => {
+  const mintNFT = async (amount: number, referralCode: string) => {
     if (!!account && !!library) {
       if (!(await contract.methods.isActive().call())) {
         alert("Sale has not started");
@@ -61,6 +71,18 @@ const Minter: NextPage = () => {
 
       if (!(await hasFunds(nftsValue))) {
         alert("Insufficient funds");
+        return;
+      }
+
+      if (referralCode.length == 0) {
+      }
+
+      const codeToReferral = await contract.methods
+        .codeToReferral(referralCode)
+        .call();
+
+      if (codeToReferral == 0) {
+        alert("referral code is not valid !");
         return;
       }
 
@@ -101,7 +123,18 @@ const Minter: NextPage = () => {
                   <tr>
                     <td colSpan={2}>Referral Code*</td>
                     <td style={{ textAlign: "right" }}>
-                      {userCode == 0 ? "-" : userCode}
+                      {/* <InputGroup className={styles.inputGroup}>
+                        <FormControl
+                          type="number"
+                          placeholder="referral code"
+                          aria-label="referral code"
+                          aria-describedby="basic-addon1"
+                          className={styles.referral}
+                          value={referralCode}
+                          onChange={(e) => setReferralCode(e.target.value)}
+                        />
+                      </InputGroup> */}
+                      {referralCode}
                     </td>
                   </tr>
                   <tr>
@@ -156,7 +189,7 @@ const Minter: NextPage = () => {
             <div className={styles.buttonContainer}>
               <Button
                 className={styles.button1}
-                onClick={() => mintNFT(nftQuantity, code)}
+                onClick={() => mintNFT(nftQuantity, referralCode)}
               >
                 MINT
               </Button>
@@ -186,7 +219,7 @@ const Minter: NextPage = () => {
                 }
                 textTitle1={
                   <>
-                    <h2>{totalRewards} MATIC</h2>
+                    <h2>{totalRewards / 1000000000000000000} MATIC</h2>
                     <p>available cashback</p>
                   </>
                 }
@@ -196,7 +229,7 @@ const Minter: NextPage = () => {
                     <p>your referral code</p>
                   </>
                 }
-                textSubtitle2={<p>your referral link</p>}
+                textSubtitle2={<p>your referral link:</p>}
                 buttonTitle1="CLAIM"
                 buttonTitle2="SHARE"
                 footer={
@@ -206,6 +239,7 @@ const Minter: NextPage = () => {
                     mints
                   </p>
                 }
+                referralCode={userCode}
               />
             </div>
           </>

@@ -10,6 +10,7 @@ import Minter from "../../components/Minter/Minter";
 import MinterTestnet from "../../components/MinterTestnet/MinterTestnet";
 import { provider } from "../../WalletHelpers/contractVariables";
 import Web3 from "web3";
+import { useRouter } from "next/router";
 
 declare global {
   interface Window {
@@ -21,7 +22,9 @@ const buyLand: NextPage = () => {
   const [isMobile, setIsmobile] = useState<boolean>(false);
   const { account, library, chainId } = useWeb3React();
   const [isTestnet, setIsTestnet] = useState<boolean>(false);
+  const [referralCode, setReferralCode] = useState<any>("");
   const web3 = new Web3(provider);
+  const router = useRouter();
 
   useEffect(() => {
     if (window.matchMedia("(max-width: 600px)").matches) {
@@ -31,6 +34,7 @@ const buyLand: NextPage = () => {
 
   useEffect(() => {
     chainId == 80001 ? setIsTestnet(true) : setIsTestnet(false);
+    setReferralCode(router.query?.number);
   }, [chainId, account]);
 
   async function addNetwork(type: any) {
@@ -108,7 +112,8 @@ const buyLand: NextPage = () => {
               </Button>
               <div className={styles.rectangle1}></div>
             </div>
-            {isTestnet ? <MinterTestnet /> : <Minter />}
+            {/*  {isTestnet ? <MinterTestnet /> : <Minter />} */}
+            <Minter referralCode={referralCode} />
           </>
         )}
       </div>

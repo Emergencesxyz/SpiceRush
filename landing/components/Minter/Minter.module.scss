@@ -30,6 +30,29 @@
       background-color: transparent !important;
       border: 1px solid white;
     }
+
+    .inputGroup {
+      height: 46px;
+
+      &:focus {
+        box-shadow: none;
+        border: none;
+      }
+      &:active {
+        box-shadow: none;
+        border: none;
+      }
+
+      .referral {
+        background-color: transparent;
+        box-shadow: none;
+        color: white;
+        -webkit-outer-spin-button,
+        -webkit-inner-spin-button {
+          -webkit-appearance: none;
+        }
+      }
+    }
   }
 
   .noBorder {

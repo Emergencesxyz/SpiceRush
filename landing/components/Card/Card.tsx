@@ -1,6 +1,9 @@
-import { useState, FunctionComponent, ReactNode } from "react";
+import { FunctionComponent, ReactNode } from "react";
 import { Button, Card } from "react-bootstrap";
 import styles from "../Card/Card.module.scss";
+import { useWeb3React } from "@web3-react/core";
+import contractABI from "../../WalletHelpers/contractAbi.json";
+import { contractAddressTestnet } from "../../WalletHelpers/contractVariables";
 
 interface Props {
   header: ReactNode;
@@ -12,9 +15,11 @@ interface Props {
   buttonTitle1?: string;
   buttonTitle2?: string;
   footer: ReactNode;
+  referralCode: string;
 }
 
 const CardBody: FunctionComponent<Props> = (props) => {
+  const { account, library } = useWeb3React();
   const {
     header,
     subtitle,
@@ -25,7 +30,32 @@ const CardBody: FunctionComponent<Props> = (props) => {
     buttonTitle1,
     buttonTitle2,
     footer,
+    referralCode,
   } = props;
+
+  const contract = new library.eth.Contract(
+    contractABI as any,
+    contractAddressTestnet
+  );
+
+  const claim = async () => {
+    if (!!account && !!library) {
+      if ((await contract.methods.bank(account).call()) == 0) {
+        alert("No funds are available for claim");
+        return;
+      }
+
+      contract.methods
+        .claim()
+        .send({ from: account })
+        .on("transactionHash", function (hash: any) {})
+        .on("receipt", function (receipt: any) {})
+        .on("error", function (error: any, receipt: any) {
+          console.log(error);
+        });
+    }
+  };
+
   return (
     <Card className={styles.card}>
       <Card.Body>
@@ -33,19 +63,31 @@ const CardBody: FunctionComponent<Props> = (props) => {
         <Card.Subtitle className={styles.text}>{subtitle}</Card.Subtitle>
         <div className="d-flex flex-column justify-content-center align-items-center">
           <Card.Text className={styles.text}>{textTitle1}</Card.Text>
-          <div className={styles.buttonContainer}>
+          <div className={styles.buttonContainer} onClick={() => claim()}>
             <Button className={styles.button1}>{buttonTitle1}</Button>
             <div className={styles.rectangle1}></div>
           </div>
           {textSubtitle1}
           <Card.Text className={styles.text}>{textTitle2}</Card.Text>
           {buttonTitle2 && (
-            <div className={styles.buttonContainer}>
-              <Button className={styles.button1}>{buttonTitle2}</Button>
-              <div className={styles.rectangle1}></div>
-            </div>
+            <a
+              href={`https://twitter.com/intent/tweet?url=http://localhost:3000/referral/${referralCode}&text=Join_Us`}
+              target="_blank"
+            >
+              <div className={styles.buttonContainer}>
+                <Button className={styles.button1}>{buttonTitle2}</Button>
+
+                <div className={styles.rectangle1}></div>
+              </div>
+            </a>
           )}
-          {textSubtitle2}
+          <div>
+            <span>{textSubtitle2}</span>
+            <a
+              href="`http://localhost:3000/referral/${referralCode}`"
+              target="_blank"
+            >{`http://localhost:3000/referral/${referralCode}`}</a>
+          </div>
         </div>
         {footer}
       </Card.Body>
