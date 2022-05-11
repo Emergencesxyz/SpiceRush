@@ -130,6 +130,15 @@ const MinterTestnet: NextPage = () => {
                 </tbody>
               </Table>
             </div>
+            <a
+              href="https://faucet.polygon.technology/"
+              target="_blank"
+              className={styles.faucetLink}
+            >
+              <em>
+                <u> Click here to access the matic faucet </u>
+              </em>
+            </a>
             <div className={styles.buttonContainer}>
               <Button
                 className={styles.button1}

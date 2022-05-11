@@ -186,6 +186,16 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
               </Table>
             </div>
 
+            <a
+              href="https://faucet.polygon.technology/"
+              target="_blank"
+              className={styles.faucetLink}
+            >
+              <em>
+                <u> Click here to access the matic faucet </u>
+              </em>
+            </a>
+
             <div className={styles.buttonContainer}>
               <Button
                 className={styles.button1}

@@ -56,8 +56,6 @@ const CardBody: FunctionComponent<Props> = (props) => {
     }
   };
 
-  console.log();
-
   return (
     <Card className={styles.card}>
       <Card.Body>
@@ -73,7 +71,11 @@ const CardBody: FunctionComponent<Props> = (props) => {
           <Card.Text className={styles.text}>{textTitle2}</Card.Text>
           {buttonTitle2 && (
             <a
-              href={`https://twitter.com/intent/tweet?url=https://www.spicerush.io/?number=${userCode}&text=Join_Us`}
+              href={
+                userCode !== "0"
+                  ? `https://twitter.com/intent/tweet?url=https://www.spicerush.io/?number=${userCode}&text=Join_Us`
+                  : undefined
+              }
               target="_blank"
             >
               <div className={styles.buttonContainer}>
@@ -86,7 +88,8 @@ const CardBody: FunctionComponent<Props> = (props) => {
           <div>
             <span>{textSubtitle2}</span>
             <span>
-              {userCode && `https://www.spicerush.io/?number=${userCode}`}
+              {userCode !== "0" &&
+                `https://www.spicerush.io/?number=${userCode}`}
             </span>
           </div>
         </div>

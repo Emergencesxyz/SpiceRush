@@ -74,6 +74,12 @@
     }
   }
 
+  .faucetLink {
+    &:hover {
+      color: #8900f2;
+    }
+  }
+
   .buttonContainer {
     position: relative;
     display: flex;
