@@ -175,8 +175,11 @@ const ConnectWallet = () => {
         {account ? (
           <Dropdown style={{ width: "100%" }}>
             <Dropdown.Toggle
-              variant="dark"
-              style={{ border: "1px white solid", width: "100%" }}
+              style={{
+                border: "1px white solid",
+                width: "100%",
+                backgroundColor: "transparent",
+              }}
               className="px-5 my-2"
             >
               {`${account.substring(0, 6)}...${account.substring(
