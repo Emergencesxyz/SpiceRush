@@ -41,11 +41,17 @@
       top: 0;
       z-index: 2;
 
-      &:active {
+      &:hover {
         box-shadow: none !important;
+        background: linear-gradient(182.37deg, #ff4df2 1.97%, #f308e2 86.51%);
       }
       &:focus {
         box-shadow: none !important;
+        background: linear-gradient(182.37deg, #b800aa 1.97%, #ea00d9 66.5%);
+      }
+      &:active {
+        box-shadow: none !important;
+        background: linear-gradient(182.37deg, #b800aa 1.97%, #ea00d9 66.5%);
       }
     }
     .rectangle1 {

@@ -29,6 +29,7 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
   const [nftQuantity, setNftQuantity] = useState<number>(1);
   const [nftPrice, setNftPrice] = useState<number>(0.25);
   const [userCode, setUserCode] = useState<any>("");
+  const [writtenCode, setWrittenCode] = useState<any>("");
   const [totalReferred, setTotalReferred] = useState<number>(0);
   const [totalRewards, setTotalRewards] = useState<number>(0);
   const [isActive, setIsActive] = useState<boolean>(false);
@@ -74,9 +75,6 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
         return;
       }
 
-      if (referralCode.length == 0) {
-      }
-
       const codeToReferral = await contract.methods
         .codeToReferral(referralCode)
         .call();
@@ -112,7 +110,7 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
                 <tbody>
                   <tr>
                     <td colSpan={3} style={{ textAlign: "center" }}>
-                      <strong>ApeX6</strong> Microchips
+                      <strong>APEx7</strong> Microchips
                     </td>
                   </tr>
                   <tr>
@@ -123,18 +121,20 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
                   <tr>
                     <td colSpan={2}>Referral Code*</td>
                     <td style={{ textAlign: "right" }}>
-                      {/* <InputGroup className={styles.inputGroup}>
-                        <FormControl
-                          type="number"
-                          placeholder="referral code"
-                          aria-label="referral code"
-                          aria-describedby="basic-addon1"
-                          className={styles.referral}
-                          value={referralCode}
-                          onChange={(e) => setReferralCode(e.target.value)}
-                        />
-                      </InputGroup> */}
-                      {referralCode}
+                      {!referralCode && (
+                        <InputGroup className={styles.inputGroup}>
+                          <FormControl
+                            type="number"
+                            placeholder="referral code"
+                            aria-label="referral code"
+                            aria-describedby="basic-addon1"
+                            className={styles.referral}
+                            value={referralCode}
+                            onChange={(e) => setWrittenCode(e.target.value)}
+                          />
+                        </InputGroup>
+                      )}
+                      {referralCode && referralCode}
                     </td>
                   </tr>
                   <tr>

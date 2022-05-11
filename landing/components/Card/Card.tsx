@@ -73,7 +73,7 @@ const CardBody: FunctionComponent<Props> = (props) => {
             <a
               href={
                 userCode && userCode !== "0"
-                  ? `https://twitter.com/intent/tweet?url=https://www.spicerush.io/?number=${userCode}&text=Join_Us`
+                  ? `https://twitter.com/intent/tweet?url=https://www.spicerush.io/mint/?number=${userCode}&text=Join_Us`
                   : undefined
               }
               target="_blank"
@@ -90,7 +90,7 @@ const CardBody: FunctionComponent<Props> = (props) => {
             <span>
               {userCode &&
                 userCode !== "0" &&
-                `https://www.spicerush.io/?number=${userCode}`}
+                `https://www.spicerush.io/mint/?number=${userCode}`}
             </span>
           </div>
         </div>

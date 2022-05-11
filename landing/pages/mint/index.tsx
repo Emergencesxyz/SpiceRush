@@ -23,7 +23,7 @@ const buyLand: NextPage = () => {
   const { account, library, chainId } = useWeb3React();
   const [isTestnet, setIsTestnet] = useState<boolean>(false);
   const [referralCode, setReferralCode] = useState<any>("");
-  const web3 = new Web3(provider);
+  /*   const web3 = new Web3(provider); */
   const router = useRouter();
 
   useEffect(() => {
@@ -37,7 +37,7 @@ const buyLand: NextPage = () => {
     setReferralCode(router.query?.number);
   }, [chainId, account]);
 
-  async function addNetwork(type: any) {
+  /* async function addNetwork(type: any) {
     if (typeof web3 !== "undefined") {
       let network: any = 0;
       network = chainId;
@@ -86,7 +86,7 @@ const buyLand: NextPage = () => {
     } else {
       alert("Unable to locate a compatible web3 browser!");
     }
-  }
+  } */
 
   return (
     <>
@@ -99,7 +99,7 @@ const buyLand: NextPage = () => {
         </div>
         {!!account && library && (
           <>
-            <div className={styles.buttonContainer}>
+            {/*  <div className={styles.buttonContainer}>
               <Button
                 className={styles.button1}
                 onClick={() => addNetwork(web3)}
@@ -111,7 +111,7 @@ const buyLand: NextPage = () => {
                 )}
               </Button>
               <div className={styles.rectangle1}></div>
-            </div>
+            </div> */}
             {/*  {isTestnet ? <MinterTestnet /> : <Minter />} */}
             <Minter referralCode={referralCode} />
           </>
