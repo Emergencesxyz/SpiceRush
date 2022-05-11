@@ -72,7 +72,7 @@ const CardBody: FunctionComponent<Props> = (props) => {
           {buttonTitle2 && (
             <a
               href={
-                userCode !== "0"
+                userCode && userCode !== "0"
                   ? `https://twitter.com/intent/tweet?url=https://www.spicerush.io/?number=${userCode}&text=Join_Us`
                   : undefined
               }
@@ -88,7 +88,8 @@ const CardBody: FunctionComponent<Props> = (props) => {
           <div>
             <span>{textSubtitle2}</span>
             <span>
-              {userCode !== "0" &&
+              {userCode &&
+                userCode !== "0" &&
                 `https://www.spicerush.io/?number=${userCode}`}
             </span>
           </div>

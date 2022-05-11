@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import styles from "../referral/referral.module.scss";
+import styles from "../mint/mint.module.scss";
 import { useEffect, useState } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { Row, Button, Table, Dropdown } from "react-bootstrap";
