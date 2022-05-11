@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, FunctionComponent } from "react";
 import { Button, Spinner, Col, Dropdown, Modal } from "react-bootstrap";
 import styles from "../ConnectWallet/ConnectWallet.module.scss";
 import Web3 from "web3";
@@ -36,7 +36,12 @@ function getErrorMessage(error: Error) {
   }
 }
 
-const ConnectWallet = () => {
+interface Props {
+  isMobile: boolean;
+}
+
+const ConnectWallet: FunctionComponent<Props> = (props): JSX.Element => {
+  const { isMobile } = props;
   const { connector, account, activate, deactivate, active, library, error } =
     useWeb3React<Web3>();
   const [activatingConnector, setActivatingConnector] = useState<any>();
@@ -80,33 +85,35 @@ const ConnectWallet = () => {
         </p> */}
 
         {/* Metamask */}
-        <Button
-          className={styles.metamask}
-          onClick={() => {
-            setActivatingConnector(injected);
-            activate(injected);
-            toggle();
-          }}
-        >
-          <div className={styles.buttonContent}>
-            {activatingConnector === injected ? (
-              <>
-                Connecting...
-                <Spinner size="sm" animation="border" />
-              </>
-            ) : (
-              <>
-                Metamask
-                <img
-                  src="pictures/metamask.svg"
-                  width={30}
-                  height={30}
-                  alt="logo metamask"
-                />
-              </>
-            )}
-          </div>
-        </Button>
+        {!isMobile && (
+          <Button
+            className={styles.metamask}
+            onClick={() => {
+              setActivatingConnector(injected);
+              activate(injected);
+              toggle();
+            }}
+          >
+            <div className={styles.buttonContent}>
+              {activatingConnector === injected ? (
+                <>
+                  Connecting...
+                  <Spinner size="sm" animation="border" />
+                </>
+              ) : (
+                <>
+                  Metamask
+                  <img
+                    src="pictures/metamask.svg"
+                    width={30}
+                    height={30}
+                    alt="logo metamask"
+                  />
+                </>
+              )}
+            </div>
+          </Button>
+        )}
 
         {/* WalletConnect */}
         <Button

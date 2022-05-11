@@ -95,7 +95,7 @@ const buyLand: NextPage = () => {
       </header>
       <div className={styles.container}>
         <div className={styles.connectWallet}>
-          <ConnectWallet />
+          <ConnectWallet isMobile={isMobile} />
         </div>
         {!!account && library && (
           <>
