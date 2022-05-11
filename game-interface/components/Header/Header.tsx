@@ -4,11 +4,12 @@ import { injected } from "../../WalletHelpers/connectors";
 import styles from "./Header.module.scss";
 import Router from "next/router";
 import { Col } from "react-bootstrap";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const Header = (): JSX.Element => {
     const context = useWeb3React();
     const { account, deactivate, connector } = context;
+    const [test, setTest] = useState("sdfs")
 
     useEffect(() => {
         if (!!!account) Router.push("/");
@@ -18,7 +19,7 @@ const Header = (): JSX.Element => {
         if (connector === injected) {
             deactivate();
         } else {
-            (connector as any).close();
+            (connector as any).close()
         }
 
         // Router.push({

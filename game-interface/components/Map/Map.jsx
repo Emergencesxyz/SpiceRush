@@ -148,9 +148,10 @@ export default function Map() {
     }
 
     function mapControls (action) {
+        console.log(action)
         switch (action) {
             case "up": {
-                    const newY = currentY > tileHeight ? currentY + tileHeight : currentY
+                    const newY = currentY > tileHeight * currentZoom ? currentY * currentZoom + tileHeight : currentY * currentZoom
                     camera.setScroll(currentX,newY)
                     currentY = newY
                 }
@@ -228,8 +229,8 @@ export default function Map() {
   }, [characterInfo])
 
   return (
-      <>
-        <div className={styles.spiceWrapper}>
+      <div className={styles.mapContainer}>
+          <div className={styles.spiceWrapper}>
             <div className={styles.spiceInfo}>
                 <img src="/assets/spice_ore.png" alt="spice or icon"/>
                 <div>
@@ -247,7 +248,50 @@ export default function Map() {
             </div>
         </div>
 
-        <div>
+        <div className={styles.assetsContainer}>
+            <img className={styles.border} src="/assets/map_container.png" alt="map container" />
+        </div>
+
+        <div
+            className={styles.mapWrapper}
+            onMouseLeave={() => clickOut = true}
+            onMouseEnter={() => clickOut = false}
+            ref={parentRef}
+        >
+            <div className={styles.top}>
+                <img src="/assets/map_up.png" alt="up" />
+            </div>
+            <div className={styles.right}>
+                <img src="/assets/map_right.png" alt="up" />
+            </div>
+            <div className={styles.down}>
+                <img src="/assets/map_down.png" alt="up" />
+            </div>
+            <div className={styles.left}>
+                <img src="/assets/map_left.png" alt="up" />
+            </div>
+
+            <div className={styles.options}>
+                <div>
+                    <img src="/assets/user_on.png" alt="user icon" />
+                    <img src="/assets/spice_off.png" alt="spice icon" />
+                    <img src="/assets/danger_off.png" alt="danger icon" />
+                </div>
+
+                <div>
+                    <img src="/assets/shild_off.png" alt="shild icon" />
+                    <img src="/assets/crown_on.png" alt="crown icon" />
+                </div>
+
+                <div>
+                    <img src="/assets/zoom_in_off.png" alt="zoom in icon" />
+                    <img src="/assets/zoom_out_off.png" alt="zoom out icon" />
+                    <img src="/assets/full_screen_off.png" alt="full screen icon" />
+                </div>
+            </div>
+        </div>
+
+        {/* <div>
             Map controls
             <button onClick={() => mapControls('down')}>down</button>
             <button onClick={() => mapControls('up')}>up</button>
@@ -255,13 +299,9 @@ export default function Map() {
             <button onClick={() => mapControls('rigth')}>rigth</button>
             <button onClick={() => mapControls('zoomIn')}>zoomIn</button>
             <button onClick={() => mapControls('zoomOut')}>zoomOut</button>
-        </div>
-        <div
-            onMouseLeave={() => clickOut = true}
-            onMouseEnter={() => clickOut = false}
-            ref={parentRef}
-        ></div>
-      </>
+        </div> */}
+
+      </div>
 
   );
 }

@@ -51,10 +51,14 @@ export default function Home() {
       >
         <img src="assets/Group_25.png" alt="logo spicerush" />
         <div className={styles.connect}>
-          <img src="assets/canvaPart1.png" alt="canvap1" />
+          <div className={styles.account}>
+            <p>{account}</p>
+            <img src="assets/canva_part1.png" alt="canvap1" />
+          </div>
           {!!account && !!library ? <SelectPlayer /> : <ConnectWallet />}
-          <img src="assets/canvaPart2.png" alt="canvap2" />
+          <img src="assets/canva_part2.png" alt="canvap2" />
         </div>
+
         <div className={styles.hexagons}></div>
         <Footer />
       </div>

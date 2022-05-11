@@ -1,5 +1,6 @@
 .container {
-    padding-inline: 50px;
+    padding-left: 70px;
+    padding-right: 10px;
 
     .firstWrapper {
         padding-inline: 50px;
@@ -37,8 +38,7 @@
                         justify-content: center;
                         width: 80%;
                         height: 30px;
-                        background: radial-gradient(49.81% 3712.33% at 50.19% 50%, #090C25 0%, #09071C 47.4%, #0B0719 100%);
-                        opacity: 0.7;
+                        background-color: rgba(9,7,28,.7);
                         border-radius: 7px;
 
                         p {
@@ -94,7 +94,7 @@
                     }
 
                     p {
-                        font-size: 9px;
+                        font-size: 10px;
                     }
                 }
             }
@@ -115,12 +115,221 @@
 
             p {
                 margin-bottom: 0;
+                font-size: 12px;
             }
 
             img {
                 height: 30px;
                 width: auto;
                 margin-right: 10px;
+            }
+
+            .barWrapper {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                width: 100%;
+
+                p {
+                    padding-right: 20px;
+                    margin-top: -15px;
+                }
+
+                .bar {
+                    height: 15px;
+                    width: 100%;
+                    border: 1px solid;
+                }
+
+                .redBar {
+                    @extend .bar;
+                    border-color: red;
+                }
+
+                .blueBar {
+                    @extend .bar;
+                    border-color: blue;
+                }
+            }
+        }
+    }
+
+    .controls {
+        position: relative;
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+
+        .bg {
+            position: absolute;
+            width: 130%;
+            height: 30px;
+            z-index: 0;
+            left: 8px;
+            cursor: auto;
+        }
+
+        .btn {
+            position: relative;
+            height: 65px;
+            width: 78px;
+            z-index: 1;
+            background-size: 100% 100%;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+        .btnMine {
+            @extend .btn;
+            background-image: url("/assets/btn_mine.png");
+
+            &:hover {
+                background-image: url("/assets/btn_mine_on.png");
+            }
+        }
+
+        .btnFight {
+            @extend .btn;
+            background-image: url("/assets/btn_fight.png");
+
+            &:hover {
+                background-image: url("/assets/btn_fight_on.png");
+            }
+        }
+
+        .btnSit {
+            @extend .btn;
+            background-image: url("/assets/btn_sit.png");
+
+            &:hover {
+                background-image: url("/assets/btn_sit_on.png");
+            }
+        }
+
+        img {
+            position: relative;
+            height: 65px;
+            width: auto;
+            z-index: 1;
+            cursor: pointer;
+        }
+
+        .actions {
+            position: relative;
+            width: 100px;
+
+            img {
+                position: absolute;
+                width: 100px;
+                height: 100px;
+                z-index: 0;
+            }
+
+            .vertical {
+                position: relative;
+                display: flex;
+                justify-content: center;
+                width: 100%;
+                z-index: 2;
+
+                .button {
+                    cursor: pointer;
+                    width: 50px;
+                    height: 25px;
+                }
+            }
+
+            .center {
+                position: relative;
+                display: flex;
+                justify-content: space-between;
+                height: 50px;
+                width: 100%;
+                z-index: 2;
+
+                .button {
+                    cursor: pointer;
+                    width: 25px;
+                    height: 50px;
+                }
+            }
+        }
+    }
+}
+
+.modalContainer {
+    position: relative;
+    height: 500px;
+    padding-top: 40px;
+
+    .imgHeader {
+        position: absolute;
+        left: calc(50% - 50px);
+        width: 100px;
+        top: 0;
+        height: auto;
+        z-index: 2;
+    }
+
+    .contentWrapper {
+        position: relative;
+        height: 100%;
+
+        .imgContainer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+
+        .optionsWrapper {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            z-index: 20;
+        }
+    }
+
+    .sitContainer {
+        position: absolute;
+        bottom: -20px;
+        left: calc(50% - 65px);
+        display: flex;
+        align-items: center;
+        height: 40px;
+        min-width: 130px;
+        width: fit-content;
+        cursor: pointer;
+        transition: all 0.3s;
+        z-index: 30;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+
+        .bg {
+            position: absolute;
+            z-index: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        .text {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+
+            h1 {
+                font-size: 16px;
+                margin-bottom: 0;
             }
         }
     }

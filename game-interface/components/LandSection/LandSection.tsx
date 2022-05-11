@@ -1,22 +1,76 @@
 import { useContext } from "react";
 import { GameContext } from "../../context/GameContext";
+import styles from "./LandSection.module.scss";
 
 const LandSection = (): JSX.Element => {
     const gameContext = useContext(GameContext);
     const { selectedTile } = gameContext;
 
     return (
-        <div>
-            {selectedTile && (
-                <div>
-                    <p>foesAmount: {selectedTile.foesAmount}</p>
-                    <p>isExplored: {selectedTile.isExplored}</p>
-                    <p>level: {selectedTile.level}</p>
-                    <p>spiceAmount: {selectedTile.spiceAmount}</p>
-                    <p>x: {selectedTile.x}</p>
-                    <p>y: {selectedTile.y}</p>
+        <div className={styles.container}>
+            <div className={styles.info} style={{ backgroundImage: "url(assets/city.png)" }}>
+                <div className={styles.stats}>
+                    <div className={styles.infoWrapper}>
+                        <div className={styles.content}>
+                            <div className={styles.left}>
+                                <p className={styles.title}>Lvl</p>
+                                <p className={styles.level}>{selectedTile.level}</p>
+                            </div>
+
+                            <div className={styles.right}>
+                                <div className={styles.infoSection}>
+                                    <div className={styles.imgWrapper} >
+                                        <img src="/assets/ape_icon.png" alt="ape icon" />
+                                    </div>
+                                    <p>23</p>
+                                </div>
+
+                                <div className={styles.infoSection}>
+                                    <div className={styles.imgWrapper} >
+                                        <img src="/assets/spice_icon.png" alt="spice icon" />
+                                    </div>
+                                    <p>{selectedTile.spiceAmount}</p>
+                                </div>
+
+                                <div className={styles.infoSection}>
+                                    <div className={styles.imgWrapper} >
+                                        <img src="/assets/pos.png" alt="position icon" />
+                                    </div>
+                                    <p>[{selectedTile.x}, {selectedTile.y}]</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className={styles.claimContainer}>
+                            <img className={styles.bg} src="/assets/btn_actions.png" alt="claim button" />
+                            <div className={styles.text}>
+                                <h1>CLAIM</h1>
+                            </div>
+                            <div className={styles.price}>
+                                <img src="/assets/spice_icon.png" alt="spice icon" />
+                                <p>230</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div className={styles.tileName}>
+                            <div className={styles.name}>
+                                <p>
+                                    #NO NAME
+                                </p>
+                            </div>
+                            <div className={styles.lock} onClick={() => console.log('lock click')}>
+                                <img src="/assets/lock.png" alt="lock logo" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            )}
+            </div>
+
+            <div className={styles.slider}>
+                slider
+            </div>
         </div>
     );
 };

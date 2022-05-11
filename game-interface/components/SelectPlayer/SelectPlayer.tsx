@@ -53,8 +53,7 @@ const SelectPlayer = () => {
   };
 
   const selectNFT = async (player: any) => {
-    setCharacterInfo(player)
-    console.log('ape', player)
+    setCharacterInfo(player);
 
     //load character info
     // if (tiles && _character && Number.isInteger(_character.x)) {
@@ -67,11 +66,7 @@ const SelectPlayer = () => {
   const ApeCards = () => {
     return userNFTs.map((e) => {
       return (
-        <div
-          key={e.id}
-          onClick={() => selectNFT(e)}
-          className={styles.apecard}
-        >
+        <div key={e.id} onClick={() => selectNFT(e)} className={styles.apecard}>
           <Card className={styles.content}>
             <Card.Body
               style={{
@@ -167,7 +162,7 @@ const SelectPlayer = () => {
     <div
       style={{
         display: "flex",
-        flexDirection: "column",
+        flexDirection: "row",
         alignItems: "center",
         padding: "50px",
       }}
