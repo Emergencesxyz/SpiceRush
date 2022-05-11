@@ -62,18 +62,12 @@ const CardBody: FunctionComponent<Props> = (props) => {
         <Card.Title className={styles.header}>{header}</Card.Title>
         <Card.Subtitle className={styles.text}>{subtitle}</Card.Subtitle>
         <div className="d-flex flex-column justify-content-center align-items-center">
-          <Card.Text className={styles.text}>{textTitle1}</Card.Text>
-          <div className={styles.buttonContainer} onClick={() => claim()}>
-            <Button className={styles.button1}>{buttonTitle1}</Button>
-            <div className={styles.rectangle1}></div>
-          </div>
-          {textSubtitle1}
           <Card.Text className={styles.text}>{textTitle2}</Card.Text>
           {buttonTitle2 && (
             <a
               href={
                 userCode && userCode !== "0"
-                  ? `https://twitter.com/intent/tweet?url=https://www.spicerush.io/mint/?number=${userCode}&text=Join_Us`
+                  ? `https://twitter.com/intent/tweet?url=https://www.spicerush.io/mint?number=${userCode}&text=Use%20this%20link%20to%20mint%20OG%20%40Spice_Rush%20NFT%20and%20get%0Ainstant%205%20MATIC%20cashback%20%F0%9F%94%A5%0AYou%20will%20be%20able%20to%20refer%20your%20friends%20and%20earn%205%20MATIC%20per%20referral%0A%23SpiceRush`
                   : undefined
               }
               target="_blank"
@@ -93,6 +87,12 @@ const CardBody: FunctionComponent<Props> = (props) => {
                 `https://www.spicerush.io/mint/?number=${userCode}`}
             </span>
           </div>
+          <Card.Text className={styles.text}>{textTitle1}</Card.Text>
+          <div className={styles.buttonContainer} onClick={() => claim()}>
+            <Button className={styles.button1}>{buttonTitle1}</Button>
+            <div className={styles.rectangle1}></div>
+          </div>
+          {textSubtitle1}
         </div>
         {footer}
       </Card.Body>

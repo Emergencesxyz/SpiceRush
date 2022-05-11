@@ -52,6 +52,8 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
     })();
   }, [account, library]);
 
+  console.log(userCode);
+
   const hasFunds = async (nftsPrice: number) => {
     return nftsPrice <= (await library.eth.getBalance(account));
   };
@@ -79,10 +81,10 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
         .codeToReferral(referralCode)
         .call();
 
-      if (codeToReferral == 0) {
+      /*   if (codeToReferral == 0) {
         alert("referral code is not valid !");
         return;
-      }
+      } */
 
       const transactionParameters = {
         from: account,
@@ -115,7 +117,8 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
                   </tr>
                   <tr>
                     <td colSpan={3} style={{ textAlign: "center" }}>
-                      <img src="/pictures/microchip_side_1.png" alt="chip" />
+                      {/*  <img src="/pictures/microchip_side_1.png" alt="chip" /> */}
+                      <img src="/pictures/microchip.gif" alt="chip" />
                     </td>
                   </tr>
                   <tr>
@@ -186,16 +189,6 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
               </Table>
             </div>
 
-            <a
-              href="https://faucet.polygon.technology/"
-              target="_blank"
-              className={styles.faucetLink}
-            >
-              <em>
-                <u> Click here to access the matic faucet </u>
-              </em>
-            </a>
-
             <div className={styles.buttonContainer}>
               <Button
                 className={styles.button1}
@@ -206,6 +199,7 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
               <div className={styles.rectangle1}></div>
             </div>
 
+            {/*      {userCode !== "0" && ( */}
             <div
               style={{
                 marginBottom: "30px",
@@ -252,6 +246,7 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
                 userCode={userCode}
               />
             </div>
+            {/*       )} */}
           </>
         )}
       </div>

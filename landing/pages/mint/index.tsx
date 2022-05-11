@@ -23,7 +23,6 @@ const buyLand: NextPage = () => {
   const { account, library, chainId } = useWeb3React();
   const [isTestnet, setIsTestnet] = useState<boolean>(false);
   const [referralCode, setReferralCode] = useState<any>("");
-  /*   const web3 = new Web3(provider); */
   const router = useRouter();
 
   useEffect(() => {
@@ -89,7 +88,7 @@ const buyLand: NextPage = () => {
   } */
 
   return (
-    <>
+    <div className={styles.body}>
       <header>
         <Header isMobile={isMobile} />
       </header>
@@ -97,8 +96,29 @@ const buyLand: NextPage = () => {
         <div className={styles.connectWallet}>
           <ConnectWallet isMobile={isMobile} />
         </div>
+
         {!!account && library && (
           <>
+            <div className={styles.text}>
+              <span>
+                Mainnet: Get exclusive access to Beta-Mainnet and earn cashback
+                from your referrals.{" "}
+              </span>
+              <span>
+                Testnet: Get early access to Alpha-Testnet for free. Click here
+                to get testnet MATIC for transaction.
+              </span>
+              <span>
+                lien :{" "}
+                <a
+                  href="https://faucet.polygon.technology/"
+                  target="_blank"
+                  className={styles.faucetLink}
+                >
+                  <u>https://faucet.polygon.technology/</u>
+                </a>
+              </span>
+            </div>
             {/*  <div className={styles.buttonContainer}>
               <Button
                 className={styles.button1}
@@ -112,15 +132,14 @@ const buyLand: NextPage = () => {
               </Button>
               <div className={styles.rectangle1}></div>
             </div> */}
-            {/*  {isTestnet ? <MinterTestnet /> : <Minter />} */}
             <Minter referralCode={referralCode} />
           </>
         )}
       </div>
-      <div className={styles.footer}>
+      {/* <div className={styles.footer}>
         <Footer isMobile={isMobile} />
-      </div>
-    </>
+      </div> */}
+    </div>
   );
 };
 
