@@ -22,6 +22,7 @@ const buyLand: NextPage = () => {
   const [isMobile, setIsmobile] = useState<boolean>(false);
   const { account, library, chainId } = useWeb3React();
   const [isTestnet, setIsTestnet] = useState<boolean>(false);
+  const [isShown, setIsShown] = useState<boolean>(false);
   const [referralCode, setReferralCode] = useState<any>("");
   const router = useRouter();
 
@@ -32,9 +33,11 @@ const buyLand: NextPage = () => {
   }, []);
 
   useEffect(() => {
-    chainId == 80001 ? setIsTestnet(true) : setIsTestnet(false);
+    /* chainId == 80001 ? setIsTestnet(true) : setIsTestnet(false); */
     setReferralCode(router.query?.number);
   }, [chainId, account]);
+
+  console.log(isShown);
 
   /* async function addNetwork(type: any) {
     if (typeof web3 !== "undefined") {
@@ -96,6 +99,89 @@ const buyLand: NextPage = () => {
         <div className={styles.connectWallet}>
           <ConnectWallet isMobile={isMobile} />
         </div>
+
+        {!!!account && (
+          <>
+            <Table className={styles.table}>
+              <tbody>
+                <tr>
+                  <td colSpan={3} style={{ fontSize: "30px" }}>
+                    <strong>APEx7</strong> Microchips
+                  </td>
+                </tr>
+                <tr>
+                  <td colSpan={3} style={{ textAlign: "center" }}>
+                    {/*  <img src="/pictures/microchip_side_1.png" alt="chip" /> */}
+                    <img src="/pictures/microchip.gif" alt="chip" />
+                  </td>
+                </tr>
+                <tr>
+                  <td colSpan={2}>
+                    <em>
+                      Minting gets you exclusive access to the Game Beta and
+                      earns 5 MATIC rewards for each referral mint.
+                    </em>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>How it works</p>
+                    <div style={{ textAlign: "left" }}>
+                      <ol>
+                        <li>Mint your chip</li>
+                        <li> Claim your cashback</li>
+                        <li> Share your link</li>
+                        <li>Claim your rewards</li>
+                      </ol>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </Table>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                fontSize: "20px",
+              }}
+              onClick={() => setIsShown(!isShown)}
+            >
+              <span>
+                <em>I'm new to all of this...</em>
+              </span>
+              <img
+                style={{
+                  width: "16px",
+                  height: "16px",
+                  marginTop: "5px",
+                }}
+                src="/pictures/Polygon3.png"
+                alt="polygon"
+              ></img>
+            </div>
+            {isShown && (
+              <div className={styles.explanation}>
+                <ol>
+                  <li>
+                    The flat price for our gaming microchips is 25 MATIC -
+                    Mintable on polygon
+                  </li>
+                  <li>
+                    By using a referral code you can get a 5 MATIC instantly
+                    claimable cashback
+                  </li>
+                  <li> Minting also allows you to have a referral code</li>
+                  <li>
+                    Share your own referral code to your friends and the world
+                    and get a 5 MATIC claimable reward for each mint
+                  </li>
+                </ol>
+              </div>
+            )}
+          </>
+        )}
 
         {!!account && library && (
           <>
