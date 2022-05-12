@@ -1,8 +1,8 @@
 // testnet
 export const contractAddressTestnet =
-  "0x9bac8c583a86258C046FD4B14668F46CCd3d1e06";
+  "0xe2C80406Bb251DF41f8a2FAEC7C653931DcE3A69";
 export const providerTestnet =
-  "https://polygon-mumbai.infura.io/v3/03ce6aff8f9b46b8bb3ebf13b2900c71";
+  "https://polygon-mainnet.g.alchemy.com/v2/1U6_YjxzNyRdzfuffKZ3g5uw4KIXUdS5";
 
 // mainnet
 export const contractAddress = "";

@@ -12,11 +12,11 @@ import { provider } from "../../WalletHelpers/contractVariables";
 import Web3 from "web3";
 import { useRouter } from "next/router";
 
-declare global {
+/* declare global {
   interface Window {
     ethereum: any;
   }
-}
+} */
 
 const buyLand: NextPage = () => {
   const [isMobile, setIsmobile] = useState<boolean>(false);
@@ -36,8 +36,6 @@ const buyLand: NextPage = () => {
     /* chainId == 80001 ? setIsTestnet(true) : setIsTestnet(false); */
     setReferralCode(router.query?.number);
   }, [chainId, account]);
-
-  console.log(isShown);
 
   /* async function addNetwork(type: any) {
     if (typeof web3 !== "undefined") {

@@ -40,8 +40,6 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
     contractAddressTestnet
   );
 
-  console.log("userCode !== 0:", userCode > "0");
-
   useEffect(() => {
     if (!!referralCode) setWrittenCode(referralCode);
   });
@@ -179,7 +177,7 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
                       {referralCode && referralCode}
                     </td>
                   </tr>
-                  <tr>
+                  {/* <tr>
                     <td>Amount</td>
                     <td style={{ color: "transparent" }}>FOUND</td>
                     <td style={{ textAlign: "right" }}>
@@ -209,10 +207,17 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
                         </Dropdown.Menu>
                       </Dropdown>
                     </td>
-                  </tr>
+                  </tr> */}
                   <tr>
                     <td>Price</td>
-                    <td colSpan={3} style={{ textAlign: "right" }}>
+                    <td
+                      colSpan={3}
+                      style={{
+                        textAlign: "right",
+                        paddingLeft: "0",
+                        paddingRight: "0",
+                      }}
+                    >
                       {(nftPrice * nftQuantity) / 1000000000000000000} MATIC
                     </td>
                   </tr>
