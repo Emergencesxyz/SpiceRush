@@ -110,7 +110,7 @@ const buyLand: NextPage = () => {
                   </td>
                 </tr>
                 <tr>
-                  <td colSpan={3} style={{ textAlign: "center" }}>
+                  <td colSpan={3} style={{ textAlign: "center", padding: "0" }}>
                     <img src="/pictures/microchip.gif" alt="chip" />
                   </td>
                 </tr>
