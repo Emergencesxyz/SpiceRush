@@ -184,7 +184,7 @@ const buyLand: NextPage = () => {
           <>
             <div className={styles.text}>
               <span>
-                Get early access to Alpha-Testnet for free. Click here to get
+                Get early access to Alpha-Mainnet for free. Click here to get
                 testnet MATIC for transaction.
               </span>
               <span>

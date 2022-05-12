@@ -221,14 +221,14 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
                       {(nftPrice * nftQuantity) / 1000000000000000000} MATIC
                     </td>
                   </tr>
-                  {/*  <em
+                  <em
                     style={{
                       color: "red",
                       fontSize: "13px",
                     }}
                   >
-                    *5 MATIC Instant claimable cashback per NFT
-                  </em> */}
+                    *a MATIC cashback will be claimable per each NFT
+                  </em>
                 </tbody>
               </Table>
             </div>
