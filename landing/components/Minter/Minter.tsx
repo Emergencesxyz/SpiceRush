@@ -41,6 +41,10 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
   );
 
   useEffect(() => {
+    if (!!referralCode) setWrittenCode(referralCode);
+  });
+
+  useEffect(() => {
     (async () => {
       if (!!account && !!library) {
         setIsActive(await contract.methods.isActive().call());
@@ -52,13 +56,11 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
     })();
   }, [account, library]);
 
-  console.log(userCode);
-
   const hasFunds = async (nftsPrice: number) => {
     return nftsPrice <= (await library.eth.getBalance(account));
   };
 
-  const mintNFT = async (amount: number, referralCode: string) => {
+  const mintNFTwithReferral = async (amount: number, referralCode: string) => {
     if (!!account && !!library) {
       if (!(await contract.methods.isActive().call())) {
         alert("Sale has not started");
@@ -81,10 +83,10 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
         .codeToReferral(referralCode)
         .call();
 
-      /*   if (codeToReferral == 0) {
+      if (codeToReferral == 0) {
         alert("referral code is not valid !");
         return;
-      } */
+      }
 
       const transactionParameters = {
         from: account,
@@ -93,6 +95,41 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
 
       contract.methods
         .mintNFT(amount, referralCode)
+        .send(transactionParameters)
+        .on("transactionHash", function (hash: any) {})
+        .on("receipt", function (receipt: any) {})
+        .on("error", function (error: any, receipt: any) {
+          console.log(error);
+        });
+    }
+  };
+
+  const mintNFTwithoutReferral = async (amount: number) => {
+    if (!!account && !!library) {
+      if (!(await contract.methods.isActive().call())) {
+        alert("Sale has not started");
+        return;
+      }
+
+      if (amount > maxTransaction) {
+        alert("Max 5 NFT per transaction");
+        return;
+      }
+
+      const nftsValue = amount * nftPrice;
+
+      if (!(await hasFunds(nftsValue))) {
+        alert("Insufficient funds");
+        return;
+      }
+
+      const transactionParameters = {
+        from: account,
+        value: await nftsValue.toString(),
+      };
+
+      contract.methods
+        .mintNFT(amount)
         .send(transactionParameters)
         .on("transactionHash", function (hash: any) {})
         .on("receipt", function (receipt: any) {})
@@ -190,12 +227,30 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
             </div>
 
             <div className={styles.buttonContainer}>
-              <Button
-                className={styles.button1}
-                onClick={() => mintNFT(nftQuantity, referralCode)}
-              >
-                MINT
-              </Button>
+              {referralCode && (
+                <Button
+                  className={styles.button1}
+                  onClick={() => mintNFTwithReferral(nftQuantity, referralCode)}
+                >
+                  MINT
+                </Button>
+              )}
+              {!referralCode && writtenCode && (
+                <Button
+                  className={styles.button1}
+                  onClick={() => mintNFTwithReferral(nftQuantity, writtenCode)}
+                >
+                  MINT
+                </Button>
+              )}
+              {!referralCode && !writtenCode && (
+                <Button
+                  className={styles.button1}
+                  onClick={() => mintNFTwithoutReferral(nftQuantity)}
+                >
+                  MINT
+                </Button>
+              )}
               <div className={styles.rectangle1}></div>
             </div>
 

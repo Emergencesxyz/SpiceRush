@@ -21,7 +21,7 @@ declare global {
 const buyLand: NextPage = () => {
   const [isMobile, setIsmobile] = useState<boolean>(false);
   const { account, library, chainId } = useWeb3React();
-  const [isTestnet, setIsTestnet] = useState<boolean>(false);
+  /*   const [isTestnet, setIsTestnet] = useState<boolean>(false); */
   const [isShown, setIsShown] = useState<boolean>(false);
   const [referralCode, setReferralCode] = useState<any>("");
   const router = useRouter();
@@ -111,7 +111,6 @@ const buyLand: NextPage = () => {
                 </tr>
                 <tr>
                   <td colSpan={3} style={{ textAlign: "center" }}>
-                    {/*  <img src="/pictures/microchip_side_1.png" alt="chip" /> */}
                     <img src="/pictures/microchip.gif" alt="chip" />
                   </td>
                 </tr>
@@ -205,26 +204,11 @@ const buyLand: NextPage = () => {
                 </a>
               </span>
             </div>
-            {/*  <div className={styles.buttonContainer}>
-              <Button
-                className={styles.button1}
-                onClick={() => addNetwork(web3)}
-              >
-                {isTestnet ? (
-                  <span>Switch to mainnet</span>
-                ) : (
-                  <span>Switch to testnet</span>
-                )}
-              </Button>
-              <div className={styles.rectangle1}></div>
-            </div> */}
+
             <Minter referralCode={referralCode} />
           </>
         )}
       </div>
-      {/* <div className={styles.footer}>
-        <Footer isMobile={isMobile} />
-      </div> */}
     </div>
   );
 };
