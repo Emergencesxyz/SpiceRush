@@ -40,7 +40,7 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
     contractAddressTestnet
   );
 
-  console.log("userCode:", userCode);
+  console.log("userCode !== 0:", userCode > "0");
 
   useEffect(() => {
     if (!!referralCode) setWrittenCode(referralCode);
@@ -256,7 +256,7 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
               <div className={styles.rectangle1}></div>
             </div>
 
-            {userCode !== "0" && (
+            {userCode !== undefined && userCode !== "0" && (
               <div
                 style={{
                   marginBottom: "30px",
