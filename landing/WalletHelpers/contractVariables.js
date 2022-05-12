@@ -1,6 +1,6 @@
 // testnet
 export const contractAddressTestnet =
-  "0xCA355430ba36395E9696Fa6db4EFb0df2D6A624D";
+  "0x3d241501C818B3E884361cE4f466B716e528d082";
 export const providerTestnet =
   "https://polygon-mumbai.infura.io/v3/03ce6aff8f9b46b8bb3ebf13b2900c71";
 
