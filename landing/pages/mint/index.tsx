@@ -137,7 +137,7 @@ const buyLand: NextPage = () => {
                 </tr>
               </tbody>
             </Table>
-            <div
+            {/*  <div
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -159,8 +159,8 @@ const buyLand: NextPage = () => {
                 src="/pictures/Polygon3.png"
                 alt="polygon"
               ></img>
-            </div>
-            {isShown && (
+            </div> */}
+            {/*  {isShown && (
               <div className={styles.explanation}>
                 <ol>
                   <li>
@@ -168,7 +168,7 @@ const buyLand: NextPage = () => {
                     Mintable on polygon
                   </li>
                   <li>
-                    By using a referral code you can get a 5 MATIC instantly
+                    By using a referral code you can get a 25 MATIC instantly
                     claimable cashback
                   </li>
                   <li> Minting also allows you to have a referral code</li>
@@ -178,7 +178,7 @@ const buyLand: NextPage = () => {
                   </li>
                 </ol>
               </div>
-            )}
+            )} */}
           </>
         )}
 
