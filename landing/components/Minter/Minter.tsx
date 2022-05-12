@@ -40,6 +40,8 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
     contractAddressTestnet
   );
 
+  console.log("userCode:", userCode);
+
   useEffect(() => {
     if (!!referralCode) setWrittenCode(referralCode);
   });
@@ -254,54 +256,54 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
               <div className={styles.rectangle1}></div>
             </div>
 
-            {/*      {userCode !== "0" && ( */}
-            <div
-              style={{
-                marginBottom: "30px",
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <CardBody
-                header={
-                  <Row className="d-flex flex-row">
-                    <h1> REFERRALS CASHBACK</h1>
-                  </Row>
-                }
-                subtitle={
-                  <Row className="d-flex flex-row">
-                    <span style={{ color: "red", fontSize: "20px" }}>
-                      Share your referral link to get a 5 MATIC reward for each
-                      mint !
-                    </span>
-                  </Row>
-                }
-                textTitle1={
-                  <>
-                    <h2>{totalRewards / 1000000000000000000} MATIC</h2>
-                    <p>available cashback</p>
-                  </>
-                }
-                textTitle2={
-                  <>
-                    <h2>{userCode == 0 ? "-" : userCode}</h2>
-                    <p>your referral code</p>
-                  </>
-                }
-                textSubtitle2={<p>your referral link:</p>}
-                buttonTitle1="CLAIM"
-                buttonTitle2="SHARE"
-                footer={
-                  <p>
-                    You referred{" "}
-                    <span style={{ fontSize: "30px" }}>{totalReferred}</span>{" "}
-                    mints
-                  </p>
-                }
-                userCode={userCode}
-              />
-            </div>
-            {/*       )} */}
+            {userCode !== "0" && (
+              <div
+                style={{
+                  marginBottom: "30px",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <CardBody
+                  header={
+                    <Row className="d-flex flex-row">
+                      <h1> REFERRALS CASHBACK</h1>
+                    </Row>
+                  }
+                  subtitle={
+                    <Row className="d-flex flex-row">
+                      <span style={{ color: "red", fontSize: "20px" }}>
+                        Share your referral link to get a 5 MATIC reward for
+                        each mint !
+                      </span>
+                    </Row>
+                  }
+                  textTitle1={
+                    <>
+                      <h2>{totalRewards / 1000000000000000000} MATIC</h2>
+                      <p>available cashback</p>
+                    </>
+                  }
+                  textTitle2={
+                    <>
+                      <h2>{userCode == 0 ? "-" : userCode}</h2>
+                      <p>your referral code</p>
+                    </>
+                  }
+                  textSubtitle2={<p>your referral link:</p>}
+                  buttonTitle1="CLAIM"
+                  buttonTitle2="SHARE"
+                  footer={
+                    <p>
+                      You referred{" "}
+                      <span style={{ fontSize: "30px" }}>{totalReferred}</span>{" "}
+                      mints
+                    </p>
+                  }
+                  userCode={userCode}
+                />
+              </div>
+            )}
           </>
         )}
       </div>
