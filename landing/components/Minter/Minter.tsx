@@ -162,7 +162,7 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
                   </tr>
                   <tr>
                     <td colSpan={2}>Referral Code*</td>
-                    <td style={{ textAlign: "right" }}>
+                    <td className={styles.inputTD}>
                       {!referralCode && (
                         <InputGroup className={styles.inputGroup}>
                           <FormControl

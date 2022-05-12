@@ -164,7 +164,7 @@ const buyLand: NextPage = () => {
               <div className={styles.explanation}>
                 <ol>
                   <li>
-                    The flat price for our gaming microchips is 25 MATIC -
+                    The flat price for our gaming microchips is ...0 MATIC ! -
                     Mintable on polygon
                   </li>
                   <li>
@@ -186,21 +186,17 @@ const buyLand: NextPage = () => {
           <>
             <div className={styles.text}>
               <span>
-                Mainnet: Get exclusive access to Beta-Mainnet and earn cashback
-                from your referrals.{" "}
-              </span>
-              <span>
-                Testnet: Get early access to Alpha-Testnet for free. Click here
-                to get testnet MATIC for transaction.
+                Get early access to Alpha-Testnet for free. Click here to get
+                testnet MATIC for transaction.
               </span>
               <span>
                 lien :{" "}
                 <a
-                  href="https://faucet.polygon.technology/"
+                  href="https://matic.supply/"
                   target="_blank"
                   className={styles.faucetLink}
                 >
-                  <u>https://faucet.polygon.technology/</u>
+                  <u>https://matic.supply/</u>
                 </a>
               </span>
             </div>
