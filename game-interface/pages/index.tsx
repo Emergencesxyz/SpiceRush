@@ -16,16 +16,21 @@ export default function Home() {
   const router = useRouter();
   const context = useWeb3React();
   const { account, library, connector, deactivate } = context;
+  const [disconectUser, setDisconnectUser] = useState<boolean>(false)
 
   useEffect(() => {
     if (!!router.query?.disconnect) {
-      if (connector === injected) {
-        deactivate();
-      } else {
-        (connector as any).close();
-      }
+      setDisconnectUser(true);
     }
   }, []);
+
+  // useEffect(() => {
+  //   if (connector === injected) {
+  //     deactivate();
+  //   } else {
+  //     (connector as any).close();
+  //   }
+  // }, [disconectUser])
 
   return (
     <MoralisProvider

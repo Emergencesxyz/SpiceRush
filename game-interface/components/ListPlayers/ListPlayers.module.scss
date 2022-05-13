@@ -1,0 +1,96 @@
+.container {
+    position: relative;
+    height: 320px;
+    margin: 50px 70px 100px 10px;
+
+    .imgContainer {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+    }
+
+    .playersWrapper {
+        position: absolute;
+        padding: 35px 15px 15px 25px;;
+        height: 100%;
+        width: 100%;
+        z-index: 2;
+        overflow: hidden;
+
+        .players {
+            height: 100%;
+            width: 100%;
+            overflow-y: scroll;
+
+            &::-webkit-scrollbar {
+                width: 4px;
+            }
+
+            &::-webkit-scrollbar-track {
+                box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+                outline: #0ABDC6;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background-color: #2AB6BE;
+            }
+        }
+    }
+
+    .card {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding: 10px;
+        border-bottom: 1px solid rgba(10,189,198, .05) ;
+
+        p {
+            font-size: 10px;
+            margin-bottom: 0;
+        }
+
+        .avatar {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+
+            img {
+                height: 45px;
+                width: 45px;
+            }
+        }
+
+        .content {
+            .stats {
+                display: flex;
+
+                .info {
+                    display: flex;
+                    margin-top: 7px;
+                    margin-right: 20px;
+
+                    img {
+                        height: 13px;
+                        margin-right: 5px;
+                    }
+                }
+            }
+        }
+
+        .btnFight {
+            margin-left: auto;
+            height: 43px;
+            width: 50px;
+            z-index: 1;
+            background-size: 100% 100%;
+            background-image: url("/assets/btn_fight.png");
+
+            &:hover {
+                cursor: pointer;
+                background-image: url("/assets/btn_fight_on.png");
+            }
+        }
+    }
+}
+

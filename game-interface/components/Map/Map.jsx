@@ -105,6 +105,9 @@ export default function Map() {
         currentX = apePositionX - layer.width/2 - 64;
         currentY = apePositionY - layer.height/2 + 32;
         camera.setScroll(currentX, currentY);
+        // Selecting ape position tile
+        const apeTile = map.getTileAt(map.worldToTileX(apePositionX), map.worldToTileY(apePositionY));
+        setSelectedTile(apeTile?.properties);
 
     }
 
@@ -150,7 +153,7 @@ export default function Map() {
     function mapControls (action) {
         switch (action) {
             case "up": {
-                    const newY = currentY > tileHeight ? currentY + tileHeight : currentY
+                    const newY = currentY > tileHeight * currentZoom ? currentY * currentZoom + tileHeight : currentY * currentZoom
                     camera.setScroll(currentX,newY)
                     currentY = newY
                 }
@@ -221,15 +224,19 @@ export default function Map() {
   }, [playerDirection]);
 
   useEffect(() => {
-      if(!image || !_this) return;
-      image.destroy();
-      image = null;
-      image = _this.add.image(apePositionX, apePositionY, 0);
+        if(!image || !_this) return;
+        image.destroy();
+        image = null;
+        image = _this.add.image(apePositionX, apePositionY, 0);
+
+        // Selecting ape position tile
+        const apeTile = map.getTileAt(map.worldToTileX(apePositionX), map.worldToTileY(apePositionY));
+        setSelectedTile(apeTile?.properties);
   }, [characterInfo])
 
   return (
-      <>
-        <div className={styles.spiceWrapper}>
+      <div className={styles.mapContainer}>
+          <div className={styles.spiceWrapper}>
             <div className={styles.spiceInfo}>
                 <img src="/assets/spice_ore.png" alt="spice or icon"/>
                 <div>
@@ -247,21 +254,56 @@ export default function Map() {
             </div>
         </div>
 
-        <div>
-            Map controls
-            <button onClick={() => mapControls('down')}>down</button>
-            <button onClick={() => mapControls('up')}>up</button>
-            <button onClick={() => mapControls('left')}>left</button>
-            <button onClick={() => mapControls('rigth')}>rigth</button>
-            <button onClick={() => mapControls('zoomIn')}>zoomIn</button>
-            <button onClick={() => mapControls('zoomOut')}>zoomOut</button>
+        <div className={styles.assetsContainer}>
+            <img className={styles.border} src="/assets/map_container.png" alt="map container" />
         </div>
+
         <div
+            className={styles.mapWrapper}
             onMouseLeave={() => clickOut = true}
             onMouseEnter={() => clickOut = false}
             ref={parentRef}
-        ></div>
-      </>
+        >
+            <div onClick={() => mapControls('up')} className={styles.top}>
+                <img src="/assets/map_up.png" alt="up" />
+            </div>
+            <div onClick={() => mapControls('rigth')}className={styles.right}>
+                <img src="/assets/map_right.png" alt="right" />
+            </div>
+            <div  onClick={() => mapControls('down')} className={styles.down}>
+                <img src="/assets/map_down.png" alt="down" />
+            </div>
+            <div onClick={() => mapControls('left')} className={styles.left}>
+                <img src="/assets/map_left.png" alt="left" />
+            </div>
 
+            <div className={styles.options}>
+                <div>
+                    <img src="/assets/user_on.png" alt="user icon" />
+                    <img src="/assets/spice_off.png" alt="spice icon" />
+                    <img src="/assets/danger_off.png" alt="danger icon" />
+                </div>
+
+                <div>
+                    <img src="/assets/shild_off.png" alt="shild icon" />
+                    <img src="/assets/crown_on.png" alt="crown icon" />
+                </div>
+
+                <div>
+                    <img
+                        onClick={() => mapControls('zoomIn')}
+                        src="/assets/zoom_in_off.png"
+                        alt="zoom in icon"
+                    />
+                    <img
+                        onClick={() => mapControls('zoomOut')}
+                        src="/assets/zoom_out_off.png"
+                        alt="zoom out icon"
+                    />
+                    <img src="/assets/full_screen_off.png" alt="full screen icon" />
+                </div>
+            </div>
+        </div>
+    </div>
   );
 }

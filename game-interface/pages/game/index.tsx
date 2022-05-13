@@ -10,6 +10,8 @@ import BlockchainService from "../../services/BlockchainService";
 import { testTiles } from "../../borrar";
 import LandSection from "../../components/LandSection/LandSection";
 import { Col } from "react-bootstrap";
+import LogScreen from "../../components/LogScreen/LogScreen";
+import ListPlayers from "../../components/ListPlayers/ListPlayers";
 
 const Map = dynamic(() => import("../../components/Map/Map"), {
   ssr: false,
@@ -39,20 +41,26 @@ export default function Game() {
       <Header />
 
       <div className={styles.playZone}>
-        <Col md={3}>
+        <Col md={4}>
           <Player />
         </Col>
 
-        <Col md={6}>
+        <Col md={4}>
           {loading ? (
             <h1>creating map from blockchain</h1>
           ) : (
-            <Map />
+            <>
+              <div style={{ minHeight: "670px" }}>
+                <Map />
+              </div>
+              <LogScreen />
+            </>
           )}
         </Col>
 
-        <Col md={3}>
+        <Col md={4}>
           <LandSection />
+          <ListPlayers />
         </Col>
       </div>
     </div>

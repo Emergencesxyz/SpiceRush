@@ -1,9 +1,13 @@
 .container {
     padding-left: 70px;
+    padding-right: 10px;
+
+    .firstWrapper {
+        padding-inline: 50px;
+    }
 
     .playerInfo {
         position: relative;
-        margin-bottom: 50px;
 
         img {
             width: 330px;
@@ -12,6 +16,337 @@
         .playerStats {
             position: absolute;
             bottom: 0;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding-bottom: 5px;
+
+            .leftWrapper {
+                display: flex;
+                align-items: flex-end;
+                width: 75%;
+                padding-right: 10px;
+
+                .left {
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+
+                    .name {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 80%;
+                        height: 30px;
+                        background-color: rgba(9,7,28,.7);
+                        border-radius: 7px;
+
+                        p {
+                            font-size: 18px;
+                            margin-bottom: 0;
+                        }
+                    }
+
+                    img {
+                        width: auto;
+                        height: 35px;
+                    }
+
+                    .lock {
+                        &:hover {
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+
+            .right {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                justify-content: flex-end;
+
+                p {
+                    margin-bottom: 0;
+                }
+
+                .title {
+                    color: #0ABDC6;
+                    font-size: 15px;
+                    margin-right: 7px;
+                }
+
+                .level {
+                    color: #0ABDC6;
+                    font-size: 55px;
+                    line-height: 1;
+                }
+
+                .xp {
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items: center;
+
+                    img {
+                        height: 18px;
+                        width: auto;
+                        margin-right: 5px;
+                    }
+
+                    p {
+                        font-size: 10px;
+                    }
+                }
+            }
+        }
+    }
+
+    .statsContainer {
+        padding: 10px 30px;
+        width: 100%;
+        background-image: url('/assets/stats_container.png');
+        background-size: 100% 100%;
+        margin-bottom: 15px;
+
+        .statsSection {
+            display: flex;
+            align-items: center;
+            margin-block: 15px;
+
+            p {
+                margin-bottom: 0;
+                font-size: 12px;
+            }
+
+            img {
+                height: 30px;
+                width: auto;
+                margin-right: 10px;
+            }
+
+            .barWrapper {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                width: 100%;
+
+                p {
+                    padding-right: 20px;
+                    margin-top: -15px;
+                }
+
+                .bar {
+                    height: 18px;
+                    width: 100%;
+                    border: 1px solid;
+                    padding: 3px
+                }
+
+                .hpBar {
+                    @extend .bar;
+                    border-color: #C20D33;
+                    background-color: rgba(194,13,51,.2);
+
+                    .hp {
+                        border: 1px solid #C20D33;
+                        height: 100%;
+                        background: linear-gradient(89.76deg, #C20D33 170.16%, #EA00D9 778.4%);
+                        box-shadow: 0px 0px 4px rgba(194, 13, 51, 0.7);
+                    }
+                }
+
+                .energyBar {
+                    @extend .bar;
+                    border-color: #2AB6BE;
+
+                    .energy {
+                        border: 1px solid #2AB6BE;
+                        height: 100%;
+                        background: linear-gradient(90deg, #2AB6BE 28.89%, #EA00D9 132.73%);
+                        box-shadow: 0px 0px 4px rgba(10, 189, 198, 0.7);
+                    }
+                }
+            }
+        }
+    }
+
+    .controls {
+        position: relative;
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+
+        .bg {
+            position: absolute;
+            width: 130%;
+            height: 30px;
+            z-index: 0;
+            left: 8px;
+            cursor: auto;
+        }
+
+        .btn {
+            position: relative;
+            height: 65px;
+            width: 78px;
+            z-index: 1;
+            background-size: 100% 100%;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+        .btnMine {
+            @extend .btn;
+            background-image: url("/assets/btn_mine.png");
+
+            &:hover {
+                background-image: url("/assets/btn_mine_on.png");
+            }
+        }
+
+        .btnFight {
+            @extend .btn;
+            background-image: url("/assets/btn_fight.png");
+
+            &:hover {
+                background-image: url("/assets/btn_fight_on.png");
+            }
+        }
+
+        .btnSit {
+            @extend .btn;
+            background-image: url("/assets/btn_sit.png");
+
+            &:hover {
+                background-image: url("/assets/btn_sit_on.png");
+            }
+        }
+
+        img {
+            position: relative;
+            height: 65px;
+            width: auto;
+            z-index: 1;
+            cursor: pointer;
+        }
+
+        .actions {
+            position: relative;
+            width: 100px;
+
+            img {
+                position: absolute;
+                width: 100px;
+                height: 100px;
+                z-index: 0;
+            }
+
+            .vertical {
+                position: relative;
+                display: flex;
+                justify-content: center;
+                width: 100%;
+                z-index: 2;
+
+                .button {
+                    cursor: pointer;
+                    width: 50px;
+                    height: 25px;
+                }
+            }
+
+            .center {
+                position: relative;
+                display: flex;
+                justify-content: space-between;
+                height: 50px;
+                width: 100%;
+                z-index: 2;
+
+                .button {
+                    cursor: pointer;
+                    width: 25px;
+                    height: 50px;
+                }
+            }
+        }
+    }
+}
+
+.modalContainer {
+    position: relative;
+    height: 500px;
+    padding-top: 40px;
+
+    .imgHeader {
+        position: absolute;
+        left: calc(50% - 50px);
+        width: 100px;
+        top: 0;
+        height: auto;
+        z-index: 2;
+    }
+
+    .contentWrapper {
+        position: relative;
+        height: 100%;
+
+        .imgContainer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+
+        .optionsWrapper {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            z-index: 20;
+        }
+    }
+
+    .sitContainer {
+        position: absolute;
+        bottom: -20px;
+        left: calc(50% - 65px);
+        display: flex;
+        align-items: center;
+        height: 40px;
+        min-width: 130px;
+        width: fit-content;
+        cursor: pointer;
+        transition: all 0.3s;
+        z-index: 30;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+
+        .bg {
+            position: absolute;
+            z-index: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        .text {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+
+            h1 {
+                font-size: 16px;
+                margin-bottom: 0;
+            }
         }
     }
 }
