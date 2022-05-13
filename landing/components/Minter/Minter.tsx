@@ -43,7 +43,6 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const maxTransaction: number = 5;
   const alch = createAlchemyWeb3(provider);
-  const keccak256 = require("keccak256");
 
   const contract = new library.eth.Contract(
     contractABI as any,
