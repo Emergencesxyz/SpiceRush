@@ -21,10 +21,11 @@ declare global {
 
 interface Props {
   referralCode: any;
+  isMobile: boolean;
 }
 
 const Minter: FunctionComponent<Props> = (props): JSX.Element => {
-  const { referralCode } = props;
+  const { referralCode, isMobile } = props;
   const { account, library, chainId } = useWeb3React();
   const [nftQuantity, setNftQuantity] = useState<number>(1);
   const [nftPrice, setNftPrice] = useState<number>(0.25);
@@ -179,19 +180,23 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
       <div className={styles.container}>
         <p style={{ textAlign: "center" }}>
           This website is only compatible with the polygon mainnet network.{" "}
-          <br></br>
-          Please switch using the button below:
         </p>
-        <div className={styles.buttonContainer}>
-          <Button
-            className={styles.button1}
-            onClick={() => switchPolygon(library)}
-          >
-            Switch network
-          </Button>
+        {!isMobile && (
+          <>
+            <p>Please switch using the button below:</p>
 
-          <div className={styles.rectangle1}></div>
-        </div>
+            <div className={styles.buttonContainer}>
+              <Button
+                className={styles.button1}
+                onClick={() => switchPolygon(library)}
+              >
+                Switch network
+              </Button>
+
+              <div className={styles.rectangle1}></div>
+            </div>
+          </>
+        )}
       </div>
     );
   } else {

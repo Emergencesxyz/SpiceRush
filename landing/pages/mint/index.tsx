@@ -199,7 +199,7 @@ const buyLand: NextPage = () => {
               </span>
             </div>
 
-            <Minter referralCode={referralCode} />
+            <Minter referralCode={referralCode} isMobile={isMobile} />
           </>
         )}
       </div>
