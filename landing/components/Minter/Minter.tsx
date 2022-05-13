@@ -390,14 +390,18 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
                         fontSize: "13px",
                       }}
                     >
-                      *a MATIC cashback will be claimable per each NFT
+                      *Valid code gets 5 claimable MATIC
                     </em>
                   </tbody>
                 </Table>
               </div>
 
               <div className={styles.buttonContainer}>
-                <Button className={styles.button1} onClick={() => handleMint()}>
+                <Button
+                  style={{ fontWeight: "bold", fontSize: "28px" }}
+                  className={styles.button1}
+                  onClick={() => handleMint()}
+                >
                   MINT
                 </Button>
 
@@ -421,8 +425,8 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
                     subtitle={
                       <Row className="d-flex flex-row">
                         <span style={{ color: "red", fontSize: "20px" }}>
-                          Share your referral link to get a 5 MATIC reward for
-                          each mint !
+                          You now have your own referral code to share and get 5
+                          MATIC reward for each mint!
                         </span>
                       </Row>
                     }
