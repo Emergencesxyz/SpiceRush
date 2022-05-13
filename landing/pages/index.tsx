@@ -112,12 +112,12 @@ const Home: NextPage = () => {
             }
           />
         </motion.div>
-        <div>
+        <div style={{ height: "130vh" }}>
           <VideoSection isMobile={isMobile} />
         </div>
         <motion.div
           style={{
-            marginTop: "6vh"
+            marginTop: "6vh",
           }}
           animate={animation}
         >
