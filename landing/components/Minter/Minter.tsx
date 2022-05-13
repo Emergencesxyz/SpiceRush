@@ -11,7 +11,11 @@ import {
 } from "react-bootstrap";
 import CardBody from "../Card/Card";
 import contractABI from "../../WalletHelpers/contractAbi.json";
-import { contractAddressTestnet } from "../../WalletHelpers/contractVariables";
+import {
+  contractAddress,
+  provider,
+} from "../../WalletHelpers/contractVariables";
+import { createAlchemyWeb3 } from "@alch/alchemy-web3";
 
 declare global {
   interface Window {
@@ -35,11 +39,11 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
   const [totalRewards, setTotalRewards] = useState<number>(0);
   const [isActive, setIsActive] = useState<boolean>(false);
   const maxTransaction: number = 5;
-  let mediumGasPrice: any;
+  const alch = createAlchemyWeb3(provider);
 
   const contract = new library.eth.Contract(
     contractABI as any,
-    contractAddressTestnet
+    contractAddress
   );
 
   useEffect(() => {
@@ -93,10 +97,9 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
     }
   }
 
-  const getGasPrice = async () => {
-    let res = await library.eth.getGasPrice();
-    let gasPrice = await library.utils.fromWei(res, "gwei");
-    return gasPrice;
+  const getPriorityGasPrice = async () => {
+    let res = await alch.eth.getMaxPriorityFeePerGas();
+    return res;
   };
 
   const hasFunds = async (nftsPrice: number) => {
@@ -131,12 +134,12 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
         return;
       }
 
-      const gasPrice = await Math.round(await getGasPrice()).toString();
+      const priority = Number(await getPriorityGasPrice()) / 1000000000;
 
       const transactionParameters = {
         from: account,
         value: await nftsValue.toString(),
-        gasPrice: library.utils.toWei(gasPrice, "gwei"),
+        maxPriorityFeePerGas: library.utils.toWei(priority.toString(), "gwei"),
       };
 
       contract.methods
@@ -169,12 +172,12 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
         return;
       }
 
-      const gasPrice = await Math.round(await getGasPrice()).toString();
+      const priority = Number(await getPriorityGasPrice()) / 1000000000;
 
       const transactionParameters = {
         from: account,
         value: await nftsValue.toString(),
-        gasPrice: library.utils.toWei(gasPrice, "gwei"),
+        maxPriorityFeePerGas: library.utils.toWei(priority.toString(), "gwei"),
       };
 
       contract.methods
