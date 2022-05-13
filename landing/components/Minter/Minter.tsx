@@ -25,7 +25,7 @@ interface Props {
 
 const Minter: FunctionComponent<Props> = (props): JSX.Element => {
   const { referralCode } = props;
-  const { account, library } = useWeb3React();
+  const { account, library, chainId } = useWeb3React();
   const [nftQuantity, setNftQuantity] = useState<number>(1);
   const [nftPrice, setNftPrice] = useState<number>(0.25);
   const [userCode, setUserCode] = useState<any>("");
@@ -55,6 +55,41 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
       }
     })();
   }, [account, library]);
+
+  async function switchPolygon(type: any) {
+    if (typeof library !== "undefined") {
+      let network: any = 0;
+      network = chainId;
+      let netID = network.toString();
+      let params;
+      if (netID !== "137") {
+        params = [
+          {
+            chainId: "0x89",
+            chainName: "Polygon Mainnet",
+            nativeCurrency: {
+              name: "MATIC",
+              symbol: "MATIC",
+              decimals: 18,
+            },
+            rpcUrls: ["https://polygon-rpc.com/"],
+            blockExplorerUrls: ["https://polygonscan.com/"],
+          },
+        ];
+      }
+
+      /*  if (!window.ethereum) {
+        alert("No crypto wallet found");
+        return;
+      } */
+      window.ethereum
+        .request({ method: "wallet_addEthereumChain", params })
+        .then(() => console.log("Success"))
+        .catch((error: any) => console.log("Error", error.message));
+    } else {
+      alert("Unable to locate a compatible web3 browser!");
+    }
+  }
 
   const hasFunds = async (nftsPrice: number) => {
     return nftsPrice <= (await library.eth.getBalance(account));
@@ -139,45 +174,66 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
     }
   };
 
-  return (
-    <>
+  if (chainId !== 137) {
+    return (
       <div className={styles.container}>
-        {!!account && library && (
-          <>
-            <div>
-              <Table className={styles.table}>
-                <tbody>
-                  <tr>
-                    <td colSpan={3} style={{ textAlign: "center" }}>
-                      <strong>APEx7</strong> Microchips
-                    </td>
-                  </tr>
-                  <tr>
-                    <td colSpan={3} style={{ textAlign: "center" }}>
-                      {/*  <img src="/pictures/microchip_side_1.png" alt="chip" /> */}
-                      <img src="/pictures/microchip.gif" alt="chip" />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td colSpan={2}>Referral Code*</td>
-                    <td className={styles.inputTD}>
-                      {!referralCode && (
-                        <InputGroup className={styles.inputGroup}>
-                          <FormControl
-                            type="number"
-                            placeholder="referral code"
-                            aria-label="referral code"
-                            aria-describedby="basic-addon1"
-                            className={styles.referral}
-                            value={referralCode}
-                            onChange={(e) => setWrittenCode(e.target.value)}
-                          />
-                        </InputGroup>
-                      )}
-                      {referralCode && referralCode}
-                    </td>
-                  </tr>
-                  {/* <tr>
+        <p style={{ textAlign: "center" }}>
+          This website is only compatible with the polygon mainnet network.{" "}
+          <br></br>
+          Please switch using the button below:
+        </p>
+        <div className={styles.buttonContainer}>
+          <Button
+            className={styles.button1}
+            onClick={() => switchPolygon(library)}
+          >
+            Switch network
+          </Button>
+
+          <div className={styles.rectangle1}></div>
+        </div>
+      </div>
+    );
+  } else {
+    return (
+      <>
+        <div className={styles.container}>
+          {!!account && library && (
+            <>
+              <div>
+                <Table className={styles.table}>
+                  <tbody>
+                    <tr>
+                      <td colSpan={3} style={{ textAlign: "center" }}>
+                        <strong>APEx7</strong> Microchips
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colSpan={3} style={{ textAlign: "center" }}>
+                        {/*  <img src="/pictures/microchip_side_1.png" alt="chip" /> */}
+                        <img src="/pictures/microchip.gif" alt="chip" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colSpan={2}>Referral Code*</td>
+                      <td className={styles.inputTD}>
+                        {!referralCode && (
+                          <InputGroup className={styles.inputGroup}>
+                            <FormControl
+                              type="number"
+                              placeholder="referral code"
+                              aria-label="referral code"
+                              aria-describedby="basic-addon1"
+                              className={styles.referral}
+                              value={referralCode}
+                              onChange={(e) => setWrittenCode(e.target.value)}
+                            />
+                          </InputGroup>
+                        )}
+                        {referralCode && referralCode}
+                      </td>
+                    </tr>
+                    {/* <tr>
                     <td>Amount</td>
                     <td style={{ color: "transparent" }}>FOUND</td>
                     <td style={{ textAlign: "right" }}>
@@ -208,112 +264,119 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
                       </Dropdown>
                     </td>
                   </tr> */}
-                  <tr>
-                    <td>Price</td>
-                    <td
-                      colSpan={3}
+                    <tr>
+                      <td>Price</td>
+                      <td
+                        colSpan={3}
+                        style={{
+                          textAlign: "right",
+                          paddingLeft: "0",
+                          paddingRight: "0",
+                        }}
+                      >
+                        {(nftPrice * nftQuantity) / 1000000000000000000} MATIC
+                      </td>
+                    </tr>
+                    <em
                       style={{
-                        textAlign: "right",
-                        paddingLeft: "0",
-                        paddingRight: "0",
+                        color: "red",
+                        fontSize: "13px",
                       }}
                     >
-                      {(nftPrice * nftQuantity) / 1000000000000000000} MATIC
-                    </td>
-                  </tr>
-                  <em
-                    style={{
-                      color: "red",
-                      fontSize: "13px",
-                    }}
-                  >
-                    *a MATIC cashback will be claimable per each NFT
-                  </em>
-                </tbody>
-              </Table>
-            </div>
-
-            <div className={styles.buttonContainer}>
-              {referralCode && (
-                <Button
-                  className={styles.button1}
-                  onClick={() => mintNFTwithReferral(nftQuantity, referralCode)}
-                >
-                  MINT
-                </Button>
-              )}
-              {!referralCode && writtenCode && (
-                <Button
-                  className={styles.button1}
-                  onClick={() => mintNFTwithReferral(nftQuantity, writtenCode)}
-                >
-                  MINT
-                </Button>
-              )}
-              {!referralCode && !writtenCode && (
-                <Button
-                  className={styles.button1}
-                  onClick={() => mintNFTwithoutReferral(nftQuantity)}
-                >
-                  MINT
-                </Button>
-              )}
-              <div className={styles.rectangle1}></div>
-            </div>
-
-            {userCode !== undefined && userCode !== "0" && (
-              <div
-                style={{
-                  marginBottom: "30px",
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                <CardBody
-                  header={
-                    <Row className="d-flex flex-row">
-                      <h1> REFERRALS CASHBACK</h1>
-                    </Row>
-                  }
-                  subtitle={
-                    <Row className="d-flex flex-row">
-                      <span style={{ color: "red", fontSize: "20px" }}>
-                        Share your referral link to get a 5 MATIC reward for
-                        each mint !
-                      </span>
-                    </Row>
-                  }
-                  textTitle1={
-                    <>
-                      <h2>{totalRewards / 1000000000000000000} MATIC</h2>
-                      <p>available cashback</p>
-                    </>
-                  }
-                  textTitle2={
-                    <>
-                      <h2>{userCode == 0 ? "-" : userCode}</h2>
-                      <p>your referral code</p>
-                    </>
-                  }
-                  textSubtitle2={<p>your referral link:</p>}
-                  buttonTitle1="CLAIM"
-                  buttonTitle2="SHARE"
-                  footer={
-                    <p>
-                      You referred{" "}
-                      <span style={{ fontSize: "30px" }}>{totalReferred}</span>{" "}
-                      mints
-                    </p>
-                  }
-                  userCode={userCode}
-                />
+                      *a MATIC cashback will be claimable per each NFT
+                    </em>
+                  </tbody>
+                </Table>
               </div>
-            )}
-          </>
-        )}
-      </div>
-    </>
-  );
+
+              <div className={styles.buttonContainer}>
+                {referralCode && (
+                  <Button
+                    className={styles.button1}
+                    onClick={() =>
+                      mintNFTwithReferral(nftQuantity, referralCode)
+                    }
+                  >
+                    MINT
+                  </Button>
+                )}
+                {!referralCode && writtenCode && (
+                  <Button
+                    className={styles.button1}
+                    onClick={() =>
+                      mintNFTwithReferral(nftQuantity, writtenCode)
+                    }
+                  >
+                    MINT
+                  </Button>
+                )}
+                {!referralCode && !writtenCode && (
+                  <Button
+                    className={styles.button1}
+                    onClick={() => mintNFTwithoutReferral(nftQuantity)}
+                  >
+                    MINT
+                  </Button>
+                )}
+                <div className={styles.rectangle1}></div>
+              </div>
+
+              {userCode !== undefined && userCode !== "0" && (
+                <div
+                  style={{
+                    marginBottom: "30px",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  <CardBody
+                    header={
+                      <Row className="d-flex flex-row">
+                        <h1> REFERRALS CASHBACK</h1>
+                      </Row>
+                    }
+                    subtitle={
+                      <Row className="d-flex flex-row">
+                        <span style={{ color: "red", fontSize: "20px" }}>
+                          Share your referral link to get a 5 MATIC reward for
+                          each mint !
+                        </span>
+                      </Row>
+                    }
+                    textTitle1={
+                      <>
+                        <h2>{totalRewards / 1000000000000000000} MATIC</h2>
+                        <p>available cashback</p>
+                      </>
+                    }
+                    textTitle2={
+                      <>
+                        <h2>{userCode == 0 ? "-" : userCode}</h2>
+                        <p>your referral code</p>
+                      </>
+                    }
+                    textSubtitle2={<p>your referral link:</p>}
+                    buttonTitle1="CLAIM"
+                    buttonTitle2="SHARE"
+                    footer={
+                      <p>
+                        You referred{" "}
+                        <span style={{ fontSize: "30px" }}>
+                          {totalReferred}
+                        </span>{" "}
+                        mints
+                      </p>
+                    }
+                    userCode={userCode}
+                  />
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      </>
+    );
+  }
 };
 
 export default Minter;

@@ -188,7 +188,7 @@ const buyLand: NextPage = () => {
                 testnet MATIC for transaction.
               </span>
               <span>
-                lien :{" "}
+                link :{" "}
                 <a
                   href="https://matic.supply/"
                   target="_blank"
