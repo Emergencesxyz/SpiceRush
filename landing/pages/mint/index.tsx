@@ -12,6 +12,7 @@ const buyLand: NextPage = () => {
   const [isMobile, setIsmobile] = useState<boolean>(false);
   const { account, library, chainId } = useWeb3React();
   const [referralCode, setReferralCode] = useState<any>("");
+  const [secretCode, setSecretCode] = useState<any>("");
   const router = useRouter();
 
   useEffect(() => {
@@ -22,6 +23,7 @@ const buyLand: NextPage = () => {
 
   useEffect(() => {
     setReferralCode(router.query?.number);
+    setSecretCode(router.query?.secret);
   }, [chainId, account]);
 
   return (
@@ -117,26 +119,11 @@ const buyLand: NextPage = () => {
         )}
 
         {!!account && library && (
-          <>
-            <div className={styles.text}>
-              <span>
-                Get early access to Alpha-Mainnet for free. Click here to get
-                testnet MATIC for transaction.
-              </span>
-              <span>
-                link :{" "}
-                <a
-                  href="https://matic.supply/"
-                  target="_blank"
-                  className={styles.faucetLink}
-                >
-                  <u>https://matic.supply/</u>
-                </a>
-              </span>
-            </div>
-
-            <Minter referralCode={referralCode} isMobile={isMobile} />
-          </>
+          <Minter
+            secretCode={secretCode}
+            referralCode={referralCode}
+            isMobile={isMobile}
+          />
         )}
       </div>
     </div>

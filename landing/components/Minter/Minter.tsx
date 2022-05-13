@@ -8,6 +8,7 @@ import {
   Dropdown,
   InputGroup,
   FormControl,
+  Modal,
 } from "react-bootstrap";
 import CardBody from "../Card/Card";
 import contractABI from "../../WalletHelpers/contractAbi.json";
@@ -24,12 +25,13 @@ declare global {
 }
 
 interface Props {
-  referralCode: any;
+  referralCode?: any;
+  secretCode?: any;
   isMobile: boolean;
 }
 
 const Minter: FunctionComponent<Props> = (props): JSX.Element => {
-  const { referralCode, isMobile } = props;
+  const { referralCode, secretCode, isMobile } = props;
   const { account, library, chainId } = useWeb3React();
   const [nftQuantity, setNftQuantity] = useState<number>(1);
   const [nftPrice, setNftPrice] = useState<number>(0.25);
@@ -38,17 +40,15 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
   const [totalReferred, setTotalReferred] = useState<number>(0);
   const [totalRewards, setTotalRewards] = useState<number>(0);
   const [isActive, setIsActive] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
   const maxTransaction: number = 5;
   const alch = createAlchemyWeb3(provider);
+  const keccak256 = require("keccak256");
 
   const contract = new library.eth.Contract(
     contractABI as any,
     contractAddress
   );
-
-  useEffect(() => {
-    if (!!referralCode) setWrittenCode(referralCode);
-  });
 
   useEffect(() => {
     (async () => {
@@ -84,10 +84,6 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
         ];
       }
 
-      /*  if (!window.ethereum) {
-        alert("No crypto wallet found");
-        return;
-      } */
       window.ethereum
         .request({ method: "wallet_addEthereumChain", params })
         .then(() => console.log("Success"))
@@ -96,6 +92,34 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
       alert("Unable to locate a compatible web3 browser!");
     }
   }
+
+  const toggle = () => setShowModal(!showModal);
+
+  const modalContent = () => {
+    return (
+      <div style={{ textAlign: "center" }}>
+        <p>
+          The Free mint supply has already been dispatched... But you can still
+          get the exclusive mint!
+        </p>
+        <p>Click the button below to access join the alpha!</p>
+        <a href="https://www.spicerush.io/mint/">
+          <Button
+            style={{
+              backgroundColor: "#ea00d9",
+              border: "none",
+              padding: "10px",
+              width: "150px",
+            }}
+          >
+            ACCESS MINT
+          </Button>
+        </a>
+
+        <div className={styles.rectangle1}></div>
+      </div>
+    );
+  };
 
   const getPriorityGasPrice = async () => {
     let res = await alch.eth.getMaxPriorityFeePerGas();
@@ -106,6 +130,20 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
     return nftsPrice <= (await library.eth.getBalance(account));
   };
 
+  const handleMint = () => {
+    if (!!secretCode) {
+      mintFreeNFT(secretCode, nftQuantity);
+    } else {
+      if (!!referralCode) {
+        mintNFTwithReferral(nftQuantity, referralCode);
+      } else if (!!writtenCode) {
+        mintNFTwithReferral(nftQuantity, writtenCode);
+      } else {
+        mintNFTwithoutReferral(nftQuantity);
+      }
+    }
+  };
+
   const mintNFTwithReferral = async (amount: number, referralCode: string) => {
     if (!!account && !!library) {
       if (!(await contract.methods.isActive().call())) {
@@ -113,10 +151,10 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
         return;
       }
 
-      if (amount > maxTransaction) {
+      /*   if (amount > maxTransaction) {
         alert("Max 5 NFT per transaction");
         return;
-      }
+      } */
 
       const nftsValue = amount * nftPrice;
 
@@ -153,6 +191,44 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
     }
   };
 
+  const mintFreeNFT = async (secretCode: any, amount: number) => {
+    if (!!account && !!library) {
+      if (!(await contract.methods.isActive().call())) {
+        alert("Sale has not started");
+        return;
+      }
+
+      const secretHash = library.utils.soliditySha3(secretCode);
+      const secretToAmountFreeMint = await contract.methods
+        .secretToAmountFreeMint(secretHash)
+        .call();
+      const secretToMaxAmountFreeMint = await contract.methods
+        .secretToMaxAmountFreeMint(secretHash)
+        .call();
+
+      if (secretToAmountFreeMint + amount >= secretToMaxAmountFreeMint) {
+        setShowModal(true);
+        return;
+      }
+
+      const priority = Number(await getPriorityGasPrice()) / 1000000000;
+
+      const transactionParameters = {
+        from: account,
+        maxPriorityFeePerGas: library.utils.toWei(priority.toString(), "gwei"),
+      };
+
+      contract.methods
+        .mintNFTFree(secretCode, amount)
+        .send(transactionParameters)
+        .on("transactionHash", function (hash: any) {})
+        .on("receipt", function (receipt: any) {})
+        .on("error", function (error: any, receipt: any) {
+          console.log(error);
+        });
+    }
+  };
+
   const mintNFTwithoutReferral = async (amount: number) => {
     if (!!account && !!library) {
       if (!(await contract.methods.isActive().call())) {
@@ -160,10 +236,10 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
         return;
       }
 
-      if (amount > maxTransaction) {
+      /*  if (amount > maxTransaction) {
         alert("Max 5 NFT per transaction");
         return;
-      }
+      } */
 
       const nftsValue = amount * nftPrice;
 
@@ -222,6 +298,13 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
           {!!account && library && (
             <>
               <div>
+                <div style={{ textAlign: "center" }}>
+                  {secretCode ? (
+                    <p>Get exclusive early access to Alpha-Mainnet for free.</p>
+                  ) : (
+                    <p>Get exclusive early access to Alpha-Mainnet.</p>
+                  )}
+                </div>
                 <Table className={styles.table}>
                   <tbody>
                     <tr>
@@ -235,25 +318,27 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
                         <img src="/pictures/microchip.gif" alt="chip" />
                       </td>
                     </tr>
-                    <tr>
-                      <td colSpan={2}>Referral Code*</td>
-                      <td className={styles.inputTD}>
-                        {!referralCode && (
-                          <InputGroup className={styles.inputGroup}>
-                            <FormControl
-                              type="number"
-                              placeholder="referral code"
-                              aria-label="referral code"
-                              aria-describedby="basic-addon1"
-                              className={styles.referral}
-                              value={referralCode}
-                              onChange={(e) => setWrittenCode(e.target.value)}
-                            />
-                          </InputGroup>
-                        )}
-                        {referralCode && referralCode}
-                      </td>
-                    </tr>
+                    {!secretCode && (
+                      <tr>
+                        <td colSpan={2}>Referral Code*</td>
+                        <td className={styles.inputTD}>
+                          {!referralCode && (
+                            <InputGroup className={styles.inputGroup}>
+                              <FormControl
+                                type="number"
+                                placeholder="referral code"
+                                aria-label="referral code"
+                                aria-describedby="basic-addon1"
+                                className={styles.referral}
+                                value={referralCode}
+                                onChange={(e) => setWrittenCode(e.target.value)}
+                              />
+                            </InputGroup>
+                          )}
+                          {referralCode && referralCode}
+                        </td>
+                      </tr>
+                    )}
                     {/* <tr>
                     <td>Amount</td>
                     <td style={{ color: "transparent" }}>FOUND</td>
@@ -285,19 +370,21 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
                       </Dropdown>
                     </td>
                   </tr> */}
-                    <tr>
-                      <td>Price</td>
-                      <td
-                        colSpan={3}
-                        style={{
-                          textAlign: "right",
-                          paddingLeft: "0",
-                          paddingRight: "0",
-                        }}
-                      >
-                        {(nftPrice * nftQuantity) / 1000000000000000000} MATIC
-                      </td>
-                    </tr>
+                    {!secretCode && (
+                      <tr>
+                        <td>Price</td>
+                        <td
+                          colSpan={3}
+                          style={{
+                            textAlign: "right",
+                            paddingLeft: "0",
+                            paddingRight: "0",
+                          }}
+                        >
+                          {(nftPrice * nftQuantity) / 1000000000000000000} MATIC
+                        </td>
+                      </tr>
+                    )}
                     <em
                       style={{
                         color: "red",
@@ -311,34 +398,10 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
               </div>
 
               <div className={styles.buttonContainer}>
-                {referralCode && (
-                  <Button
-                    className={styles.button1}
-                    onClick={() =>
-                      mintNFTwithReferral(nftQuantity, referralCode)
-                    }
-                  >
-                    MINT
-                  </Button>
-                )}
-                {!referralCode && writtenCode && (
-                  <Button
-                    className={styles.button1}
-                    onClick={() =>
-                      mintNFTwithReferral(nftQuantity, writtenCode)
-                    }
-                  >
-                    MINT
-                  </Button>
-                )}
-                {!referralCode && !writtenCode && (
-                  <Button
-                    className={styles.button1}
-                    onClick={() => mintNFTwithoutReferral(nftQuantity)}
-                  >
-                    MINT
-                  </Button>
-                )}
+                <Button className={styles.button1} onClick={() => handleMint()}>
+                  MINT
+                </Button>
+
                 <div className={styles.rectangle1}></div>
               </div>
 
@@ -395,6 +458,27 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
             </>
           )}
         </div>
+        <Modal
+          show={showModal}
+          onHide={toggle}
+          centered
+          aria-labelledby="Wallet connection"
+          animation={false}
+        >
+          <Modal.Body
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              color: "white",
+              backgroundColor: "black",
+              height: "40vh",
+            }}
+          >
+            {modalContent()}
+          </Modal.Body>
+        </Modal>
       </>
     );
   }
