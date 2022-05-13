@@ -35,6 +35,7 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
   const [totalRewards, setTotalRewards] = useState<number>(0);
   const [isActive, setIsActive] = useState<boolean>(false);
   const maxTransaction: number = 5;
+  let mediumGasPrice: any;
 
   const contract = new library.eth.Contract(
     contractABI as any,
@@ -92,6 +93,12 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
     }
   }
 
+  const getGasPrice = async () => {
+    let res = await library.eth.getGasPrice();
+    let gasPrice = await library.utils.fromWei(res, "gwei");
+    return gasPrice;
+  };
+
   const hasFunds = async (nftsPrice: number) => {
     return nftsPrice <= (await library.eth.getBalance(account));
   };
@@ -124,10 +131,12 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
         return;
       }
 
+      const gasPrice = await Math.round(await getGasPrice()).toString();
+
       const transactionParameters = {
         from: account,
         value: await nftsValue.toString(),
-        gasPrice: library.utils.toWei("35", "gwei"),
+        gasPrice: library.utils.toWei(gasPrice, "gwei"),
       };
 
       contract.methods
@@ -160,10 +169,12 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
         return;
       }
 
+      const gasPrice = await Math.round(await getGasPrice()).toString();
+
       const transactionParameters = {
         from: account,
         value: await nftsValue.toString(),
-        gasPrice: library.utils.toWei("35", "gwei"),
+        gasPrice: library.utils.toWei(gasPrice, "gwei"),
       };
 
       contract.methods
