@@ -8,7 +8,7 @@ function getLibrary(provider: any): Web3 {
   return new Web3(provider);
 }
 
-function Apinator({ Component, pageProps }: AppProps) {
+function SpiceRush({ Component, pageProps }: AppProps) {
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
       <Layout>
@@ -18,4 +18,4 @@ function Apinator({ Component, pageProps }: AppProps) {
   );
 }
 
-export default Apinator;
+export default SpiceRush;

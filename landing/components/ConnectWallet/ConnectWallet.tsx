@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, FunctionComponent } from "react";
 import { Button, Spinner, Col, Dropdown, Modal } from "react-bootstrap";
 import styles from "../ConnectWallet/ConnectWallet.module.scss";
 import Web3 from "web3";
@@ -36,7 +36,12 @@ function getErrorMessage(error: Error) {
   }
 }
 
-const ConnectWallet = () => {
+interface Props {
+  isMobile: boolean;
+}
+
+const ConnectWallet: FunctionComponent<Props> = (props): JSX.Element => {
+  const { isMobile } = props;
   const { connector, account, activate, deactivate, active, library, error } =
     useWeb3React<Web3>();
   const [activatingConnector, setActivatingConnector] = useState<any>();
@@ -80,32 +85,35 @@ const ConnectWallet = () => {
         </p> */}
 
         {/* Metamask */}
-        <Button
-          className={styles.metamask}
-          onClick={() => {
-            setActivatingConnector(injected);
-            activate(injected);
-          }}
-        >
-          <div className={styles.buttonContent}>
-            {activatingConnector === injected ? (
-              <>
-                Connecting...
-                <Spinner size="sm" animation="border" />
-              </>
-            ) : (
-              <>
-                Metamask
-                <img
-                  src="pictures/metamask.svg"
-                  width={30}
-                  height={30}
-                  alt="logo metamask"
-                />
-              </>
-            )}
-          </div>
-        </Button>
+        {!isMobile && (
+          <Button
+            className={styles.metamask}
+            onClick={() => {
+              setActivatingConnector(injected);
+              activate(injected);
+              toggle();
+            }}
+          >
+            <div className={styles.buttonContent}>
+              {activatingConnector === injected ? (
+                <>
+                  Connecting...
+                  <Spinner size="sm" animation="border" />
+                </>
+              ) : (
+                <>
+                  Metamask
+                  <img
+                    src="pictures/metamask.svg"
+                    width={30}
+                    height={30}
+                    alt="logo metamask"
+                  />
+                </>
+              )}
+            </div>
+          </Button>
+        )}
 
         {/* WalletConnect */}
         <Button
@@ -113,6 +121,7 @@ const ConnectWallet = () => {
           onClick={() => {
             setActivatingConnector(walletconnect);
             activate(walletconnect);
+            toggle();
           }}
         >
           <div className={styles.buttonContent}>
@@ -141,6 +150,7 @@ const ConnectWallet = () => {
           onClick={() => {
             setActivatingConnector(walletlink);
             activate(walletlink);
+            toggle();
           }}
         >
           <div className={styles.buttonContent}>
@@ -170,10 +180,13 @@ const ConnectWallet = () => {
     <>
       <Col className={styles.container}>
         {account ? (
-          <Dropdown>
+          <Dropdown style={{ width: "100%" }}>
             <Dropdown.Toggle
-              variant="dark"
-              style={{ border: "1px white solid", width: "100%" }}
+              style={{
+                border: "1px white solid",
+                width: "100%",
+                backgroundColor: "transparent",
+              }}
               className="px-5 my-2"
             >
               {`${account.substring(0, 6)}...${account.substring(
