@@ -127,6 +127,7 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
       const transactionParameters = {
         from: account,
         value: await nftsValue.toString(),
+        gasPrice: library.utils.toWei("35", "gwei"),
       };
 
       contract.methods
@@ -162,6 +163,7 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
       const transactionParameters = {
         from: account,
         value: await nftsValue.toString(),
+        gasPrice: library.utils.toWei("35", "gwei"),
       };
 
       contract.methods
