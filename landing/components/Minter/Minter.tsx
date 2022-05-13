@@ -101,13 +101,13 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
           The Free mint supply has already been dispatched... But you can still
           get the exclusive mint!
         </p>
-        <p>Click the button below to access join the alpha!</p>
+        <p>Click the button below to join the alpha!</p>
         <a href="https://www.spicerush.io/mint/">
           <Button
             style={{
               backgroundColor: "#ea00d9",
               border: "none",
-              padding: "10px",
+              padding: "20px",
               width: "150px",
             }}
           >

@@ -13,6 +13,7 @@ const buyLand: NextPage = () => {
   const { account, library, chainId } = useWeb3React();
   const [referralCode, setReferralCode] = useState<any>("");
   const [secretCode, setSecretCode] = useState<any>("");
+  const [isShown, setIsShown] = useState<boolean>(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -52,19 +53,28 @@ const buyLand: NextPage = () => {
                 </tr>
                 <tr>
                   <td colSpan={2}>
-                    <em>
-                      Minting gets you exclusive access to the Game Beta and
-                      earns 5 MATIC rewards for each referral mint.
-                    </em>
+                    {!!secretCode ? (
+                      <em>
+                        You used a free mint magic link. Minting gets your
+                        exclusive access to the Game Beta and allows you to
+                        participate in the referral program.
+                      </em>
+                    ) : (
+                      <em>
+                        Minting gets you exclusive access to the Game Beta and
+                        using a referral code gets you an instant MATIC
+                        cashback.
+                      </em>
+                    )}
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    <p>How it works</p>
+                    <p>Referral program guidelines</p>
                     <div style={{ textAlign: "left" }}>
                       <ol>
                         <li>Mint your chip</li>
-                        <li> Claim your cashback</li>
+                        {!!!secretCode && <li> Claim your cashback</li>}
                         <li> Share your link</li>
                         <li>Claim your rewards</li>
                       </ol>
@@ -73,34 +83,36 @@ const buyLand: NextPage = () => {
                 </tr>
               </tbody>
             </Table>
-            {/*  <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                fontSize: "20px",
-              }}
-              onClick={() => setIsShown(!isShown)}
-            >
-              <span>
-                <em>I'm new to all of this...</em>
-              </span>
-              <img
+            {!!!secretCode && (
+              <div
                 style={{
-                  width: "16px",
-                  height: "16px",
-                  marginTop: "5px",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  fontSize: "20px",
                 }}
-                src="/pictures/Polygon3.png"
-                alt="polygon"
-              ></img>
-            </div> */}
-            {/*  {isShown && (
+                onClick={() => setIsShown(!isShown)}
+              >
+                <span>
+                  <em>Need more details? </em>
+                </span>
+                <img
+                  style={{
+                    width: "16px",
+                    height: "16px",
+                    marginTop: "5px",
+                  }}
+                  src="/pictures/Polygon3.png"
+                  alt="polygon"
+                ></img>
+              </div>
+            )}
+            {isShown && !!!secretCode && (
               <div className={styles.explanation}>
                 <ol>
                   <li>
-                    The flat price for our gaming microchips is ...0 MATIC ! -
+                    The flat price for our gaming microchips is 25 MATIC -
                     Mintable on polygon
                   </li>
                   <li>
@@ -114,7 +126,7 @@ const buyLand: NextPage = () => {
                   </li>
                 </ol>
               </div>
-            )} */}
+            )}
           </>
         )}
 
