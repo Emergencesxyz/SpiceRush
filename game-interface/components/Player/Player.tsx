@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GameContext } from "../../context/GameContext";
 import { useWeb3React } from "@web3-react/core";
 import BlockchainService from "../../services/BlockchainService";
@@ -8,15 +8,23 @@ import { Button, Modal } from "react-bootstrap";
 const Player = (): JSX.Element => {
     const { account, library } = useWeb3React();
     const gameContext = useContext(GameContext);
-    const { setPlayerDirection, characterInfo, setCharacterInfo } = gameContext;
+    const { setPlayerDirection, characterInfo, setCharacterInfo, sendLog } = gameContext;
     const blockchainService = new BlockchainService(account);
     const [controlsImg, setControlsImg] = useState<number>(0);
     const [showModal, setShowModal] = useState<boolean>(false);
     const [fightAgain, setFightAgain] = useState<any>({});
+    const [canLvlUp, setCanLvlUp] = useState<boolean>(false);
 
     const toggle = () => setShowModal(!showModal);
 
+    useEffect(() => {
+        (async () => {
+            setCanLvlUp(await blockchainService.canLevelUp(characterInfo.id));
+        })();
+    }, [characterInfo]);
+
     const moveCharacter = async (e: any) => {
+        sendLog("waitting for trasanction")
         let x, y: number;
         // const audioScifi = new Audio("./sounds/button_scifi.mp3");
         // audioScifi.play();
@@ -43,7 +51,7 @@ const Player = (): JSX.Element => {
         );
 
         if (res) {
-            // TODO: update character in game context
+            sendLog(`player moved to ${x},${y}`)
             setCharacterInfo({ ...characterInfo, x, y })
         }
     };
@@ -54,18 +62,23 @@ const Player = (): JSX.Element => {
     }
 
     const handleActions = async (action: string) => {
+        sendLog("waitting for trasanction")
         if (action == "mine") {
-            console.log("mine")
-            return await blockchainService.mine(characterInfo.id as number, 1, library);
+            await blockchainService.mine(characterInfo.id as number, 1, library);
+        } else if (action == "rest") {
+            await blockchainService.rest(characterInfo.id as number, 1, library);
+        } else if (action == "spawn") {
+            await blockchainService.spawn(characterInfo.id as number, library);
+        } else if (action == "lvlUp") {
+            // await blockchainService.levelUp(characterInfo.id,
+            //     e.target.name,
+            //     library
+            // );
         }
 
-        if (action == "rest") {
-            return await blockchainService.rest(characterInfo.id as number, 1, library);
-        }
-
-        if (action == "spawn") {
-            return await blockchainService.spawn(characterInfo.id as number, library);
-        }
+        setCharacterInfo(await blockchainService.getCharacterInfo(characterInfo.id));
+        sendLog(`${action} success`);
+        return;
     }
 
     return (
@@ -109,74 +122,90 @@ const Player = (): JSX.Element => {
             <div className={styles.statsContainer}>
                 <div className={styles.statsSection}>
                     <img src="/assets/pic.png" alt="pic logo" />
-                    <p>12300</p>
+                    <p>{characterInfo.spiceMined}</p>
                 </div>
                 <div className={styles.statsSection}>
                     <img src="/assets/hearth.png" alt="hearth logo" />
                     <div className={styles.barWrapper}>
-                        <p>1000 / 9000</p>
-                        <div className={styles.redBar}></div>
+                        <p>{characterInfo.stats?.hp} / {characterInfo.stats?.hpMax}</p>
+                        <div className={styles.hpBar}>
+                            <div
+                                className={styles.hp}
+                                style={{ width: (characterInfo.stats?.hp / characterInfo.stats?.hpMax * 100) + "%" }}
+                            ></div>
+                        </div>
                     </div>
                 </div>
 
                 <div className={styles.statsSection}>
                     <img src="/assets/energy.png" alt="energy logo" />
                     <div className={styles.barWrapper}>
-                        <p>5800 / 9000</p>
-                        <div className={styles.blueBar}></div>
+                        <p>{characterInfo.stats?.energy} / {characterInfo.stats?.energyMax}</p>
+                        <div className={styles.energyBar}>
+                            <div
+                                className={styles.energy}
+                                style={{ width: (characterInfo.stats?.energy / characterInfo.stats?.energyMax * 100) + "%" }}
+                            ></div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             {/* Player controls */}
-            <div className={styles.controls}>
-                <img className={styles.bg} src="/assets/control_bg.png" alt="controls background" />
+            {characterInfo?.stats?.hp ? (
+                <div className={styles.controls}>
+                    <img className={styles.bg} src="/assets/control_bg.png" alt="controls background" />
 
-                <div className={styles.btnMine} onClick={() => handleActions("mine")}>
-                </div>
-
-                <div className={styles.btnFight}>
-                </div>
-
-                <div className={styles.btnSit} onClick={() => toggle()}>
-                </div>
-
-                <div className={styles.actions}>
-                    <img src={`/assets/actions_${controlsImg}.png`} alt="actions 0" />
-                    <div className={styles.vertical}>
-                        <div
-                            onMouseEnter={() => setDirectionAndImg(4)}
-                            onMouseLeave={() => setDirectionAndImg(0)}
-                            onClick={() => moveCharacter("up")}
-                            className={styles.button}
-                        ></div>
+                    <div className={styles.btnMine} onClick={() => handleActions("mine")}>
                     </div>
 
-                    <div className={styles.center}>
-                        <div
-                            onMouseEnter={() => setDirectionAndImg(3)}
-                            onMouseLeave={() => setDirectionAndImg(0)}
-                            onClick={() => moveCharacter("left")}
-                            className={styles.button}
-                        ></div>
-                        <div
-                            onMouseEnter={() => setDirectionAndImg(1)}
-                            onMouseLeave={() => setDirectionAndImg(0)}
-                            onClick={() => moveCharacter("right")}
-                            className={styles.button}
-                        ></div>
+                    <div className={styles.btnFight}>
                     </div>
 
-                    <div className={styles.vertical}>
-                        <div
-                            onMouseEnter={() => setDirectionAndImg(2)}
-                            onMouseLeave={() => setDirectionAndImg(0)}
-                            onClick={() => moveCharacter("down")}
-                            className={styles.button}
-                        ></div>
+                    <div className={styles.btnSit} onClick={() => toggle()}>
+                    </div>
+
+                    <div className={styles.actions}>
+                        <img src={`/assets/actions_${controlsImg}.png`} alt="actions 0" />
+                        <div className={styles.vertical}>
+                            <div
+                                onMouseEnter={() => setDirectionAndImg(4)}
+                                onMouseLeave={() => setDirectionAndImg(0)}
+                                onClick={() => moveCharacter("up")}
+                                className={styles.button}
+                            ></div>
+                        </div>
+
+                        <div className={styles.center}>
+                            <div
+                                onMouseEnter={() => setDirectionAndImg(3)}
+                                onMouseLeave={() => setDirectionAndImg(0)}
+                                onClick={() => moveCharacter("left")}
+                                className={styles.button}
+                            ></div>
+                            <div
+                                onMouseEnter={() => setDirectionAndImg(1)}
+                                onMouseLeave={() => setDirectionAndImg(0)}
+                                onClick={() => moveCharacter("right")}
+                                className={styles.button}
+                            ></div>
+                        </div>
+
+                        <div className={styles.vertical}>
+                            <div
+                                onMouseEnter={() => setDirectionAndImg(2)}
+                                onMouseLeave={() => setDirectionAndImg(0)}
+                                onClick={() => moveCharacter("down")}
+                                className={styles.button}
+                            ></div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            ) : (
+                <button onClick={() => handleActions("spawn")}>spawn</button>
+            )}
+
+            {canLvlUp && <button onClick={() => handleActions("lvlUp")}>level up</button>}
 
             {/* Modal */}
             <Modal
@@ -199,7 +228,7 @@ const Player = (): JSX.Element => {
 
                     <div className={styles.sitContainer}>
                         <img className={styles.bg} src="/assets/btn_actions.png" alt="claim button" />
-                        <div className={styles.text}>
+                        <div className={styles.text} onClick={() => handleActions("rest")}>
                             <h1>SIT</h1>
                         </div>
                     </div>

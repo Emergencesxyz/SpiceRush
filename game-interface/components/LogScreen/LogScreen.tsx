@@ -4,21 +4,12 @@ import { useContext, useState } from "react";
 
 const LogScreen = (): JSX.Element => {
     const gameContext = useContext(GameContext);
-    // const { logs } = gameContext;
-    const logs = [
-        { type: "event", sender: "Spice Rush", message: "Crebriores maerens crebriores advenit torrentes damnis ex Gallus imbres quorum." },
-        { type: "event", sender: "Spice Rush", message: "Crebriores maerens crebriores advenit torrentes damnis ex Gallus imbres quorum." },
-        { type: "event", sender: "Spice Rush", message: "Crebriores maerens crebriores advenit torrentes damnis ex Gallus imbres quorum." },
-        { type: "event", sender: "Spice Rush", message: "Crebriores maerens crebriores advenit torrentes damnis ex Gallus imbres quorum." },
-        { type: "event", sender: "Spice Rush", message: "Crebriores maerens crebriores advenit torrentes damnis ex Gallus imbres quorum." },
-        { type: "event", sender: "Spice Rush", message: "Crebriores maerens crebriores advenit torrentes damnis ex Gallus imbres quorum." },
-        { type: "event", sender: "Spice Rush", message: "Crebriores maerens crebriores advenit torrentes damnis ex Gallus imbres quorum." },
-    ]
+    const { logs } = gameContext;
 
     const renderLogs = () => {
-        return logs.map((m) => {
+        return logs.map((m, index) => {
             return (
-                <div className={styles.logCard}>
+                <div key={index} className={styles.logCard}>
                     <img src="/assets/log_icon.svg" alt="log icon" />
                     <p>Event: {m.message}</p>
                 </div>

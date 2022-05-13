@@ -232,8 +232,8 @@ export default class BlockchainService {
       .spawn(nftId)
       .send(txParams)
       .on("transactionHash", function (hash: any) {
-        const audioSuccess = new Audio("./sounds/success.mp3");
-        audioSuccess.play();
+        // const audioSuccess = new Audio("./sounds/success.mp3");
+        // audioSuccess.play();
       });
   }
 
@@ -294,8 +294,8 @@ export default class BlockchainService {
       .mine(nftId, actionNb)
       .send(txParams)
       .on("transactionHash", function (hash: any) {
-        const audioCoins = new Audio("./sounds/coins.mp3");
-        audioCoins.play();
+        // const audioCoins = new Audio("./sounds/coins.mp3");
+        // audioCoins.play();
       });
   }
 
@@ -314,8 +314,8 @@ export default class BlockchainService {
       .levelUp(tokenId, statId)
       .send(txParams)
       .on("transactionHash", function (hash: any) {
-        const audioCoins = new Audio("./sounds/coins.mp3");
-        audioCoins.play();
+        // const audioCoins = new Audio("./sounds/coins.mp3");
+        // audioCoins.play();
       });
   }
 

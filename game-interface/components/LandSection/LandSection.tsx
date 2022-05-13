@@ -68,9 +68,9 @@ const LandSection = (): JSX.Element => {
                 </div>
             </div>
 
-            <div className={styles.slider}>
+            {/* <div className={styles.slider}>
                 slider
-            </div>
+            </div> */}
         </div>
     );
 };

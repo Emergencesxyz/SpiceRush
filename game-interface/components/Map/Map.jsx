@@ -105,6 +105,9 @@ export default function Map() {
         currentX = apePositionX - layer.width/2 - 64;
         currentY = apePositionY - layer.height/2 + 32;
         camera.setScroll(currentX, currentY);
+        // Selecting ape position tile
+        const apeTile = map.getTileAt(map.worldToTileX(apePositionX), map.worldToTileY(apePositionY));
+        setSelectedTile(apeTile?.properties);
 
     }
 
@@ -148,7 +151,6 @@ export default function Map() {
     }
 
     function mapControls (action) {
-        console.log(action)
         switch (action) {
             case "up": {
                     const newY = currentY > tileHeight * currentZoom ? currentY * currentZoom + tileHeight : currentY * currentZoom
@@ -222,10 +224,14 @@ export default function Map() {
   }, [playerDirection]);
 
   useEffect(() => {
-      if(!image || !_this) return;
-      image.destroy();
-      image = null;
-      image = _this.add.image(apePositionX, apePositionY, 0);
+        if(!image || !_this) return;
+        image.destroy();
+        image = null;
+        image = _this.add.image(apePositionX, apePositionY, 0);
+
+        // Selecting ape position tile
+        const apeTile = map.getTileAt(map.worldToTileX(apePositionX), map.worldToTileY(apePositionY));
+        setSelectedTile(apeTile?.properties);
   }, [characterInfo])
 
   return (
@@ -258,17 +264,17 @@ export default function Map() {
             onMouseEnter={() => clickOut = false}
             ref={parentRef}
         >
-            <div className={styles.top}>
+            <div onClick={() => mapControls('up')} className={styles.top}>
                 <img src="/assets/map_up.png" alt="up" />
             </div>
-            <div className={styles.right}>
-                <img src="/assets/map_right.png" alt="up" />
+            <div onClick={() => mapControls('rigth')}className={styles.right}>
+                <img src="/assets/map_right.png" alt="right" />
             </div>
-            <div className={styles.down}>
-                <img src="/assets/map_down.png" alt="up" />
+            <div  onClick={() => mapControls('down')} className={styles.down}>
+                <img src="/assets/map_down.png" alt="down" />
             </div>
-            <div className={styles.left}>
-                <img src="/assets/map_left.png" alt="up" />
+            <div onClick={() => mapControls('left')} className={styles.left}>
+                <img src="/assets/map_left.png" alt="left" />
             </div>
 
             <div className={styles.options}>
@@ -284,24 +290,20 @@ export default function Map() {
                 </div>
 
                 <div>
-                    <img src="/assets/zoom_in_off.png" alt="zoom in icon" />
-                    <img src="/assets/zoom_out_off.png" alt="zoom out icon" />
+                    <img
+                        onClick={() => mapControls('zoomIn')}
+                        src="/assets/zoom_in_off.png"
+                        alt="zoom in icon"
+                    />
+                    <img
+                        onClick={() => mapControls('zoomOut')}
+                        src="/assets/zoom_out_off.png"
+                        alt="zoom out icon"
+                    />
                     <img src="/assets/full_screen_off.png" alt="full screen icon" />
                 </div>
             </div>
         </div>
-
-        {/* <div>
-            Map controls
-            <button onClick={() => mapControls('down')}>down</button>
-            <button onClick={() => mapControls('up')}>up</button>
-            <button onClick={() => mapControls('left')}>left</button>
-            <button onClick={() => mapControls('rigth')}>rigth</button>
-            <button onClick={() => mapControls('zoomIn')}>zoomIn</button>
-            <button onClick={() => mapControls('zoomOut')}>zoomOut</button>
-        </div> */}
-
-      </div>
-
+    </div>
   );
 }

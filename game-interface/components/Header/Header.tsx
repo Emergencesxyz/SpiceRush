@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 const Header = (): JSX.Element => {
     const context = useWeb3React();
     const { account, deactivate, connector } = context;
-    const [test, setTest] = useState("sdfs")
 
     useEffect(() => {
         if (!!!account) Router.push("/");
