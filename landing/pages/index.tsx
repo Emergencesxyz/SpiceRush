@@ -112,7 +112,7 @@ const Home: NextPage = () => {
             }
           />
         </motion.div>
-        <div style={{ height: "130vh" }}>
+        <div style={{ height: !isMobile ? "130vh" : "155vh" }}>
           <VideoSection isMobile={isMobile} />
         </div>
         <motion.div
