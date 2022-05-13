@@ -384,14 +384,16 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
                         </td>
                       </tr>
                     )}
-                    <em
-                      style={{
-                        color: "red",
-                        fontSize: "13px",
-                      }}
-                    >
-                      *Valid code gets 5 claimable MATIC
-                    </em>
+                    {!!!secretCode && (
+                      <em
+                        style={{
+                          color: "red",
+                          fontSize: "13px",
+                        }}
+                      >
+                        *Valid code gets 5 claimable MATIC
+                      </em>
+                    )}
                   </tbody>
                 </Table>
               </div>
