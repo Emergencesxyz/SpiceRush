@@ -112,11 +112,11 @@ const buyLand: NextPage = () => {
               <div className={styles.explanation}>
                 <ol>
                   <li>
-                    The flat price for our gaming microchips is 25 MATIC -
+                    The flat price for our gaming microchips is 20 MATIC -
                     Mintable on polygon
                   </li>
                   <li>
-                    By using a referral code you can get a 25 MATIC instantly
+                    By using a referral code you can get a 5 MATIC instantly
                     claimable cashback
                   </li>
                   <li> Minting also allows you to have a referral code</li>
