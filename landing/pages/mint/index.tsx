@@ -53,10 +53,10 @@ const buyLand: NextPage = () => {
                 </tr>
                 <tr>
                   <td colSpan={2}>
-                    {!!secretCode ? (
+                    {!!router.query?.secret ? (
                       <em>
-                        You used a free mint magic link. Minting gets your
-                        exclusive access to the Game Beta and allows you to
+                        You used a free mint magic link! <br></br> Minting gets
+                        your exclusive access to the Game Beta and allows you to
                         participate in the referral program.
                       </em>
                     ) : (
@@ -74,7 +74,9 @@ const buyLand: NextPage = () => {
                     <div style={{ textAlign: "left" }}>
                       <ol>
                         <li>Mint your chip</li>
-                        {!!!secretCode && <li> Claim your cashback</li>}
+                        {!!!router.query?.secret && (
+                          <li> Claim your cashback</li>
+                        )}
                         <li> Share your link</li>
                         <li>Claim your rewards</li>
                       </ol>
@@ -83,7 +85,7 @@ const buyLand: NextPage = () => {
                 </tr>
               </tbody>
             </Table>
-            {!!!secretCode && (
+            {!!!router.query?.secret && (
               <div
                 style={{
                   display: "flex",
@@ -108,7 +110,7 @@ const buyLand: NextPage = () => {
                 ></img>
               </div>
             )}
-            {isShown && !!!secretCode && (
+            {isShown && !!!router.query?.secret && (
               <div className={styles.explanation}>
                 <ol>
                   <li>

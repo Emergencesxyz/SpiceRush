@@ -369,21 +369,25 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
                       </Dropdown>
                     </td>
                   </tr> */}
-                    {!secretCode && (
-                      <tr>
-                        <td>Price</td>
-                        <td
-                          colSpan={3}
-                          style={{
-                            textAlign: "right",
-                            paddingLeft: "0",
-                            paddingRight: "0",
-                          }}
-                        >
-                          {(nftPrice * nftQuantity) / 1000000000000000000} MATIC
-                        </td>
-                      </tr>
-                    )}
+
+                    <tr>
+                      <td>Price</td>
+                      <td
+                        colSpan={3}
+                        style={{
+                          textAlign: "right",
+                          paddingLeft: "0",
+                          paddingRight: "0",
+                        }}
+                      >
+                        {!secretCode
+                          ? `${
+                              (nftPrice * nftQuantity) / 1000000000000000000
+                            } MATIC`
+                          : `0 MATIC`}
+                      </td>
+                    </tr>
+
                     {!!!secretCode && (
                       <em
                         style={{
