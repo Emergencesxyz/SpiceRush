@@ -1,4 +1,4 @@
-import { FunctionComponent, ReactNode } from "react";
+import { FunctionComponent, ReactNode, useRef } from "react";
 import { Button, Card } from "react-bootstrap";
 import styles from "../Card/Card.module.scss";
 import { useWeb3React } from "@web3-react/core";
@@ -32,6 +32,7 @@ const CardBody: FunctionComponent<Props> = (props) => {
     footer,
     userCode,
   } = props;
+  const referralLinkRef = useRef(null);
 
   const contract = new library.eth.Contract(
     contractABI as any,
@@ -81,11 +82,17 @@ const CardBody: FunctionComponent<Props> = (props) => {
           )}
           <div>
             <span>{textSubtitle2}</span>
-            <span>
-              {userCode &&
-                userCode !== "0" &&
-                `https://www.spicerush.io/mint/?number=${userCode}`}
-            </span>
+            {userCode && userCode !== "0" && (
+              <a
+                onClick={() =>
+                  navigator.clipboard.writeText(
+                    `https://www.spicerush.io/mint/?number=${userCode}`
+                  )
+                }
+              >
+                <p>{`https://www.spicerush.io/mint/?number=${userCode}`}</p>
+              </a>
+            )}
           </div>
           <Card.Text className={styles.text}>{textTitle1}</Card.Text>
           <div className={styles.buttonContainer} onClick={() => claim()}>

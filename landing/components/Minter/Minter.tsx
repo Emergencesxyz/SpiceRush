@@ -444,11 +444,22 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
                     }
                     textTitle2={
                       <>
-                        <h2>{userCode == 0 ? "-" : userCode}</h2>
+                        {userCode == 0 ? (
+                          "-"
+                        ) : (
+                          <h2
+                            onClick={() =>
+                              navigator.clipboard.writeText(`${userCode}`)
+                            }
+                            style={{ cursor: "pointer" }}
+                          >
+                            {userCode}
+                          </h2>
+                        )}
                         <p>your referral code</p>
                       </>
                     }
-                    textSubtitle2={<p>your referral link:</p>}
+                    textSubtitle2={<p>your referral link (click to copy): </p>}
                     buttonTitle1="CLAIM"
                     buttonTitle2="SHARE"
                     footer={
