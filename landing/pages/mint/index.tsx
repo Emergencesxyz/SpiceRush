@@ -36,108 +36,102 @@ const buyLand: NextPage = () => {
         <div className={styles.connectWallet}>
           <ConnectWallet isMobile={isMobile} />
         </div>
-
-        {!!!account && (
-          <>
-            <Table className={styles.table}>
-              <tbody>
-                <tr>
-                  <td colSpan={3} style={{ fontSize: "30px" }}>
-                    <strong>APEx7</strong> Microchips
-                  </td>
-                </tr>
-                <tr>
-                  <td colSpan={3} style={{ textAlign: "center", padding: "0" }}>
-                    <img src="/pictures/microchip.gif" alt="chip" />
-                  </td>
-                </tr>
-                <tr>
-                  <td colSpan={2}>
-                    {!!router.query?.secret ? (
-                      <em>
-                        You used a free mint magic link! <br></br> Minting gets
-                        your exclusive access to the Game Beta and allows you to
-                        participate in the referral program.
-                      </em>
-                    ) : (
-                      <em>
-                        Minting gets you exclusive access to the Game Beta and
-                        using a referral code gets you an instant MATIC
-                        cashback.
-                      </em>
-                    )}
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <p>Referral program guidelines</p>
-                    <div style={{ textAlign: "left" }}>
-                      <ol>
-                        <li>Mint your chip</li>
-                        {!!!router.query?.secret && (
-                          <li> Claim your cashback</li>
-                        )}
-                        <li> Share your link</li>
-                        <li>Claim your rewards</li>
-                      </ol>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </Table>
-            {!!!router.query?.secret && (
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  fontSize: "20px",
-                }}
-                onClick={() => setIsShown(!isShown)}
-              >
-                <span>
-                  <em>Need more details? </em>
-                </span>
-                <img
-                  style={{
-                    width: "16px",
-                    height: "16px",
-                    marginTop: "5px",
-                  }}
-                  src="/pictures/Polygon3.png"
-                  alt="polygon"
-                ></img>
-              </div>
-            )}
-            {isShown && !!!router.query?.secret && (
-              <div className={styles.explanation}>
-                <ol>
-                  <li>
-                    The flat price for our gaming microchips is 20 MATIC -
-                    Mintable on polygon
-                  </li>
-                  <li>
-                    By using a referral code you can get a 5 MATIC instantly
-                    claimable cashback
-                  </li>
-                  <li> Minting also allows you to have a referral code</li>
-                  <li>
-                    Share your own referral code to your friends and the world
-                    and get a 5 MATIC claimable reward for each mint
-                  </li>
-                </ol>
-              </div>
-            )}
-          </>
-        )}
-
         {!!account && library && (
           <Minter
             secretCode={secretCode}
             referralCode={referralCode}
             isMobile={isMobile}
           />
+        )}
+
+        {!!!account && (
+          <Table className={styles.table}>
+            <tbody>
+              <tr>
+                <td colSpan={3} style={{ fontSize: "30px" }}>
+                  <strong>APEx7</strong> Microchips
+                </td>
+              </tr>
+              <tr>
+                <td colSpan={3} style={{ textAlign: "center", padding: "0" }}>
+                  <img src="/pictures/microchip.gif" alt="chip" />
+                </td>
+              </tr>
+              <tr>
+                <td colSpan={2}>
+                  {!!router.query?.secret ? (
+                    <em>
+                      You used a free mint magic link! <br></br> Minting gets
+                      your exclusive access to the Game Beta and allows you to
+                      participate in the referral program.
+                    </em>
+                  ) : (
+                    <em>
+                      Minting gets you exclusive access to the Game Beta and
+                      using a referral code gets you an instant MATIC cashback.
+                    </em>
+                  )}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>Referral program guidelines</p>
+                  <div style={{ textAlign: "left" }}>
+                    <ol>
+                      <li>Mint your chip</li>
+                      {!!!router.query?.secret && <li> Claim your cashback</li>}
+                      <li> Share your link</li>
+                      <li>Claim your rewards</li>
+                    </ol>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </Table>
+        )}
+        {!!!router.query?.secret && (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              fontSize: "20px",
+            }}
+            onClick={() => setIsShown(!isShown)}
+          >
+            <span>
+              <em>Need more details? </em>
+            </span>
+            <img
+              style={{
+                width: "16px",
+                height: "16px",
+                marginTop: "5px",
+              }}
+              src="/pictures/Polygon3.png"
+              alt="polygon"
+            ></img>
+          </div>
+        )}
+        {isShown && !!!router.query?.secret && (
+          <div className={styles.explanation}>
+            <ol>
+              <li>
+                The flat price for our gaming microchips is 20 MATIC - Mintable
+                on polygon
+              </li>
+              <li>
+                By using a referral code you can get a 5 MATIC instantly
+                claimable cashback
+              </li>
+              <li> Minting also allows you to have a referral code</li>
+              <li>
+                Share your own referral code to your friends and the world and
+                get a 5 MATIC claimable reward for each mint
+              </li>
+            </ol>
+          </div>
         )}
       </div>
     </div>

@@ -385,9 +385,9 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
                   </tr> */}
 
                     <tr>
-                      <td>Price</td>
+                      <td style={{ width: "50%" }}>Price</td>
                       <td
-                        colSpan={3}
+                        colSpan={!isMobile ? 3 : 2}
                         style={{
                           textAlign: "right",
                           paddingLeft: "0",
