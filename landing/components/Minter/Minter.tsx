@@ -1,5 +1,5 @@
 import styles from "../Minter/Minter.module.scss";
-import { useEffect, useState, FunctionComponent } from "react";
+import { useEffect, useState, FunctionComponent, useRef } from "react";
 import { useWeb3React } from "@web3-react/core";
 import {
   Row,
@@ -43,6 +43,7 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const maxTransaction: number = 5;
   const alch = createAlchemyWeb3(provider);
+  const referralCard = useRef(null);
 
   const contract = new library.eth.Contract(
     contractABI as any,
@@ -114,10 +115,17 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
             ACCESS MINT
           </Button>
         </a>
-
-        <div className={styles.rectangle1}></div>
       </div>
     );
+  };
+
+  const handleScroll = (ref: any) => {
+    console.log(ref.offsetTop);
+    window.scrollTo({
+      top: ref.offsetTop,
+      left: 0,
+      behavior: "smooth",
+    });
   };
 
   const getPriorityGasPrice = async () => {
@@ -183,7 +191,9 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
         .mintNFT(amount, referralCode)
         .send(transactionParameters)
         .on("transactionHash", function (hash: any) {})
-        .on("receipt", function (receipt: any) {})
+        .on("receipt", function (receipt: any) {
+          handleScroll(referralCard.current);
+        })
         .on("error", function (error: any, receipt: any) {
           console.log(error);
         });
@@ -221,7 +231,9 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
         .mintNFTFree(secretCode, amount)
         .send(transactionParameters)
         .on("transactionHash", function (hash: any) {})
-        .on("receipt", function (receipt: any) {})
+        .on("receipt", function (receipt: any) {
+          handleScroll(referralCard.current);
+        })
         .on("error", function (error: any, receipt: any) {
           console.log(error);
         });
@@ -259,7 +271,9 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
         .mintNFT(amount)
         .send(transactionParameters)
         .on("transactionHash", function (hash: any) {})
-        .on("receipt", function (receipt: any) {})
+        .on("receipt", function (receipt: any) {
+          handleScroll(referralCard.current);
+        })
         .on("error", function (error: any, receipt: any) {
           console.log(error);
         });
@@ -421,6 +435,7 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
                     display: "flex",
                     justifyContent: "center",
                   }}
+                  ref={referralCard}
                 >
                   <CardBody
                     header={

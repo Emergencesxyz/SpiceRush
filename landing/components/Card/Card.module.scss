@@ -9,6 +9,10 @@
   }
   a {
     cursor: pointer;
+
+    &:hover {
+      color: #8900f2;
+    }
   }
 
   .text {
