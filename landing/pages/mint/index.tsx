@@ -3,7 +3,7 @@ import styles from "../mint/mint.module.scss";
 import { useEffect, useState } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { Row, Button, Table } from "react-bootstrap";
-import Header from "../../components/Header/Header";
+import Header from "../../components/HeaderMint/HeaderMint";
 import ConnectWallet from "../../components/ConnectWallet/ConnectWallet";
 import Minter from "../../components/Minter/Minter";
 import { useRouter } from "next/router";

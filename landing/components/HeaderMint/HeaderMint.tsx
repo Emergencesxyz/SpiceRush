@@ -1,7 +1,8 @@
 import { useState, FunctionComponent } from "react";
 import { Nav, Navbar, Container } from "react-bootstrap";
 import MusicPlayer from "../MusicPlayer/MusicPlayer";
-import styles from "./Header.module.scss";
+import styles from "./HeaderMint.module.scss";
+
 interface Props {
   currentElementIndexInViewport?: number;
   isMobile: boolean;
@@ -25,15 +26,15 @@ const Header: FunctionComponent<Props> = ({
       style={{ width: "100vw", display: "flex" }}
     >
       <Container className={styles.navContainer}>
-        {/*  <Nav.Link className={styles.brand}>
+        <Nav.Link className={styles.brand}>
           <h1>
             <img
               src="/pictures/logo-2.png"
               alt="Apinator"
-              style={{ maxWidth: "5em", width: "150px" }}
+              style={{ maxWidth: "5em", width: isMobile ? "100px" : "150px" }}
             />
           </h1>
-        </Nav.Link> */}
+        </Nav.Link>
 
         <Navbar.Toggle aria-controls="navbar" style={{ border: "none" }}>
           <img

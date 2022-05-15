@@ -1,0 +1,159 @@
+.navContainer {
+  max-width: 3600px !important;
+  overflow-y: hidden !important;
+  overflow-x: hidden !important;
+  width: 100vw;
+  background: rgb(0, 0, 6);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 6, 1) 9%,
+    rgba(0, 0, 0, 0.3828125) 100%
+  );
+
+  .brand {
+    font-size: 20px;
+    font-family: "bladeRunner";
+    color: white;
+    padding-bottom: 0;
+  }
+
+  .navBar {
+    width: 100%;
+    padding-left: 12%;
+    padding-right: 12%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 50px;
+    padding-bottom: 5px;
+    margin-right: 150px;
+
+    .titleBox {
+      display: flex;
+      flex-direction: column;
+      padding: 0.5;
+      text-align: center;
+      height: 3vh;
+      width: 8vw;
+      color: white;
+
+      span {
+        transition: all 0.2s;
+        font-size: 25px;
+        line-height: 0.8;
+      }
+      &:hover {
+        color: lightgrey !important;
+        cursor: url("../../public/pictures/Cursor.png") 25 15, auto !important;
+      }
+    }
+
+    h1 {
+      font-size: 60px;
+      font-family: "bladeRunner";
+    }
+
+    p {
+      font-size: 15px;
+      color: lightgray !important;
+    }
+
+    .rrss {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .emoji {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        margin: 5px;
+      }
+    }
+  }
+}
+
+@media (max-width: 1600px) {
+  .navContainer {
+    max-width: 4000px !important;
+    .navBar {
+      span {
+        font-size: 25px !important;
+      }
+      .rrss {
+        .emoji {
+          margin: 0px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1000px) {
+  .navContainer {
+    .navBar {
+      span {
+        font-size: 20px !important;
+      }
+      .rrss {
+        .emoji {
+          width: 45px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .navContainer {
+    padding: 5px;
+    justify-content: space-between !important;
+    align-items: stretch;
+
+    .brand {
+      display: block;
+      margin-right: unset;
+      margin-left: 5px;
+      padding: 0;
+      padding-top: 5px;
+    }
+
+    .joinDiscord {
+      display: block;
+    }
+
+    .navBar {
+      height: fit-content;
+
+      .titleBox {
+        flex-direction: row;
+        width: 55vw;
+        justify-content: space-around;
+        align-items: baseline;
+
+        span {
+          color: white !important;
+          transition: all 0.2s;
+          font-size: 30px;
+          line-height: 0.8;
+        }
+      }
+
+      h1 {
+        font-size: 20px;
+      }
+    }
+  }
+}
+
+@media (min-width: 1600px) {
+  .navContainer {
+    .navBar {
+      height: 100px;
+
+      a {
+        font-size: 30px;
+      }
+    }
+  }
+}
