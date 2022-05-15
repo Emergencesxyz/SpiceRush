@@ -44,7 +44,7 @@ const Header: FunctionComponent<Props> = ({
             src="/pictures/burger.png"
           />
         </Navbar.Toggle>
-        <Navbar.Collapse id="navbar" className=" justify-content-between">
+        <Navbar.Collapse id="navbar" /* className=" justify-content-between" */>
           <Nav className={styles.navBar}>
             <Nav.Link
               href="https://golemdao.gitbook.io/spicerush/"
