@@ -215,10 +215,13 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
         .secretToMaxAmountFreeMint(secretHash)
         .call();
 
-      // if (secretToAmountFreeMint + amount >= secretToMaxAmountFreeMint) {
-      //   setShowModal(true);
-      //   return;
-      // }
+      if (
+        Number(amount) + Number(secretToAmountFreeMint) >
+        Number(secretToMaxAmountFreeMint)
+      ) {
+        setShowModal(true);
+        return;
+      }
 
       const priority = Number(await getPriorityGasPrice()) / 1000000000;
 
