@@ -26,7 +26,7 @@ const Header: FunctionComponent<Props> = ({
       style={{ width: "100vw", display: "flex" }}
     >
       <Container className={styles.navContainer}>
-        <Nav.Link className={styles.brand}>
+        <Nav.Link className={styles.brand} href="/">
           <h1>
             <img
               src="/pictures/logo-2.png"
