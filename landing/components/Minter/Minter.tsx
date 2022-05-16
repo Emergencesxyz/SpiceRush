@@ -158,6 +158,14 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
         return;
       }
 
+      const NFTminted = await contract.methods.mintedAmount(account).call();
+      const NftMaxPerAccount = await contract.methods.maxMint().call();
+
+      if (Number(NFTminted) + Number(amount) > Number(NftMaxPerAccount)) {
+        alert("You already minted your NFT !");
+        return;
+      }
+
       /*   if (amount > maxTransaction) {
         alert("Max 5 NFT per transaction");
         return;
@@ -207,6 +215,14 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
         return;
       }
 
+      const NFTminted = await contract.methods.mintedAmount(account).call();
+      const NftMaxPerAccount = await contract.methods.maxMint().call();
+
+      if (Number(NFTminted) + 1 > Number(NftMaxPerAccount)) {
+        alert("You already minted your NFT !");
+        return;
+      }
+
       const secretHash = library.utils.soliditySha3(secretCode);
       const secretToAmountFreeMint = await contract.methods
         .secretToAmountFreeMint(secretHash)
@@ -247,6 +263,14 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
     if (!!account && !!library) {
       if (!(await contract.methods.isActive().call())) {
         alert("Sale has not started");
+        return;
+      }
+
+      const NFTminted = await contract.methods.mintedAmount(account).call();
+      const NftMaxPerAccount = await contract.methods.maxMint().call();
+
+      if (Number(NFTminted) + Number(amount) > Number(NftMaxPerAccount)) {
+        alert("You already minted your NFT !");
         return;
       }
 
