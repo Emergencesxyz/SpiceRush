@@ -162,7 +162,7 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
       const NftMaxPerAccount = await contract.methods.maxMint().call();
 
       if (Number(NFTminted) + Number(amount) > Number(NftMaxPerAccount)) {
-        alert("You already minted your NFT !");
+        alert("You already minted your NFT!");
         return;
       }
 
@@ -183,7 +183,7 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
         .call();
 
       if (codeToReferral == 0) {
-        alert("referral code is not valid !");
+        alert("referral code is not valid!");
         return;
       }
 
@@ -219,7 +219,7 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
       const NftMaxPerAccount = await contract.methods.maxMint().call();
 
       if (Number(NFTminted) + 1 > Number(NftMaxPerAccount)) {
-        alert("You already minted your NFT !");
+        alert("You already minted your NFT!");
         return;
       }
 
@@ -270,7 +270,7 @@ const Minter: FunctionComponent<Props> = (props): JSX.Element => {
       const NftMaxPerAccount = await contract.methods.maxMint().call();
 
       if (Number(NFTminted) + Number(amount) > Number(NftMaxPerAccount)) {
-        alert("You already minted your NFT !");
+        alert("You already minted your NFT!");
         return;
       }
 
