@@ -15,6 +15,10 @@
     font-family: "bladeRunner";
     color: white;
     padding-bottom: 0;
+
+    &:hover {
+      cursor: url("../../public/pictures/Cursor.png") 25 15, auto !important;
+    }
   }
 
   .navBar {
