@@ -1,6 +1,6 @@
 import type {GetServerSideProps, NextPage} from "next";
 import Header from "../../../components/HeaderMint/HeaderMint";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "../../mint/mint.module.scss";
 import { Table } from "react-bootstrap";
 
@@ -15,6 +15,12 @@ interface LeaderboardPageProps {
 const Leaderboard: NextPage<{datasorted : any}> = ({ datasorted } : LeaderboardPageProps) => {
 
     const [isMobile, setIsmobile] = useState<boolean>(false);
+
+    useEffect(() => {
+        if (window.matchMedia("(max-width: 600px)").matches) {
+          setIsmobile(true);
+        }
+      }, []);
 
     return (
         <div className={styles.body}>
