@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import Link from "next/link"
 import styles from "../mint/mint.module.scss";
 import { useEffect, useState } from "react";
 import { useWeb3React } from "@web3-react/core";
@@ -90,6 +91,27 @@ const buyLand: NextPage = () => {
           </Table>
         )}
         {!!!router.query?.secret && (
+          <>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              fontSize: "20px",
+              marginBottom: "35px"
+            }}>
+        <Link href="../mint/leaderboard"><a className={styles.link}><img
+              style={{
+                width: "16px",
+                height: "16px",
+                marginBottom: "5px",
+                marginRight: "5px",
+               
+              }}
+              src="/pictures/Polygon4.png"
+              alt="polygon"
+            ></img>Leaderboard </a></Link></div>
           <div
             style={{
               display: "flex",
@@ -112,7 +134,7 @@ const buyLand: NextPage = () => {
               src="/pictures/Polygon3.png"
               alt="polygon"
             ></img>
-          </div>
+          </div></>
         )}
         {isShown && !!!router.query?.secret && (
           <div className={styles.explanation}>
@@ -134,6 +156,7 @@ const buyLand: NextPage = () => {
           </div>
         )}
       </div>
+      
     </div>
   );
 };
