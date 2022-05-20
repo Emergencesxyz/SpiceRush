@@ -47,7 +47,7 @@ const Leaderboard: NextPage<{datasorted : any}> = ({ datasorted } : LeaderboardP
                 <thead>
                     <tr>
                         <th>Address</th>
-                        <th>Referrals number</th>
+                        <th>Score</th>
                         <th>Referral link</th>
                     </tr>
                 </thead>
