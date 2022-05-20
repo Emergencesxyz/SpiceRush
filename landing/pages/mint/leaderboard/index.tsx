@@ -91,7 +91,7 @@ const Leaderboard: NextPage<{datasorted : any}> = ({ datasorted } : LeaderboardP
 }
 
  export const getServerSideProps: GetServerSideProps = async() => {
-    const res = await fetch(`http://localhost:3000/api/leaderboard`)
+    const res = await fetch(`https://www.spicerush.io/api/leaderboard`)
     const data = await res.json();
     const datasorted = data.sort(function(a: any, b: any) {
       return parseFloat(b.totalreferred) - parseFloat(a.totalreferred);
