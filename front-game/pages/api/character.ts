@@ -28,29 +28,29 @@ const gameplayContract = new ethers.Contract(
   provider
 );
 
-gameplayContract.on(
-  "moving",
-  async (_tokenId, x, y, energy, xp, nextActionTime) => {
-    const x_int = parseInt(x.toString());
-    const y_int = parseInt(y.toString());
-    const tokenId = parseInt(_tokenId.toString());
+// gameplayContract.on(
+//   "moving",
+//   async (_tokenId, x, y, energy, xp, nextActionTime) => {
+//     const x_int = parseInt(x.toString());
+//     const y_int = parseInt(y.toString());
+//     const tokenId = parseInt(_tokenId.toString());
 
-    console.log("[API] moving", tokenId, x_int, y_int);
+//     console.log("[API] moving", tokenId, x_int, y_int);
 
-    //update all characters
-    cachedCharacters = await blockchainService.getAllCharacters();
+//     //update all characters
+//     cachedCharacters = await blockchainService.getAllCharacters();
 
-    //update just 1 character
-    // let new_character = await blockchainService.getCharacterInfo(tokenId);
+//     //update just 1 character
+//     // let new_character = await blockchainService.getCharacterInfo(tokenId);
 
-    // let old_character = cachedCharacters.filter(
-    //   (c: any) => c.id === tokenId
-    // )[0];
+//     // let old_character = cachedCharacters.filter(
+//     //   (c: any) => c.id === tokenId
+//     // )[0];
 
-    // if (old_character)
-    //   cachedCharacters[cachedCharacters.indexOf(old_character)] = new_character;
-  }
-);
+//     // if (old_character)
+//     //   cachedCharacters[cachedCharacters.indexOf(old_character)] = new_character;
+//   }
+// );
 
 export default async function handler(
   req: NextApiRequest,
