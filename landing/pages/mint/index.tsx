@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import Link from "next/link"
 import styles from "../mint/mint.module.scss";
 import { useEffect, useState } from "react";
 import { useWeb3React } from "@web3-react/core";
@@ -84,6 +85,25 @@ const buyLand: NextPage = () => {
                       <li>Claim your rewards</li>
                     </ol>
                   </div>
+                  <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              fontSize: "20px",
+            }}>
+        <Link href="../mint/leaderboard"><a className={styles.link}><img
+              style={{
+                width: "16px",
+                height: "16px",
+                marginBottom: "5px",
+                marginRight: "5px",
+               
+              }}
+              src="/pictures/Polygon4.png"
+              alt="polygon"
+            ></img>Leaderboard </a></Link></div>
                 </td>
               </tr>
             </tbody>
@@ -134,6 +154,7 @@ const buyLand: NextPage = () => {
           </div>
         )}
       </div>
+      
     </div>
   );
 };
