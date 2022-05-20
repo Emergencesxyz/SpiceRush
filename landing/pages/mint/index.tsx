@@ -85,13 +85,21 @@ const buyLand: NextPage = () => {
                       <li>Claim your rewards</li>
                     </ol>
                   </div>
-                  <div
+                </td>
+              </tr>
+            </tbody>
+          </Table>
+        )}
+        {!!!router.query?.secret && (
+          <>
+          <div
             style={{
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
               fontSize: "20px",
+              marginBottom: "35px"
             }}>
         <Link href="../mint/leaderboard"><a className={styles.link}><img
               style={{
@@ -104,12 +112,6 @@ const buyLand: NextPage = () => {
               src="/pictures/Polygon4.png"
               alt="polygon"
             ></img>Leaderboard </a></Link></div>
-                </td>
-              </tr>
-            </tbody>
-          </Table>
-        )}
-        {!!!router.query?.secret && (
           <div
             style={{
               display: "flex",
@@ -132,7 +134,7 @@ const buyLand: NextPage = () => {
               src="/pictures/Polygon3.png"
               alt="polygon"
             ></img>
-          </div>
+          </div></>
         )}
         {isShown && !!!router.query?.secret && (
           <div className={styles.explanation}>
