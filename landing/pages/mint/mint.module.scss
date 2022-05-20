@@ -62,7 +62,9 @@
     }
     
     .link:hover {
-      color: white;
+        color: lightgrey !important;
+        cursor: url("../../public/pictures/Cursor.png") 25 15, auto !important;
+      
     }
 
     h1 {
