@@ -62,7 +62,7 @@ const Leaderboard: NextPage<{datasorted : any}> = ({ datasorted } : LeaderboardP
             </tbody>
         </Table>
         <div className={styles.buttonContainer}>
-          {isMapLimit < 55 && <Button className={styles.button2} style={{ fontWeight: "bold", fontSize: "28px" }} onClick={() => incrementLeaderboard()}>More</Button>}
+          {isMapLimit < 55 && <Button className={styles.button2} style={{ fontWeight: "bold", fontSize: "18px" }} onClick={() => incrementLeaderboard()}>More</Button>}
         </div>
         <div
             style={{
