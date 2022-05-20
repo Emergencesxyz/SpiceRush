@@ -3,7 +3,11 @@ import { Button, Card } from "react-bootstrap";
 import styles from "../Card/Card.module.scss";
 import { useWeb3React } from "@web3-react/core";
 import contractABI from "../../WalletHelpers/contractAbi.json";
-import { contractAddressTestnet } from "../../WalletHelpers/contractVariables";
+import {
+  contractAddress,
+  provider,
+} from "../../WalletHelpers/contractVariables";
+import { createAlchemyWeb3 } from "@alch/alchemy-web3";
 
 interface Props {
   header: ReactNode;
@@ -33,11 +37,17 @@ const CardBody: FunctionComponent<Props> = (props) => {
     userCode,
   } = props;
   const referralLinkRef = useRef(null);
+  const alch = createAlchemyWeb3(provider);
 
   const contract = new library.eth.Contract(
     contractABI as any,
-    contractAddressTestnet
+    contractAddress
   );
+
+  const getPriorityGasPrice = async () => {
+    let res = await alch.eth.getMaxPriorityFeePerGas();
+    return res;
+  };
 
   const claim = async () => {
     if (!!account && !!library) {
@@ -46,9 +56,17 @@ const CardBody: FunctionComponent<Props> = (props) => {
         return;
       }
 
+      const priority = Number(await getPriorityGasPrice()) / 1000000000;
+
       contract.methods
         .claim()
-        .send({ from: account })
+        .send({
+          from: account,
+          maxPriorityFeePerGas: library.utils.toWei(
+            priority.toString(),
+            "gwei"
+          ),
+        })
         .on("transactionHash", function (hash: any) {})
         .on("receipt", function (receipt: any) {})
         .on("error", function (error: any, receipt: any) {
