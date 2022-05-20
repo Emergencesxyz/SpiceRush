@@ -93,7 +93,6 @@ const Leaderboard: NextPage<{datasorted : any}> = ({ datasorted } : LeaderboardP
  export const getServerSideProps: GetServerSideProps = async() => {
     const res = await fetch(`http://localhost:3000/api/leaderboard`)
     const data = await res.json();
-    console.log(data)
     const datasorted = data.sort(function(a: any, b: any) {
       return parseFloat(b.totalreferred) - parseFloat(a.totalreferred);
    });
