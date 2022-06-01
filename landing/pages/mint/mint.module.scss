@@ -56,6 +56,17 @@
       }
     }
 
+    .link {
+      font-size: 30px;
+      margin-top: 15px;
+    }
+    
+    .link:hover {
+        color: lightgrey !important;
+        cursor: url("../../public/pictures/Cursor.png") 25 15, auto !important;
+      
+    }
+
     h1 {
       font-size: 30px;
     }
@@ -133,6 +144,31 @@
           background: linear-gradient(182.37deg, #b800aa 1.97%, #ea00d9 66.5%);
         }
       }
+
+      .button2 {
+        position: absolute;
+        border: none;
+        width: 18vw;
+        justify-content: center;
+        font-size: 40px;
+        cursor: url("../../public/pictures/Cursor.png") 25 15, auto !important;
+        margin-top: 20px;
+        box-sizing: border-box;
+        background: linear-gradient(182.37deg, #ea00d9 1.97%, #ca00bb 86.51%);
+        border-radius: 14px 4px;
+        top: 0;
+        z-index: 2;
+
+        &:hover {
+          box-shadow: none !important;
+          background: linear-gradient(182.37deg, #ff4df2 1.97%, #f308e2 86.51%);
+        }
+        &:focus {
+          box-shadow: none !important;
+          background: linear-gradient(182.37deg, #b800aa 1.97%, #ea00d9 66.5%);
+        }
+      }
+
       .rectangle1 {
         position: absolute;
         top: 0;
