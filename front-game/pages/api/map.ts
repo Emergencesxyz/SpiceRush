@@ -32,30 +32,30 @@ const gameplayContract = new ethers.Contract(
 let cachedMap: any = null;
 let events: any = [];
 
-// gameplayContract.on(
-//   "moving",
-//   async (tokenId, x, y, energy, xp, nextActionTime) => {
-//     const x_int = parseInt(x.toString());
-//     const y_int = parseInt(y.toString());
+gameplayContract.on(
+  "moving",
+  async (tokenId, x, y, energy, xp, nextActionTime) => {
+    const x_int = parseInt(x.toString());
+    const y_int = parseInt(y.toString());
 
-//     console.log("[API] moving", tokenId, x_int, y_int);
-//     //log events
-//     //events.push({ type: "moving", tokenId: tokenId, x: x_int, y: y_int });
+    console.log("[API] moving", tokenId, x_int, y_int);
+    //log events
+    //events.push({ type: "moving", tokenId: tokenId, x: x_int, y: y_int });
 
-//     //update cachedmap
+    //update cachedmap
 
-//     if (!cachedMap) return;
+    if (!cachedMap) return;
 
-//     let tile = cachedMap.filter(
-//       (tile: any) => tile.x === x_int && tile.y === y_int
-//     )[0];
+    let tile = cachedMap.filter(
+      (tile: any) => tile.x === x_int && tile.y === y_int
+    )[0];
 
-//     if (tile) {
-//       let newTile = (await blockchainService.getMapChunk(x_int, y_int, 0))[0];
-//       cachedMap[cachedMap.indexOf(tile)] = newTile;
-//     }
-//   }
-// );
+    if (tile) {
+      let newTile = (await blockchainService.getMapChunk(x_int, y_int, 0))[0];
+      cachedMap[cachedMap.indexOf(tile)] = newTile;
+    }
+  }
+);
 
 const x0 = 0 - Math.floor(DEFAULT_MAP_SIZE / 2);
 const y0 = 0 - Math.floor(DEFAULT_MAP_SIZE / 2);
