@@ -34,8 +34,8 @@ export default function Home() {
 
   return (
     <MoralisProvider
-      appId="4mKjTljUgN4ctOdYeOML5JV7at07qXEOXf8EBPGL"
-      serverUrl="https://8kzhmqqwag9j.usemoralis.com:2053/server"
+      appId="UEgESjtj0dFvaRB3rSeHR2Oupvnq8hrkYGwLaWj9"
+      serverUrl="https://ftpunaengfg7.usemoralis.com:2053/server"
     >
       <div
         className={styles.container}

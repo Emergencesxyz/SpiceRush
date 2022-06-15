@@ -24,7 +24,7 @@ const Player = (): JSX.Element => {
     }, [characterInfo]);
 
     const moveCharacter = async (e: any) => {
-        sendLog("waitting for trasanction")
+        sendLog("waitting for transanction <img src='/assets/loader.gif' alt='loader'/>")
         let x, y: number;
         // const audioScifi = new Audio("./sounds/button_scifi.mp3");
         // audioScifi.play();
@@ -43,16 +43,21 @@ const Player = (): JSX.Element => {
             y = characterInfo.y - 1;
         } else return;
 
-        let res = await blockchainService.moveCharacter(
-            +characterInfo.id as number,
-            x,
-            y,
-            library
-        );
+        try {
+            let res = await blockchainService.moveCharacter(
+                +characterInfo.id as number,
+                x,
+                y,
+                library
+            );
 
-        if (res) {
-            sendLog(`player moved to ${x},${y}`)
-            setCharacterInfo({ ...characterInfo, x, y })
+            if (res) {
+                sendLog(`player moved to ${x},${y}`)
+                // setCharacterInfo({ ...characterInfo, x, y })
+                setCharacterInfo(await blockchainService.getCharacterInfo(characterInfo.id));
+            }
+        } catch (e) {
+            sendLog("transaction canceled")
         }
     };
 
@@ -60,25 +65,31 @@ const Player = (): JSX.Element => {
         setPlayerDirection(position);
         setControlsImg(position);
     }
+    const test = async () => {
+        console.log('all', await blockchainService.getAllCharacters())
+    }
 
-    const handleActions = async (action: string) => {
-        sendLog("waitting for trasanction")
-        if (action == "mine") {
-            await blockchainService.mine(characterInfo.id as number, 1, library);
-        } else if (action == "rest") {
-            await blockchainService.rest(characterInfo.id as number, 1, library);
-        } else if (action == "spawn") {
-            await blockchainService.spawn(characterInfo.id as number, library);
-        } else if (action == "lvlUp") {
-            // await blockchainService.levelUp(characterInfo.id,
-            //     e.target.name,
-            //     library
-            // );
+    const handleActions = async (action: string, lvlUpId?: number) => {
+        sendLog("waitting for transanction <img src='/assets/loader.gif' alt='loader'/>")
+        try {
+            if (action == "mine") {
+                await blockchainService.mine(characterInfo.id as number, 1, library);
+            } else if (action == "rest") {
+                await blockchainService.rest(characterInfo.id as number, 1, library);
+            } else if (action == "spawn") {
+                await blockchainService.spawn(characterInfo.id as number, library);
+            } else if (action == "lvlUp") {
+                await blockchainService.levelUp(characterInfo.id,
+                    lvlUpId,
+                    library
+                );
+            }
+        } catch (e) {
+            return sendLog(`${action} canceled`)
         }
 
         setCharacterInfo(await blockchainService.getCharacterInfo(characterInfo.id));
-        sendLog(`${action} success`);
-        return;
+        return sendLog(`${action} success`);
     }
 
     return (
@@ -122,10 +133,20 @@ const Player = (): JSX.Element => {
             <div className={styles.statsContainer}>
                 <div className={styles.statsSection}>
                     <img src="/assets/pic.png" alt="pic logo" />
+                    {canLvlUp && (
+                        <div onClick={() => handleActions("lvlUp", 3)} style={{ cursor: "pointer" }}>
+                            <img src="/assets/arrow_up.gif" alt="level up icon" />
+                        </div>
+                    )}
                     <p>{characterInfo.spiceMined}</p>
                 </div>
                 <div className={styles.statsSection}>
                     <img src="/assets/hearth.png" alt="hearth logo" />
+                    {canLvlUp && (
+                        <div onClick={() => handleActions("lvlUp", 1)} style={{ cursor: "pointer" }}>
+                            <img src="/assets/arrow_up.gif" alt="level up icon" />
+                        </div>
+                    )}
                     <div className={styles.barWrapper}>
                         <p>{characterInfo.stats?.hp} / {characterInfo.stats?.hpMax}</p>
                         <div className={styles.hpBar}>
@@ -139,6 +160,11 @@ const Player = (): JSX.Element => {
 
                 <div className={styles.statsSection}>
                     <img src="/assets/energy.png" alt="energy logo" />
+                    {canLvlUp && (
+                        <div onClick={() => handleActions("lvlUp", 2)} style={{ cursor: "pointer" }}>
+                            <img src="/assets/arrow_up.gif" alt="level up icon" />
+                        </div>
+                    )}
                     <div className={styles.barWrapper}>
                         <p>{characterInfo.stats?.energy} / {characterInfo.stats?.energyMax}</p>
                         <div className={styles.energyBar}>
@@ -204,15 +230,14 @@ const Player = (): JSX.Element => {
             ) : (
                 <button onClick={() => handleActions("spawn")}>spawn</button>
             )}
-
-            {canLvlUp && <button onClick={() => handleActions("lvlUp")}>level up</button>}
+            <button onClick={() => test()}>all</button>
 
             {/* Modal */}
             <Modal
                 show={showModal}
                 onHide={toggle}
                 centered
-                aria-labelledby="join discrod"
+                aria-labelledby="sit modal"
                 animation={false}
             >
                 <div className={styles.modalContainer}>

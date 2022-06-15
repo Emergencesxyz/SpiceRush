@@ -23,8 +23,9 @@ const SelectPlayer = () => {
   const context = useWeb3React();
   const { account, library } = context;
   const gameContext = useContext(GameContext);
-  const { setCharacterInfo, setTiles } = gameContext;
+  const { setCharacterInfo, setTiles, clearLogs } = gameContext;
   const [userNFTs, setUserNFTs] = useState([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const blockchainService = new BlockchainService(account);
 
   useEffect(() => {
@@ -37,6 +38,7 @@ const SelectPlayer = () => {
         });
 
         await fetchCharacterInfo(getUserNFTs.result);
+        setLoading(false);
       }
     })();
   }, []);
@@ -60,6 +62,7 @@ const SelectPlayer = () => {
     //   setSpiceMined(await blockchainService.getSpiceMined(characterId));
     // }
 
+    clearLogs();
     Router.push("/game");
   };
 
@@ -120,9 +123,9 @@ const SelectPlayer = () => {
                     >
                       <div>
                         <span style={{ paddingRight: "5px" }}>
-                          <img src="/assets/xp.png" alt="xp" />
+                          <img src="/assets/xp.png" alt="xp" style={{ height: "18px" }} />
                         </span>
-                        <span> {e.xp}/30000</span>
+                        <span> {e.xp}/3000</span>
                       </div>
                       <div>
                         <span style={{ paddingRight: "5px" }}>
@@ -162,12 +165,20 @@ const SelectPlayer = () => {
     <div
       style={{
         display: "flex",
-        flexDirection: "row",
         alignItems: "center",
+        justifyContent: "center",
         padding: "50px",
       }}
     >
-      {ApeCards()}
+      {loading ? (
+        <Spinner animation="border" style={{ color: "white" }} />
+      ) : (
+        <>
+
+          {ApeCards()}
+        </>
+      )
+      }
     </div>
   );
 };

@@ -28,7 +28,6 @@ export default function Game() {
 
   useEffect(() => {
     (async () => {
-      console.log('getting tiles')
       // const tiles = await blockchainService.getMapPlayer(characterInfo.x, characterInfo.y, 10);
       // setTiles(tiles);
       setTiles(testTiles);
@@ -43,18 +42,18 @@ export default function Game() {
       <div className={styles.playZone}>
         <Col md={4}>
           <Player />
+          <div style={{ paddingLeft: "70px", paddingRight: "10px" }}>
+            <LogScreen />
+          </div>
         </Col>
 
         <Col md={4}>
           {loading ? (
             <h1>creating map from blockchain</h1>
           ) : (
-            <>
-              <div style={{ minHeight: "670px" }}>
-                <Map />
-              </div>
-              <LogScreen />
-            </>
+            <div style={{ minHeight: "670px" }}>
+              <Map />
+            </div>
           )}
         </Col>
 

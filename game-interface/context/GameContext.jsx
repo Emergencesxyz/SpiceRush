@@ -15,6 +15,10 @@ const GameContextProvider = (props) => {
     setLogs(allLogs);
   }
 
+  const clearLogs = () => {
+    setLogs([]);
+  }
+
   return (
     <GameContext.Provider
       value={{
@@ -27,7 +31,8 @@ const GameContextProvider = (props) => {
         selectedTile,
         setSelectedTile,
         logs,
-        sendLog
+        sendLog,
+        clearLogs
       }}
     >
       {props.children}
