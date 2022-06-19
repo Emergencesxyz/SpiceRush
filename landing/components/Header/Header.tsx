@@ -85,6 +85,18 @@ const Header: FunctionComponent<Props> = ({
                 {isActive2 && !isMobile && <p>Coming soon</p>}
               </div>
             </Nav.Link>
+            <Nav.Link
+              href="https://www.spicerush.io/mint/"
+              target="_blank"
+              /* onMouseEnter={() => setIsActive2(!isActive2)}
+              onMouseLeave={() => setIsActive2(!isActive2)} */
+            >
+              <div className={styles.button}>
+                <span>Mint Open</span>
+                {/*  {isMobile && <p>Coming soon</p>}
+                {isActive2 && !isMobile && <p>Coming soon</p>} */}
+              </div>
+            </Nav.Link>
 
             {isMobile && (
               <Nav.Link href="https://twitter.com/Spice_Rush" target="_blank">

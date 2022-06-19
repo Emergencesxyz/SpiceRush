@@ -2,7 +2,7 @@
   max-width: 3600px !important;
   overflow-y: hidden !important;
   overflow-x: hidden !important;
-  width:100vw;
+  width: 100vw;
   background: rgb(0, 0, 6);
   background: linear-gradient(
     180deg,
@@ -43,6 +43,34 @@
       &:hover {
         color: lightgrey !important;
         cursor: url("../../public/pictures/Cursor.png") 25 15, auto !important;
+      }
+    }
+
+    .button {
+      border: none;
+      padding: 5px;
+      padding-left: 20px;
+      padding-right: 20px;
+      width: auto;
+      justify-content: center;
+      cursor: url("../../public/pictures/Cursor.png") 25 15, auto !important;
+      box-sizing: border-box;
+      background: linear-gradient(182.37deg, #ea00d9 1.97%, #ca00bb 86.51%);
+      border-radius: 14px 4px;
+      color: white;
+      font-size: 25px;
+
+      &:hover {
+        box-shadow: none !important;
+        background: linear-gradient(182.37deg, #ff4df2 1.97%, #f308e2 86.51%);
+      }
+      &:focus {
+        box-shadow: none !important;
+        background: linear-gradient(182.37deg, #b800aa 1.97%, #ea00d9 66.5%);
+      }
+      &:active {
+        box-shadow: none !important;
+        background: linear-gradient(182.37deg, #b800aa 1.97%, #ea00d9 66.5%);
       }
     }
 
