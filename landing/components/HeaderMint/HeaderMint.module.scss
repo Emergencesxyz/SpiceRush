@@ -14,17 +14,24 @@
     font-size: 20px;
     font-family: "bladeRunner";
     color: white;
+    padding-bottom: 0;
+
+    &:hover {
+      cursor: url("../../public/pictures/Cursor.png") 25 15, auto !important;
+    }
   }
 
   .navBar {
     width: 100%;
-    padding-left: 22%;
-    padding-right: 22%;
+    padding-left: 12%;
+    padding-right: 12%;
     display: flex;
-    justify-content: space-around;
+    /*     justify-content: space-around; */
+    justify-content: center;
     align-items: center;
     height: 50px;
     padding-bottom: 5px;
+    margin-right: 150px;
 
     .titleBox {
       display: flex;
@@ -43,34 +50,6 @@
       &:hover {
         color: lightgrey !important;
         cursor: url("../../public/pictures/Cursor.png") 25 15, auto !important;
-      }
-    }
-
-    .button {
-      border: none;
-      padding: 5px;
-      padding-left: 20px;
-      padding-right: 20px;
-      width: auto;
-      justify-content: center;
-      cursor: url("../../public/pictures/Cursor.png") 25 15, auto !important;
-      box-sizing: border-box;
-      background: linear-gradient(182.37deg, #ea00d9 1.97%, #ca00bb 86.51%);
-      border-radius: 14px 4px;
-      color: white;
-      font-size: 25px;
-
-      &:hover {
-        box-shadow: none !important;
-        background: linear-gradient(182.37deg, #ff4df2 1.97%, #f308e2 86.51%);
-      }
-      &:focus {
-        box-shadow: none !important;
-        background: linear-gradient(182.37deg, #b800aa 1.97%, #ea00d9 66.5%);
-      }
-      &:active {
-        box-shadow: none !important;
-        background: linear-gradient(182.37deg, #b800aa 1.97%, #ea00d9 66.5%);
       }
     }
 
@@ -133,12 +112,15 @@
 @media (max-width: 576px) {
   .navContainer {
     padding: 5px;
-    justify-content: end !important;
+    justify-content: space-between !important;
+    align-items: stretch;
 
     .brand {
       display: block;
       margin-right: unset;
       margin-left: 5px;
+      padding: 0;
+      padding-top: 5px;
     }
 
     .joinDiscord {
@@ -147,6 +129,8 @@
 
     .navBar {
       height: fit-content;
+      padding: 0;
+      margin-right: 0;
 
       .titleBox {
         flex-direction: row;

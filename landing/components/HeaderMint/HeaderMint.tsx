@@ -1,7 +1,8 @@
 import { useState, FunctionComponent } from "react";
 import { Nav, Navbar, Container } from "react-bootstrap";
 import MusicPlayer from "../MusicPlayer/MusicPlayer";
-import styles from "./Header.module.scss";
+import styles from "./HeaderMint.module.scss";
+
 interface Props {
   currentElementIndexInViewport?: number;
   isMobile: boolean;
@@ -25,15 +26,15 @@ const Header: FunctionComponent<Props> = ({
       style={{ width: "100vw", display: "flex" }}
     >
       <Container className={styles.navContainer}>
-        {/*  <Nav.Link className={styles.brand}>
+        <Nav.Link className={styles.brand} href="/">
           <h1>
             <img
               src="/pictures/logo-2.png"
               alt="Apinator"
-              style={{ maxWidth: "5em", width: "150px" }}
+              style={{ maxWidth: "5em", width: isMobile ? "100px" : "150px" }}
             />
           </h1>
-        </Nav.Link> */}
+        </Nav.Link>
 
         <Navbar.Toggle aria-controls="navbar" style={{ border: "none" }}>
           <img
@@ -43,7 +44,7 @@ const Header: FunctionComponent<Props> = ({
             src="/pictures/burger.png"
           />
         </Navbar.Toggle>
-        <Navbar.Collapse id="navbar" className=" justify-content-between">
+        <Navbar.Collapse id="navbar">
           <Nav className={styles.navBar}>
             <Nav.Link
               href="https://golemdao.gitbook.io/spicerush/"
@@ -83,18 +84,6 @@ const Header: FunctionComponent<Props> = ({
                 <span>Buy land</span>
                 {isMobile && <p>Coming soon</p>}
                 {isActive2 && !isMobile && <p>Coming soon</p>}
-              </div>
-            </Nav.Link>
-            <Nav.Link
-              href="https://www.spicerush.io/mint/"
-              target="_blank"
-              /* onMouseEnter={() => setIsActive2(!isActive2)}
-              onMouseLeave={() => setIsActive2(!isActive2)} */
-            >
-              <div className={styles.button}>
-                <span>Mint Open</span>
-                {/*  {isMobile && <p>Coming soon</p>}
-                {isActive2 && !isMobile && <p>Coming soon</p>} */}
               </div>
             </Nav.Link>
 
