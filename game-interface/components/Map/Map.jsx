@@ -73,13 +73,15 @@ export default function Map() {
 
         var ctx = canvasTexture.context;
 
-        ctx.fillStyle = config.fillStyle || "white";
+        ctx.fillStyle = "white";
         ctx.font = config.font || "13px monospace";
 
         for (var i = 0, len = tiles.length; i < len; i++) {
             var tile = tiles[i];
             let tilePropertie;
             let paddingY;
+
+            if(tile.properties.level == 0) continue;
 
             switch (type) {
                 case 'spice': {
@@ -114,12 +116,12 @@ export default function Map() {
 
         for (let i = 0; i <= mapTiles.length; i++) {
             if(row.length < mapWidth) {
-                row.push(Math.floor(mapTiles[i].level / 10));
+                row.push(mapTiles[i].level == 0 ? 10000 : Math.floor(mapTiles[i].level / 10));
             } else {
                 level.push(row);
                 if(i !== mapTiles.length) {
                     row = [];
-                    row.push(Math.floor(mapTiles[i].level / 10));
+                    row.push(mapTiles[i].level == 0 ? 10000 : Math.floor(mapTiles[i].level / 10));
                 }
             }
         }
@@ -139,33 +141,33 @@ export default function Map() {
 
         for (let i = 0; i <= mapTiles.length; i++) {
             if(spiceRow.length < mapWidth) {
-                // spiceRow.push(
-                //     Math.floor(mapTiles[i].spiceAmount / 100) > 20
-                //     ? 20
-                //     : Math.floor(mapTiles[i].spiceAmount / 100)
-                // );
-                spiceRow.push(0)
+                spiceRow.push(
+                    Math.floor(mapTiles[i].spiceAmount / 100) > 20
+                    ? 20
+                    : Math.floor(mapTiles[i].spiceAmount / 100)
+                );
+                // spiceRow.push(0)
             } else {
                 spiceLevel.push(spiceRow);
                 if(i !== mapTiles.length) {
                     spiceRow = [];
-                    // spiceRow.push(
-                    //     Math.floor(mapTiles[i].spiceAmount / 100) > 20
-                    //     ? 20
-                    //     : Math.floor(mapTiles[i].spiceAmount / 100)
-                    // );
-                    spiceRow.push(0)
+                    spiceRow.push(
+                        Math.floor(mapTiles[i].spiceAmount / 100) > 20
+                        ? 20
+                        : Math.floor(mapTiles[i].spiceAmount / 100)
+                    );
+                    // spiceRow.push(0)
                 }
             }
         }
 
         // Spice layer
         const map2 = this.make.tilemap({ data: spiceLevel, tileWidth, tileHeight })
-        const spiceTileset = map2.addTilesetImage('tiles_spice2');
+        const spiceTileset = map2.addTilesetImage('tiles_spice');
         spiceLayer = map2.createLayer(0, spiceTileset, 0, 0);
         spiceLayer.visible = false;
 
-         // Creating danger tiles
+        // Creating danger tiles
         let dangerLevel = [];
         let dangerRow = [];
 
@@ -246,6 +248,7 @@ export default function Map() {
         camera.setScroll(currentX, currentY);
         // Selecting ape position tile
         const apeTile = map.getTileAt(map.worldToTileX(apePositionX), map.worldToTileY(apePositionY));
+        console.log("prmero", apeTile?.properties)
         setSelectedTile(apeTile?.properties);
 
         // Adding text to tile
@@ -259,17 +262,14 @@ export default function Map() {
 
         RenderInfo(layer, getTexture("spice"), {
             isNotEmpty: true,
-            fillStyle: "#ffffff"
         }, "spice");
 
         RenderInfo(layer, getTexture("users"), {
             isNotEmpty: true,
-            fillStyle: "#ffffff"
         }, "users");
 
         RenderInfo(layer, getTexture("danger"), {
             isNotEmpty: true,
-            fillStyle: "#ffffff"
         }, "danger");
     }
 

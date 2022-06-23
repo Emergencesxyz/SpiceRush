@@ -11,6 +11,7 @@ import {
   walletlink,
 } from "../WalletHelpers/connectors";
 import styles from "../styles/Home.module.scss";
+import MintPlayer from "../components/MintPlayer/MintPlayer";
 
 export default function Home() {
   const router = useRouter();
@@ -55,7 +56,12 @@ export default function Home() {
             <p>{account}</p>
             <img src="assets/canva_part1.png" alt="canvap1" />
           </div>
-          {!!account && !!library ? <SelectPlayer /> : <ConnectWallet />}
+          {!!account && !!library ? (
+            <>
+              <MintPlayer />
+              <SelectPlayer />
+            </>
+          ) : <ConnectWallet />}
           <img src="assets/canva_part2.png" alt="canvap2" />
         </div>
 

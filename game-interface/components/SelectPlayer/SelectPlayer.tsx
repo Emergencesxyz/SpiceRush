@@ -23,7 +23,7 @@ const SelectPlayer = () => {
   const context = useWeb3React();
   const { account, library } = context;
   const gameContext = useContext(GameContext);
-  const { setCharacterInfo, setTiles, clearLogs } = gameContext;
+  const { setCharacterInfo, setTiles, clearLogs, lastUpdate } = gameContext;
   const [userNFTs, setUserNFTs] = useState([]);
   const [loading, setLoading] = useState<boolean>(true);
   const blockchainService = new BlockchainService(account);
@@ -34,14 +34,14 @@ const SelectPlayer = () => {
         const getUserNFTs = await Web3Api.account.getNFTsForContract({
           chain: "mumbai",
           address: account,
-          token_address: "0x680b20466bbc756E82Ce93d12E8179ecB688D9F5",
+          token_address: "0x1Dfa0ED3820AC7fd1e54ee9EC3Fe0aa71f0BEc6a",
         });
 
         await fetchCharacterInfo(getUserNFTs.result);
         setLoading(false);
       }
     })();
-  }, []);
+  }, [lastUpdate]);
 
   const fetchCharacterInfo = async (userNFTs: any) => {
     let characterInfo: any = [];

@@ -3,7 +3,7 @@ import { GameContext } from "../../context/GameContext";
 import { useWeb3React } from "@web3-react/core";
 import BlockchainService from "../../services/BlockchainService";
 import styles from "./Player.module.scss";
-import { Button, Modal } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 
 const Player = (): JSX.Element => {
     const { account, library } = useWeb3React();

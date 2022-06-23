@@ -41,6 +41,14 @@ export default class BlockchainService {
     }
   }
 
+  async nftPrice() {
+    try {
+      return await this.apinatorContract.methods.NFTPrice().call();
+    } catch (e) {
+      return null;
+    }
+  }
+
   async ownerOf(nftId: number) {
     try {
       return await this.apinatorContract.methods.ownerOf(nftId).call();
@@ -238,7 +246,6 @@ export default class BlockchainService {
   }
 
   async mintNft(amount: number, library: any) {
-    console.log("mintNft", library);
     try {
       const txParams = {
         from: this.account,

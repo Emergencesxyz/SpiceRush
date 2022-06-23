@@ -5,7 +5,7 @@ const Footer = (): JSX.Element => {
   return (
     <>
       <Row className={styles.footerRow2}>
-        <p>Apinators 2042 ©2022 - Powered by Golem All rights reserved</p>
+        <p>Spice Rush ©2022 - Powered by Golem All rights reserved</p>
       </Row>
     </>
   );

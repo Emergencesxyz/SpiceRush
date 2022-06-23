@@ -8,6 +8,7 @@ const GameContextProvider = (props) => {
   const [tiles, setTiles] = useState([]);
   const [selectedTile, setSelectedTile] = useState({});
   const [logs, setLogs] = useState([]);
+  const [lastUpdate, setLastUpdate] = useState(null);
 
   const sendLog = (message, type = "event", sender = "Spice Rush") => {
     const allLogs = [...logs];
@@ -18,6 +19,7 @@ const GameContextProvider = (props) => {
   const clearLogs = () => {
     setLogs([]);
   }
+
 
   return (
     <GameContext.Provider
@@ -32,7 +34,9 @@ const GameContextProvider = (props) => {
         setSelectedTile,
         logs,
         sendLog,
-        clearLogs
+        clearLogs,
+        lastUpdate,
+        setLastUpdate
       }}
     >
       {props.children}
