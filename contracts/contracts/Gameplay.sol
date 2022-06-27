@@ -1,130 +1,57 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
-import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
-import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
-
-/*
- * @dev Provides information about the current execution context, including the
- * sender of the transaction and its data. While these are generally available
- * via msg.sender and msg.data, they should not be accessed in such a direct
- * manner, since when dealing with meta-transactions the account sending and
- * paying for execution may not be the actual sender (as far as an application
- * is concerned).
- *
- * This contract is only required for intermediate, library-like contracts.
- */
-abstract contract Context {
-    function _msgSender() internal view virtual returns (address) {
-        return msg.sender;
-    }
-
-    function _msgData() internal view virtual returns (bytes calldata) {
-        this; // silence state mutability warning without generating bytecode - see https://github.com/ethereum/solidity/issues/2691
-        return msg.data;
-    }
-}
-
-/**
- * @dev Contract module which provides a basic access control mechanism, where
- * there is an account (an owner) that can be granted exclusive access to
- * specific functions.
- *
- * By default, the owner account will be the one that deploys the contract. This
- * can later be changed with {transferOwnership}.
- *
- * This module is used through inheritance. It will make available the modifier
- * `onlyOwner`, which can be applied to your functions to restrict their use to
- * the owner.
- */
-abstract contract Ownable is Context {
-    address private _owner;
-
-    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
-
-    /**
-     * @dev Initializes the contract setting the deployer as the initial owner.
-     */
-    constructor () {
-        address msgSender = _msgSender();
-        _owner = msgSender;
-        emit OwnershipTransferred(address(0), msgSender);
-    }
-
-    /**
-     * @dev Returns the address of the current owner.
-     */
-    function owner() public view virtual returns (address) {
-        return _owner;
-    }
-
-    /**
-     * @dev Throws if called by any account other than the owner.
-     */
-    modifier onlyOwner() {
-        require(owner() == _msgSender(), "Ownable: caller is not the owner");
-        _;
-    }
-
-    /**
-     * @dev Leaves the contract without owner. It will not be possible to call
-     * `onlyOwner` functions anymore. Can only be called by the current owner.
-     *
-     * NOTE: Renouncing ownership will leave the contract without an owner,
-     * thereby removing any functionality that is only available to the owner.
-     */
-    function renounceOwnership() public virtual onlyOwner {
-        emit OwnershipTransferred(_owner, address(0));
-        _owner = address(0);
-    }
-
-    /**
-     * @dev Transfers ownership of the contract to a new account (`newOwner`).
-     * Can only be called by the current owner.
-     */
-    function transferOwnership(address newOwner) public virtual onlyOwner {
-        require(newOwner != address(0), "Ownable: new owner is the zero address");
-        emit OwnershipTransferred(_owner, newOwner);
-        _owner = newOwner;
-    }
-}
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "./ERC721A.sol";
 
 interface INFT {
+    function pricePerDrillLvl() external returns(uint256);
 	function mintTile(address to, int256 x, int256 y) external;
+    function createWell(int256 x, int256 y) external;
+    function upgradeDrill(int256 x, int256 y) external;
+    function ownerOfTile(int256 x, int256 y) external returns (address);
+    function getDrillLevel(int256 x, int256 y) external view returns(uint256);
+    function setLastClaimEpoch(int256 x, int256 y, uint256 epoch) external;
+    function claimSpice(int256 x, int256 y) external returns (uint256);
 }
 
 contract Gameplay is Ownable {
-    using SafeMath for uint256;
     using Strings for uint256;
 
-    event moving(uint256 _tokenId, int256 _x, int256 _y, uint16 _hp, uint16 _energy, uint16 _xp, uint256 _nextActionTime);
+    event moving(uint256 _tokenId, int256 _x, int256 _y, uint16 _hp, uint16 _energy, uint256 _xp, uint256 _nextActionTime);
     event explored(uint256 _tokenId, int256 _x, int256 _y, int16 _level, uint256 _spiceAmount, uint16 _foesAmount);
     event leveledUp(uint256 _tokenId, uint16 _mining, uint16 _hpMax, uint16 _energyMax);
-    event died(uint256 _tokenId, int256 _x, int256 _y);
-    event mining(uint256 _tokenId, uint256 _bank, uint256 _spiceAmount, uint16 _xp, uint256 _nextActionTime);
+    event died(uint256 _tokenId, int256 _x, int256 _y, uint256 _spiceAmount);
+    event mining(uint256 _tokenId, uint256 _bank, uint256 _spiceAmount, uint256 _xp, uint256 _nextActionTime);
     event resting(uint256 _tokenId, uint16 _hp, uint16 _energy, uint256 _nextActionTime);
     event spawned(uint256 _tokenId, int256 _x, int256 _y);
     event buyLand(uint256 _tokenId, int256 _x, int256 _y);
     event changedName(uint256 _tokenId, string _name);
+    event hit(uint256 _tokenIdFrom, uint256 _tokenIdTo);
+    event refine(uint256 _tokenId, uint256 _amount, uint256 _spiceFlow);
+    event collect(uint256 _tokenId, uint256 _spiceFlow);
 
-    IERC721 public apinator;
+    ERC721A public apinator;
     INFT public property;
+    INFT public buildings;
+    
+    IERC20 public spice;
 
-    constructor(address apinatorAddress, address apinatorPropertyAddress){
-        uint256[] memory emptyIds;
-        map[0][0] = Tile(true, 0, 0, 0, emptyIds, emptyIds);
-        apinator = IERC721(apinatorAddress);
+    constructor(address apinatorAddress, address apinatorPropertyAddress, address spiceAddress, address buildingsAddress){
+        map[0][0] = Tile(true, 0, 0, 0);
+        apinator = ERC721A(apinatorAddress);
         property = INFT(apinatorPropertyAddress);
+        buildings = INFT(buildingsAddress);
+        spice = IERC20(spiceAddress);
     }
-    //TODO Add : ERC20, TPs name, attack enemies on tile, reduce foes, build on tile protections + defs
+    //TODO Add : TPs name, reduce foes, build on tile protections + defs, event info a revoir, coûts en spice
     struct Tile {
         bool isExplored;
         int16 level;
         uint256 spiceAmount;
         uint16 foesAmount;
-        uint256[] team1Ids;
-        uint256[] team2Ids;
     }
     struct Stats {
         uint16 hp;
@@ -138,19 +65,53 @@ contract Gameplay is Ownable {
         int256 x;
         int256 y;
         Stats stats;
-        uint16 xp;
+        uint256 xp;
+        uint256 oreBalance;
         uint16 lvl;
         string name;
     }
-    mapping (uint256 => uint256) public bank;
 	mapping (int256 => mapping(int256 => Tile)) public map;
     mapping (uint256 => Chara) public charas;
-    uint256 actionTime = 1;
-    uint256 spiceBlocksPerTile = 30;
-    int256 startX = 0;
-    int256 startY = 0;
-    uint16 dif = 4;
-    uint8 teamNum = 2;
+    uint256 public totalDeposit;
+    uint256 public totalRewarded;
+    uint256 public rewardBalancerNumerator = 1;
+    uint256 public rewardBalancerDivisor = 1;
+    uint256 public actionTime = 1;
+    uint256 public spiceBlocksPerTile = 30;
+    int256 public startX = 0;
+    int256 public startY = 0;
+    uint16 public dif = 4;
+    uint8 teamNum = 3;
+    bool public isPvpActive;
+    uint256 public maxRefine = 1000000000000000000000; // 100 000000000000000000
+    uint256 public maxCollect = 1000000000000000000000; // 100 000000000000000000
+    uint256 landPrice = 50 ether;
+    uint256 restActionPrice = 1000000000000000000;
+    uint256 levelUpPrice = 1000000000000000000;
+    uint256 setNamePrice = 100000000000000000000;
+    uint256 wellPrice = 500000000000000000000;
+
+
+    function setMaxRefine(uint256 _maxRefine) public onlyOwner() {
+        maxRefine = _maxRefine;
+    }
+
+    function setGamePrices(uint256 _landPrice, uint256 _restActionPrice, uint256 _levelUpPrice, uint256 _setNamePrice, uint256 _wellPrice) public onlyOwner() {
+        landPrice = _landPrice;
+        restActionPrice = _restActionPrice;
+        levelUpPrice = _levelUpPrice;
+        setNamePrice = _setNamePrice;
+        wellPrice = _wellPrice;
+    }
+
+    function  setPvpIsActive(bool _isActive) public onlyOwner() {
+        isPvpActive = _isActive;
+    }
+
+    function  setRewardBalancer(uint256 numerator, uint256 divisor) public onlyOwner() {
+        rewardBalancerNumerator = numerator;
+        rewardBalancerDivisor = divisor;
+    }
 
     function setTeamNum(uint8 _teamNum) public onlyOwner() {
         teamNum = _teamNum;
@@ -167,18 +128,23 @@ contract Gameplay is Ownable {
     function setSpawnTile(int256 x, int256 y, int16 level) public onlyOwner() {
         startX = x;
         startY = y;
-        map[x][y] = Tile(true, level, 0, 0, map[x][y].team1Ids, map[x][y].team2Ids);
+        map[x][y] = Tile(true, level, 0, 0);
     }
 
     function setDifficulty(uint16 _dif) public onlyOwner() {
         dif = _dif;
     }
 
+    function addRewards(uint256 amount) public onlyOwner(){
+        require(spice.transferFrom(msg.sender, address(this), amount), "Error with token transfer.");
+        totalDeposit += amount;
+    }
+
     function spawn(uint256 tokenId) public {
         require(apinator.ownerOf(tokenId) == msg.sender, "Not owner of specified token.");
         require(charas[tokenId].stats.hp == 0, "Not dead yet.");
 
-        charas[tokenId] = Chara(0, startX, startY, Stats(10, 10, 10, 10, 10), 0, 0, tokenId.toString());
+        charas[tokenId] = Chara(0, startX, startY, Stats(10, 10, 10, 10, 10), 0, 0, 0, tokenId.toString());
         emit spawned(tokenId, startX, startY);
     }
 
@@ -193,39 +159,37 @@ contract Gameplay is Ownable {
 
         if (!map[x][y].isExplored) {
             explore(x, y);
-            charas[tokenId].xp += 5*uint16(map[x][y].level);
+            charas[tokenId].xp += 5*uint256(uint16(map[x][y].level));
             emit explored(tokenId, x, y, map[x][y].level, map[x][y].spiceAmount, map[x][y].foesAmount);
         }
+        charas[tokenId].xp += 20;
+        charas[tokenId].stats.energy -= 1;
+        charas[tokenId].x = x;
+        charas[tokenId].y = y;
         if (charas[tokenId].stats.hp < map[x][y].foesAmount/dif) {
             die(tokenId);
         }
         else{
             charas[tokenId].stats.hp -= map[x][y].foesAmount/dif;
         }
-        charas[tokenId].xp += 20;
-        charas[tokenId].stats.energy -= 1;
-        charas[tokenId].x = x;
-        charas[tokenId].y = y;
-        charas[tokenId].nextActionTime = block.timestamp + actionTime;
         emit moving(tokenId, charas[tokenId].x, charas[tokenId].y, charas[tokenId].stats.hp, charas[tokenId].stats.energy, charas[tokenId].xp, charas[tokenId].nextActionTime);
     }
 
     function mine(uint256 tokenId, uint16 actionNb) public {
         require(actionNb > 0, "Need at least one action.");
         require(apinator.ownerOf(tokenId) == msg.sender, "Not owner of specified token.");
-        uint16 spiceAmount = uint16(map[charas[tokenId].x][charas[tokenId].y].spiceAmount);
+        uint256 spiceAmount = map[charas[tokenId].x][charas[tokenId].y].spiceAmount;
         require(spiceAmount > 0, "Nothing to mine.");
         require(charas[tokenId].stats.energy >= actionNb, "Not enough energy.");
         require(charas[tokenId].nextActionTime < block.timestamp, "Your character is still busy.");
         require(charas[tokenId].stats.hp > 0, "No more hp.");
 
         uint256 spiceMined = spiceAmount/spiceBlocksPerTile*actionNb;
-        bank[tokenId] += uint16(spiceMined + spiceMined * charas[tokenId].stats.mining / 100);
+        charas[tokenId].oreBalance += spiceMined + spiceMined * charas[tokenId].stats.mining / 100;
         map[charas[tokenId].x][charas[tokenId].y].spiceAmount -= spiceMined;
         charas[tokenId].stats.energy -= actionNb;
-        charas[tokenId].nextActionTime = block.timestamp + actionNb*actionTime;
-        charas[tokenId].xp += uint16(spiceMined);
-        emit mining(tokenId, bank[tokenId], spiceAmount, charas[tokenId].xp, charas[tokenId].nextActionTime);
+        charas[tokenId].xp += spiceMined;
+        emit mining(tokenId, charas[tokenId].oreBalance, spiceMined, charas[tokenId].xp, charas[tokenId].nextActionTime);
     }
 
     function rest(uint256 tokenId, uint16 actionNb) public {
@@ -234,11 +198,14 @@ contract Gameplay is Ownable {
         require(charas[tokenId].stats.hp > 0, "No more hp.");
         require(actionNb < 100, "Can't rest that long.");
 
-        //TODO ERC20
-
+        if (actionNb > 0) {
+            uint256 spiceFlow = restActionPrice*actionNb;
+            require(spice.transferFrom(msg.sender, address(this), spiceFlow), "Error with token transfer.");
+            totalDeposit += spiceFlow;
+        }
         charas[tokenId].stats.energy = charas[tokenId].stats.energyMax;
         charas[tokenId].stats.hp = min(charas[tokenId].stats.hp + actionNb, charas[tokenId].stats.hpMax);
-        charas[tokenId].nextActionTime = block.timestamp + actionTime*actionNb;
+        charas[tokenId].nextActionTime = block.timestamp + actionTime*(actionNb + 1);
         emit resting(tokenId, charas[tokenId].stats.hp, charas[tokenId].stats.energy, charas[tokenId].nextActionTime);
     }
 
@@ -247,8 +214,11 @@ contract Gameplay is Ownable {
         require(charas[tokenId].nextActionTime < block.timestamp, "Your character is still busy.");
         require(charas[tokenId].stats.hp > 0, "No more hp.");
         require(statId < 4, "Not a stat id.");
-        require(100*(charas[tokenId].lvl**2 + charas[tokenId].lvl) + 100 < charas[tokenId].xp, "Not enough xp.");
+        require(100*(uint256(charas[tokenId].lvl)**2 + uint256(charas[tokenId].lvl)) + 100 < charas[tokenId].xp, "Not enough xp.");
 
+        uint256 spiceFlow = levelUpPrice * (charas[tokenId].lvl + 1);
+        require(spice.transferFrom(msg.sender, address(this), spiceFlow), "Error with token transfer.");
+        totalDeposit += spiceFlow;
         charas[tokenId].lvl += 1;
         if (statId == 1) {
             charas[tokenId].stats.hpMax += 1;
@@ -262,7 +232,7 @@ contract Gameplay is Ownable {
         emit leveledUp(tokenId, charas[tokenId].stats.mining, charas[tokenId].stats.hpMax, charas[tokenId].stats.energyMax);
     }
 
-    function selfTerminate(uint256 tokenId, bool agreement) public {
+    function terminateSelf(uint256 tokenId, bool agreement) public {
         require(apinator.ownerOf(tokenId) == msg.sender, "Not owner of specified token.");
         require(agreement, "Need owner's agreement.");
         require(charas[tokenId].stats.hp > 0, "Already no hp.");
@@ -270,38 +240,123 @@ contract Gameplay is Ownable {
         die(tokenId);
     }
 
-    function claimSpice(uint256 tokenId) public {
-        require(apinator.ownerOf(tokenId) == msg.sender, "Not owner of specified token.");
-        require(charas[tokenId].nextActionTime < block.timestamp, "Your character is still busy.");
-        require(bank[tokenId] > 0, "Nothing to claim.");
-        require(charas[tokenId].stats.hp > 0, "No more hp.");
+    function hitFoe(uint256 tokenIdFrom, uint256 tokenIdTo) public {
+        require(isPvpActive, "PvP not activated.");
+        require(apinator.ownerOf(tokenIdFrom) == msg.sender, "Not owner of specified token.");
+        require(tokenIdTo <= apinator.totalSupply(), "Non existent Foe.");
+        require(charas[tokenIdTo].x == charas[tokenIdFrom].x && charas[tokenIdTo].y == charas[tokenIdFrom].y, "Not in reach.");
+        require(charas[tokenIdFrom].stats.energy >= 1, "Not enough energy.");
+        require(charas[tokenIdFrom].nextActionTime < block.timestamp, "Your character is still busy.");
+        require(charas[tokenIdFrom].stats.hp > 0, "No more hp.");
+        require(charas[tokenIdTo].stats.hp > 0, "No more hp on foe.");
+        require(teamOf(tokenIdTo) != teamOf(tokenIdFrom), "Same team.");
 
-        bank[tokenId] = 0;
-        charas[tokenId].nextActionTime = block.timestamp + actionTime;
-
-        // TODO ERC20
+        if (charas[tokenIdTo].stats.hp == 1) {
+            die(tokenIdTo);
+        }
+        else {charas[tokenIdTo].stats.hp -= 1;}
+        charas[tokenIdFrom].stats.energy -= 1;
+        emit hit(tokenIdFrom, tokenIdTo);
     }
 
-    function addSpice(uint256 tokenId) public {
+    function reduceFoes(uint256 tokenId) public {
         require(apinator.ownerOf(tokenId) == msg.sender, "Not owner of specified token.");
-        require(charas[tokenId].nextActionTime < block.timestamp, "Your character is still busy.");
-        require(charas[tokenId].stats.hp > 0, "No more hp.");
+        Chara storage chara = charas[tokenId];
+        require(chara.stats.energy >= 1, "Not enough energy.");
+        require(chara.nextActionTime < block.timestamp, "Your character is still busy.");
+        require(chara.stats.hp > 0, "No more hp.");
 
-        // TODO ERC20
-
-        bank[tokenId] += 0;
-        charas[tokenId].nextActionTime = block.timestamp + actionTime;
+        chara.stats.energy -= 1;
+        if (chara.stats.hp < map[chara.x][chara.y].foesAmount) {
+            die(tokenId);
+        }
+        else{
+            chara.stats.hp -= map[chara.x][chara.y].foesAmount;
+        }
+        map[chara.x][chara.y].foesAmount = map[chara.x][chara.y].foesAmount / 2;
+        if(map[chara.x][chara.y].foesAmount < charas[tokenId].lvl){
+            map[chara.x][chara.y].foesAmount = 0;
+        }
     }
 
-    function mintTile(uint256 tokenId, int256 x, int256 y) public payable {
+    function refineOre(uint256 tokenId, uint256 amount) public {
+        require(apinator.ownerOf(tokenId) == msg.sender, "Not owner of specified token.");
+        require(charas[tokenId].nextActionTime < block.timestamp, "Your character is still busy.");
+        require(charas[tokenId].oreBalance > 0, "Nothing to refine.");
+        require(charas[tokenId].stats.hp > 0, "No more hp.");
+        require(charas[tokenId].oreBalance <= amount);
+        require(amount < maxRefine, "Exceeds maximum refinable at once.");
+
+        uint256 spiceFlow = amount*(1 - totalRewarded/totalDeposit)*rewardBalancerNumerator/rewardBalancerDivisor;
+        require(spiceFlow < totalDeposit - totalRewarded, "Impact too high.");
+        require(spice.transfer(msg.sender, spiceFlow), "Error with token transfer.");
+        totalRewarded += spiceFlow;
+        charas[tokenId].oreBalance -= amount;
+        emit refine(tokenId, amount, spiceFlow);
+    }
+
+    function mintTile(uint256 tokenId) public payable {
         require(apinator.ownerOf(tokenId) == msg.sender, "Not owner of specified token.");
         require(charas[tokenId].nextActionTime < block.timestamp, "Your character is still busy.");
         require(charas[tokenId].stats.hp > 0, "No more hp.");
         require(charas[tokenId].stats.energy > 0, "Not enough energy.");
-        
+        require(landPrice == msg.value, "Ether value sent is not correct");
+
         charas[tokenId].stats.energy -= 1;
-        property.mintTile(msg.sender, x, y);
-        emit buyLand(tokenId, x, y);
+        property.mintTile(msg.sender, charas[tokenId].x, charas[tokenId].y);
+        emit buyLand(tokenId, charas[tokenId].x, charas[tokenId].y);
+    }
+
+    function withdraw(address _to) public onlyOwner {
+        uint256 balance = address(this).balance;
+        require(balance > 0, "Balance should be more then zero");
+        payable(_to).transfer(balance);
+    }
+
+    function buildSpiceWell(uint256 tokenId) public {
+        require(apinator.ownerOf(tokenId) == msg.sender, "Not owner of specified token.");
+        require(charas[tokenId].nextActionTime < block.timestamp, "Your character is still busy.");
+        require(charas[tokenId].stats.hp > 0, "No more hp.");
+        require(charas[tokenId].stats.energy > 0, "Not enough energy.");
+        require(map[charas[tokenId].x][charas[tokenId].y].foesAmount == 0,"Land is still dangerous.");
+        require(property.ownerOfTile(charas[tokenId].x, charas[tokenId].y) == apinator.ownerOf(tokenId), "Not owner of Tile.");
+
+        charas[tokenId].stats.energy -= 1;
+        require(spice.transferFrom(msg.sender, address(this), wellPrice), "Error with token transfer.");
+        totalDeposit += wellPrice;
+        buildings.createWell(charas[tokenId].x, charas[tokenId].y);
+    }
+
+    function upgradeDrill(uint256 tokenId) public {
+        require(apinator.ownerOf(tokenId) == msg.sender, "Not owner of specified token.");
+        require(charas[tokenId].nextActionTime < block.timestamp, "Your character is still busy.");
+        require(charas[tokenId].stats.hp > 0, "No more hp.");
+        require(charas[tokenId].stats.energy > 0, "Not enough energy.");
+        require(uint16(map[charas[tokenId].x][charas[tokenId].y].level) > buildings.getDrillLevel(charas[tokenId].x, charas[tokenId].y), "Max drill level reached on this Land.");
+        require(property.ownerOfTile(charas[tokenId].x, charas[tokenId].y) == apinator.ownerOf(tokenId), "Not owner of Tile.");
+
+        charas[tokenId].stats.energy -= 1;
+        uint256 price = buildings.pricePerDrillLvl();
+        require(spice.transferFrom(msg.sender, address(this), price), "Error with token transfer.");
+        totalDeposit += price;
+        buildings.upgradeDrill(charas[tokenId].x, charas[tokenId].y);
+        //TODO emit + pay
+    }
+
+    function collectWell(uint256 tokenId) public {
+        require(apinator.ownerOf(tokenId) == msg.sender, "Not owner of specified token.");
+        require(charas[tokenId].nextActionTime < block.timestamp, "Your character is still busy.");
+        require(charas[tokenId].stats.hp > 0, "No more hp.");
+        require(charas[tokenId].stats.energy > 0, "Not enough energy.");
+        require(property.ownerOfTile(charas[tokenId].x, charas[tokenId].y) == apinator.ownerOf(tokenId), "Not owner of Tile.");
+
+        charas[tokenId].stats.energy -= 1;
+        uint256 spiceFlow = buildings.claimSpice(charas[tokenId].x, charas[tokenId].y);
+        if(spiceFlow > maxCollect){
+            spiceFlow = maxCollect;
+        }
+        require(spice.transfer(msg.sender, spiceFlow), "Error with token transfer.");
+        emit collect(tokenId, spiceFlow);
     }
 
     function setName(uint256 tokenId, string memory name) public {
@@ -310,18 +365,21 @@ contract Gameplay is Ownable {
         require(charas[tokenId].stats.hp > 0, "No more hp.");
         require(bytes(name).length < 15, "Name too long.");
 
+        require(spice.transferFrom(msg.sender, address(this), setNamePrice), "Error with token transfer.");
+        totalDeposit += setNamePrice;
+
         charas[tokenId].name = name; 
         emit changedName(tokenId, name);
     }
 
     function die(uint256 tokenId) internal {
         charas[tokenId].stats.hp = 0;
-        map[charas[tokenId].x][charas[tokenId].y].spiceAmount += bank[tokenId];
-        bank[tokenId] = 0;
-        emit died(tokenId, charas[tokenId].x, charas[tokenId].y);
+        map[charas[tokenId].x][charas[tokenId].y].spiceAmount += charas[tokenId].oreBalance;
+        emit died(tokenId, charas[tokenId].x, charas[tokenId].y, charas[tokenId].oreBalance);
+        charas[tokenId].oreBalance = 0;
     }
 
-    // Assembly Optimizable
+    // Assembly Optimizable - randomize on unexplored ?
     function explore(int256 x, int256 y) internal {
         int256 mean;
         int256 cnt;
@@ -344,10 +402,9 @@ contract Gameplay is Ownable {
         mean = mean/cnt;
         int rand = getRand(block.difficulty, block.timestamp, int(mean));
         int16 level = int16(max(min(mean + (rand % 10), 100), 0));
-        uint256 spice = uint256(max(min(mean + ((rand>>5) % 10), 100), 0)) * 100;
-        uint16 foes = uint16(uint256(max(min(mean + ((rand>>10) % 10), 100), 0)));
-        uint256[] memory emptyIds;
-        map[x][y] = Tile(true, level, spice, foes, emptyIds, emptyIds);
+        uint256 ore = uint256(max(min(mean + ((rand>>5) % 10), 100), 0)) * 10000000000000000;
+        uint16 foes = uint16(uint256(max(min(mean + ((rand>>15) % 10), 50), 0)));
+        map[x][y] = Tile(true, level, ore, foes);
     }
 
     function teamOf(uint256 tokenId) public view returns (uint8) {
@@ -359,7 +416,7 @@ contract Gameplay is Ownable {
         for (uint256 i = 0; i < teamNum; i++){
             uint256 amount = 0;
             for (uint256 j = i; j < 8000; j += 2){
-                amount += bank[j];
+                amount += charas[j].oreBalance;
             }
             teamsSpice[i] = amount;
         }
@@ -367,7 +424,7 @@ contract Gameplay is Ownable {
     }
 
     function isLevelUpAvailable(uint256 tokenId) public view returns (bool) {
-        return 100*(charas[tokenId].lvl**2 + charas[tokenId].lvl) + 100 < charas[tokenId].xp;
+        return 100*(uint256(charas[tokenId].lvl)**2 + uint256(charas[tokenId].lvl)) + 100 < charas[tokenId].xp;
     }
 
     function getRand(uint256 a, uint256 b, int from) private pure returns (int) {
@@ -375,17 +432,14 @@ contract Gameplay is Ownable {
         return h;
     }
 
-    /// @notice Returns the greater of two numbers.
     function max(int256 a, int256 b) internal pure returns (int256) {
         return a >= b ? a : b;
     }
 
-    /// @notice Returns the lower of two numbers.
     function min(int256 a, int256 b) internal pure returns (int256) {
         return a <= b ? a : b;
     }
 
-    /// @notice Returns the lower of two numbers.
     function min(uint16 a, uint16 b) internal pure returns (uint16) {
         return a <= b ? a : b;
     }
