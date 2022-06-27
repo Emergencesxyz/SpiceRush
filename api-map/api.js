@@ -1,15 +1,22 @@
 const ethers = require('ethers');
 const fs = require('fs')
+opts = {
+	timestampFormat:'YYYY-MM-DD HH:mm:ss'
+}
+const log = require('simple-node-logger').createSimpleLogger(opts);
+const express = require('express')
+const app = express()
+const port = 3000
 const abi = JSON.parse(fs.readFileSync('abi/gameplay.json', 'utf-8'))
-const contractAddress = '0xe830e3746Ea18E3B27fbc1a60dDaAccDa63C2C3c'
+const contractAddress = '0xe1A3428732b6a74F2DC8D92819595d2008cE82c1'
 // const contractAddress = '0xe42f7cB1944CC1f3094Eb4b10dFa472fF7A07b07' // new gameplay
 
 // 0xe42f7cB1944CC1f3094Eb4b10dFa472fF7A07b07
-const webSocketProvider = new ethers.providers.WebSocketProvider("wss://polygon-mumbai.g.alchemy.com/v2/2-uzNKFzCYbSLoaFxzKd8kSQAqoRbwFl");
-const contract = new ethers.Contract(contractAddress, abi, webSocketProvider);
+const Provider = new ethers.providers.JsonRpcProvider("https://polygon-mumbai.g.alchemy.com/v2/2-uzNKFzCYbSLoaFxzKd8kSQAqoRbwFl");
+const contract = new ethers.Contract(contractAddress, abi, Provider);
 
 // contract.on("Transfer", (from, to, value, event) => {
-//         console.log({
+//         log.info({
 //             from: from,
 //             to: to,
 //             value: value.toNumber(),
@@ -17,13 +24,12 @@ const contract = new ethers.Contract(contractAddress, abi, webSocketProvider);
 //         });
 //     });
 
-map = {"0": {"0": {"isExplored": false, "level": 0, "spiceAmount": 0, "foesAmount": 0}}}
-charas = {}
 
-getmap = async function() {
-	console.log("start")
+getGameInfo = async function() {
+    map = {"0": {"0": {"isExplored": false, "level": 0, "spiceAmount": 0, "foesAmount": 0}}}
+    charas = {}
 	data = await contract.queryFilter(-100000000)
-    // console.log(data)
+    // log.info(data)
 	for (var i = 0; i<data.length; i++) {
 		ev = data[i]
 		switch (ev["event"]) {
@@ -96,7 +102,7 @@ getmap = async function() {
 				break
 
 			// case 'buyLand':
-			// 	console.log(ev["args"])
+			// 	log.info(ev["args"])
 
 			case 'changedName':
 				charas[ev["args"]["_tokenId"].toString()]["name"] = ev["args"]["_name"].toString()
@@ -109,12 +115,24 @@ getmap = async function() {
 				charas[ev["args"]["_tokenId"].toString()]["oreBalance"] = charas[ev["args"]["_tokenId"].toString()]["oreBalance"].sub(ev["args"]["_amount"])
 				break
 
-			default:
-				console.log('other case', ev["event"])
+			// default:
+            //     break
 		}
 	}
-	console.log(map)
-	console.log(charas)
+    return {
+        "map": map,
+        "charas": charas
+    }
 }
 
-getmap()
+
+app.get('/gamedata', async (req, res) => {
+    data = await getGameInfo()
+    res.send(data)
+    log.info("successful call")
+  })
+
+
+app.listen(port, () => {
+    log.info(`Map api listening on port ${port}`)
+  })
