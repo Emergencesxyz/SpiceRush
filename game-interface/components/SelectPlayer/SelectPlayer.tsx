@@ -1,22 +1,12 @@
 import { useState, useEffect, useContext } from "react";
 import { useWeb3React } from "@web3-react/core";
-import {
-  Col,
-  Button,
-  Dropdown,
-  Spinner,
-  Modal,
-  Card,
-  ListGroup,
-} from "react-bootstrap";
+import { Spinner, Card } from "react-bootstrap";
 import styles from "./SelectPlayer.module.scss";
 import { useMoralisWeb3Api } from "react-moralis";
 import Router from "next/router";
 import { GameContext } from "../../context/GameContext";
 import BlockchainService from "../../services/BlockchainService";
-
-// for testing
-import { testTiles } from "../../borrar";
+const APINATOR_CONTRACT_ADDRESS = process.env.APINATOR_CONTRACT_ADDRESS;
 
 const SelectPlayer = () => {
   const Web3Api = useMoralisWeb3Api();
@@ -34,7 +24,7 @@ const SelectPlayer = () => {
         const getUserNFTs = await Web3Api.account.getNFTsForContract({
           chain: "mumbai",
           address: account,
-          token_address: "0x1Dfa0ED3820AC7fd1e54ee9EC3Fe0aa71f0BEc6a",
+          token_address: APINATOR_CONTRACT_ADDRESS,
         });
 
         await fetchCharacterInfo(getUserNFTs.result);
@@ -56,11 +46,6 @@ const SelectPlayer = () => {
 
   const selectNFT = async (player: any) => {
     setCharacterInfo(player);
-
-    //load character info
-    // if (tiles && _character && Number.isInteger(_character.x)) {
-    //   setSpiceMined(await blockchainService.getSpiceMined(characterId));
-    // }
 
     clearLogs();
     Router.push("/game");

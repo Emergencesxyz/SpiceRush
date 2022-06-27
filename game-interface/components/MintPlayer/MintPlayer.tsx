@@ -15,7 +15,6 @@ const MintPlayer = (): JSX.Element => {
     const mintPlayer = async () => {
         setLoading(true);
         await blockchainService.mintNft(1, library);
-        console.log("price", await blockchainService.nftPrice());
         setLoading(false);
         setLastUpdate(Date.now());
     }

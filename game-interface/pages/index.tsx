@@ -57,6 +57,7 @@ export default function Home() {
             <img src="assets/canva_part1.png" alt="canvap1" />
           </div>
           {!!account && !!library ? (
+            // TODO: hide MintPlayer when Purchase exceeds maximum mintable.
             <>
               <MintPlayer />
               <SelectPlayer />

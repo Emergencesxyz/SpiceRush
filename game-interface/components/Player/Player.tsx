@@ -65,9 +65,6 @@ const Player = (): JSX.Element => {
         setPlayerDirection(position);
         setControlsImg(position);
     }
-    const test = async () => {
-        console.log('all', await blockchainService.getAllCharacters())
-    }
 
     const handleActions = async (action: string, lvlUpId?: number) => {
         sendLog("waitting for transanction <img src='/assets/loader.gif' alt='loader'/>")
@@ -230,7 +227,6 @@ const Player = (): JSX.Element => {
             ) : (
                 <button onClick={() => handleActions("spawn")}>spawn</button>
             )}
-            <button onClick={() => test()}>all</button>
 
             {/* Modal */}
             <Modal

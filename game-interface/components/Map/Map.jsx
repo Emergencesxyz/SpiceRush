@@ -31,7 +31,7 @@ let userValues;
 
 export default function Map() {
     const gameContext = useContext(GameContext);
-    const { playerDirection, characterInfo, tiles, setSelectedTile } = gameContext;
+    const { playerDirection, characterInfo, tiles, setSelectedTile, setTileForPlayersList } = gameContext;
     const parentRef = useRef(null);
     const [game, setGame] = useState(null);
     const [spiceLayerVisible, setSpiceLayerVisible] = useState(false);
@@ -242,14 +242,13 @@ export default function Map() {
         controls = new Phaser.Cameras.Controls.FixedKeyControl(controlConfig);
 
         // Center camera in ape position
-        camera.setZoom(currentZoom);
-        currentX = apePositionX - parentRef.current.clientWidth/2;
-        currentY = apePositionY - parentRef.current.clientHeight/2 + tileHeight/2;
-        camera.setScroll(currentX, currentY);
+        centerCameraInApe();
+
         // Selecting ape position tile
         const apeTile = map.getTileAt(map.worldToTileX(apePositionX), map.worldToTileY(apePositionY));
-        console.log("prmero", apeTile?.properties)
         setSelectedTile(apeTile?.properties);
+        setTileForPlayersList({x: apeTile.properties.x, y: apeTile.properties.y});
+
 
         // Adding text to tile
         const getTexture = (type) => {
@@ -294,11 +293,19 @@ export default function Map() {
 
             if (tile) {
                 setSelectedTile(tile.properties);
+                setTileForPlayersList({x: tile.properties.x, y: tile.properties.y});
             }
         }
     }
 
-    // Changing img for diferents move position
+    const centerCameraInApe = () => {
+        camera.setZoom(currentZoom);
+        currentX = apePositionX - parentRef.current.clientWidth/2;
+        currentY = apePositionY - parentRef.current.clientHeight/2 + tileHeight/2;
+        camera.setScroll(currentX, currentY);
+    }
+
+    // Changing img for diferents move options
     function updateApeImage (position) {
         image.destroy();
         image = null;
@@ -368,15 +375,18 @@ export default function Map() {
         });
         setGame(startGame);
 
-    // Refreshing map every 10 secs
-    // const interval = setInterval(() => {
-    //     refreshMap();
-    // }, 10000);
+        // Activate map component for cursor hover effect
+        parentRef.current.click();
 
-    return () => {
-        startGame.destroy();
-    }
-  }, []);
+        // Refreshing map every 10 secs
+        // const interval = setInterval(() => {
+        //     refreshMap();
+        // }, 10000);
+
+        return () => {
+            startGame.destroy();
+        }
+    }, []);
 
   // Handling Ape direction
   useEffect(() => {
@@ -393,6 +403,7 @@ export default function Map() {
         // Selecting ape position tile
         const apeTile = map.getTileAt(map.worldToTileX(apePositionX), map.worldToTileY(apePositionY));
         setSelectedTile(apeTile?.properties);
+        setTileForPlayersList({x: apeTile.properties.x, y: apeTile.properties.y});
   }, [characterInfo])
 
   const showPlayersLayer = () => {
@@ -494,16 +505,22 @@ export default function Map() {
             <div className={styles.options}>
                 <div>
                     <img
+                        onMouseLeave={() => clickOut = false}
+                        onMouseEnter={() => clickOut = true}
                         src={usersLayerVisible ? "/assets/user_on.png" : "/assets/user_off.png"}
                         alt="user icon"
                         onClick={() => showPlayersLayer()}
                     />
                     <img
+                        onMouseLeave={() => clickOut = false}
+                        onMouseEnter={() => clickOut = true}
                         src={spiceLayerVisible ? "/assets/spice_on.png" : "/assets/spice_off.png"}
                         onClick={() => showSpiceLayer()}
                         alt="spice icon"
                     />
                     <img
+                        onMouseLeave={() => clickOut = false}
+                        onMouseEnter={() => clickOut = true}
                         src={dangerLayerVisible ? "/assets/danger_on.png" : "/assets/danger_off.png"}
                         alt="danger icon"
                         onClick={() => showDangerLayer()}
@@ -518,15 +535,43 @@ export default function Map() {
                 <div>
                     <img
                         onClick={() => mapControls('zoomIn')}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.src = "/assets/zoom_in_on.png";
+                            clickOut = true
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.src = "/assets/zoom_in_off.png"
+                            clickOut = false
+                        }}
                         src="/assets/zoom_in_off.png"
                         alt="zoom in icon"
                     />
                     <img
                         onClick={() => mapControls('zoomOut')}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.src = "/assets/zoom_out_on.png";
+                            clickOut = true
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.src = "/assets/zoom_out_off.png"
+                            clickOut = false
+                        }}
                         src="/assets/zoom_out_off.png"
                         alt="zoom out icon"
                     />
-                    <img src="/assets/full_screen_off.png" alt="full screen icon" />
+                    <img
+                        onClick={() => centerCameraInApe()}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.src = "/assets/full_screen_on.png";
+                            clickOut = true
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.src = "/assets/full_screen_off.png"
+                            clickOut = false
+                        }}
+                        src="/assets/full_screen_off.png"
+                        alt="full screen icon"
+                    />
                 </div>
             </div>
         </div>

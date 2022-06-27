@@ -1,115 +1,142 @@
 import styles from "./ListPlayers.module.scss";
 import { GameContext } from "../../context/GameContext";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { Spinner } from "react-bootstrap";
+
+const testListOfPlayers = [
+    {
+        lvl: 0,
+        nextActionTime: 1651566379,
+        stats: {
+            energy: 0,
+            energyMax: 10,
+            hp: 0,
+            hpMax: 10,
+            mining: 10,
+            miningMax: null
+        },
+        x: -2,
+        y: -1,
+        xp: 209,
+        id: 30,
+        spiceMined: 167
+    },
+    {
+        lvl: 1,
+        nextActionTime: 1651566379,
+        stats: {
+            energy: 0,
+            energyMax: 10,
+            hp: 0,
+            hpMax: 10,
+            mining: 10,
+            miningMax: null
+        },
+        x: -2,
+        y: -1,
+        xp: 209,
+        id: 31,
+        spiceMined: 167
+    },
+    {
+        lvl: 2,
+        nextActionTime: 1651566379,
+        stats: {
+            energy: 0,
+            energyMax: 10,
+            hp: 0,
+            hpMax: 10,
+            mining: 10,
+            miningMax: null
+        },
+        x: -2,
+        y: -1,
+        xp: 209,
+        id: 32,
+        spiceMined: 167
+    },
+    {
+        lvl: 3,
+        nextActionTime: 1651566379,
+        stats: {
+            energy: 0,
+            energyMax: 10,
+            hp: 0,
+            hpMax: 10,
+            mining: 10,
+            miningMax: null
+        },
+        x: -2,
+        y: -1,
+        xp: 209,
+        id: 33,
+        spiceMined: 167
+    },
+    {
+        lvl: 3,
+        nextActionTime: 1651566379,
+        stats: {
+            energy: 0,
+            energyMax: 10,
+            hp: 0,
+            hpMax: 10,
+            mining: 10,
+            miningMax: null
+        },
+        x: -2,
+        y: -1,
+        xp: 209,
+        id: 34,
+        spiceMined: 167
+    },
+    {
+        lvl: 3,
+        nextActionTime: 1651566379,
+        stats: {
+            energy: 0,
+            energyMax: 10,
+            hp: 0,
+            hpMax: 10,
+            mining: 10,
+            miningMax: null
+        },
+        x: -2,
+        y: -1,
+        xp: 209,
+        id: 35,
+        spiceMined: 167
+    }
+]
 
 const ListPlayers = (): JSX.Element => {
     const gameContext = useContext(GameContext);
-    const { characterInfo } = gameContext;
+    const { tileForPlayersList } = gameContext;
+    const [isFirstTime, setIsFirstTime] = useState<boolean>(true);
+    const [lastFetch, setlastFetch] = useState<number>(Date.now());
+    const [loading, setLoading] = useState<boolean>(true);
+    const [listOfPlayers, setListOfPlayers] = useState<any[]>([]);
 
-    const listOfPlayers = [
-        {
-            lvl: 0,
-            nextActionTime: 1651566379,
-            stats: {
-                energy: 0,
-                energyMax: 10,
-                hp: 0,
-                hpMax: 10,
-                mining: 10,
-                miningMax: null
-            },
-            x: -2,
-            y: -1,
-            xp: 209,
-            id: 30,
-            spiceMined: 167
-        },
-        {
-            lvl: 1,
-            nextActionTime: 1651566379,
-            stats: {
-                energy: 0,
-                energyMax: 10,
-                hp: 0,
-                hpMax: 10,
-                mining: 10,
-                miningMax: null
-            },
-            x: -2,
-            y: -1,
-            xp: 209,
-            id: 31,
-            spiceMined: 167
-        },
-        {
-            lvl: 2,
-            nextActionTime: 1651566379,
-            stats: {
-                energy: 0,
-                energyMax: 10,
-                hp: 0,
-                hpMax: 10,
-                mining: 10,
-                miningMax: null
-            },
-            x: -2,
-            y: -1,
-            xp: 209,
-            id: 32,
-            spiceMined: 167
-        },
-        {
-            lvl: 3,
-            nextActionTime: 1651566379,
-            stats: {
-                energy: 0,
-                energyMax: 10,
-                hp: 0,
-                hpMax: 10,
-                mining: 10,
-                miningMax: null
-            },
-            x: -2,
-            y: -1,
-            xp: 209,
-            id: 33,
-            spiceMined: 167
-        },
-        {
-            lvl: 3,
-            nextActionTime: 1651566379,
-            stats: {
-                energy: 0,
-                energyMax: 10,
-                hp: 0,
-                hpMax: 10,
-                mining: 10,
-                miningMax: null
-            },
-            x: -2,
-            y: -1,
-            xp: 209,
-            id: 34,
-            spiceMined: 167
-        },
-        {
-            lvl: 3,
-            nextActionTime: 1651566379,
-            stats: {
-                energy: 0,
-                energyMax: 10,
-                hp: 0,
-                hpMax: 10,
-                mining: 10,
-                miningMax: null
-            },
-            x: -2,
-            y: -1,
-            xp: 209,
-            id: 35,
-            spiceMined: 167
-        }
-    ]
+
+    useEffect(() => {
+        if (!tileForPlayersList) return;
+
+        // for fix phaser update function re-calls
+        if (Date.now() - lastFetch < 1000 && !isFirstTime) return;
+
+        (async () => {
+            setLoading(true);
+            console.log("refresh players");
+            setlastFetch(Date.now());
+            setIsFirstTime(false);
+
+            // TODO: Get players from Contract/API
+            const waitFor = (delay: number) => new Promise(resolve => setTimeout(resolve, delay))
+            await waitFor(1000);
+
+            setListOfPlayers(testListOfPlayers);
+            setLoading(false);
+        })()
+    }, [tileForPlayersList]);
 
     const renderList = () => {
         return listOfPlayers.map((p) => {
@@ -151,9 +178,16 @@ const ListPlayers = (): JSX.Element => {
         <div className={styles.container}>
             <img className={styles.imgContainer} src="/assets/player_list_container.png" alt="player list container" />
             <div className={styles.playersWrapper}>
-                <div className={styles.players}>
-                    {renderList()}
-                </div>
+                {loading ? (
+                    <Spinner animation="border" style={{ color: "white" }} />
+                ) : (
+                    <>
+                        {tileForPlayersList.x}, {tileForPlayersList.y}
+                        <div className={styles.players}>
+                            {renderList()}
+                        </div>
+                    </>
+                )}
             </div>
         </div>
     );

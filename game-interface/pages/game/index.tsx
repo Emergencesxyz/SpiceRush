@@ -28,9 +28,8 @@ export default function Game() {
 
   useEffect(() => {
     (async () => {
-      // const tiles = await blockchainService.getMapPlayer(characterInfo.x, characterInfo.y, 10);
-      // setTiles(tiles);
-      setTiles(testTiles);
+      const tiles = await blockchainService.getMapPlayer(characterInfo.x, characterInfo.y, 10);
+      setTiles(tiles);
       setLoading(false);
     })()
   }, [])
