@@ -43,12 +43,7 @@ contract Buildings is Ownable {
 
     uint256 rate = 1;
     uint256 timePeriod = 86400;
-    uint256 public pricePerDrillLvl = 1000;
-    
 
-    function updatePricePerDrillLvl(uint256 _pricePerDrillLvl) public onlyOwner(){
-        pricePerDrillLvl = _pricePerDrillLvl;
-    }
 
     function getCreationEpoch(int256 x, int256 y) external view returns(uint256) {
         return wells[x][y].creationEpoch;
@@ -118,10 +113,10 @@ contract Buildings is Ownable {
         wells[x][y].drillLvl -= damage;
     }
 
-    function claimSpice(int256 x, int256 y) public returns (uint256) {
+    function claimSpice(int256 x, int256 y, uint256 pricePerDrillLvl, uint256 wellPrice) public returns (uint256) {
         require(operators[msg.sender], "Only operator.");
         require(wells[x][y].creationEpoch != 0, "No well on Land.");
-        uint256 amount = (500000000000000000000 + pricePerDrillLvl*wells[x][y].drillLvl)*(100000000000000000000 + wells[x][y].drillBoost)/100 // investment*boost
+        uint256 amount = (wellPrice + pricePerDrillLvl*wells[x][y].drillLvl)*(100 + wells[x][y].drillBoost)/100 // investment*boost
         *(block.timestamp - wells[x][y].lastClaimEpoch)/timePeriod/100 // *nDays/100
         *rate; // *rate
         wells[x][y].drillBoost = 0;

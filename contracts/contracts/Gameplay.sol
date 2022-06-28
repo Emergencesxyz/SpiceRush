@@ -14,17 +14,17 @@ interface INFT {
     function ownerOfTile(int256 x, int256 y) external returns (address);
     function getDrillLevel(int256 x, int256 y) external view returns(uint256);
     function setLastClaimEpoch(int256 x, int256 y, uint256 epoch) external;
-    function claimSpice(int256 x, int256 y) external returns (uint256);
+    function claimSpice(int256 x, int256 y, uint256 pricePerDrillLvl, uint256 wellPrice) external returns (uint256);
 }
 
 contract Gameplay is Ownable {
     using Strings for uint256;
 
-    event moving(uint256 _tokenId, int256 _x, int256 _y, uint16 _hp, uint16 _energy, uint256 _xp, uint256 _nextActionTime);
+    event moving(uint256 _tokenId, int256 _x, int256 _y, uint16 _hp, uint16 _energy, uint256 _xp);
     event explored(uint256 _tokenId, int256 _x, int256 _y, int16 _level, uint256 _spiceAmount, uint16 _foesAmount);
     event leveledUp(uint256 _tokenId, uint16 _mining, uint16 _hpMax, uint16 _energyMax);
     event died(uint256 _tokenId, int256 _x, int256 _y, uint256 _spiceAmount);
-    event mining(uint256 _tokenId, uint256 _bank, uint256 _spiceAmount, uint256 _xp, uint256 _nextActionTime);
+    event mining(uint256 _tokenId, uint256 _bank, uint256 _spiceAmount, uint256 _xp, uint16 actionNb);
     event resting(uint256 _tokenId, uint16 _hp, uint16 _energy, uint256 _nextActionTime);
     event spawned(uint256 _tokenId, int256 _x, int256 _y);
     event buyLand(uint256 _tokenId, int256 _x, int256 _y);
@@ -32,6 +32,7 @@ contract Gameplay is Ownable {
     event hit(uint256 _tokenIdFrom, uint256 _tokenIdTo);
     event refine(uint256 _tokenId, uint256 _amount, uint256 _spiceFlow);
     event collect(uint256 _tokenId, uint256 _spiceFlow);
+    event reducedFoes(uint256 _tokenId, int256 _x, int256 _y);
 
     ERC721A public apinator;
     INFT public property;
@@ -83,32 +84,39 @@ contract Gameplay is Ownable {
     uint16 public dif = 4;
     uint8 teamNum = 3;
     bool public isPvpActive;
-    uint256 public maxRefine = 1000000000000000000000; // 100 000000000000000000
-    uint256 public maxCollect = 1000000000000000000000; // 100 000000000000000000
-    uint256 landPrice = 50 ether;
-    uint256 restActionPrice = 1000000000000000000;
-    uint256 levelUpPrice = 1000000000000000000;
-    uint256 setNamePrice = 100000000000000000000;
-    uint256 wellPrice = 500000000000000000000;
+    uint256 public maxRefine = 100 ether; // 100 000000000000000000
+    uint256 public maxCollect = 100 ether; // 100 000000000000000000
+    uint256 landPrice = 0.5 ether;
+    uint256 restActionPrice = 0.1 ether;
+    uint256 levelUpPrice = 1 ether;
+    uint256 setNamePrice = 10 ether;
+    uint256 wellPrice = 50 ether;
+    uint256 pricePerDrillLvl = 10 ether;
+    uint256 oreDistrib = 0.1 ether;
 
 
     function setMaxRefine(uint256 _maxRefine) public onlyOwner() {
         maxRefine = _maxRefine;
     }
 
-    function setGamePrices(uint256 _landPrice, uint256 _restActionPrice, uint256 _levelUpPrice, uint256 _setNamePrice, uint256 _wellPrice) public onlyOwner() {
+    function setPricePerDrillLvl(uint256 _pricePerDrillLvl) public onlyOwner(){
+        pricePerDrillLvl = _pricePerDrillLvl;
+    }
+
+    function setGamePrices(uint256 _landPrice, uint256 _restActionPrice, uint256 _levelUpPrice, uint256 _setNamePrice, uint256 _wellPrice, uint256 _oreDistrib) public onlyOwner() {
         landPrice = _landPrice;
         restActionPrice = _restActionPrice;
         levelUpPrice = _levelUpPrice;
         setNamePrice = _setNamePrice;
         wellPrice = _wellPrice;
+        oreDistrib = _oreDistrib;
     }
 
-    function  setPvpIsActive(bool _isActive) public onlyOwner() {
+    function setPvpIsActive(bool _isActive) public onlyOwner() {
         isPvpActive = _isActive;
     }
 
-    function  setRewardBalancer(uint256 numerator, uint256 divisor) public onlyOwner() {
+    function setRewardBalancer(uint256 numerator, uint256 divisor) public onlyOwner() {
         rewardBalancerNumerator = numerator;
         rewardBalancerDivisor = divisor;
     }
@@ -172,7 +180,7 @@ contract Gameplay is Ownable {
         else{
             charas[tokenId].stats.hp -= map[x][y].foesAmount/dif;
         }
-        emit moving(tokenId, charas[tokenId].x, charas[tokenId].y, charas[tokenId].stats.hp, charas[tokenId].stats.energy, charas[tokenId].xp, charas[tokenId].nextActionTime);
+        emit moving(tokenId, charas[tokenId].x, charas[tokenId].y, charas[tokenId].stats.hp, charas[tokenId].stats.energy, charas[tokenId].xp);
     }
 
     function mine(uint256 tokenId, uint16 actionNb) public {
@@ -188,8 +196,8 @@ contract Gameplay is Ownable {
         charas[tokenId].oreBalance += spiceMined + spiceMined * charas[tokenId].stats.mining / 100;
         map[charas[tokenId].x][charas[tokenId].y].spiceAmount -= spiceMined;
         charas[tokenId].stats.energy -= actionNb;
-        charas[tokenId].xp += spiceMined;
-        emit mining(tokenId, charas[tokenId].oreBalance, spiceMined, charas[tokenId].xp, charas[tokenId].nextActionTime);
+        charas[tokenId].xp += spiceMined / 1000000000000000;
+        emit mining(tokenId, charas[tokenId].oreBalance, spiceMined, charas[tokenId].xp, actionNb);
     }
 
     function rest(uint256 tokenId, uint16 actionNb) public {
@@ -277,6 +285,7 @@ contract Gameplay is Ownable {
         if(map[chara.x][chara.y].foesAmount < charas[tokenId].lvl){
             map[chara.x][chara.y].foesAmount = 0;
         }
+        emit reducedFoes(tokenId, chara.x, chara.y);
     }
 
     function refineOre(uint256 tokenId, uint256 amount) public {
@@ -351,7 +360,7 @@ contract Gameplay is Ownable {
         require(property.ownerOfTile(charas[tokenId].x, charas[tokenId].y) == apinator.ownerOf(tokenId), "Not owner of Tile.");
 
         charas[tokenId].stats.energy -= 1;
-        uint256 spiceFlow = buildings.claimSpice(charas[tokenId].x, charas[tokenId].y);
+        uint256 spiceFlow = buildings.claimSpice(charas[tokenId].x, charas[tokenId].y, pricePerDrillLvl, wellPrice);
         if(spiceFlow > maxCollect){
             spiceFlow = maxCollect;
         }
@@ -401,9 +410,9 @@ contract Gameplay is Ownable {
         }
         mean = mean/cnt;
         int rand = getRand(block.difficulty, block.timestamp, int(mean));
-        int16 level = int16(max(min(mean + (rand % 10), 100), 0));
-        uint256 ore = uint256(max(min(mean + ((rand>>5) % 10), 100), 0)) * 10000000000000000;
-        uint16 foes = uint16(uint256(max(min(mean + ((rand>>15) % 10), 50), 0)));
+        int16 level = int16(max(min(mean + (rand % 10), 1000), 0));
+        uint256 ore = uint256(max(min(mean + ((rand>>5) % 10), 1000), 0)) * oreDistrib;
+        uint16 foes = uint16(uint256(max(min(mean + ((rand>>15) % 10), 500), 0)));
         map[x][y] = Tile(true, level, ore, foes);
     }
 
