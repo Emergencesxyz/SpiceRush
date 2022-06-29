@@ -174,7 +174,7 @@ contract Gameplay is Ownable {
         charas[tokenId].stats.energy -= 1;
         charas[tokenId].x = x;
         charas[tokenId].y = y;
-        if (charas[tokenId].stats.hp < map[x][y].foesAmount/dif) {
+        if (charas[tokenId].stats.hp <= map[x][y].foesAmount/dif) {
             die(tokenId);
         }
         else{
@@ -275,11 +275,11 @@ contract Gameplay is Ownable {
         require(chara.stats.hp > 0, "No more hp.");
 
         chara.stats.energy -= 1;
-        if (chara.stats.hp < map[chara.x][chara.y].foesAmount) {
+        if (chara.stats.hp <= map[chara.x][chara.y].foesAmount/dif) {
             die(tokenId);
         }
         else{
-            chara.stats.hp -= map[chara.x][chara.y].foesAmount;
+            chara.stats.hp -= map[chara.x][chara.y].foesAmount/dif;
         }
         map[chara.x][chara.y].foesAmount = map[chara.x][chara.y].foesAmount / 2;
         if(map[chara.x][chara.y].foesAmount < charas[tokenId].lvl){

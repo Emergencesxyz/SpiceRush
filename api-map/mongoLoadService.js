@@ -3,14 +3,10 @@ const fs = require('fs')
 opts = {
 	timestampFormat:'YYYY-MM-DD HH:mm:ss'
 }
+const MongoClient = require('mongodb').MongoClient
 const log = require('simple-node-logger').createSimpleLogger(opts);
-const express = require('express')
-const cors = require('cors')
-const app = express()
-app.use(cors())
-const port = 3000
 const abi = JSON.parse(fs.readFileSync('abi/gameplay.json', 'utf-8'))
-const contractAddress = '0xe1A3428732b6a74F2DC8D92819595d2008cE82c1'
+const contractAddress = '0x045a4d492C36D002653628AdD265050f33d97CEc'
 const Provider = new ethers.providers.JsonRpcProvider("https://polygon-mumbai.g.alchemy.com/v2/2-uzNKFzCYbSLoaFxzKd8kSQAqoRbwFl");
 const contract = new ethers.Contract(contractAddress, abi, Provider);
 
@@ -19,7 +15,6 @@ getGameInfo = async function() {
     map = {"0": {"0": {"isExplored": false, "level": 0, "spiceAmount": 0, "foesAmount": 0}}}
     charas = {}
 	data = await contract.queryFilter(-100000000)
-    // log.info(data)
 	for (var i = 0; i<data.length; i++) {
 		ev = data[i]
 		switch (ev["event"]) {
@@ -33,7 +28,7 @@ getGameInfo = async function() {
 					"spiceAmount": ev["args"]["_spiceAmount"], "foesAmount": ev["args"]["_foesAmount"]}}
 				}
 				break
-
+				
 			case 'moving':
 				if (map[charas[ev["args"]["_tokenId"].toString()]["x"]][charas[ev["args"]["_tokenId"].toString()]["y"]]["players"][ev["args"]["_tokenId"].toString()]) {
 					delete map[charas[ev["args"]["_tokenId"].toString()]["x"]][charas[ev["args"]["_tokenId"].toString()]["y"]]["players"][ev["args"]["_tokenId"].toString()]
@@ -116,14 +111,32 @@ getGameInfo = async function() {
     }
 }
 
+loadmongo = async function () {
+	data = await getGameInfo()
+	MongoClient.connect("mongodb://spicerushapi:zbizbizbi!12!@vps-5a1fae51.vps.ovh.net:27017/", async function(err, db) {
+		var dbo = db.db("spicerush")
+		const map = dbo.collection("map")
+		const charas = dbo.collection("charas")
+		const filter = { "_id": 0 }
+		const options = { upsert: true };
+		var updateDoc = {
+			"$set": data["map"]
+		};
+		var result = await map.updateOne(filter, updateDoc, options);
+		log.info(
+			`${result.matchedCount} document(s) matched the filter, updated ${result.modifiedCount} document(s)`,
+			);
+		var updateDoc = {
+			"$set": data["charas"]
+		};
+		var result = await charas.updateOne(filter, updateDoc, options);
+		log.info(
+			`${result.matchedCount} document(s) matched the filter, updated ${result.modifiedCount} document(s)`,
+			);
+		db.close()
+	});
 
-app.get('/gamedata', async (req, res) => {
-    data = await getGameInfo()
-    res.send(data)
-    log.info("successful call")
-  })
+	setTimeout(loadmongo, 5000)
+}
 
-
-app.listen(port, () => {
-    log.info(`Gamedata api listening on port ${port}`)
-  })
+loadmongo()
