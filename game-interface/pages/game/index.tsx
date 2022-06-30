@@ -6,12 +6,12 @@ import Header from "../../components/Header/Header";
 import Player from "../../components/Player/Player";
 import { useWeb3React } from "@web3-react/core";
 import BlockchainService from "../../services/BlockchainService";
-
-import { testTiles } from "../../borrar";
 import LandSection from "../../components/LandSection/LandSection";
 import { Col } from "react-bootstrap";
 import LogScreen from "../../components/LogScreen/LogScreen";
 import ListPlayers from "../../components/ListPlayers/ListPlayers";
+import { Spinner } from "react-bootstrap";
+import { testTiles } from "../../borrar"
 
 const Map = dynamic(() => import("../../components/Map/Map"), {
   ssr: false,
@@ -28,8 +28,8 @@ export default function Game() {
 
   useEffect(() => {
     (async () => {
-      const tiles = await blockchainService.getMapPlayer(characterInfo.x, characterInfo.y, 10);
-      setTiles(tiles);
+      const getTiles = await blockchainService.getMapPlayer(characterInfo.x, characterInfo.y, 10);
+      setTiles(getTiles);
       setLoading(false);
     })()
   }, [])
@@ -46,15 +46,19 @@ export default function Game() {
           </div>
         </Col>
 
-        <Col md={4}>
-          {loading ? (
+
+        {loading ? (
+          <Col md={4} style={{ display: "flex", justifyContent: "center", alignItems: "center", textAlign: "center", flexDirection: "column" }}>
             <h1>creating map from blockchain</h1>
-          ) : (
+            <Spinner animation="border" style={{ color: "white" }} />
+          </Col>
+        ) : (
+          <Col md={4}>
             <div style={{ minHeight: "670px" }}>
               <Map />
             </div>
-          )}
-        </Col>
+          </Col>
+        )}
 
         <Col md={4}>
           <LandSection />

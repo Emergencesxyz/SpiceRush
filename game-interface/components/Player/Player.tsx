@@ -4,18 +4,32 @@ import { useWeb3React } from "@web3-react/core";
 import BlockchainService from "../../services/BlockchainService";
 import styles from "./Player.module.scss";
 import { Modal } from "react-bootstrap";
+import { useRanger } from "react-ranger";
 
 const Player = (): JSX.Element => {
     const { account, library } = useWeb3React();
     const gameContext = useContext(GameContext);
-    const { setPlayerDirection, characterInfo, setCharacterInfo, sendLog } = gameContext;
+    const { setPlayerDirection, characterInfo, setCharacterInfo, sendLog, setTiles, tiles } = gameContext;
     const blockchainService = new BlockchainService(account);
     const [controlsImg, setControlsImg] = useState<number>(0);
     const [showModal, setShowModal] = useState<boolean>(false);
     const [fightAgain, setFightAgain] = useState<any>({});
     const [canLvlUp, setCanLvlUp] = useState<boolean>(false);
+    const [modalImg, setModalImg] = useState<string>("");
+    const [modalAction, setMdalAction] = useState<string>("");
+    const [levelUpId, setLevelUpId] = useState<number>(null);
+    const [values, setValues] = useState([0])
+    const [rangerMax, setRangerMax] = useState<number>(10)
 
-    const toggle = () => setShowModal(!showModal);
+    const { getTrackProps, segments, handles } = useRanger({
+        min: 0,
+        max: rangerMax,
+        stepSize: 1,
+        values,
+        onChange: setValues
+    });
+
+    const toggleModal = () => setShowModal(!showModal);
 
     useEffect(() => {
         (async () => {
@@ -53,8 +67,9 @@ const Player = (): JSX.Element => {
 
             if (res) {
                 sendLog(`player moved to ${x},${y}`)
-                // setCharacterInfo({ ...characterInfo, x, y })
                 setCharacterInfo(await blockchainService.getCharacterInfo(characterInfo.id));
+                // Updateting Map
+                setTiles(await blockchainService.getMapPlayer(characterInfo.x, characterInfo.y, 10));
             }
         } catch (e) {
             sendLog("transaction canceled")
@@ -68,11 +83,22 @@ const Player = (): JSX.Element => {
 
     const handleActions = async (action: string, lvlUpId?: number) => {
         sendLog("waitting for transanction <img src='/assets/loader.gif' alt='loader'/>")
+        // Check approved sapice
+        if (!await blockchainService.approvedSpice(library)) {
+            alert("Aprove Spice transfer is required for play")
+            return sendLog("Aprove Spice transfer is required for play")
+        };
+
         try {
             if (action == "mine") {
-                await blockchainService.mine(characterInfo.id as number, 1, library);
+                const apeTile = tiles.find(({ x, y }) => x == characterInfo.x && y == characterInfo.y)
+                if (apeTile?.spiceAmount == 0) {
+                    alert("nothing to mine here")
+                    return sendLog("nothing to mine here")
+                }
+                await blockchainService.mine(characterInfo.id as number, values[0], library);
             } else if (action == "rest") {
-                await blockchainService.rest(characterInfo.id as number, 1, library);
+                await blockchainService.rest(characterInfo.id as number, 0, library);
             } else if (action == "spawn") {
                 await blockchainService.spawn(characterInfo.id as number, library);
             } else if (action == "lvlUp") {
@@ -87,6 +113,90 @@ const Player = (): JSX.Element => {
 
         setCharacterInfo(await blockchainService.getCharacterInfo(characterInfo.id));
         return sendLog(`${action} success`);
+    }
+
+    const renderScrollBar = () => {
+        switch (modalAction) {
+            case "rest":
+                {
+                    return <h1>scroll bar for {modalAction}</h1>
+                }
+            case "mine":
+                {
+                    return (
+                        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
+                            <h4>You can optimize your mining <br />paying with your Energy</h4>
+                            <br />
+                            <br />
+                            <div
+                                {...getTrackProps({
+                                    style:
+                                    {
+                                        display: "inline-block",
+                                        height: "40px",
+                                        width: "90%",
+                                        margin: "0 15%",
+                                        backgroundColor: "#1B2346",
+                                    }
+                                })}
+                            >
+                                {segments.map(({ getSegmentProps }, i) => (
+                                    <div
+                                        {...getSegmentProps({
+                                            style: {
+                                                height: "100%",
+                                                background: i === 0 ? "linear-gradient(270deg, #EA00D9 0%, rgba(234, 0, 217, 0.2) 100%)"
+                                                    : "#1B2346"
+                                            }
+                                        })}
+                                    ></div>
+                                ))}
+                                {handles.map(({ value, getHandleProps }) => (
+                                    <button
+                                        {...getHandleProps({
+                                            style: {
+                                                appearance: "none",
+                                                border: "none",
+                                                background: "transparent",
+                                                outline: "none"
+                                            }
+                                        })}
+                                    >
+                                        <div
+                                            style={{
+                                                background: "#1B1A4E",
+                                                border: "3px solid #2AB6BE",
+                                                display: "flex",
+                                                alignItems: "center",
+                                                justifyContent: "center",
+                                                width: "1.6rem",
+                                                height: "50px",
+                                                fontSize: "0.7rem",
+                                                whiteSpace: "nowrap",
+                                                color: "white",
+                                                fontWeight: "normal",
+                                            }}
+                                        // active={active}
+                                        >
+                                            {value}
+                                        </div>
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    )
+                }
+            case "lvlUp":
+                {
+                    return (
+                        <h1>scroll bar for level up
+                            {levelUpId == 1 && " HP"}
+                            {levelUpId == 2 && " Energy"}
+                            {levelUpId == 3 && " Mine"}
+                        </h1>
+                    )
+                }
+        }
     }
 
     return (
@@ -115,7 +225,7 @@ const Player = (): JSX.Element => {
                             <p className={styles.level}>{characterInfo.lvl}</p>
                             <div className={styles.xp}>
                                 <img src="/assets/xp.png" alt="xp icon" />
-                                <p>{characterInfo.xp} / 10000</p>
+                                <p>{characterInfo.xp} / 3000</p>
                             </div>
                             <div className={styles.xp}>
                                 <img src="/assets/pos.png" alt="xp icon" />
@@ -128,64 +238,114 @@ const Player = (): JSX.Element => {
 
             {/* Player Stats  */}
             <div className={styles.statsContainer}>
-                <div className={styles.statsSection}>
-                    <img src="/assets/pic.png" alt="pic logo" />
-                    {canLvlUp && (
-                        <div onClick={() => handleActions("lvlUp", 3)} style={{ cursor: "pointer" }}>
-                            <img src="/assets/arrow_up.gif" alt="level up icon" />
-                        </div>
-                    )}
-                    <p>{characterInfo.spiceMined}</p>
-                </div>
-                <div className={styles.statsSection}>
-                    <img src="/assets/hearth.png" alt="hearth logo" />
-                    {canLvlUp && (
-                        <div onClick={() => handleActions("lvlUp", 1)} style={{ cursor: "pointer" }}>
-                            <img src="/assets/arrow_up.gif" alt="level up icon" />
-                        </div>
-                    )}
-                    <div className={styles.barWrapper}>
-                        <p>{characterInfo.stats?.hp} / {characterInfo.stats?.hpMax}</p>
-                        <div className={styles.hpBar}>
-                            <div
-                                className={styles.hp}
-                                style={{ width: (characterInfo.stats?.hp / characterInfo.stats?.hpMax * 100) + "%" }}
-                            ></div>
+                {!characterInfo?.stats?.hp ? (
+                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                        <h3>Spawn to start playing</h3>
+                        <div className={styles.button} onClick={() => handleActions("spawn")} >
+                            <img src="/assets/button_on.png" alt="change character" />
+                            <p>Spawn</p>
                         </div>
                     </div>
-                </div>
+                ) : (
+                    <>
+                        <div className={styles.statsSection}>
+                            <img src="/assets/pic.png" alt="pic logo" />
+                            {canLvlUp && (
+                                <div onClick={() => {
+                                    setModalImg("/assets/btn_mine.png");
+                                    setMdalAction("lvlUp");
+                                    setLevelUpId(3);
+                                    toggleModal();
+                                }}
+                                    style={{ cursor: "pointer" }}
+                                >
+                                    <img src="/assets/arrow_up.gif" alt="level up icon" />
+                                </div>
+                            )}
+                            <p>{characterInfo.oreBalance}</p>
+                        </div>
+                        <div className={styles.statsSection}>
+                            <img src="/assets/hearth.png" alt="hearth logo" />
+                            {canLvlUp && (
+                                <div
+                                    onClick={() => {
+                                        setModalImg("/assets/btn_mine.png");
+                                        setMdalAction("lvlUp");
+                                        setLevelUpId(1);
+                                        toggleModal();
+                                    }}
+                                    style={{ cursor: "pointer" }}
+                                >
+                                    <img src="/assets/arrow_up.gif" alt="level up icon" />
+                                </div>
+                            )}
+                            <div className={styles.barWrapper}>
+                                <p>{characterInfo.stats?.hp} / {characterInfo.stats?.hpMax}</p>
+                                <div className={styles.hpBar}>
+                                    <div
+                                        className={styles.hp}
+                                        style={{ width: (characterInfo.stats?.hp / characterInfo.stats?.hpMax * 100) + "%" }}
+                                    ></div>
+                                </div>
+                            </div>
+                        </div>
 
-                <div className={styles.statsSection}>
-                    <img src="/assets/energy.png" alt="energy logo" />
-                    {canLvlUp && (
-                        <div onClick={() => handleActions("lvlUp", 2)} style={{ cursor: "pointer" }}>
-                            <img src="/assets/arrow_up.gif" alt="level up icon" />
+                        <div className={styles.statsSection}>
+                            <img src="/assets/energy.png" alt="energy logo" />
+                            {canLvlUp && (
+                                <div onClick={() => {
+                                    setModalImg("/assets/btn_mine.png");
+                                    setMdalAction("lvlUp");
+                                    setLevelUpId(2);
+                                    toggleModal();
+                                }}
+                                    style={{ cursor: "pointer" }}
+                                >
+                                    <img src="/assets/arrow_up.gif" alt="level up icon" />
+                                </div>
+                            )}
+                            <div className={styles.barWrapper}>
+                                <p>{characterInfo.stats?.energy} / {characterInfo.stats?.energyMax}</p>
+                                <div className={styles.energyBar}>
+                                    <div
+                                        className={styles.energy}
+                                        style={{ width: (characterInfo.stats?.energy / characterInfo.stats?.energyMax * 100) + "%" }}
+                                    ></div>
+                                </div>
+                            </div>
                         </div>
-                    )}
-                    <div className={styles.barWrapper}>
-                        <p>{characterInfo.stats?.energy} / {characterInfo.stats?.energyMax}</p>
-                        <div className={styles.energyBar}>
-                            <div
-                                className={styles.energy}
-                                style={{ width: (characterInfo.stats?.energy / characterInfo.stats?.energyMax * 100) + "%" }}
-                            ></div>
-                        </div>
-                    </div>
-                </div>
+                    </>
+                )}
             </div>
 
             {/* Player controls */}
-            {characterInfo?.stats?.hp ? (
+            {characterInfo?.stats?.hp !== 0 && (
                 <div className={styles.controls}>
                     <img className={styles.bg} src="/assets/control_bg.png" alt="controls background" />
 
-                    <div className={styles.btnMine} onClick={() => handleActions("mine")}>
+                    <div
+                        className={styles.btnMine}
+                        onClick={() => {
+                            setModalImg("/assets/btn_mine.png");
+                            setMdalAction("mine");
+                            setLevelUpId(null);
+                            toggleModal();
+                        }}
+                    >
                     </div>
 
                     <div className={styles.btnFight}>
                     </div>
 
-                    <div className={styles.btnSit} onClick={() => toggle()}>
+                    <div
+                        className={styles.btnSit}
+                        onClick={() => {
+                            setModalImg("/assets/btn_sit.png");
+                            setMdalAction("rest");
+                            setLevelUpId(null);
+                            toggleModal();
+                        }}
+                    >
                     </div>
 
                     <div className={styles.actions}>
@@ -224,33 +384,41 @@ const Player = (): JSX.Element => {
                         </div>
                     </div>
                 </div>
-            ) : (
-                <button onClick={() => handleActions("spawn")}>spawn</button>
             )}
 
             {/* Modal */}
             <Modal
                 show={showModal}
-                onHide={toggle}
+                onHide={toggleModal}
                 centered
-                aria-labelledby="sit modal"
+                aria-labelledby="modal"
                 animation={false}
             >
                 <div className={styles.modalContainer}>
-                    <img className={styles.imgHeader} src="/assets/modal_sit.png" alt="header icon" />
+                    <img className={styles.imgHeader} src={modalImg} alt="header icon" />
 
                     <div className={styles.contentWrapper}>
                         <img className={styles.imgContainer} src="/assets/modal_container.png" alt="modal container" />
 
                         <div className={styles.optionsWrapper}>
-                            <h1>sit</h1>
+                            {renderScrollBar()}
                         </div>
                     </div>
 
                     <div className={styles.sitContainer}>
                         <img className={styles.bg} src="/assets/btn_actions.png" alt="claim button" />
-                        <div className={styles.text} onClick={() => handleActions("rest")}>
-                            <h1>SIT</h1>
+                        <div className={styles.text}
+                            onClick={() => {
+                                handleActions(modalAction, levelUpId);
+                                toggleModal();
+                            }}
+                        >
+                            <h1>
+                                {modalAction == "lvlUp" && "Level Up"}
+                                {modalAction == "mine" && "Mine Spice Ore"}
+                                {modalAction == "rest" && "Take a rest"}
+
+                            </h1>
                         </div>
                     </div>
                 </div>

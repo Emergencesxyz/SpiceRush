@@ -22,7 +22,7 @@ const LandSection = (): JSX.Element => {
                                     <div className={styles.imgWrapper} >
                                         <img src="/assets/ape_icon.png" alt="ape icon" />
                                     </div>
-                                    <p>23</p>
+                                    <p>{selectedTile.foesAmount}</p>
                                 </div>
 
                                 <div className={styles.infoSection}>

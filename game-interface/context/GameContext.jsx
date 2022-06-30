@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState } from 'react';
 
 export const GameContext = createContext();
 
@@ -9,18 +9,17 @@ const GameContextProvider = (props) => {
   const [selectedTile, setSelectedTile] = useState({});
   const [logs, setLogs] = useState([]);
   const [lastUpdate, setLastUpdate] = useState(null);
-  const [tileForPlayersList, setTileForPlayersList] = useState(null);
+  const [playersInTile, setPlayersInTile] = useState(null);
 
-  const sendLog = (message, type = "event", sender = "Spice Rush") => {
+  const sendLog = (message, type = 'event', sender = 'Spice Rush') => {
     const allLogs = [...logs];
-    allLogs.push({type, sender, message})
+    allLogs.push({ type, sender, message });
     setLogs(allLogs);
-  }
+  };
 
   const clearLogs = () => {
     setLogs([]);
-  }
-
+  };
 
   return (
     <GameContext.Provider
@@ -38,10 +37,9 @@ const GameContextProvider = (props) => {
         clearLogs,
         lastUpdate,
         setLastUpdate,
-        tileForPlayersList,
-        setTileForPlayersList
-      }}
-    >
+        playersInTile,
+        setPlayersInTile,
+      }}>
       {props.children}
     </GameContext.Provider>
   );

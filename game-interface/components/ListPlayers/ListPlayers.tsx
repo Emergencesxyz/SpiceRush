@@ -2,6 +2,8 @@ import styles from "./ListPlayers.module.scss";
 import { GameContext } from "../../context/GameContext";
 import { useContext, useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
+import BlockchainService from "../../services/BlockchainService";
+import { useWeb3React } from "@web3-react/core";
 
 const testListOfPlayers = [
     {
@@ -109,8 +111,11 @@ const testListOfPlayers = [
 ]
 
 const ListPlayers = (): JSX.Element => {
+    const context = useWeb3React();
+    const { account } = context;
     const gameContext = useContext(GameContext);
-    const { tileForPlayersList } = gameContext;
+    const { playersInTile, selectedTile } = gameContext;
+    const blockchainService = new BlockchainService(account);
     const [isFirstTime, setIsFirstTime] = useState<boolean>(true);
     const [lastFetch, setlastFetch] = useState<number>(Date.now());
     const [loading, setLoading] = useState<boolean>(true);
@@ -118,27 +123,27 @@ const ListPlayers = (): JSX.Element => {
 
 
     useEffect(() => {
-        if (!tileForPlayersList) return;
-
-        // for fix phaser update function re-calls
+        // For fix phaser update function re-calls
         if (Date.now() - lastFetch < 1000 && !isFirstTime) return;
+        setLoading(true);
 
         (async () => {
-            setLoading(true);
-            console.log("refresh players");
+            if (!playersInTile) return setListOfPlayers([]);
+
             setlastFetch(Date.now());
             setIsFirstTime(false);
 
-            // TODO: Get players from Contract/API
-            const waitFor = (delay: number) => new Promise(resolve => setTimeout(resolve, delay))
-            await waitFor(1000);
-
-            setListOfPlayers(testListOfPlayers);
-            setLoading(false);
+            const getPlayers = await blockchainService.getPlayersInTile(playersInTile);
+            setListOfPlayers(getPlayers);
         })()
-    }, [tileForPlayersList]);
+        setLoading(false);
+    }, [playersInTile]);
 
     const renderList = () => {
+        if (!listOfPlayers.length) return (
+            <h4>No one here</h4>
+        );
+
         return listOfPlayers.map((p) => {
             return (
                 <div key={p.id} className={styles.card}>
@@ -146,19 +151,19 @@ const ListPlayers = (): JSX.Element => {
                         <img src="/assets/nft_avatar.png" alt="nft image" />
                     </div>
                     <div className={styles.content}>
-                        <p># NO NAME</p>
+                        <p>ID #{p.id}</p>
                         <div className={styles.stats}>
                             <div className={styles.info}>
                                 <img src="/assets/hearth_v2.png" alt="hearth icon" />
-                                <p>3025</p>
+                                <p>{p.hp}</p>
                             </div>
                             <div className={styles.info}>
                                 <img src="/assets/ligth_v2.png" alt="ligth icon" />
-                                <p>3025</p>
+                                <p>{p.energy}</p>
                             </div>
                             <div className={styles.info}>
                                 <img src="/assets/spice_v2.png" alt="spice icon" />
-                                <p>230453</p>
+                                <p>{p.oreBalance}</p>
                             </div>
                         </div>
                     </div>
@@ -182,7 +187,7 @@ const ListPlayers = (): JSX.Element => {
                     <Spinner animation="border" style={{ color: "white" }} />
                 ) : (
                     <>
-                        {tileForPlayersList.x}, {tileForPlayersList.y}
+                        {selectedTile.x}, {selectedTile.y}
                         <div className={styles.players}>
                             {renderList()}
                         </div>

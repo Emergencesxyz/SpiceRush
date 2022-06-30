@@ -136,7 +136,7 @@ const SelectPlayer = () => {
                 <img src="/assets/ic_spice_ore.png" alt="spice ore" />
                 <div>
                   <p>Spice Ore:</p>
-                  <h3>{e.spiceMined}</h3>
+                  <h3>{e.oreBalance}</h3>
                 </div>
               </div>
             </Card.Body>
