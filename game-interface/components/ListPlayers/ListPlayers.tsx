@@ -1,7 +1,7 @@
 import styles from "./ListPlayers.module.scss";
 import { GameContext } from "../../context/GameContext";
 import { useContext, useEffect, useState } from "react";
-import { Spinner } from "react-bootstrap";
+import { OverlayTrigger, Spinner, Tooltip } from "react-bootstrap";
 import BlockchainService from "../../services/BlockchainService";
 import { useWeb3React } from "@web3-react/core";
 
@@ -114,7 +114,7 @@ const ListPlayers = (): JSX.Element => {
     const context = useWeb3React();
     const { account } = context;
     const gameContext = useContext(GameContext);
-    const { playersInTile, selectedTile } = gameContext;
+    const { playersInTile, characterInfo, selectedTile } = gameContext;
     const blockchainService = new BlockchainService(account);
     const [isFirstTime, setIsFirstTime] = useState<boolean>(true);
     const [lastFetch, setlastFetch] = useState<number>(Date.now());
@@ -146,35 +146,40 @@ const ListPlayers = (): JSX.Element => {
 
         return listOfPlayers.map((p) => {
             return (
-                <div key={p.id} className={styles.card}>
-                    <div className={styles.avatar}>
-                        <img src="/assets/nft_avatar.png" alt="nft image" />
-                    </div>
-                    <div className={styles.content}>
-                        <p>ID #{p.id}</p>
-                        <div className={styles.stats}>
-                            <div className={styles.info}>
-                                <img src="/assets/hearth_v2.png" alt="hearth icon" />
-                                <p>{p.hp}</p>
-                            </div>
-                            <div className={styles.info}>
-                                <img src="/assets/ligth_v2.png" alt="ligth icon" />
-                                <p>{p.energy}</p>
-                            </div>
-                            <div className={styles.info}>
-                                <img src="/assets/spice_v2.png" alt="spice icon" />
-                                <p>{p.oreBalance}</p>
+                p.id == characterInfo.id ? (
+                    <h4 key={p.id}>You are alone in this tile</h4>
+                ) : (
+                    <div key={p.id} className={styles.card}>
+                        <div className={styles.avatar}>
+                            <img src="/assets/nft_avatar.png" alt="nft image" />
+                        </div>
+                        <div className={styles.content}>
+                            <p>ID #{p.id}</p>
+                            <div className={styles.stats}>
+                                <div className={styles.info}>
+                                    <img src="/assets/hearth_v2.png" alt="hearth icon" />
+                                    <p>{p.hp}</p>
+                                </div>
+                                <div className={styles.info}>
+                                    <img src="/assets/ligth_v2.png" alt="ligth icon" />
+                                    <p>{p.energy}</p>
+                                </div>
+                                <div className={styles.info}>
+                                    <img src="/assets/spice_v2.png" alt="spice icon" />
+                                    <p>{p.oreBalance}</p>
+                                </div>
                             </div>
                         </div>
+                        <OverlayTrigger placement='bottom' overlay={<Tooltip>SOON</Tooltip>}>
+                            <div
+                                className={styles.btnFight}
+                                onClick={() => {
+                                }}
+                            >
+                            </div>
+                        </OverlayTrigger>
                     </div>
-                    <div
-                        className={styles.btnFight}
-                        onClick={() => {
-                            console.log("figth again", p.id)
-                        }}
-                    >
-                    </div>
-                </div>
+                )
             )
         })
     }

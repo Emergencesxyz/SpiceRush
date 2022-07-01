@@ -3,7 +3,7 @@ import { GameContext } from "../../context/GameContext";
 import styles from "./Map.module.scss";
 import Phaser from "phaser";
 import { useWeb3React } from "@web3-react/core";
-import { Spinner, Modal } from "react-bootstrap";
+import { Spinner, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import BlockchainService from "../../services/BlockchainService";
 import { testTiles } from "../../borrar2";
 
@@ -360,6 +360,7 @@ export default function Map() {
     // For no move camera in refresh
     cameraActualPositionX = camera.worldView.x;
     cameraActualPositionY = camera.worldView.y;
+    currentZoom = camera.zoom;
 
     // Prevent interactions with outside canvas click
     if (clickOut) return;
@@ -385,13 +386,14 @@ export default function Map() {
   }
 
   const centerCameraInApe = () => {
-    camera.setZoom(currentZoom);
+    camera.setZoom(1);
     currentX = apePositionX - parentRef.current.clientWidth / 2;
     currentY = apePositionY - parentRef.current.clientHeight / 2 + tileHeight / 2;
     camera.setScroll(currentX, currentY);
   };
 
   const centerCameraInView = () => {
+    camera.setZoom(currentZoom);
     camera.setScroll(cameraActualPositionX, cameraActualPositionY);
   };
 
@@ -472,6 +474,7 @@ export default function Map() {
     const interval = setInterval(async () => {
       setTiles(await blockchainService.getMapPlayer(characterInfo.x, characterInfo.y, 10));
     }, 10000);
+
     return () => {
       startGame.destroy();
       clearInterval(interval);
@@ -559,7 +562,7 @@ export default function Map() {
       <div className={styles.spiceWrapper}>
         <div className={styles.spiceInfo}>
           <img src='/assets/spice_ore.png' alt='spice or icon' />
-          <div onClick={() => testUpdate()}>
+          <div>
             <p>Spice Ore</p>
             <h4>{characterInfo.oreBalance}</h4>
           </div>
@@ -579,7 +582,7 @@ export default function Map() {
           <img src='/assets/refine_button.png' alt='refine button' />
         </div>
 
-        <div className={styles.spiceInfo} onClick={() => centerCameraInView()}>
+        <div className={styles.spiceInfo}>
           <img src='/assets/spice.png' alt='spice or icon' />
           <div>
             <p>Spice</p>
@@ -628,74 +631,107 @@ export default function Map() {
 
         <div className={styles.options}>
           <div>
-            <img
-              onMouseLeave={() => (clickOut = false)}
-              onMouseEnter={() => (clickOut = true)}
-              src={usersLayerVisible ? "/assets/user_on.png" : "/assets/user_off.png"}
-              alt='user icon'
-              onClick={() => showPlayersLayer()}
-            />
-            <img
-              onMouseLeave={() => (clickOut = false)}
-              onMouseEnter={() => (clickOut = true)}
-              src={spiceLayerVisible ? "/assets/spice_on.png" : "/assets/spice_off.png"}
-              onClick={() => showSpiceLayer()}
-              alt='spice icon'
-            />
-            <img
-              onMouseLeave={() => (clickOut = false)}
-              onMouseEnter={() => (clickOut = true)}
-              src={dangerLayerVisible ? "/assets/danger_on.png" : "/assets/danger_off.png"}
-              alt='danger icon'
-              onClick={() => showDangerLayer()}
-            />
+            <OverlayTrigger placement='bottom' overlay={<Tooltip>Show players in tiles</Tooltip>}>
+              <img
+                onMouseLeave={() => (clickOut = false)}
+                onMouseEnter={() => (clickOut = true)}
+                src={usersLayerVisible ? "/assets/user_on.png" : "/assets/user_off.png"}
+                alt='user icon'
+                onClick={() => showPlayersLayer()}
+              />
+            </OverlayTrigger>
+
+            <OverlayTrigger placement='bottom' overlay={<Tooltip>Show Spice Ore in tiles</Tooltip>}>
+              <img
+                onMouseLeave={() => (clickOut = false)}
+                onMouseEnter={() => (clickOut = true)}
+                src={spiceLayerVisible ? "/assets/spice_on.png" : "/assets/spice_off.png"}
+                onClick={() => showSpiceLayer()}
+                alt='spice icon'
+              />
+            </OverlayTrigger>
+
+            <OverlayTrigger placement='bottom' overlay={<Tooltip>Show monsters in tiles</Tooltip>}>
+              <img
+                onMouseLeave={() => (clickOut = false)}
+                onMouseEnter={() => (clickOut = true)}
+                src={dangerLayerVisible ? "/assets/danger_on.png" : "/assets/danger_off.png"}
+                alt='danger icon'
+                onClick={() => showDangerLayer()}
+              />
+            </OverlayTrigger>
           </div>
 
           <div>
-            <img src='/assets/shild_off.png' alt='shild icon' />
-            <img src='/assets/crown_on.png' alt='crown icon' />
+            <OverlayTrigger placement='bottom' overlay={<Tooltip>Soon</Tooltip>}>
+              <img
+                onMouseLeave={() => (clickOut = false)}
+                onMouseEnter={() => (clickOut = true)}
+                src='/assets/shild_off.png'
+                alt='shild icon'
+              />
+            </OverlayTrigger>
+
+            <OverlayTrigger placement='bottom' overlay={<Tooltip>Soon</Tooltip>}>
+              <img
+                onMouseLeave={() => (clickOut = false)}
+                onMouseEnter={() => (clickOut = true)}
+                src='/assets/crown_off.png'
+                alt='crown icon'
+              />
+            </OverlayTrigger>
           </div>
 
           <div>
-            <img
-              onClick={() => mapControls("zoomIn")}
-              onMouseEnter={(e) => {
-                e.currentTarget.src = "/assets/zoom_in_on.png";
-                clickOut = true;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.src = "/assets/zoom_in_off.png";
-                clickOut = false;
-              }}
-              src='/assets/zoom_in_off.png'
-              alt='zoom in icon'
-            />
-            <img
-              onClick={() => mapControls("zoomOut")}
-              onMouseEnter={(e) => {
-                e.currentTarget.src = "/assets/zoom_out_on.png";
-                clickOut = true;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.src = "/assets/zoom_out_off.png";
-                clickOut = false;
-              }}
-              src='/assets/zoom_out_off.png'
-              alt='zoom out icon'
-            />
-            <img
-              onClick={() => centerCameraInApe()}
-              onMouseEnter={(e) => {
-                e.currentTarget.src = "/assets/full_screen_on.png";
-                clickOut = true;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.src = "/assets/full_screen_off.png";
-                clickOut = false;
-              }}
-              src='/assets/full_screen_off.png'
-              alt='full screen icon'
-            />
+            <OverlayTrigger placement='bottom' overlay={<Tooltip>Zoom In</Tooltip>}>
+              <img
+                onClick={() => mapControls("zoomIn")}
+                onMouseEnter={(e) => {
+                  e.currentTarget.src = "/assets/zoom_in_on.png";
+                  clickOut = true;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.src = "/assets/zoom_in_off.png";
+                  clickOut = false;
+                }}
+                src='/assets/zoom_in_off.png'
+                alt='zoom in icon'
+              />
+            </OverlayTrigger>
+
+            <OverlayTrigger placement='bottom' overlay={<Tooltip>Zoom Out</Tooltip>}>
+              <img
+                onClick={() => mapControls("zoomOut")}
+                onMouseEnter={(e) => {
+                  e.currentTarget.src = "/assets/zoom_out_on.png";
+                  clickOut = true;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.src = "/assets/zoom_out_off.png";
+                  clickOut = false;
+                }}
+                src='/assets/zoom_out_off.png'
+                alt='zoom out icon'
+              />
+            </OverlayTrigger>
+
+            <OverlayTrigger
+              placement='bottom'
+              overlay={<Tooltip>Center camera in your position</Tooltip>}>
+              <img
+                onClick={() => centerCameraInApe()}
+                onMouseEnter={(e) => {
+                  e.currentTarget.src = "/assets/full_screen_on.png";
+                  clickOut = true;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.src = "/assets/full_screen_off.png";
+                  clickOut = false;
+                }}
+                src='/assets/full_screen_off.png'
+                alt='full screen icon'
+              />
+            </OverlayTrigger>
           </div>
         </div>
       </div>

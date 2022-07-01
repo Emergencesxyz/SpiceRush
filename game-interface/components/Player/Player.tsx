@@ -3,7 +3,7 @@ import { GameContext } from "../../context/GameContext";
 import { useWeb3React } from "@web3-react/core";
 import BlockchainService from "../../services/BlockchainService";
 import styles from "./Player.module.scss";
-import { Modal } from "react-bootstrap";
+import { Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { useRanger } from "react-ranger";
 
 const Player = (): JSX.Element => {
@@ -281,33 +281,38 @@ const Player = (): JSX.Element => {
                         <div className={styles.statsSection}>
                             <img src="/assets/pic.png" alt="pic logo" />
                             {canLvlUp && (
-                                <div onClick={() => {
-                                    setModalImg("/assets/btn_mine.png");
-                                    setMdalAction("lvlUp");
-                                    setLevelUpId(3);
-                                    toggleModal();
-                                }}
-                                    style={{ cursor: "pointer" }}
-                                >
-                                    <img src="/assets/arrow_up.gif" alt="level up icon" />
-                                </div>
+                                <OverlayTrigger placement='bottom' overlay={<Tooltip>Level up your Mine</Tooltip>}>
+                                    <div onClick={() => {
+                                        setModalImg("/assets/btn_mine.png");
+                                        setMdalAction("lvlUp");
+                                        setLevelUpId(3);
+                                        toggleModal();
+                                    }}
+                                        style={{ cursor: "pointer" }}
+                                    >
+                                        <img src="/assets/arrow_up.gif" alt="level up icon" />
+                                    </div>
+                                </OverlayTrigger>
                             )}
                             <p>{characterInfo.oreBalance}</p>
                         </div>
                         <div className={styles.statsSection}>
                             <img src="/assets/hearth.png" alt="hearth logo" />
                             {canLvlUp && (
-                                <div
-                                    onClick={() => {
-                                        setModalImg("/assets/btn_mine.png");
-                                        setMdalAction("lvlUp");
-                                        setLevelUpId(1);
-                                        toggleModal();
-                                    }}
-                                    style={{ cursor: "pointer" }}
-                                >
-                                    <img src="/assets/arrow_up.gif" alt="level up icon" />
-                                </div>
+                                <OverlayTrigger placement='bottom' overlay={<Tooltip>Level up your HP</Tooltip>}>
+                                    <div
+                                        onClick={() => {
+                                            setModalImg("/assets/btn_mine.png");
+                                            setMdalAction("lvlUp");
+                                            setLevelUpId(1);
+                                            toggleModal();
+                                        }}
+                                        style={{ cursor: "pointer" }}
+                                    >
+                                        <img src="/assets/arrow_up.gif" alt="level up icon" />
+                                    </div>
+                                </OverlayTrigger>
+
                             )}
                             <div className={styles.barWrapper}>
                                 <p>{characterInfo.stats?.hp} / {characterInfo.stats?.hpMax}</p>
@@ -323,16 +328,19 @@ const Player = (): JSX.Element => {
                         <div className={styles.statsSection}>
                             <img src="/assets/energy.png" alt="energy logo" />
                             {canLvlUp && (
-                                <div onClick={() => {
-                                    setModalImg("/assets/btn_mine.png");
-                                    setMdalAction("lvlUp");
-                                    setLevelUpId(2);
-                                    toggleModal();
-                                }}
-                                    style={{ cursor: "pointer" }}
-                                >
-                                    <img src="/assets/arrow_up.gif" alt="level up icon" />
-                                </div>
+                                <OverlayTrigger placement='bottom' overlay={<Tooltip>Level up your Energy</Tooltip>}>
+                                    <div onClick={() => {
+                                        setModalImg("/assets/btn_mine.png");
+                                        setMdalAction("lvlUp");
+                                        setLevelUpId(2);
+                                        toggleModal();
+                                    }}
+                                        style={{ cursor: "pointer" }}
+                                    >
+                                        <img src="/assets/arrow_up.gif" alt="level up icon" />
+                                    </div>
+                                </OverlayTrigger>
+
                             )}
                             <div className={styles.barWrapper}>
                                 <p>{characterInfo.stats?.energy} / {characterInfo.stats?.energyMax}</p>
@@ -350,39 +358,46 @@ const Player = (): JSX.Element => {
 
             {/* Player controls */}
             {characterInfo?.stats?.hp !== 0 && (
+
                 <div className={styles.controls}>
                     <img className={styles.bg} src="/assets/control_bg.png" alt="controls background" />
+                    <OverlayTrigger placement='bottom' overlay={<Tooltip>Mine the Spice Ore</Tooltip>}>
+                        <div
+                            className={styles.btnMine}
+                            onClick={() => {
+                                setRangerMin(1)
+                                setValues([1])
+                                setRangerMax(characterInfo.stats.energy)
+                                setModalImg("/assets/btn_mine.png");
+                                setMdalAction("mine");
+                                setLevelUpId(null);
+                                toggleModal();
+                            }}
+                        >
+                        </div>
+                    </OverlayTrigger>
 
-                    <div
-                        className={styles.btnMine}
-                        onClick={() => {
-                            setRangerMin(1)
-                            setValues([1])
-                            setRangerMax(characterInfo.stats.energy)
-                            setModalImg("/assets/btn_mine.png");
-                            setMdalAction("mine");
-                            setLevelUpId(null);
-                            toggleModal();
-                        }}
-                    >
-                    </div>
+                    <OverlayTrigger placement='bottom' overlay={<Tooltip>SOON</Tooltip>}>
+                        <div className={styles.btnFight}>
+                        </div>
+                    </OverlayTrigger>
 
-                    <div className={styles.btnFight}>
-                    </div>
+                    <OverlayTrigger placement='bottom' overlay={<Tooltip>Take a rest</Tooltip>}>
+                        <div
+                            className={styles.btnSit}
+                            onClick={() => {
+                                setRangerMin(0)
+                                setRangerMax(characterInfo.stats.hpMax - characterInfo.stats.hp)
+                                setValues([0])
+                                setModalImg("/assets/btn_sit.png");
+                                setMdalAction("rest");
+                                setLevelUpId(null);
+                                toggleModal();
+                            }}
+                        >
+                        </div>
+                    </OverlayTrigger>
 
-                    <div
-                        className={styles.btnSit}
-                        onClick={() => {
-                            setRangerMin(0)
-                            setRangerMax(characterInfo.stats.hpMax - characterInfo.stats.hp)
-                            setValues([0])
-                            setModalImg("/assets/btn_sit.png");
-                            setMdalAction("rest");
-                            setLevelUpId(null);
-                            toggleModal();
-                        }}
-                    >
-                    </div>
 
                     <div className={styles.actions}>
                         <img src={`/assets/actions_${controlsImg}.png`} alt="actions 0" />

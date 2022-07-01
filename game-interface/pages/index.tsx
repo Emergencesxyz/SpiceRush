@@ -2,36 +2,35 @@ import { useState, useEffect } from "react";
 import { useWeb3React } from "@web3-react/core";
 import ConnectWallet from "../components/ConnectWallet/ConnectWallet";
 import SelectPlayer from "../components/SelectPlayer/SelectPlayer";
+import SwitchNetwork from "../components/SwitchNetwork/SwitchNetwork";
 import Footer from "../components/Footer/Footer";
 import { MoralisProvider } from "react-moralis";
 import { useRouter } from "next/router";
-import {
-  injected,
-  walletconnect,
-  walletlink,
-} from "../WalletHelpers/connectors";
 import styles from "../styles/Home.module.scss";
 import MintPlayer from "../components/MintPlayer/MintPlayer";
+import BlockchainService from "../services/BlockchainService";
+
 
 export default function Home() {
   const router = useRouter();
   const context = useWeb3React();
-  const { account, library, connector, deactivate } = context;
-  const [disconectUser, setDisconnectUser] = useState<boolean>(false)
+  const { account, library, connector, deactivate, chainId } = context;
+  const [disconectUser, setDisconnectUser] = useState<boolean>(false);
+  const [canMintNft, setCanMintNft] = useState<boolean>(false);
+  const [isRightNetwork, setIsRightNetwork] = useState<boolean>(false);
 
   useEffect(() => {
-    if (!!router.query?.disconnect) {
-      setDisconnectUser(true);
-    }
-  }, []);
+    if (!!!account) return;
+    (async () => {
+      const blockchainService = new BlockchainService(account);
+      setCanMintNft(await blockchainService.canMintNft(account));
+    })()
+  }, [account]);
 
-  // useEffect(() => {
-  //   if (connector === injected) {
-  //     deactivate();
-  //   } else {
-  //     (connector as any).close();
-  //   }
-  // }, [disconectUser])
+  useEffect(() => {
+    console.log("fddf", chainId == 80001)
+    setIsRightNetwork(chainId == 80001);
+  }, [chainId]);
 
   return (
     <MoralisProvider
@@ -57,11 +56,14 @@ export default function Home() {
             <img src="assets/canva_part1.png" alt="canvap1" />
           </div>
           {!!account && !!library ? (
-            // TODO: hide MintPlayer when Purchase exceeds maximum mintable.
-            <>
-              <MintPlayer />
-              <SelectPlayer />
-            </>
+            isRightNetwork ? (
+              <>
+                {canMintNft && <MintPlayer />}
+                <SelectPlayer />
+              </>
+            ) : (
+              <SwitchNetwork />
+            )
           ) : <ConnectWallet />}
           <img src="assets/canva_part2.png" alt="canvap2" />
         </div>
@@ -69,6 +71,6 @@ export default function Home() {
         <div className={styles.hexagons}></div>
         <Footer />
       </div>
-    </MoralisProvider>
+    </MoralisProvider >
   );
 }

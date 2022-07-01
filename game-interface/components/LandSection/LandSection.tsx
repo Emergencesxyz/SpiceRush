@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { GameContext } from "../../context/GameContext";
 import styles from "./LandSection.module.scss";
 
@@ -41,16 +42,18 @@ const LandSection = (): JSX.Element => {
                             </div>
                         </div>
 
-                        <div className={styles.claimContainer}>
-                            <img className={styles.bg} src="/assets/btn_actions.png" alt="claim button" />
-                            <div className={styles.text}>
-                                <h1>CLAIM</h1>
+                        <OverlayTrigger placement='bottom' overlay={<Tooltip>SOON</Tooltip>}>
+                            <div className={styles.claimContainer}>
+                                <img className={styles.bg} src="/assets/btn_actions.png" alt="claim button" />
+                                <div className={styles.text}>
+                                    <h1>CLAIM</h1>
+                                </div>
+                                <div className={styles.price}>
+                                    <img src="/assets/spice_icon.png" alt="spice icon" />
+                                    <p>230</p>
+                                </div>
                             </div>
-                            <div className={styles.price}>
-                                <img src="/assets/spice_icon.png" alt="spice icon" />
-                                <p>230</p>
-                            </div>
-                        </div>
+                        </OverlayTrigger>
                     </div>
 
                     <div>
@@ -67,10 +70,6 @@ const LandSection = (): JSX.Element => {
                     </div>
                 </div>
             </div>
-
-            {/* <div className={styles.slider}>
-                slider
-            </div> */}
         </div>
     );
 };

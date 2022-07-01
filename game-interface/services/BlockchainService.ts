@@ -449,6 +449,17 @@ export default class BlockchainService {
     }
   }
 
+  async canMintNft(account: string) {
+    try {
+      const accountBalance = await this.apinatorContract.methods.balanceOf(account).call();
+      const mintMax = await this.apinatorContract.methods.maxMint().call();
+
+      return accountBalance < mintMax;
+    } catch (e) {
+      return false;
+    }
+  }
+
   async mine(nftId: number, actionNb: number, library: any) {
     const txParams = {
       from: this.account,
