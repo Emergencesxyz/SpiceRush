@@ -112,9 +112,32 @@ export default class BlockchainService {
         xp: parseInt(info.xp),
         id: nftId,
         oreBalance: (+utils.formatEther(BigNumber.from(info.oreBalance))).toFixed(4),
+        spiceBalance: +(+utils.formatEther(
+          BigNumber.from(await this.spiceContract.methods.balanceOf(this.account).call()),
+        )).toFixed(4),
       };
     } catch (e) {
       return null;
+    }
+  }
+
+  async getRestPrice() {
+    try {
+      return +(+utils.formatEther(
+        BigNumber.from(await this.gameplayContract.methods.restActionPrice().call()),
+      )).toFixed(2);
+    } catch (e) {
+      return 1;
+    }
+  }
+
+  async getLevelUpPrice() {
+    try {
+      return +(+utils.formatEther(
+        BigNumber.from(await this.gameplayContract.methods.levelUpPrice().call()),
+      )).toFixed(2);
+    } catch (e) {
+      return 1;
     }
   }
 
@@ -131,6 +154,27 @@ export default class BlockchainService {
       return characters;
     } catch (e) {
       return null;
+    }
+  }
+
+  async getRefineValues() {
+    try {
+      const values = {
+        totalRewarded: +(+utils.formatEther(
+          BigNumber.from(await this.gameplayContract.methods.totalRewarded().call()),
+        )).toFixed(4),
+        totalDeposit: +(+utils.formatEther(
+          BigNumber.from(await this.gameplayContract.methods.totalDeposit().call()),
+        )).toFixed(4),
+        rewardBalancerNumerator: await this.gameplayContract.methods
+          .rewardBalancerNumerator()
+          .call(),
+        rewardBalancerDivisor: await this.gameplayContract.methods.rewardBalancerDivisor().call(),
+      };
+
+      return values;
+    } catch (e) {
+      return {};
     }
   }
 
@@ -304,6 +348,29 @@ export default class BlockchainService {
       });
   }
 
+  // TODO: Option for custome amount
+  async refine(nftId: number, amount: number, library: any) {
+    const txParams = {
+      from: this.account,
+      value: "0",
+    };
+
+    this.gameplayContract = new library.eth.Contract(
+      consts.gameplayABI as any,
+      GAMEPLAY_CONTRACT_ADDRESS,
+    );
+
+    const playerBalances = await this.gameplayContract.methods.charas(nftId).call();
+
+    await this.gameplayContract.methods
+      .refineOre(nftId, playerBalances.oreBalance)
+      .send(txParams)
+      .on("transactionHash", function (hash: any) {
+        // const audioSuccess = new Audio("./sounds/success.mp3");
+        // audioSuccess.play();
+      });
+  }
+
   async mintNft(amount: number, library: any) {
     try {
       const txParams = {
@@ -326,15 +393,24 @@ export default class BlockchainService {
   }
 
   async rest(nftId: number, actionNb: number, library: any) {
-    const txParams = {
-      from: this.account,
-      value: "0",
-    };
-
     this.gameplayContract = new library.eth.Contract(
       consts.gameplayABI as any,
       GAMEPLAY_CONTRACT_ADDRESS,
     );
+
+    if (actionNb > 0) {
+      const restPrice = await this.gameplayContract.methods.restActionPrice().call();
+      const accountBalance = await this.spiceContract.methods.balanceOf(this.account).call();
+
+      if (+accountBalance < +restPrice * actionNb) {
+        return false;
+      }
+    }
+
+    const txParams = {
+      from: this.account,
+      value: 0,
+    };
 
     await this.gameplayContract.methods
       .rest(nftId, actionNb)
@@ -357,10 +433,11 @@ export default class BlockchainService {
       const isAlreadyApproved = await this.spiceContract.methods
         .allowance(this.account, GAMEPLAY_CONTRACT_ADDRESS)
         .call();
+
       if (isAlreadyApproved > 0) return true;
 
       await this.spiceContract.methods
-        .approve(GAMEPLAY_CONTRACT_ADDRESS, "1000000000000000000000000")
+        .approve(GAMEPLAY_CONTRACT_ADDRESS, "1000000000000000000000000000")
         .send(txParams)
         .on("transactionHash", function (hash: any) {
           // const audioSuccess = new Audio("./sounds/success.mp3");
@@ -398,8 +475,8 @@ export default class BlockchainService {
       GAMEPLAY_CONTRACT_ADDRESS,
     );
 
-    // const spiceValue = await this.gameplayContract.methods.levelUpPrice().call();
-    // console.log("spice", +utils.formatEther(BigNumber.from(spiceValue)));
+    const lvlUpPrice = await this.gameplayContract.methods.levelUpPrice().call();
+
     const txParams = {
       from: this.account,
       value: "0",

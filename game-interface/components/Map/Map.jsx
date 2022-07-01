@@ -2,6 +2,10 @@ import { useRef, useEffect, useContext, useState } from "react";
 import { GameContext } from "../../context/GameContext";
 import styles from "./Map.module.scss";
 import Phaser from "phaser";
+import { useWeb3React } from "@web3-react/core";
+import { Spinner, Modal } from "react-bootstrap";
+import BlockchainService from "../../services/BlockchainService";
+import { testTiles } from "../../borrar2";
 
 const mapWidth = 20;
 const mapHeight = 20;
@@ -34,15 +38,49 @@ let updateMapState = {
   danger: false,
 };
 let isFirstTime = true;
+let cameraActualPositionX;
+let cameraActualPositionY;
 
 export default function Map() {
+  const { account, library } = useWeb3React();
+  const blockchainService = new BlockchainService(account);
   const gameContext = useContext(GameContext);
-  const { playerDirection, characterInfo, tiles, setSelectedTile, setPlayersInTile } = gameContext;
+  const {
+    playerDirection,
+    characterInfo,
+    setCharacterInfo,
+    sendLog,
+    tiles,
+    setSelectedTile,
+    setPlayersInTile,
+    setTiles,
+  } = gameContext;
   const parentRef = useRef(null);
   const [game, setGame] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [refineValues, setRefineValues] = useState({});
   const [spiceLayerVisible, setSpiceLayerVisible] = useState(false);
   const [usersLayerVisible, setUsersLayerVisible] = useState(false);
   const [dangerLayerVisible, setDangerLayerVisible] = useState(false);
+
+  // For refine Spice Ore
+  const toggleModal = () => setShowModal(!showModal);
+  const getRefineValues = async () => {
+    setLoading(true);
+    setRefineValues(await blockchainService.getRefineValues());
+    setLoading(false);
+  };
+  const refineOre = async () => {
+    sendLog("waitting for transanction <img src='/assets/loader.gif' alt='loader'/>");
+    try {
+      await blockchainService.refine(+characterInfo.id, characterInfo.oreBalance, library);
+      setCharacterInfo(await blockchainService.getCharacterInfo(characterInfo.id));
+      sendLog("Spice ore refine success");
+    } catch (e) {
+      sendLog("transaction canceled");
+    }
+  };
 
   mapTiles = tiles;
   // Character position
@@ -267,7 +305,12 @@ export default function Map() {
     controls = new Phaser.Cameras.Controls.FixedKeyControl(controlConfig);
 
     // Center camera in ape position
-    centerCameraInApe();
+    if (isFirstTime) {
+      centerCameraInApe();
+      isFirstTime = false;
+    } else {
+      centerCameraInView();
+    }
 
     // Selecting ape position tile
     const apeTile = map.getTileAt(map.worldToTileX(apePositionX), map.worldToTileY(apePositionY));
@@ -307,14 +350,16 @@ export default function Map() {
     );
 
     // For keep layers active in refresh
-
-    userLayer.visible = updateMapState.users;
-    spiceLayer.visible = updateMapState.spice;
-    dangerLayer.visible = updateMapState.danger;
+    updateMapState.users && showPlayersLayer();
+    updateMapState.spice && showSpiceLayer();
+    updateMapState.danger && showDangerLayer();
   }
 
   function update(time, delta) {
     controls.update(delta);
+    // For no move camera in refresh
+    cameraActualPositionX = camera.worldView.x;
+    cameraActualPositionY = camera.worldView.y;
 
     // Prevent interactions with outside canvas click
     if (clickOut) return;
@@ -344,6 +389,10 @@ export default function Map() {
     currentX = apePositionX - parentRef.current.clientWidth / 2;
     currentY = apePositionY - parentRef.current.clientHeight / 2 + tileHeight / 2;
     camera.setScroll(currentX, currentY);
+  };
+
+  const centerCameraInView = () => {
+    camera.setScroll(cameraActualPositionX, cameraActualPositionY);
   };
 
   // Changing img for diferents move options
@@ -387,12 +436,12 @@ export default function Map() {
         }
         break;
       case "zoomIn":
-        camera.setZoom(currentZoom + 0.1);
-        currentZoom += 0.1;
+        camera.setZoom(currentZoom + 0.2);
+        currentZoom += 0.2;
         break;
       case "zoomOut":
-        camera.setZoom(currentZoom - 0.1);
-        currentZoom -= 0.1;
+        camera.setZoom(currentZoom - 0.2);
+        currentZoom -= 0.2;
         break;
       default:
         console.log(`No control for ${action}.`);
@@ -419,8 +468,13 @@ export default function Map() {
     // Activate map component for cursor hover effect
     parentRef.current.click();
 
+    // Refreshing Map each 10 secs
+    const interval = setInterval(async () => {
+      setTiles(await blockchainService.getMapPlayer(characterInfo.x, characterInfo.y, 10));
+    }, 10000);
     return () => {
       startGame.destroy();
+      clearInterval(interval);
     };
   }, []);
 
@@ -450,8 +504,6 @@ export default function Map() {
     _this.textures.remove("spice");
     _this.textures.remove("users");
     _this.textures.remove("danger");
-
-    isFirstTime = false;
 
     // For keep layers active in refresh
     updateMapState.spice = spiceLayerVisible;
@@ -497,24 +549,43 @@ export default function Map() {
     setDangerLayerVisible(dangerLayer.visible);
   };
 
+  const testUpdate = () => {
+    console.log("updating maps");
+    setTiles(testTiles);
+  };
+
   return (
     <div className={styles.mapContainer}>
       <div className={styles.spiceWrapper}>
         <div className={styles.spiceInfo}>
           <img src='/assets/spice_ore.png' alt='spice or icon' />
-          <div>
+          <div onClick={() => testUpdate()}>
             <p>Spice Ore</p>
             <h4>{characterInfo.oreBalance}</h4>
           </div>
         </div>
 
-        {/* <div className={styles.spiceInfo}>
-                <img src="/assets/spice.png" alt="spice or icon"/>
-                <div>
-                    <p>Spice</p>
-                    <h4>234 000</h4>
-                </div>
-            </div> */}
+        <div
+          className={styles.refineButton}
+          onClick={() => {
+            getRefineValues();
+            toggleModal();
+          }}>
+          <p>
+            Refine your <br />
+            Spice Ore <br />
+            on Spice
+          </p>
+          <img src='/assets/refine_button.png' alt='refine button' />
+        </div>
+
+        <div className={styles.spiceInfo} onClick={() => centerCameraInView()}>
+          <img src='/assets/spice.png' alt='spice or icon' />
+          <div>
+            <p>Spice</p>
+            <h4>{characterInfo.spiceBalance}</h4>
+          </div>
+        </div>
       </div>
 
       <div className={styles.assetsContainer}>
@@ -628,6 +699,56 @@ export default function Map() {
           </div>
         </div>
       </div>
+
+      {/* Modal */}
+      <Modal
+        show={showModal}
+        onHide={toggleModal}
+        centered
+        aria-labelledby='modal'
+        animation={false}>
+        <div className={styles.modalContainer}>
+          <img className={styles.imgHeader} src='/assets/btn_mine.png' alt='header icon' />
+
+          <div className={styles.contentWrapper}>
+            <img
+              className={styles.imgContainer}
+              src='/assets/modal_container.png'
+              alt='modal container'
+            />
+
+            <div className={styles.optionsWrapper}>
+              {loading ? (
+                <Spinner animation='border' style={{ color: "white" }} />
+              ) : (
+                <h4>
+                  Refine {characterInfo.oreBalance} Spice Ore <br />
+                  To get{" "}
+                  {(
+                    (+characterInfo.oreBalance *
+                      ((1 - refineValues?.totalRewarded / refineValues?.totalDeposit) *
+                        refineValues?.rewardBalancerNumerator)) /
+                    refineValues?.rewardBalancerDivisor
+                  ).toFixed(4)}{" "}
+                  Spice
+                </h4>
+              )}
+            </div>
+          </div>
+
+          <div className={styles.sitContainer}>
+            <img className={styles.bg} src='/assets/btn_actions.png' alt='claim button' />
+            <div
+              className={styles.text}
+              onClick={() => {
+                refineOre();
+                toggleModal();
+              }}>
+              <h1>Refine Spice Ore</h1>
+            </div>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }

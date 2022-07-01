@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { ReactNode, useContext, useEffect, useState } from "react";
 import { GameContext } from "../../context/GameContext";
 import { useWeb3React } from "@web3-react/core";
 import BlockchainService from "../../services/BlockchainService";
@@ -18,11 +18,14 @@ const Player = (): JSX.Element => {
     const [modalImg, setModalImg] = useState<string>("");
     const [modalAction, setMdalAction] = useState<string>("");
     const [levelUpId, setLevelUpId] = useState<number>(null);
-    const [values, setValues] = useState([0])
-    const [rangerMax, setRangerMax] = useState<number>(10)
+    const [values, setValues] = useState([1]);
+    const [rangerMax, setRangerMax] = useState<number>(10);
+    const [rangerMin, setRangerMin] = useState<number>(0);
+    const [restPrice, setRestPrice] = useState<number>(null);
+    const [levelUpPrice, setLevelUpPrice] = useState<number>(null);
 
     const { getTrackProps, segments, handles } = useRanger({
-        min: 0,
+        min: rangerMin,
         max: rangerMax,
         stepSize: 1,
         values,
@@ -34,10 +37,17 @@ const Player = (): JSX.Element => {
     useEffect(() => {
         (async () => {
             setCanLvlUp(await blockchainService.canLevelUp(characterInfo.id));
+            setRestPrice(await blockchainService.getRestPrice())
+            setLevelUpPrice(await blockchainService.getLevelUpPrice())
         })();
     }, [characterInfo]);
 
     const moveCharacter = async (e: any) => {
+        if (characterInfo.stats.energy == 0) {
+            alert("You do not have more energy, take a rest")
+            return sendLog("You do not have more energy, take a rest")
+        };
+
         sendLog("waitting for transanction <img src='/assets/loader.gif' alt='loader'/>")
         let x, y: number;
         // const audioScifi = new Audio("./sounds/button_scifi.mp3");
@@ -98,10 +108,14 @@ const Player = (): JSX.Element => {
                 }
                 await blockchainService.mine(characterInfo.id as number, values[0], library);
             } else if (action == "rest") {
-                await blockchainService.rest(characterInfo.id as number, 0, library);
+                await blockchainService.rest(characterInfo.id as number, values[0], library);
             } else if (action == "spawn") {
                 await blockchainService.spawn(characterInfo.id as number, library);
             } else if (action == "lvlUp") {
+                if ((levelUpPrice * (characterInfo.lvl + 1) > characterInfo.spiceAmount)) {
+                    alert("you do not have enough Spice")
+                    return sendLog("you do not have enough Spice")
+                }
                 await blockchainService.levelUp(characterInfo.id,
                     lvlUpId,
                     library
@@ -115,84 +129,100 @@ const Player = (): JSX.Element => {
         return sendLog(`${action} success`);
     }
 
-    const renderScrollBar = () => {
+    const RangerBar = (title: ReactNode) => {
+        return (
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
+                {title}
+                <br />
+                <br />
+                <div
+                    {...getTrackProps({
+                        style:
+                        {
+                            display: "inline-block",
+                            height: "40px",
+                            width: "90%",
+                            margin: "0 15%",
+                            backgroundColor: "#1B2346",
+                        }
+                    })}
+                >
+                    {segments.map(({ getSegmentProps }, i) => (
+                        <div
+                            {...getSegmentProps({
+                                style: {
+                                    height: "100%",
+                                    background: i === 0
+                                        ? "linear-gradient(270deg, #EA00D9 0%, rgba(234, 0, 217, 0.2) 100%)"
+                                        : "#1B2346"
+                                }
+                            })}
+                        ></div>
+                    ))}
+                    {handles.map(({ value, getHandleProps }) => (
+                        <button
+                            {...getHandleProps({
+                                style: {
+                                    appearance: "none",
+                                    border: "none",
+                                    background: "transparent",
+                                    outline: "none"
+                                }
+                            })}
+                        >
+                            <div
+                                style={{
+                                    background: "#1B1A4E",
+                                    border: "3px solid #2AB6BE",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    width: "1.6rem",
+                                    height: "50px",
+                                    fontSize: "0.7rem",
+                                    whiteSpace: "nowrap",
+                                    color: "white",
+                                    fontWeight: "normal",
+                                }}
+                            >
+                                {value}
+                            </div>
+                        </button>
+                    ))}
+                </div>
+            </div>
+        )
+    }
+
+    const renderSlideBar = () => {
         switch (modalAction) {
             case "rest":
                 {
-                    return <h1>scroll bar for {modalAction}</h1>
+                    return rangerMax != 0 ? RangerBar(
+                        <>
+                            <h4>Take a rest to recover<br />
+                                You can recover HP paying <br />
+                                with Spice</h4>
+                            <h4>Spice to pay: {(values[0] * restPrice).toFixed(2)}</h4>
+                        </>
+                    ) : (
+                        <h4>Take a rest to recover</h4>
+                    )
                 }
             case "mine":
                 {
-                    return (
-                        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
-                            <h4>You can optimize your mining <br />paying with your Energy</h4>
-                            <br />
-                            <br />
-                            <div
-                                {...getTrackProps({
-                                    style:
-                                    {
-                                        display: "inline-block",
-                                        height: "40px",
-                                        width: "90%",
-                                        margin: "0 15%",
-                                        backgroundColor: "#1B2346",
-                                    }
-                                })}
-                            >
-                                {segments.map(({ getSegmentProps }, i) => (
-                                    <div
-                                        {...getSegmentProps({
-                                            style: {
-                                                height: "100%",
-                                                background: i === 0 ? "linear-gradient(270deg, #EA00D9 0%, rgba(234, 0, 217, 0.2) 100%)"
-                                                    : "#1B2346"
-                                            }
-                                        })}
-                                    ></div>
-                                ))}
-                                {handles.map(({ value, getHandleProps }) => (
-                                    <button
-                                        {...getHandleProps({
-                                            style: {
-                                                appearance: "none",
-                                                border: "none",
-                                                background: "transparent",
-                                                outline: "none"
-                                            }
-                                        })}
-                                    >
-                                        <div
-                                            style={{
-                                                background: "#1B1A4E",
-                                                border: "3px solid #2AB6BE",
-                                                display: "flex",
-                                                alignItems: "center",
-                                                justifyContent: "center",
-                                                width: "1.6rem",
-                                                height: "50px",
-                                                fontSize: "0.7rem",
-                                                whiteSpace: "nowrap",
-                                                color: "white",
-                                                fontWeight: "normal",
-                                            }}
-                                        // active={active}
-                                        >
-                                            {value}
-                                        </div>
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-                    )
+                    return RangerBar(<h4>You can boost your mining <br />paying with your Energy</h4>)
                 }
             case "lvlUp":
                 {
                     return (
-                        <h1>scroll bar for level up
+                        <h1 style={{ textAlign: "center" }}>
+                            Level up
                             {levelUpId == 1 && " HP"}
                             {levelUpId == 2 && " Energy"}
                             {levelUpId == 3 && " Mine"}
+                            <br />
+                            that will cost you {(levelUpPrice * (characterInfo.lvl + 1)).toFixed(2)} Spice
                         </h1>
                     )
                 }
@@ -326,6 +356,9 @@ const Player = (): JSX.Element => {
                     <div
                         className={styles.btnMine}
                         onClick={() => {
+                            setRangerMin(1)
+                            setValues([1])
+                            setRangerMax(characterInfo.stats.energy)
                             setModalImg("/assets/btn_mine.png");
                             setMdalAction("mine");
                             setLevelUpId(null);
@@ -340,6 +373,9 @@ const Player = (): JSX.Element => {
                     <div
                         className={styles.btnSit}
                         onClick={() => {
+                            setRangerMin(0)
+                            setRangerMax(characterInfo.stats.hpMax - characterInfo.stats.hp)
+                            setValues([0])
                             setModalImg("/assets/btn_sit.png");
                             setMdalAction("rest");
                             setLevelUpId(null);
@@ -401,7 +437,7 @@ const Player = (): JSX.Element => {
                         <img className={styles.imgContainer} src="/assets/modal_container.png" alt="modal container" />
 
                         <div className={styles.optionsWrapper}>
-                            {renderScrollBar()}
+                            {renderSlideBar()}
                         </div>
                     </div>
 

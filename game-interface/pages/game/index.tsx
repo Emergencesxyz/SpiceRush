@@ -21,7 +21,7 @@ export default function Game() {
   const context = useWeb3React();
   const { account } = context;
   const gameContext = useContext(GameContext);
-  const { playerDirection, characterInfo, tiles, setTiles } = gameContext;
+  const { playerDirection, characterInfo, tiles, setTiles, sendLog } = gameContext;
   const blockchainService = new BlockchainService(account);
 
   const [loading, setLoading] = useState<boolean>(true);
@@ -31,6 +31,7 @@ export default function Game() {
       const getTiles = await blockchainService.getMapPlayer(characterInfo.x, characterInfo.y, 10);
       setTiles(getTiles);
       setLoading(false);
+      sendLog("Pro TIP: you can move the map with keyboard arrows, zoom in with S and zoom out with Q");
     })()
   }, [])
 
