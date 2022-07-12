@@ -83,8 +83,6 @@ const ConnectWallet = () => {
   const modalContent = () => {
     return (
       <Col className={styles.modalContent}>
-        <h2>Connect your wallet.</h2>
-
         {/* Metamask */}
         <Button
           className={styles.metamask}
@@ -181,11 +179,10 @@ const ConnectWallet = () => {
           alignItems: "center",
         }}
       >
-        <Button
-          variant="dark"
-          className={styles.button}
-          onClick={() => setShowModal(true)}
-        ></Button>
+        <div className={styles.button} onClick={() => setShowModal(true)} >
+          <img src="/assets/button_on.png" alt="change character" />
+          <p>Connect Wallet</p>
+        </div>
       </Col>
 
       <Modal

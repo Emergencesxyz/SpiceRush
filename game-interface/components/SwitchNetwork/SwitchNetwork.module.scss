@@ -1,0 +1,27 @@
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 70px;
+  min-width: 300px;
+  width: fit-content;
+  padding: 0 25px;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  p {
+    z-index: 2;
+    margin-bottom: 0 !important;
+    font-size: 20px;
+  }
+
+  img {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+  }
+}

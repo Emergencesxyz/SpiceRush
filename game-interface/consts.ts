@@ -1,5 +1,5 @@
 const constants = {
-  nftPrice: "200000000000000000", //ETH
+  nftPrice: "1000000000000000", //0.001ETH
 
   gameplayABI: [
     {
@@ -12,6 +12,16 @@ const constants = {
         {
           internalType: "address",
           name: "apinatorPropertyAddress",
+          type: "address",
+        },
+        {
+          internalType: "address",
+          name: "spiceAddress",
+          type: "address",
+        },
+        {
+          internalType: "address",
+          name: "buildingsAddress",
           type: "address",
         },
       ],
@@ -102,6 +112,12 @@ const constants = {
           name: "_y",
           type: "int256",
         },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "_spiceAmount",
+          type: "uint256",
+        },
       ],
       name: "died",
       type: "event",
@@ -147,6 +163,25 @@ const constants = {
         },
       ],
       name: "explored",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "_tokenIdFrom",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "_tokenIdTo",
+          type: "uint256",
+        },
+      ],
+      name: "hit",
       type: "event",
     },
     {
@@ -203,9 +238,9 @@ const constants = {
         },
         {
           indexed: false,
-          internalType: "uint16",
+          internalType: "uint256",
           name: "_xp",
-          type: "uint16",
+          type: "uint256",
         },
         {
           indexed: false,
@@ -252,9 +287,9 @@ const constants = {
         },
         {
           indexed: false,
-          internalType: "uint16",
+          internalType: "uint256",
           name: "_xp",
-          type: "uint16",
+          type: "uint256",
         },
         {
           indexed: false,
@@ -264,6 +299,31 @@ const constants = {
         },
       ],
       name: "moving",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "_tokenId",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "_amount",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "_spiceFlow",
+          type: "uint256",
+        },
+      ],
+      name: "refine",
       type: "event",
     },
     {
@@ -323,24 +383,11 @@ const constants = {
       type: "event",
     },
     {
-      inputs: [
-        {
-          internalType: "uint256",
-          name: "tokenId",
-          type: "uint256",
-        },
-      ],
-      name: "addSpice",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
       inputs: [],
       name: "apinator",
       outputs: [
         {
-          internalType: "contract IERC721",
+          internalType: "contract ERC721A",
           name: "",
           type: "address",
         },
@@ -352,16 +399,23 @@ const constants = {
       inputs: [
         {
           internalType: "uint256",
-          name: "",
+          name: "tokenId",
           type: "uint256",
         },
       ],
-      name: "bank",
+      name: "buildSpiceWell",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "buildings",
       outputs: [
         {
-          internalType: "uint256",
+          internalType: "contract INFT",
           name: "",
-          type: "uint256",
+          type: "address",
         },
       ],
       stateMutability: "view",
@@ -425,9 +479,14 @@ const constants = {
           type: "tuple",
         },
         {
-          internalType: "uint16",
+          internalType: "uint256",
           name: "xp",
-          type: "uint16",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "oreBalance",
+          type: "uint256",
         },
         {
           internalType: "uint16",
@@ -444,19 +503,6 @@ const constants = {
       type: "function",
     },
     {
-      inputs: [
-        {
-          internalType: "uint256",
-          name: "tokenId",
-          type: "uint256",
-        },
-      ],
-      name: "claimSpice",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
       inputs: [],
       name: "getTeamsSpice",
       outputs: [
@@ -467,6 +513,24 @@ const constants = {
         },
       ],
       stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "tokenIdFrom",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "tokenIdTo",
+          type: "uint256",
+        },
+      ],
+      name: "hitFoe",
+      outputs: [],
+      stateMutability: "nonpayable",
       type: "function",
     },
     {
@@ -570,16 +634,6 @@ const constants = {
           name: "tokenId",
           type: "uint256",
         },
-        {
-          internalType: "int256",
-          name: "x",
-          type: "int256",
-        },
-        {
-          internalType: "int256",
-          name: "y",
-          type: "int256",
-        },
       ],
       name: "mintTile",
       outputs: [],
@@ -624,6 +678,84 @@ const constants = {
     },
     {
       inputs: [],
+      name: "levelUpPrice",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "totalRewarded",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "totalDeposit",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "rewardBalancerNumerator",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "rewardBalancerDivisor",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "restActionPrice",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
       name: "property",
       outputs: [
         {
@@ -633,6 +765,24 @@ const constants = {
         },
       ],
       stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "tokenId",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "amount",
+          type: "uint256",
+        },
+      ],
+      name: "refineOre",
+      outputs: [],
+      stateMutability: "nonpayable",
       type: "function",
     },
     {
@@ -656,24 +806,6 @@ const constants = {
         },
       ],
       name: "rest",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "uint256",
-          name: "tokenId",
-          type: "uint256",
-        },
-        {
-          internalType: "bool",
-          name: "agreement",
-          type: "bool",
-        },
-      ],
-      name: "selfTerminate",
       outputs: [],
       stateMutability: "nonpayable",
       type: "function",
@@ -718,6 +850,37 @@ const constants = {
         },
       ],
       name: "setName",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "bool",
+          name: "_isActive",
+          type: "bool",
+        },
+      ],
+      name: "setPvpIsActive",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "numerator",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "divisor",
+          type: "uint256",
+        },
+      ],
+      name: "setRewardBalancer",
       outputs: [],
       stateMutability: "nonpayable",
       type: "function",
@@ -785,6 +948,19 @@ const constants = {
       type: "function",
     },
     {
+      inputs: [],
+      name: "spice",
+      outputs: [
+        {
+          internalType: "contract IERC20",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
       inputs: [
         {
           internalType: "uint256",
@@ -806,12 +982,43 @@ const constants = {
     {
       inputs: [
         {
+          internalType: "uint256",
+          name: "tokenId",
+          type: "uint256",
+        },
+        {
+          internalType: "bool",
+          name: "agreement",
+          type: "bool",
+        },
+      ],
+      name: "terminateSelf",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
           internalType: "address",
           name: "newOwner",
           type: "address",
         },
       ],
       name: "transferOwnership",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "tokenId",
+          type: "uint256",
+        },
+      ],
+      name: "upgradeDrill",
       outputs: [],
       stateMutability: "nonpayable",
       type: "function",
@@ -823,6 +1030,66 @@ const constants = {
       inputs: [],
       stateMutability: "nonpayable",
       type: "constructor",
+    },
+    {
+      inputs: [],
+      name: "ApprovalCallerNotOwnerNorApproved",
+      type: "error",
+    },
+    {
+      inputs: [],
+      name: "ApprovalQueryForNonexistentToken",
+      type: "error",
+    },
+    {
+      inputs: [],
+      name: "ApprovalToCurrentOwner",
+      type: "error",
+    },
+    {
+      inputs: [],
+      name: "ApproveToCaller",
+      type: "error",
+    },
+    {
+      inputs: [],
+      name: "BalanceQueryForZeroAddress",
+      type: "error",
+    },
+    {
+      inputs: [],
+      name: "MintToZeroAddress",
+      type: "error",
+    },
+    {
+      inputs: [],
+      name: "MintZeroQuantity",
+      type: "error",
+    },
+    {
+      inputs: [],
+      name: "OwnerQueryForNonexistentToken",
+      type: "error",
+    },
+    {
+      inputs: [],
+      name: "TransferCallerNotOwnerNorApproved",
+      type: "error",
+    },
+    {
+      inputs: [],
+      name: "TransferFromIncorrectOwner",
+      type: "error",
+    },
+    {
+      inputs: [],
+      name: "TransferToNonERC721ReceiverImplementer",
+      type: "error",
+    },
+    {
+      inputs: [],
+      name: "TransferToZeroAddress",
+      type: "error",
     },
     {
       anonymous: false,
@@ -920,32 +1187,6 @@ const constants = {
     },
     {
       inputs: [],
-      name: "BUY_LIMIT_PER_TX",
-      outputs: [
-        {
-          internalType: "uint256",
-          name: "",
-          type: "uint256",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "MAX_NFT_PUBLIC",
-      outputs: [
-        {
-          internalType: "uint256",
-          name: "",
-          type: "uint256",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
       name: "NFTPrice",
       outputs: [
         {
@@ -958,8 +1199,14 @@ const constants = {
       type: "function",
     },
     {
-      inputs: [],
-      name: "WHITELIST_MAX_MINT",
+      inputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      name: "ReferralToCode",
       outputs: [
         {
           internalType: "uint256",
@@ -1002,6 +1249,51 @@ const constants = {
           internalType: "uint256",
           name: "",
           type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      name: "bank",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "claim",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      name: "codeToReferral",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
         },
       ],
       stateMutability: "view",
@@ -1091,6 +1383,32 @@ const constants = {
     },
     {
       inputs: [],
+      name: "maxMint",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "maxSupplyPublic",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
       name: "mintByOwner",
       outputs: [],
       stateMutability: "nonpayable",
@@ -1130,6 +1448,24 @@ const constants = {
           type: "uint256",
         },
         {
+          internalType: "uint256",
+          name: "referralCode",
+          type: "uint256",
+        },
+      ],
+      name: "mintNFT",
+      outputs: [],
+      stateMutability: "payable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "_numOfTokens",
+          type: "uint256",
+        },
+        {
           internalType: "bytes32[]",
           name: "_proof",
           type: "bytes32[]",
@@ -1141,13 +1477,37 @@ const constants = {
       type: "function",
     },
     {
-      inputs: [],
-      name: "name",
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "secret",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "_numOfTokens",
+          type: "uint256",
+        },
+      ],
+      name: "mintNFTFree",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      name: "mintedAmount",
       outputs: [
         {
-          internalType: "string",
+          internalType: "uint256",
           name: "",
-          type: "string",
+          type: "uint256",
         },
       ],
       stateMutability: "view",
@@ -1155,12 +1515,12 @@ const constants = {
     },
     {
       inputs: [],
-      name: "nextOwnerToExplicitlySet",
+      name: "name",
       outputs: [
         {
-          internalType: "uint256",
+          internalType: "string",
           name: "",
-          type: "uint256",
+          type: "string",
         },
       ],
       stateMutability: "view",
@@ -1193,6 +1553,32 @@ const constants = {
           internalType: "address",
           name: "",
           type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "referralShare",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "referredShare",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
         },
       ],
       stateMutability: "view",
@@ -1292,6 +1678,44 @@ const constants = {
     {
       inputs: [
         {
+          internalType: "bytes32",
+          name: "",
+          type: "bytes32",
+        },
+      ],
+      name: "secretToAmountFreeMint",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "bytes32",
+          name: "",
+          type: "bytes32",
+        },
+      ],
+      name: "secretToMaxAmountFreeMint",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
           internalType: "address",
           name: "operator",
           type: "address",
@@ -1323,6 +1747,24 @@ const constants = {
     {
       inputs: [
         {
+          internalType: "uint256",
+          name: "maxAmount",
+          type: "uint256",
+        },
+        {
+          internalType: "bytes32",
+          name: "secret",
+          type: "bytes32",
+        },
+      ],
+      name: "setFreeMintCampaign",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
           internalType: "bool",
           name: "_isActive",
           type: "bool",
@@ -1336,12 +1778,71 @@ const constants = {
     {
       inputs: [
         {
+          internalType: "uint256",
+          name: "_maxMint",
+          type: "uint256",
+        },
+      ],
+      name: "setMaxMint",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "_maxSupplyPublic",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "_maxSupply",
+          type: "uint256",
+        },
+      ],
+      name: "setMaxSupply",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
           internalType: "bool",
           name: "_isActive",
           type: "bool",
         },
       ],
       name: "setPresaleActive",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "_NFTPrice",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "_referralShare",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "_referredShare",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "_teamShare",
+          type: "uint256",
+        },
+      ],
+      name: "setPriceShare",
       outputs: [],
       stateMutability: "nonpayable",
       type: "function",
@@ -1415,38 +1916,8 @@ const constants = {
       type: "function",
     },
     {
-      inputs: [
-        {
-          internalType: "uint256",
-          name: "index",
-          type: "uint256",
-        },
-      ],
-      name: "tokenByIndex",
-      outputs: [
-        {
-          internalType: "uint256",
-          name: "",
-          type: "uint256",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "address",
-          name: "owner",
-          type: "address",
-        },
-        {
-          internalType: "uint256",
-          name: "index",
-          type: "uint256",
-        },
-      ],
-      name: "tokenOfOwnerByIndex",
+      inputs: [],
+      name: "teamShare",
       outputs: [
         {
           internalType: "uint256",
@@ -1471,6 +1942,25 @@ const constants = {
           internalType: "string",
           name: "",
           type: "string",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      name: "totalReferred",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
         },
       ],
       stateMutability: "view",
@@ -1553,42 +2043,10 @@ const constants = {
       inputs: [
         {
           internalType: "address",
-          name: "owner",
+          name: "_to",
           type: "address",
         },
       ],
-      name: "walletOfOwner",
-      outputs: [
-        {
-          internalType: "uint256[]",
-          name: "",
-          type: "uint256[]",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "address",
-          name: "",
-          type: "address",
-        },
-      ],
-      name: "whiteListClaimed",
-      outputs: [
-        {
-          internalType: "uint256",
-          name: "",
-          type: "uint256",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
       name: "withdraw",
       outputs: [],
       stateMutability: "nonpayable",
@@ -1609,14 +2067,342 @@ const constants = {
     "[AD] Cheap fields to buy in the wastelands*. Presence of $SPICE : likely. Don't miss the train. *Chances of certain death. ",
   ],
 
+  spiceABI: [
+    {
+      inputs: [],
+      stateMutability: "nonpayable",
+      type: "constructor",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: "address",
+          name: "owner",
+          type: "address",
+        },
+        {
+          indexed: true,
+          internalType: "address",
+          name: "spender",
+          type: "address",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "value",
+          type: "uint256",
+        },
+      ],
+      name: "Approval",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: "address",
+          name: "previousOwner",
+          type: "address",
+        },
+        {
+          indexed: true,
+          internalType: "address",
+          name: "newOwner",
+          type: "address",
+        },
+      ],
+      name: "OwnershipTransferred",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: "address",
+          name: "from",
+          type: "address",
+        },
+        {
+          indexed: true,
+          internalType: "address",
+          name: "to",
+          type: "address",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "value",
+          type: "uint256",
+        },
+      ],
+      name: "Transfer",
+      type: "event",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "owner",
+          type: "address",
+        },
+        {
+          internalType: "address",
+          name: "spender",
+          type: "address",
+        },
+      ],
+      name: "allowance",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "spender",
+          type: "address",
+        },
+        {
+          internalType: "uint256",
+          name: "amount",
+          type: "uint256",
+        },
+      ],
+      name: "approve",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "account",
+          type: "address",
+        },
+      ],
+      name: "balanceOf",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "decimals",
+      outputs: [
+        {
+          internalType: "uint8",
+          name: "",
+          type: "uint8",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "spender",
+          type: "address",
+        },
+        {
+          internalType: "uint256",
+          name: "subtractedValue",
+          type: "uint256",
+        },
+      ],
+      name: "decreaseAllowance",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "spender",
+          type: "address",
+        },
+        {
+          internalType: "uint256",
+          name: "addedValue",
+          type: "uint256",
+        },
+      ],
+      name: "increaseAllowance",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "name",
+      outputs: [
+        {
+          internalType: "string",
+          name: "",
+          type: "string",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "owner",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "renounceOwnership",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "symbol",
+      outputs: [
+        {
+          internalType: "string",
+          name: "",
+          type: "string",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "totalSupply",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "to",
+          type: "address",
+        },
+        {
+          internalType: "uint256",
+          name: "amount",
+          type: "uint256",
+        },
+      ],
+      name: "transfer",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "from",
+          type: "address",
+        },
+        {
+          internalType: "address",
+          name: "to",
+          type: "address",
+        },
+        {
+          internalType: "uint256",
+          name: "amount",
+          type: "uint256",
+        },
+      ],
+      name: "transferFrom",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "newOwner",
+          type: "address",
+        },
+      ],
+      name: "transferOwnership",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+  ],
+
   tutorial_character: {
     energy:
       '📚 This is your energy amount. It decreases when you take any action. Click on "rest" when low on energy.',
-    character:
-      "📚 This is all the information about your character. Click anywhere to learn more",
+    character: "📚 This is all the information about your character. Click anywhere to learn more",
     hp: "📚 Literally vital. Lose all your health and you will have to restart again.",
-    mining:
-      "📚 The more mining power, the more $SPICE you can extract from the lands.",
+    mining: "📚 The more mining power, the more $SPICE you can extract from the lands.",
     spiceMined:
       '📚 This is the amount of SPICE ore you collected so far!   Click on "Mine" to extract spice ore from your current land. You will be able to trade this against real tokens! ',
     lvl: "📚 Your current level.  An arrow animation will appear beside your stats when you will have passed a level.",

@@ -6,12 +6,12 @@ import Header from "../../components/Header/Header";
 import Player from "../../components/Player/Player";
 import { useWeb3React } from "@web3-react/core";
 import BlockchainService from "../../services/BlockchainService";
-
-import { testTiles } from "../../borrar";
 import LandSection from "../../components/LandSection/LandSection";
 import { Col } from "react-bootstrap";
 import LogScreen from "../../components/LogScreen/LogScreen";
 import ListPlayers from "../../components/ListPlayers/ListPlayers";
+import { Spinner } from "react-bootstrap";
+import { testTiles } from "../../borrar"
 
 const Map = dynamic(() => import("../../components/Map/Map"), {
   ssr: false,
@@ -21,18 +21,17 @@ export default function Game() {
   const context = useWeb3React();
   const { account } = context;
   const gameContext = useContext(GameContext);
-  const { playerDirection, characterInfo, tiles, setTiles } = gameContext;
+  const { playerDirection, characterInfo, tiles, setTiles, sendLog } = gameContext;
   const blockchainService = new BlockchainService(account);
 
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     (async () => {
-      console.log('getting tiles')
-      // const tiles = await blockchainService.getMapPlayer(characterInfo.x, characterInfo.y, 10);
-      // setTiles(tiles);
-      setTiles(testTiles);
+      const getTiles = await blockchainService.getMapPlayer(characterInfo.x, characterInfo.y, 10);
+      setTiles(getTiles);
       setLoading(false);
+      sendLog("Pro TIP: you can move the map with keyboard arrows, zoom in with S and zoom out with Q");
     })()
   }, [])
 
@@ -43,20 +42,24 @@ export default function Game() {
       <div className={styles.playZone}>
         <Col md={4}>
           <Player />
+          <div style={{ paddingLeft: "70px", paddingRight: "10px" }}>
+            <LogScreen />
+          </div>
         </Col>
 
-        <Col md={4}>
-          {loading ? (
+
+        {loading ? (
+          <Col md={4} style={{ display: "flex", justifyContent: "center", alignItems: "center", textAlign: "center", flexDirection: "column" }}>
             <h1>creating map from blockchain</h1>
-          ) : (
-            <>
-              <div style={{ minHeight: "670px" }}>
-                <Map />
-              </div>
-              <LogScreen />
-            </>
-          )}
-        </Col>
+            <Spinner animation="border" style={{ color: "white" }} />
+          </Col>
+        ) : (
+          <Col md={4}>
+            <div style={{ minHeight: "670px" }}>
+              <Map />
+            </div>
+          </Col>
+        )}
 
         <Col md={4}>
           <LandSection />

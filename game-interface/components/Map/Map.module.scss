@@ -1,113 +1,205 @@
 .mapContainer {
+  position: relative;
+
+  .assetsContainer {
+    position: absolute;
+    width: 100%;
+    height: 670px;
+    z-index: 2;
+    overflow: hidden;
+
+    img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .spiceWrapper {
+    display: flex;
+    justify-content: space-around;
+    margin-block: 30px;
+
+    .spiceInfo {
+      display: flex;
+      align-items: center;
+      min-width: 180px;
+      background: rgba(12, 9, 28, 0.6);
+      border-radius: 10px;
+      padding: 10px 20px;
+
+      p {
+        margin-bottom: 5px;
+      }
+
+      img {
+        margin-right: 15px;
+      }
+    }
+
+    .refineButton {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      cursor: pointer;
+
+      p {
+        margin-bottom: 5px;
+        font-size: 13px;
+        text-align: center;
+      }
+    }
+  }
+
+  .mapWrapper {
     position: relative;
+    z-index: 3;
+    padding-inline: 20px;
+    padding-top: 40px;
+    width: calc(100% - 40px);
+    min-height: 600px;
 
-    .assetsContainer {
-        position: absolute;
-        width: 100%;
-        height: 670px;
-        z-index: 2;
-        overflow: hidden;
+    .top {
+      position: absolute;
+      left: 50%;
+      top: 60px;
+      cursor: pointer;
 
-        img {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-        }
+      img {
+        height: 20px;
+        width: 35px;
+      }
     }
 
+    .right {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      cursor: pointer;
 
-    .spiceWrapper {
-        display: flex;
-        justify-content: space-around;
-        margin-block: 30px;
-
-        .spiceInfo {
-            display: flex;
-            align-items: center;
-            min-width: 215px;
-            background: rgba(12, 9, 28, 0.6);
-            border-radius: 10px;
-            padding: 10px 20px;
-
-            p {
-                margin-bottom: 5px;
-            }
-
-            img {
-                margin-right: 15px;
-            }
-        }
+      img {
+        width: 20px;
+        height: 35px;
+      }
     }
 
-    .mapWrapper {
-        position: relative;
-        z-index: 3;
-        padding-inline: 20px;
-        padding-top: 50px;
-        width: calc(100% - 40px);
-        min-height: 600px;
+    .down {
+      position: absolute;
+      left: 50%;
+      bottom: 15px;
+      cursor: pointer;
 
-        .top {
-            position: absolute;
-            left: 50%;
-            top: 60px;
-            cursor: pointer;
-
-            img {
-                height: 20px;
-                width: 35px;
-            }
-        }
-
-        .right {
-            position: absolute;
-            top: 50%;
-            right: 0;
-            cursor: pointer;
-
-            img {
-                width: 20px;
-                height: 35px;
-            }
-        }
-
-        .down {
-            position: absolute;
-            left: 50%;
-            bottom: 15px;
-            cursor: pointer;
-
-            img {
-                height: 20px;
-                width: 35px;
-            }
-        }
-
-        .left {
-            position: absolute;
-            top: 50%;
-            left: 30px;
-            cursor: pointer;
-
-            img {
-                width: 20px;
-                height: 35px;
-            }
-        }
-
-        .options {
-            position: absolute;
-            bottom: -25px;
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            padding-inline: 50px;
-
-            img {
-                width: 37px;
-                height: auto;
-                cursor: pointer;
-            }
-        }
+      img {
+        height: 20px;
+        width: 35px;
+      }
     }
+
+    .left {
+      position: absolute;
+      top: 50%;
+      left: 30px;
+      cursor: pointer;
+
+      img {
+        width: 20px;
+        height: 35px;
+      }
+    }
+
+    .options {
+      position: absolute;
+      bottom: -25px;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding-inline: 50px;
+
+      img {
+        width: 37px;
+        height: auto;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.modalContainer {
+  position: relative;
+  height: 500px;
+  padding-top: 40px;
+
+  .imgHeader {
+    position: absolute;
+    left: calc(50% - 50px);
+    width: 100px;
+    top: 0;
+    height: auto;
+    z-index: 21;
+  }
+
+  .contentWrapper {
+    position: relative;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .imgContainer {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .optionsWrapper {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: calc(100% - 20px);
+      width: calc(100% - 30px);
+      z-index: 20;
+      background-color: black;
+    }
+  }
+
+  .sitContainer {
+    position: absolute;
+    bottom: -20px;
+    left: calc(50% - 65px);
+    display: flex;
+    align-items: center;
+    height: 40px;
+    min-width: 130px;
+    width: fit-content;
+    cursor: pointer;
+    transition: all 0.3s;
+    z-index: 30;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    .bg {
+      position: absolute;
+      z-index: 0;
+      height: 100%;
+      width: 100%;
+    }
+
+    .text {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+
+      h1 {
+        font-size: 16px;
+        margin-bottom: 0;
+      }
+    }
+  }
 }

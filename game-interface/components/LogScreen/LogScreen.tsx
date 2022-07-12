@@ -1,6 +1,8 @@
 import styles from "./LogScreen.module.scss";
 import { GameContext } from "../../context/GameContext";
-import { useContext, useState } from "react";
+import ScrollToBottom from "react-scroll-to-bottom";
+import { useContext } from "react";
+import parse from "html-react-parser";
 
 const LogScreen = (): JSX.Element => {
     const gameContext = useContext(GameContext);
@@ -11,7 +13,7 @@ const LogScreen = (): JSX.Element => {
             return (
                 <div key={index} className={styles.logCard}>
                     <img src="/assets/log_icon.svg" alt="log icon" />
-                    <p>Event: {m.message}</p>
+                    <p>Event: {parse(m.message)}</p>
                 </div>
             )
         })
@@ -21,9 +23,9 @@ const LogScreen = (): JSX.Element => {
         <div className={styles.container}>
             <img src="/assets/log_container.png" alt="map container" />
             <div className={styles.logsWrapper}>
-                <div className={styles.logs}>
+                <ScrollToBottom className={styles.logs}>
                     {renderLogs()}
-                </div>
+                </ScrollToBottom>
             </div>
         </div>
     );
