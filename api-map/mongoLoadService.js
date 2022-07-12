@@ -12,7 +12,7 @@ const contract = new ethers.Contract(contractAddress, abi, Provider);
 
 
 getGameInfo = async function() {
-    map = {"0": {"0": {"isExplored": false, "level": 0, "spiceAmount": 0, "foesAmount": 0}}}
+    map = {"0": {"0": {"isExplored": true, "level": 0, "spiceAmount": 0, "foesAmount": 0}}}
     charas = {}
 	data = await contract.queryFilter(-100000000)
 	for (var i = 0; i<data.length; i++) {

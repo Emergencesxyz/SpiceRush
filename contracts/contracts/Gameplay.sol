@@ -82,17 +82,17 @@ contract Gameplay is Ownable {
     int256 public startX = 0;
     int256 public startY = 0;
     uint16 public dif = 4;
-    uint8 teamNum = 3;
+    uint8 public teamNum = 3;
     bool public isPvpActive;
     uint256 public maxRefine = 100 ether; // 100 000000000000000000
-    uint256 public maxCollect = 100 ether; // 100 000000000000000000
-    uint256 landPrice = 0.5 ether;
-    uint256 restActionPrice = 0.1 ether;
-    uint256 levelUpPrice = 1 ether;
-    uint256 setNamePrice = 10 ether;
-    uint256 wellPrice = 50 ether;
-    uint256 pricePerDrillLvl = 10 ether;
-    uint256 oreDistrib = 0.1 ether;
+    uint256 public maxCollect = 100 ether; 
+    uint256 public landPrice = 0.5 ether;
+    uint256 public restActionPrice = 0.1 ether;
+    uint256 public levelUpPrice = 1 ether;
+    uint256 public setNamePrice = 10 ether;
+    uint256 public wellPrice = 50 ether;
+    uint256 public pricePerDrillLvl = 10 ether;
+    uint256 public oreDistrib = 0.1 ether;
 
 
     function setMaxRefine(uint256 _maxRefine) public onlyOwner() {
