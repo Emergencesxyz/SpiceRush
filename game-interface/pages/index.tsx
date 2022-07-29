@@ -48,7 +48,7 @@ export default function Home() {
           paddingTop: "60px",
         }}
       >
-        <img src="assets/Group_25.png" alt="logo spicerush" />
+        <img src="assets/Group_25.png" alt="logo Spicerush" />
         <div className={styles.connect}>
           <div className={styles.account}>
             <p>{account}</p>
