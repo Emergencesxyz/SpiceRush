@@ -22,15 +22,18 @@ export default class BlockchainService {
 
     this.apinatorContract = new this.web3.eth.Contract(
       consts.apinatorABI as any,
-      APINATOR_CONTRACT_ADDRESS,
+      APINATOR_CONTRACT_ADDRESS
     );
 
     this.gameplayContract = new this.web3.eth.Contract(
       consts.gameplayABI as any,
-      GAMEPLAY_CONTRACT_ADDRESS,
+      GAMEPLAY_CONTRACT_ADDRESS
     );
 
-    this.spiceContract = new this.web3.eth.Contract(consts.spiceABI as any, SPICE_CONTRACT_ADDRESS);
+    this.spiceContract = new this.web3.eth.Contract(
+      consts.spiceABI as any,
+      SPICE_CONTRACT_ADDRESS
+    );
   }
 
   async getBalance() {
@@ -77,8 +80,12 @@ export default class BlockchainService {
 
   async mintExceedsMax(nftId: number | null) {
     try {
-      const userBalance = await this.gameplayContract.methods.charas(nftId).call();
-      const maxPerUser = await this.gameplayContract.methods.charas(nftId).call();
+      const userBalance = await this.gameplayContract.methods
+        .charas(nftId)
+        .call();
+      const maxPerUser = await this.gameplayContract.methods
+        .charas(nftId)
+        .call();
 
       return userBalance <= maxPerUser;
     } catch (e) {
@@ -111,9 +118,13 @@ export default class BlockchainService {
         y: parseInt(info.y),
         xp: parseInt(info.xp),
         id: nftId,
-        oreBalance: (+utils.formatEther(BigNumber.from(info.oreBalance))).toFixed(4),
+        oreBalance: (+utils.formatEther(
+          BigNumber.from(info.oreBalance)
+        )).toFixed(4),
         spiceBalance: +(+utils.formatEther(
-          BigNumber.from(await this.spiceContract.methods.balanceOf(this.account).call()),
+          BigNumber.from(
+            await this.spiceContract.methods.balanceOf(this.account).call()
+          )
         )).toFixed(4),
       };
     } catch (e) {
@@ -124,7 +135,9 @@ export default class BlockchainService {
   async getRestPrice() {
     try {
       return +(+utils.formatEther(
-        BigNumber.from(await this.gameplayContract.methods.restActionPrice().call()),
+        BigNumber.from(
+          await this.gameplayContract.methods.restActionPrice().call()
+        )
       )).toFixed(2);
     } catch (e) {
       return 1;
@@ -134,7 +147,9 @@ export default class BlockchainService {
   async getLevelUpPrice() {
     try {
       return +(+utils.formatEther(
-        BigNumber.from(await this.gameplayContract.methods.levelUpPrice().call()),
+        BigNumber.from(
+          await this.gameplayContract.methods.levelUpPrice().call()
+        )
       )).toFixed(2);
     } catch (e) {
       return 1;
@@ -143,7 +158,9 @@ export default class BlockchainService {
 
   async getAllCharacters() {
     try {
-      const totalSupply = await this.apinatorContract.methods.totalSupply().call();
+      const totalSupply = await this.apinatorContract.methods
+        .totalSupply()
+        .call();
 
       let characters = [];
       for (let i = 0; i < parseInt(totalSupply); i++) {
@@ -161,15 +178,21 @@ export default class BlockchainService {
     try {
       const values = {
         totalRewarded: +(+utils.formatEther(
-          BigNumber.from(await this.gameplayContract.methods.totalRewarded().call()),
+          BigNumber.from(
+            await this.gameplayContract.methods.totalRewarded().call()
+          )
         )).toFixed(4),
         totalDeposit: +(+utils.formatEther(
-          BigNumber.from(await this.gameplayContract.methods.totalDeposit().call()),
+          BigNumber.from(
+            await this.gameplayContract.methods.totalDeposit().call()
+          )
         )).toFixed(4),
         rewardBalancerNumerator: await this.gameplayContract.methods
           .rewardBalancerNumerator()
           .call(),
-        rewardBalancerDivisor: await this.gameplayContract.methods.rewardBalancerDivisor().call(),
+        rewardBalancerDivisor: await this.gameplayContract.methods
+          .rewardBalancerDivisor()
+          .call(),
       };
 
       return values;
@@ -220,7 +243,9 @@ export default class BlockchainService {
     let tiles: any = [];
 
     try {
-      const mapDictionary = await fetch("http://vps-5a1fae51.vps.ovh.net:3004/gamedata")
+      const mapDictionary = await fetch(
+        "https://api.le-panier-vert.fr:3004/gamedata"
+      )
         .then((r) => r.json())
         .then((data) => data.map);
 
@@ -232,7 +257,7 @@ export default class BlockchainService {
               isExplored: mapDictionary[x][y].isExplored,
               level: parseInt(mapDictionary[x][y].level),
               spiceAmount: (+utils.formatEther(
-                BigNumber.from(mapDictionary[x][y].spiceAmount),
+                BigNumber.from(mapDictionary[x][y].spiceAmount)
               )).toFixed(2),
               x: x,
               y: y,
@@ -261,7 +286,9 @@ export default class BlockchainService {
   async getPlayersInTile(playersInTile: string[]) {
     let players: any = [];
     try {
-      const playersDictionary = await fetch("http://vps-5a1fae51.vps.ovh.net:3004/gamedata")
+      const playersDictionary = await fetch(
+        "https://api.le-panier-vert.fr:3004/gamedata"
+      )
         .then((r) => r.json())
         .then((data) => data.charas);
 
@@ -270,9 +297,11 @@ export default class BlockchainService {
           players.push({
             ...playersDictionary[p],
             id: p,
-            nextActionTime: BigNumber.from(playersDictionary[p].nextActionTime).toString(),
+            nextActionTime: BigNumber.from(
+              playersDictionary[p].nextActionTime
+            ).toString(),
             oreBalance: (+utils.formatEther(
-              BigNumber.from(playersDictionary[p].oreBalance),
+              BigNumber.from(playersDictionary[p].oreBalance)
             )).toFixed(4),
           });
         }
@@ -313,7 +342,7 @@ export default class BlockchainService {
 
     this.gameplayContract = new library.eth.Contract(
       consts.gameplayABI as any,
-      GAMEPLAY_CONTRACT_ADDRESS,
+      GAMEPLAY_CONTRACT_ADDRESS
     );
 
     await this.gameplayContract.methods
@@ -336,7 +365,7 @@ export default class BlockchainService {
 
     this.gameplayContract = new library.eth.Contract(
       consts.gameplayABI as any,
-      GAMEPLAY_CONTRACT_ADDRESS,
+      GAMEPLAY_CONTRACT_ADDRESS
     );
 
     await this.gameplayContract.methods
@@ -357,10 +386,12 @@ export default class BlockchainService {
 
     this.gameplayContract = new library.eth.Contract(
       consts.gameplayABI as any,
-      GAMEPLAY_CONTRACT_ADDRESS,
+      GAMEPLAY_CONTRACT_ADDRESS
     );
 
-    const playerBalances = await this.gameplayContract.methods.charas(nftId).call();
+    const playerBalances = await this.gameplayContract.methods
+      .charas(nftId)
+      .call();
 
     await this.gameplayContract.methods
       .refineOre(nftId, playerBalances.oreBalance)
@@ -380,7 +411,7 @@ export default class BlockchainService {
 
       this.apinatorContract = new library.eth.Contract(
         consts.apinatorABI as any,
-        APINATOR_CONTRACT_ADDRESS,
+        APINATOR_CONTRACT_ADDRESS
       );
 
       await this.apinatorContract.methods
@@ -395,12 +426,16 @@ export default class BlockchainService {
   async rest(nftId: number, actionNb: number, library: any) {
     this.gameplayContract = new library.eth.Contract(
       consts.gameplayABI as any,
-      GAMEPLAY_CONTRACT_ADDRESS,
+      GAMEPLAY_CONTRACT_ADDRESS
     );
 
     if (actionNb > 0) {
-      const restPrice = await this.gameplayContract.methods.restActionPrice().call();
-      const accountBalance = await this.spiceContract.methods.balanceOf(this.account).call();
+      const restPrice = await this.gameplayContract.methods
+        .restActionPrice()
+        .call();
+      const accountBalance = await this.spiceContract.methods
+        .balanceOf(this.account)
+        .call();
 
       if (+accountBalance < +restPrice * actionNb) {
         return false;
@@ -427,7 +462,10 @@ export default class BlockchainService {
       value: "0",
     };
 
-    this.spiceContract = new library.eth.Contract(consts.spiceABI as any, SPICE_CONTRACT_ADDRESS);
+    this.spiceContract = new library.eth.Contract(
+      consts.spiceABI as any,
+      SPICE_CONTRACT_ADDRESS
+    );
 
     try {
       const isAlreadyApproved = await this.spiceContract.methods
@@ -451,8 +489,11 @@ export default class BlockchainService {
 
   async canMintNft(account: string) {
     try {
-      const accountBalance = await this.apinatorContract.methods.balanceOf(account).call();
+      const accountBalance = await this.apinatorContract.methods
+        .balanceOf(account)
+        .call();
       const mintMax = await this.apinatorContract.methods.maxMint().call();
+      console.log(mintMax);
 
       return accountBalance < mintMax;
     } catch (e) {
@@ -468,7 +509,7 @@ export default class BlockchainService {
 
     this.gameplayContract = new library.eth.Contract(
       consts.gameplayABI as any,
-      GAMEPLAY_CONTRACT_ADDRESS,
+      GAMEPLAY_CONTRACT_ADDRESS
     );
 
     await this.gameplayContract.methods
@@ -483,10 +524,12 @@ export default class BlockchainService {
   async levelUp(tokenId: number, statId: number, library: any) {
     this.gameplayContract = new library.eth.Contract(
       consts.gameplayABI as any,
-      GAMEPLAY_CONTRACT_ADDRESS,
+      GAMEPLAY_CONTRACT_ADDRESS
     );
 
-    const lvlUpPrice = await this.gameplayContract.methods.levelUpPrice().call();
+    const lvlUpPrice = await this.gameplayContract.methods
+      .levelUpPrice()
+      .call();
 
     const txParams = {
       from: this.account,
