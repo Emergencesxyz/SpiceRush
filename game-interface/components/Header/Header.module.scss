@@ -1,73 +1,74 @@
 .container {
+  display: flex;
+  width: 100vw;
+  padding-top: 30px;
+  color: white;
+
+  .brand {
+    padding-left: 30px;
+    img {
+      height: 70px;
+    }
+  }
+
+  .account {
     display: flex;
-    width: 100vw;
-    padding-top: 30px;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
 
-    .brand {
-        padding-left: 30px;
-        img {
-            height: 70px;
-        }
+    .icon {
+      height: 21px;
+      width: auto;
+      position: absolute;
+      top: 0;
     }
 
-    .account {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        position: relative;
-
-        .icon {
-            height: 21px;
-            width: auto;
-            position: absolute;
-            top: 0;
-        }
-
-        p {
-            position: absolute;
-            bottom: 0;
-        }
-
-        img {
-            height: 50px;
-            width: 100%;
-            position: absolute;
-            bottom: 0;
-        }
+    p {
+      position: absolute;
+      bottom: 0;
     }
 
-    .buttons {
-        display: flex;
-        margin-left: -80px;
-        margin-top: -5px;
-        margin-right: 50px;
-
-        .button {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            height: 50px;
-            min-width: 150px;
-            width: fit-content;
-            padding: 0 25px;
-            cursor: pointer;
-
-            &:hover {
-                transform: scale(1.05);
-            }
-
-            p {
-                z-index: 2;
-                margin-bottom: 0 !important;
-                font-size: 13px;
-            }
-
-            img {
-                position: absolute;
-                height: 100%;
-                width: 100%;
-            }
-        }
+    img {
+      height: 50px;
+      width: 100%;
+      position: absolute;
+      bottom: 0;
     }
+  }
+
+  .buttons {
+    display: flex;
+    margin-left: -80px;
+    margin-top: -5px;
+    margin-right: 50px;
+
+    .button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      height: 50px;
+      min-width: 150px;
+      width: fit-content;
+      padding: 0 25px;
+      cursor: pointer;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+
+      p {
+        z-index: 2;
+        margin-bottom: 0 !important;
+        font-size: 13px;
+      }
+
+      img {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
 }
