@@ -10,7 +10,6 @@ import styles from "../styles/Home.module.scss";
 import MintPlayer from "../components/MintPlayer/MintPlayer";
 import BlockchainService from "../services/BlockchainService";
 
-
 export default function Home() {
   const router = useRouter();
   const context = useWeb3React();
@@ -24,18 +23,18 @@ export default function Home() {
     (async () => {
       const blockchainService = new BlockchainService(account);
       setCanMintNft(await blockchainService.canMintNft(account));
-    })()
+    })();
   }, [account]);
 
   useEffect(() => {
-    console.log("fddf", chainId == 80001)
+    console.log("fddf", chainId == 80001);
     setIsRightNetwork(chainId == 80001);
   }, [chainId]);
 
   return (
     <MoralisProvider
-      appId="UEgESjtj0dFvaRB3rSeHR2Oupvnq8hrkYGwLaWj9"
-      serverUrl="https://ftpunaengfg7.usemoralis.com:2053/server"
+      appId="0FyWwZYebDTaqJkBHnrSMjzwOMydOfTciapypNl5"
+      serverUrl="https://qn0mjxe4gqks.usemoralis.com:2053/server"
     >
       <div
         className={styles.container}
@@ -49,7 +48,7 @@ export default function Home() {
           paddingTop: "60px",
         }}
       >
-        <img src="assets/Group_25.png" alt="logo spicerush" />
+        <img src="assets/Group_25.png" alt="logo Spicerush" />
         <div className={styles.connect}>
           <div className={styles.account}>
             <p>{account}</p>
@@ -64,13 +63,15 @@ export default function Home() {
             ) : (
               <SwitchNetwork />
             )
-          ) : <ConnectWallet />}
+          ) : (
+            <ConnectWallet />
+          )}
           <img src="assets/canva_part2.png" alt="canvap2" />
         </div>
 
         <div className={styles.hexagons}></div>
         <Footer />
       </div>
-    </MoralisProvider >
+    </MoralisProvider>
   );
 }
